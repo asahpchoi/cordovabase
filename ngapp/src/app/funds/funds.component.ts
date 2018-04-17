@@ -8,7 +8,7 @@ import { Chart } from 'chart.js';
 })
 export class FundsComponent implements OnInit {
   chart;
-  fundoption = [];
+  fundoption = [0];
   funds = {
     fund1: 0,
     fund2: 0,
