@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppComponent } from './app.component';
 import { MatButtonModule, MatCheckboxModule } from '@angular/material';
@@ -19,6 +19,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SliderComponent } from './slider/slider.component';
 import { InputchartComponent } from './inputchart/inputchart.component';
 import {MatSliderModule} from '@angular/material/slider';
+import { HammerCardComponent } from './hammer-card/hammer-card.component';
+import { HammertimeDirective } from './hammertime.directive';
+import { MatCardModule, MatButtonModule } from '@angular/material';
 
 const appRoutes: Routes = [
  { path: 'slider', component: SliderComponent },
@@ -34,18 +37,24 @@ const appRoutes: Routes = [
     InputComponent,
     ValidationResultComponent,
     SliderComponent,
-    InputchartComponent
+    InputchartComponent,
+    HammerCardComponent,
+    HammertimeDirective
   ],
   imports: [
-    MatSliderModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+
     HttpClientModule,
     FlexLayoutModule,
-    BrowserModule,
-    NoopAnimationsModule,
+
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule,
     FormsModule, ReactiveFormsModule,
+    MatSliderModule,
+    MatCardModule,
+ 
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only

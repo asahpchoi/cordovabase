@@ -1,0 +1,19 @@
+.container {
+  display: flex; /* or inline-flex */
+}
+
+.show {
+  width: 100px;
+  display: block;
+}
+
+.close {
+  display: none;
+  width: 0px;
+}
+
+div {
+  width: 300px;
+  border: 1px;
+  border-color:black;
+}
