@@ -15,6 +15,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationResultComponent } from './validation-result/validation-result.component';
+import { RouterModule, Routes } from '@angular/router';
+import { SliderComponent } from './slider/slider.component';
+import { InputchartComponent } from './inputchart/inputchart.component';
+import {MatSliderModule} from '@angular/material/slider';
+
+const appRoutes: Routes = [
+ { path: 'slider', component: SliderComponent },
+ { path: '', component: InputchartComponent },
+
+];
 
 @NgModule({
   declarations: [
@@ -22,17 +32,24 @@ import { ValidationResultComponent } from './validation-result/validation-result
     DialogsampleComponent,
     ChartComponent,
     InputComponent,
-    ValidationResultComponent
+    ValidationResultComponent,
+    SliderComponent,
+    InputchartComponent
   ],
   imports: [
+    MatSliderModule,
     HttpClientModule,
- FlexLayoutModule,
+    FlexLayoutModule,
     BrowserModule,
     NoopAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule,
-    FormsModule, ReactiveFormsModule
+    FormsModule, ReactiveFormsModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [PeService],
   bootstrap: [AppComponent],

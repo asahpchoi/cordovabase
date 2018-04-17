@@ -32,7 +32,7 @@ export class ChartComponent {
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           guarantedScenario: 'Account Value (LOW)',
           default: 'Account Value (LOW)',
-          line: 'Total Premium'
+          line: "Premium"
         }
         ,
         {
@@ -40,7 +40,7 @@ export class ChartComponent {
           chart: 'Total Death Benefit (%s)',
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           default: 'Total Death Benefit (LOW)',
-          line: 'Total Premium'
+          line: "Premium"
         }
         ,
         {
@@ -48,7 +48,7 @@ export class ChartComponent {
           chart: 'Surrender Value (%s)',
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           default: 'Surrender Value (LOW)',
-          line: 'Total Premium'
+          line: "Premium"
         }
       ]
     }
