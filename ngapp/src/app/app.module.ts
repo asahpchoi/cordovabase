@@ -1,24 +1,36 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { AppComponent } from './app.component';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { DialogsampleComponent } from './dialogsample/dialogsample.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ChartComponent } from './chart/chart.component';
+import { PeService } from './pe.service';
+import { InputComponent } from './input/input.component';
+import { MatSelectModule } from '@angular/material/select';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 @NgModule({
   declarations: [
     AppComponent,
-    DialogsampleComponent
+    DialogsampleComponent,
+    ChartComponent,
+    InputComponent
   ],
   imports: [
+    HttpClientModule,
+ FlexLayoutModule,
     BrowserModule,
     NoopAnimationsModule,
-    MatButtonModule, MatCheckboxModule,MatFormFieldModule,MatInputModule,MatDialogModule
+    MatFormFieldModule,
+    MatSelectModule,
+    MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule
   ],
-  providers: [],
+  providers: [PeService],
   bootstrap: [AppComponent],
   entryComponents: [DialogsampleComponent]
 })

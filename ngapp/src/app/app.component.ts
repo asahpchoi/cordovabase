@@ -14,16 +14,7 @@ export class AppComponent {
   }
 
   openDialog() {
-    console.log(this.dialog)
-    this.dialog.open(
-      DialogsampleComponent,
-      {
-        height: '400px',
-        width: '600px',
-      }).afterClosed()
-      .subscribe(result => {
-      console.log(`Dialog result: ${result}`); // Pizza!
-    });
+ 
 
   }
 }

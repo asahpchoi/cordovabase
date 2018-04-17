@@ -1,0 +1,7 @@
+.wrap{
+    flex-wrap:wrap;
+}
+
+.box {
+  width: 200px;
+}

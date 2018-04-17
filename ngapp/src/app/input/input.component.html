@@ -1,0 +1,10 @@
+<div class="example-container">
+  <mat-form-field>
+    <mat-select placeholder="Select Test Case" [(value)]="selectedTestcase">
+      <mat-option *ngFor="let o of testcases"
+      [value]="o"
+      >{{o.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-raised-button (click)="calculate()">Get Projection</button>
+</div>
