@@ -1,0 +1,16 @@
+<div *ngFor="let f of getfunds()">
+  {{f}} :
+
+  <mat-form-field>
+    <mat-select placeholder="" [(value)]="funds[f]" (change)="updateChart()">
+      <mat-option *ngFor="let fund of getOptions(funds[f])" [value]="fund">
+        {{ fund }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+{{getTotalFunds()}}
+<div id="container" style="width: 75%;">
+  <canvas id="canvas"></canvas>
+</div>

@@ -21,10 +21,12 @@ import { InputchartComponent } from './inputchart/inputchart.component';
 import {MatSliderModule} from '@angular/material/slider';
 import { HammerCardComponent } from './hammer-card/hammer-card.component';
 import { HammertimeDirective } from './hammertime.directive';
-import { MatCardModule, MatButtonModule } from '@angular/material';
+import { MatCardModule } from '@angular/material';
+import { FundsComponent } from './funds/funds.component';
 
 const appRoutes: Routes = [
  { path: 'slider', component: SliderComponent },
+ { path: 'funds', component: FundsComponent },
  { path: '', component: InputchartComponent },
 
 ];
@@ -39,7 +41,8 @@ const appRoutes: Routes = [
     SliderComponent,
     InputchartComponent,
     HammerCardComponent,
-    HammertimeDirective
+    HammertimeDirective,
+    FundsComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +57,7 @@ const appRoutes: Routes = [
     FormsModule, ReactiveFormsModule,
     MatSliderModule,
     MatCardModule,
- 
+
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
