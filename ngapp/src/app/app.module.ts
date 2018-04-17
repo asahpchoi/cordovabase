@@ -13,13 +13,16 @@ import { PeService } from './pe.service';
 import { InputComponent } from './input/input.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ValidationResultComponent } from './validation-result/validation-result.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DialogsampleComponent,
     ChartComponent,
-    InputComponent
+    InputComponent,
+    ValidationResultComponent
   ],
   imports: [
     HttpClientModule,
@@ -28,7 +31,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     NoopAnimationsModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule
+    MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule,
+    FormsModule, ReactiveFormsModule
   ],
   providers: [PeService],
   bootstrap: [AppComponent],

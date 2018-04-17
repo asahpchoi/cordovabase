@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class PeService {
   resultSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  validationSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   request = null;
   productType = null;
 
@@ -21,6 +22,24 @@ export class PeService {
 
   getData() {
     return this.resultSubject;
+  }
+
+  getValidationResult() {
+    return this.validationSubject;
+  }
+
+  validate(req) {
+    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/validate';
+
+    this.http
+      .post(url, req)
+      .first()
+      .subscribe(r =>
+        {
+          this.validationSubject.next(r);
+        }
+      );
+
   }
 
   private callPE() {

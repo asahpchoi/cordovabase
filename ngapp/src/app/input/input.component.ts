@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PeService } from '../pe.service';
+import { NgModel } from '@angular/forms';
+
 
 @Component({
   selector: 'app-input',
@@ -7,6 +9,7 @@ import { PeService } from '../pe.service';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
+
   ENC12 = {
     "watchPoints": [],
     "riders": {
@@ -315,11 +318,21 @@ export class InputComponent implements OnInit {
   }
 
   calculate() {
-    this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
+    if(this.selectedTestcase.payload) {
+      this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
+    }
   }
+
+  validate() {
+    if(this.selectedTestcase.payload) {
+      this.pe.validate(this.selectedTestcase.payload);
+    }
+  }
+
 
   ngOnInit() {
 
   }
 
+ 
 }
