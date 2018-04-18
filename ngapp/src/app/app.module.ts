@@ -23,7 +23,7 @@ import { HammerCardComponent } from './hammer-card/hammer-card.component';
 import { HammertimeDirective } from './hammertime.directive';
 import { MatCardModule } from '@angular/material';
 import { FundsComponent } from './funds/funds.component';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 const appRoutes: Routes = [
  { path: 'slider', component: SliderComponent },
  { path: 'funds', component: FundsComponent },
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-
+MatGridListModule,
     HttpClientModule,
     FlexLayoutModule,
 

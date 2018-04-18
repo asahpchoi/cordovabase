@@ -1,25 +1,29 @@
-<div class="container" style="width: 100%;">
-  <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
-    <div>
-    <div class="legend" [ngStyle]="{'background-color': colors[i]}">
+
+
+
+<mat-grid-list cols="3" rowHeight="2:1">
+  <mat-grid-tile rowspan=4>
+    <div class="container">
+    <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
+
+      <div class="legend" [ngStyle]="{'background-color': colors[i]}">
+      </div>
+      {{f}} :
+      <mat-form-field>
+        <mat-select placeholder="" [(value)]="funds[f]" (change)="updateCharts()">
+          <mat-option *ngFor="let fund of getOptions(funds[f])" [value]="fund">
+            {{ fund }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    {{f}} :
-    <mat-form-field>
-      <mat-select placeholder="" [(value)]="funds[f]" (change)="updateCharts()">
-        <mat-option *ngFor="let fund of getOptions(funds[f])" [value]="fund">
-          {{ fund }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  </div>
-  <div class="total">Total: {{getTotalFunds()}}</div>
-</div>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile colspan=2><div class="total">Total: {{getTotalFunds()}}</div></mat-grid-tile>
+  <mat-grid-tile colspan=2 rowspan=2>
+    <canvas id="canvas2"></canvas>
+    <div id="label"></div>
+ </mat-grid-tile>
+  <mat-grid-tile colspan=2><canvas id="canvas"></canvas></mat-grid-tile>
 
-<div class="container" style="width: 100%;">
-
-  <canvas id="canvas"></canvas>
-
-  <canvas id="canvas2"  ></canvas>
-
-<div>
+</mat-grid-list>

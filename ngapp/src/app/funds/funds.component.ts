@@ -28,7 +28,7 @@ export class FundsComponent {
     fund5: 0,
     fund6: 0
   }
-  colors = ['#ffddee', '#cc00ee', '#ee0000', '#123456', '#938759', '#203128']
+  colors = ['lightblue', 'lightgreen', 'lightpink', 'RosyBrown', 'LightSalmon', 'MediumAquaMarine']
 
   getTotalFunds() {
     return Object.values(this.funds).reduce((a, b) => a + b, 0)
@@ -87,6 +87,7 @@ export class FundsComponent {
 
   customizeDonutChart(chart, e)
     {
+    //  console.log(chart, e)
      if(e.type!='click')
       return
      if (chart.config.type != "doughnut")
@@ -108,14 +109,17 @@ export class FundsComponent {
        let width = chart.width,
          height = chart.height;
 
-         console.log(chart.outerRadius)
+         //console.log(chart.outerRadius)
          //chart.outerRadius = defaultRadiusMyChart;
          chart.update();
          // update selected pie
-         console.log(activePoints[0]["_model"])
-         activePoints[0]["_model"].outerRadius =  activePoints[0]["_model"].outerRadius * 1.2;
+
+         activePoints[0]["_model"].outerRadius =  activePoints[0]["_model"].outerRadius * 1.06;
          activePoints[0]["_model"].innerRadius =  activePoints[0]["_model"].innerRadius * 0.9;
-//console.log(activePoints[0]["_model"])
+
+        let ctx = chart.ctx;
+        ctx.font = "30px Arial";
+        ctx.fillText("Hello World",10,50);
 
 
 
@@ -127,14 +131,7 @@ export class FundsComponent {
 
   updateDonutChart() {
 
-    Chart.pluginService.register(
-      {
-        afterEvent: this.customizeDonutChart
-        ,
-        beforeDraw: function(chart) {
 
-        }
-      });
 
     this.donutChartData.labels = Object.keys(this.funds);
     this.donutChartData.datasets = [{
@@ -143,7 +140,7 @@ export class FundsComponent {
     }];
     let donutChartOption = {
       layout: {
-        padding: 20
+        padding: 5
       },
       legend: {
         display: false
@@ -153,11 +150,13 @@ export class FundsComponent {
       },
       responsive: false,
       scales: {
-          xAxes: [{display: false
+          xAxes: [{
+            display: false
                   }],
           yAxes: [{display: false
                   }]
-          }
+          },
+          'onClick' : this.updateCenter
     }
 
 
@@ -174,26 +173,33 @@ export class FundsComponent {
         }
       );
 
-      this.draw();
 
 
 
     }
+
+
+
+
   }
 
-  draw() {
 
-    let ctx = this.donutChart.ctx;
-    console.log(ctx)
-    ctx.font = "30px Comic Sans MS";
-    ctx.fillStyle = "red";
-    ctx.textAlign = "center";
-    ctx.fillText("Hello World",0,0);
+  updateCenter() {
+    let chart : any = this;
+
+    let l = $('#label');
+
+    let i = chart.active[0]._index;
+    let label = chart.data.labels[i] + ' / ' + chart.data.datasets["0"].data[i]
+    l.html( label);
   }
-
   updateCharts() {
+
+
     this.updateChart();
     this.updateDonutChart();
+    //console.log(this.donutChart)
+
   }
   updateChart() {
     this.barChartData.labels = ['Fund Allocation'];
@@ -207,9 +213,11 @@ export class FundsComponent {
       },
       responsive: false,
       scales: {
-          xAxes: [{display: false
+          xAxes: [{display: false,
+            barThickness:20
                   }],
-          yAxes: [{display: false
+          yAxes: [{display: false,
+            barThickness:20
                   }]
           }
     }
@@ -229,6 +237,11 @@ export class FundsComponent {
     }
   }
   constructor() {
+    Chart.pluginService.register(
+      {
+        afterEvent: this.customizeDonutChart
+      });
+
 
   }
 

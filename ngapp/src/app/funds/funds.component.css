@@ -2,7 +2,7 @@ canvas {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  width: 40%;
+  width: 90%;
 }
 
 
@@ -14,16 +14,18 @@ canvas {
 
 .legend {
   width: 15px;
-
   height:   15px;
+}
+
+#label {
+  position: absolute;
 
 }
 
-
 .funddiv {
   display: flex;
-  flex-wrap: no-wrap;
-  text-align: center;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .total {
