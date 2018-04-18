@@ -1,8 +1,8 @@
 <div class="container" style="width: 100%;">
   <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
-    <div class="legend" [ngStyle]="{'background-color': colors[i]}">x
-    </div>
     <div>
+    <div class="legend" [ngStyle]="{'background-color': colors[i]}">
+    </div>
     {{f}} :
     <mat-form-field>
       <mat-select placeholder="" [(value)]="funds[f]" (change)="updateCharts()">

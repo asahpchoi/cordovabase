@@ -6,12 +6,3 @@
   flex-wrap: nowrap;
   width: 200px;
 }
-
-.legend {
-  width: 150px;
-  min-width: 100px;
-  max-width: 200px;
-  height:   150px;
-min-height: 100px;
-max-height: 200px;
-}

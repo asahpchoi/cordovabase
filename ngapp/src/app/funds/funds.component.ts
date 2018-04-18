@@ -87,7 +87,7 @@ export class FundsComponent {
 
   customizeDonutChart(chart, e)
     {
-     if(e.type!='mousedown')
+     if(e.type!='click')
       return
      if (chart.config.type != "doughnut")
        return
