@@ -1,8 +1,8 @@
 <mat-slider></mat-slider>
 
 <div class="container">
-<div [ngClass]="actionCls">
+<div [ngClass]="actionCls" class="actionbar">
   Delete
 </div>
-<div (swiperight)="showdelete('show')" (swipeleft)="showdelete('close')">Content</div>
+<div class="toolbar" (swiperight)="showdelete('show')" (swipeleft)="showdelete('close')">Content</div>
 </div>

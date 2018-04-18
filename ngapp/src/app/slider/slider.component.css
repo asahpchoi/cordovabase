@@ -7,6 +7,17 @@
   display: block;
 }
 
+.toolbar {
+  background-color: green;
+  padding: 10px;
+
+}
+
+.actionbar {
+  background-color: gray;
+  padding: 10px;
+}
+
 .close {
   display: none;
   width: 0px;

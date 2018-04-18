@@ -7,7 +7,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./funds.component.css']
 })
 export class FundsComponent implements OnInit {
-  chart;
+  barChart;
   fundoption = [0];
   funds = {
     fund1: 0,
@@ -48,6 +48,8 @@ export class FundsComponent implements OnInit {
       }
       }
     )
+
+
     return ds;
   }
 
@@ -58,30 +60,41 @@ export class FundsComponent implements OnInit {
 
   updateChart() {
     this.barChartData.datasets = this.getDS();
+    let barChartOption = {
+      title: {
+        display: false,
+      },
+      responsive: false,
+      scales: {
+        xAxes: [{
+          stacked: true,
+          barPercentage: 0.4,
+          ticks: {
+              min: 0,
+              max: 100,
+              stepSize: 20
+          }
+        }],
+        yAxes: [{
+          barPercentage: 0.2,
+          stacked: true
+        }]
+      }
+    }
 
-    this.chart = new Chart('canvas',
+    if(this.barChart) {
+      this.barChart.update();
+    }
+    else {
+    this.barChart = new Chart('canvas',
     {
 				type: 'horizontalBar',
 				data: this.barChartData,
-				options: {
-					title: {
-						display: false,
-
-					},
-
-					responsive: true,
-					scales: {
-						xAxes: [{
-							stacked: true,
-						}],
-						yAxes: [{
-							stacked: true
-						}]
-					}
-				}
+				options: barChartOption
 			}
 
     );
+  }
   }
   constructor() { }
 

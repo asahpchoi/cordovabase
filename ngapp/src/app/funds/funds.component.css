@@ -2,4 +2,24 @@ canvas {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  height: 100px;
+}
+
+canvas {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  height: 300px;
+  width: 100%;
+}
+
+.container {
+  display: -webkit-flex; /* Safari */
+  -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.funddiv {
+  flex-wrap: nowrap;
 }
