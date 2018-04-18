@@ -93,10 +93,6 @@ export class FundsComponent {
      if (chart.config.type != "doughnut")
        return
 
-
-     var addRadiusMargin = 10;
-     var currentSelectedPieceLabel = "";
-
      let activePoints = chart.getElementsAtEvent(e);
 
      if (activePoints.length > 0) {
@@ -117,12 +113,7 @@ export class FundsComponent {
          activePoints[0]["_model"].outerRadius =  activePoints[0]["_model"].outerRadius * 1.06;
          activePoints[0]["_model"].innerRadius =  activePoints[0]["_model"].innerRadius * 0.9;
 
-        let ctx = chart.ctx;
-        ctx.font = "30px Arial";
-        ctx.fillText("Hello World",10,50);
-
-
-
+         console.log(activePoints[0])
      }
 
 
@@ -133,7 +124,7 @@ export class FundsComponent {
 
 
 
-    this.donutChartData.labels = Object.keys(this.funds);
+    this.donutChartData.labels = [...Object.keys(this.funds), 'unallocated'];
     this.donutChartData.datasets = [{
       data: [...Object.values(this.funds), 100 - this.getTotalFunds()],
       backgroundColor: this.colors
@@ -186,12 +177,9 @@ export class FundsComponent {
 
   updateCenter() {
     let chart : any = this;
-
-    let l = $('#label');
-
     let i = chart.active[0]._index;
-    let label = chart.data.labels[i] + ' / ' + chart.data.datasets["0"].data[i]
-    l.html( label);
+    let label = chart.data.labels[i] + ' / ' + chart.data.datasets["0"].data[i] + '%'
+    $('#label').html( label);
   }
   updateCharts() {
 
