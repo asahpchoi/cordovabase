@@ -2,24 +2,23 @@ canvas {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-  height: 100px;
+
 }
 
-canvas {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  height: 300px;
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 
-.container {
-  display: -webkit-flex; /* Safari */
-  -webkit-flex-wrap: wrap; /* Safari 6.1+ */
-  display: flex;
-  flex-wrap: wrap;
+.funddiv {
+  width: 80%;
+  display: block;
+  flex-wrap: nowrap;
+  text-align: center;
 }
 
-.funddiv {
-  flex-wrap: nowrap;
+.total {
+  font-size: 30px;
 }

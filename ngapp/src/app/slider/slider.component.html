@@ -1,21 +1,10 @@
 <mat-slider></mat-slider>
-
-<div class="container">
-<div [ngClass]="actionCls" class="actionbar">
-  Delete
-</div>
-<div class="toolbar" (swiperight)="showdelete('show')" (swipeleft)="showdelete('close')">Content</div>
-</div>
-
-
-<mat-slider></mat-slider>
-
-<div class="container" style="display: block; height: 175px; overflow: scroll;">
+<div class="container" style="display: block; height: 100px; overflow: scroll;">
   <div style="display:flex">
     <div [ngClass]="actionCls" class="actionbar">
       Delete 1
     </div>
-    <div class="toolbar" (swiperight)="showdelete('show')" (swipeleft)="showdelete('close')">Content 1</div>
+    <div class="toolbar" (swiperight)="showdelete('show')" (swipeleft)="showdelete('close')" (swipeup)="scroll()" (swipedown)="scroll()">Content 1</div>
   </div>
   <div style="display:flex">
     <div [ngClass]="actionCls" class="actionbar">

@@ -1,7 +1,8 @@
 .wrap{
-    flex-wrap:wrap;
+  flex-wrap:wrap;
 }
 
 .box {
+  flex-wrap: nowrap;
   width: 200px;
 }

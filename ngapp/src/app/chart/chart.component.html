@@ -1,5 +1,5 @@
 <div *ngIf="viewOption">
-<button mat-raised-button (click)="selectView(v)" *ngFor="let v of viewOption.views">
+  <button mat-raised-button (click)="selectView(v)" *ngFor="let v of viewOption.views">
   {{v.viewType}}
 </button>
 </div>
@@ -17,4 +17,3 @@
   <canvas id="canvas" height="40vh" width="100%">
   </canvas>
 </div>
- 

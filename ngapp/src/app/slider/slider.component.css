@@ -1,5 +1,7 @@
+
 .container {
   display: flex; /* or inline-flex */
+ 
 }
 
 .show {
@@ -10,7 +12,7 @@
 .toolbar {
   background-color: green;
   padding: 10px;
-
+touch-action: pan-y !important;
 }
 
 .actionbar {
