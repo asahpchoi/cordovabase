@@ -9,20 +9,20 @@ import { Chart } from 'chart.js';
 export class FundsComponent {
   barChart;
   barChartData = {
-    label: [],
+    labels: [],
     datasets: []
   };
 
   donutChart;
   donutChartData = {
-    label: [],
+    labels: [],
     datasets: []
   };
   funds = {
     fund1: 0,
-    fund2: 0,
-    fund3: 0,
-    fund4: 0,
+    fund2: 20,
+    fund3: 30,
+    fund4: 10,
     fund5: 0
   }
   colors = ['green', 'red', 'blue', 'yellow', 'gray']
@@ -74,10 +74,39 @@ export class FundsComponent {
   }
 
   updateDonutChart() {
+    Chart.pluginService.register(
+      {
+        afterEvent: function(chart, e) {
+
+            if (chart.config.type != "doughnut")
+              return
+
+
+            console.log('as', e);
+            var width = chart.chart.width,
+              height = chart.chart.height,
+              ctx = chart.chart.ctx;
+
+            ctx.restore();
+            var fontSize = (height / 114).toFixed(2);
+            ctx.font = fontSize + "em sans-serif";
+            ctx.textBaseline = "middle";
+
+            var text = "75%",
+              textX = Math.round((width - ctx.measureText(text).width) / 2),
+              textY = height / 2;
+
+            ctx.fillText(text, textX, textY);
+            ctx.save();
+        },
+        beforeDraw: function(chart) {
+
+        }
+      });
     this.donutChartData.labels = Object.keys(this.funds);
     this.donutChartData.datasets = [{
-       data: Object.values(this.funds),
-       backgroundColor: this.colors;
+      data: Object.values(this.funds),
+      backgroundColor: this.colors
     }];
     let donutChartOption = {
       legend: {
@@ -89,20 +118,15 @@ export class FundsComponent {
       responsive: false,
       scales: {
         xAxes: [{
-          stacked: true,
-          barPercentage: 0.4,
-          ticks: {
-            min: 0,
-            max: 100,
-            stepSize: 20
-          }
+
         }],
         yAxes: [{
-          barPercentage: 0.2,
-          stacked: true
+
         }]
       }
     }
+
+
 
     if (this.donutChart) {
       this.donutChart.update();
@@ -114,16 +138,16 @@ export class FundsComponent {
           data: this.donutChartData,
           options: donutChartOption
         }
-
       );
     }
   }
+
   updateCharts() {
     this.updateChart();
     this.updateDonutChart();
   }
   updateChart() {
-    this.barChartData.label = ['Fund Allocation'];
+    this.barChartData.labels = ['Fund Allocation'];
     this.barChartData.datasets = this.getDS();
     let barChartOption = {
       legend: {
@@ -164,6 +188,7 @@ export class FundsComponent {
       );
     }
   }
-  constructor() { }
+  constructor() {
+  }
 
 }

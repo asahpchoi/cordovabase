@@ -8,9 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SliderComponent implements OnInit {
 actionCls = "show"
   constructor() {
-    var hammertime = new Hammer(document.body);
-    hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
-    console.log(hammertime.get('swipe'))
+ 
   }
 
   ngOnInit() {
