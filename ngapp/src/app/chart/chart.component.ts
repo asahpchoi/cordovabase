@@ -137,11 +137,12 @@ export class ChartComponent {
     //this.pecolumns = this.ds.dataSets.map(ds => ds.label);
     this.chartLabels = this.ds.labels;
 
-    if (this.columns.length == 0) {
-      this.columns.push(this.selectedView.default);
-    }
-    if (this.selectedView.guarantedScenario)
-      this.columns.push(this.selectedView.guarantedScenario);
+    //if (this.columns.length == 0) {
+      //this.columns.push(this.selectedView.default);
+    //}
+
+    //if (this.selectedView.guarantedScenario)
+      //this.columns.push(this.selectedView.guarantedScenario);
 
     let areaData = this.ds.dataSets.filter(ds => {
       let match = this.columns.filter(
