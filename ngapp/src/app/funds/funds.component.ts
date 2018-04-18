@@ -92,7 +92,7 @@ export class FundsComponent {
      if (chart.config.type != "doughnut")
        return
 
-     var defaultRadiusMyChart;
+
      var addRadiusMargin = 10;
      var currentSelectedPieceLabel = "";
 
@@ -108,11 +108,13 @@ export class FundsComponent {
        let width = chart.width,
          height = chart.height;
 
-
-         chart.outerRadius = defaultRadiusMyChart;
+         console.log(chart.outerRadius)
+         //chart.outerRadius = defaultRadiusMyChart;
          chart.update();
          // update selected pie
-         activePoints[0]["_model"].outerRadius =  activePoints[0]["_model"].outerRadius * 1.05;
+         console.log(activePoints[0]["_model"])
+         activePoints[0]["_model"].outerRadius =  activePoints[0]["_model"].outerRadius * 1.2;
+         activePoints[0]["_model"].innerRadius =  activePoints[0]["_model"].innerRadius * 0.9;
 //console.log(activePoints[0]["_model"])
 
 
@@ -140,6 +142,9 @@ export class FundsComponent {
       backgroundColor: this.colors
     }];
     let donutChartOption = {
+      layout: {
+        padding: 20
+      },
       legend: {
         display: false
       },
