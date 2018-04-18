@@ -13,9 +13,7 @@ canvas {
 }
 
 .funddiv {
-  width: 80%;
-  display: block;
-  flex-wrap: nowrap;
+
   text-align: center;
 }
 

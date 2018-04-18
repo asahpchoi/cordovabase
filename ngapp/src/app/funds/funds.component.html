@@ -1,5 +1,8 @@
 <div class="container" style="width: 100%;">
-  <div *ngFor="let f of getfunds()" class="funddiv">
+  <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
+    <div class="legend" [ngStyle]="{'background-color': colors[i]}">x
+    </div>
+    <div>
     {{f}} :
     <mat-form-field>
       <mat-select placeholder="" [(value)]="funds[f]" (change)="updateCharts()">
@@ -9,13 +12,15 @@
       </mat-select>
     </mat-form-field>
   </div>
+  </div>
   <div class="total">Total: {{getTotalFunds()}}</div>
 </div>
 
 <div class="container" style="width: 100%;">
- 
+
   <canvas id="canvas"></canvas>
 
-  <canvas id="canvas2"></canvas>
+  <canvas id="canvas2" width="300" height="200"
+style="border:1px solid #d3d3d3;">
 
 <div>

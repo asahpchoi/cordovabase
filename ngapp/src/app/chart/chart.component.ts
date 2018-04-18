@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PeService } from '../pe.service';
 import { Chart } from 'chart.js';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-chart',
@@ -15,7 +16,7 @@ export class ChartComponent {
     pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
         this.viewOption = this.viewOptions.filter(vo => vo.productType == this.pe.productType)[0];
-        console.log(this.viewOption)
+
         this.ds = x;
         this.createChart();
       }
@@ -32,7 +33,7 @@ export class ChartComponent {
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           guarantedScenario: 'Account Value (LOW)',
           default: 'Account Value (LOW)',
-          line: "colAccumulatedPremium"
+          line: "Total Premium"
         }
         ,
         {
@@ -40,7 +41,7 @@ export class ChartComponent {
           chart: 'Total Death Benefit (%s)',
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           default: 'Total Death Benefit (LOW)',
-          line: "colAccumulatedPremium"
+          line: "Total Premium"
         }
         ,
         {
@@ -48,7 +49,7 @@ export class ChartComponent {
           chart: 'Surrender Value (%s)',
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           default: 'Surrender Value (LOW)',
-          line: "colAccumulatedPremium"
+          line: "Total Premium"
         }
       ]
     }
@@ -103,7 +104,7 @@ export class ChartComponent {
     }
   ];
 
-  private input = {
+  input = {
     units: {
 
     }
@@ -111,13 +112,18 @@ export class ChartComponent {
 
   private selectView(v) {
     this.selectedView = v;
-    this.input.units = {};
+    this.input.units = {
+
+    };
+    this.input.units[this.selectedView.default] = true;
     this.columns = [];
     this.pecolumns = this.selectedView.scenario.map(
       s => this.selectedView.chart.replace("%s", s)
     )
     this.chart = null;
-
+    this.columns = Object.keys(this.input.units).filter(x => {
+      return this.input.units[x] == true;
+    });
     this.createChart()
   }
 

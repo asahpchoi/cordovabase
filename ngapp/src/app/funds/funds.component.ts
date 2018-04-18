@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-funds',
@@ -23,9 +25,10 @@ export class FundsComponent {
     fund2: 20,
     fund3: 30,
     fund4: 10,
-    fund5: 0
+    fund5: 0,
+    fund6: 0
   }
-  colors = ['green', 'red', 'blue', 'yellow', 'gray']
+  colors = ['#ffddee', '#cc00ee', '#ee0000', '#123456', '#938759', '#203128']
 
   getTotalFunds() {
     return Object.values(this.funds).reduce((a, b) => a + b, 0)
@@ -43,6 +46,7 @@ export class FundsComponent {
   getfunds() {
     return Object.keys(this.funds);
   }
+
 
 
   getDS() {
@@ -81,36 +85,55 @@ export class FundsComponent {
     return ds;
   }
 
+  customizeDonutChart(chart, e)
+    {
+     if(e.type!='mousedown')
+      return
+     if (chart.config.type != "doughnut")
+       return
+
+     var defaultRadiusMyChart;
+     var addRadiusMargin = 10;
+     var currentSelectedPieceLabel = "";
+
+     let activePoints = chart.getElementsAtEvent(e);
+
+     if (activePoints.length > 0) {
+       //get the internal index of slice in pie chart
+       let clickedElementindex = activePoints[0]["_index"];
+
+       //get specific label by index
+       let label = chart.data.labels[clickedElementindex];
+       let value = chart.data.datasets[0].data[clickedElementindex];
+       let width = chart.width,
+         height = chart.height;
+
+
+         chart.outerRadius = defaultRadiusMyChart;
+         chart.update();
+         // update selected pie
+         activePoints[0]["_model"].outerRadius =  activePoints[0]["_model"].outerRadius * 1.05;
+//console.log(activePoints[0]["_model"])
+
+
+
+     }
+
+
+
+  }
+
   updateDonutChart() {
+
     Chart.pluginService.register(
       {
-        afterEvent: function(chart, e) {
-
-          if (chart.config.type != "doughnut")
-            return
-
-
-          console.log('as', e);
-          var width = chart.chart.width,
-            height = chart.chart.height,
-            ctx = chart.chart.ctx;
-
-          ctx.restore();
-          var fontSize = (height / 114).toFixed(2);
-          ctx.font = fontSize + "em sans-serif";
-          ctx.textBaseline = "middle";
-
-          var text = "75%",
-            textX = Math.round((width - ctx.measureText(text).width) / 2),
-            textY = height / 2;
-
-          ctx.fillText(text, textX, textY);
-          ctx.save();
-        },
+        afterEvent: this.customizeDonutChart
+        ,
         beforeDraw: function(chart) {
 
         }
       });
+
     this.donutChartData.labels = Object.keys(this.funds);
     this.donutChartData.datasets = [{
       data: [...Object.values(this.funds), 100 - this.getTotalFunds()],
@@ -125,13 +148,11 @@ export class FundsComponent {
       },
       responsive: false,
       scales: {
-        xAxes: [{
-
-        }],
-        yAxes: [{
-
-        }]
-      }
+          xAxes: [{display: false
+                  }],
+          yAxes: [{display: false
+                  }]
+          }
     }
 
 
@@ -147,7 +168,22 @@ export class FundsComponent {
           options: donutChartOption
         }
       );
+
+      this.draw();
+
+
+
     }
+  }
+
+  draw() {
+
+    let ctx = this.donutChart.ctx;
+    console.log(ctx)
+    ctx.font = "30px Comic Sans MS";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("Hello World",0,0);
   }
 
   updateCharts() {
@@ -166,20 +202,11 @@ export class FundsComponent {
       },
       responsive: false,
       scales: {
-        xAxes: [{
-          stacked: true,
-          barPercentage: 0.4,
-          ticks: {
-            min: 0,
-            max: 100,
-            stepSize: 20
+          xAxes: [{display: false
+                  }],
+          yAxes: [{display: false
+                  }]
           }
-        }],
-        yAxes: [{
-          barPercentage: 0.2,
-          stacked: true
-        }]
-      }
     }
 
     if (this.barChart) {
@@ -197,6 +224,7 @@ export class FundsComponent {
     }
   }
   constructor() {
+
   }
 
 }
