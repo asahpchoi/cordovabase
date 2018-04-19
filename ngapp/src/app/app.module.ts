@@ -24,6 +24,7 @@ import { HammertimeDirective } from './hammertime.directive';
 import { MatCardModule } from '@angular/material';
 import { FundsComponent } from './funds/funds.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { DonutchartComponent } from './donutchart/donutchart.component';
 const appRoutes: Routes = [
  { path: 'slider', component: SliderComponent },
  { path: 'funds', component: FundsComponent },
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
     InputchartComponent,
     HammerCardComponent,
     HammertimeDirective,
-    FundsComponent
+    FundsComponent,
+    DonutchartComponent
   ],
   imports: [
     BrowserModule,

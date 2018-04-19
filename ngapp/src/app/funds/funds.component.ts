@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js';
 import * as $ from 'jquery';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 @Component({
   selector: 'app-funds',
@@ -10,6 +10,8 @@ import * as $ from 'jquery';
 })
 export class FundsComponent {
   barChart;
+  fundsBS : BehaviorSubject<any> = new BehaviorSubject(null);
+
   barChartData = {
     labels: [],
     datasets: []
@@ -47,8 +49,6 @@ export class FundsComponent {
     return Object.keys(this.funds);
   }
 
-
-
   getDS() {
     let ds = Object.keys(this.funds).map(
       (x, i) => {
@@ -71,122 +71,13 @@ export class FundsComponent {
     return ds;
   }
 
-  getDonutDS() {
-    let ds = Object.keys(this.funds).map(
-      (x, i) => {
-        return {
-          label: x,
-          backgroundColor: this.colors[i],
-          stack: '0',
-          data: [this.funds[x]]
-        }
-      }
-    )
-    return ds;
-  }
-
-  customizeDonutChart(chart, e)
-    {
-    //  console.log(chart, e)
-     if(e.type!='click')
-      return
-     if (chart.config.type != "doughnut")
-       return
-
-     let activePoints = chart.getElementsAtEvent(e);
-
-     if (activePoints.length > 0) {
-       //get the internal index of slice in pie chart
-       let clickedElementindex = activePoints[0]["_index"];
-
-       //get specific label by index
-       let label = chart.data.labels[clickedElementindex];
-       let value = chart.data.datasets[0].data[clickedElementindex];
-       let width = chart.width,
-         height = chart.height;
-
-         //console.log(chart.outerRadius)
-         //chart.outerRadius = defaultRadiusMyChart;
-         chart.update();
-         // update selected pie
-
-         activePoints[0]["_model"].outerRadius =  activePoints[0]["_model"].outerRadius * 1.06;
-         activePoints[0]["_model"].innerRadius =  activePoints[0]["_model"].innerRadius * 0.9;
-
-         console.log(activePoints[0])
-     }
-
-
-
-  }
-
-  updateDonutChart() {
-
-
-
-    this.donutChartData.labels = [...Object.keys(this.funds), 'unallocated'];
-    this.donutChartData.datasets = [{
-      data: [...Object.values(this.funds), 100 - this.getTotalFunds()],
-      backgroundColor: this.colors
-    }];
-    let donutChartOption = {
-      layout: {
-        padding: 5
-      },
-      legend: {
-        display: false
-      },
-      title: {
-        display: false,
-      },
-      responsive: false,
-      scales: {
-          xAxes: [{
-            display: false
-                  }],
-          yAxes: [{display: false
-                  }]
-          },
-          'onClick' : this.updateCenter
-    }
-
-
-
-    if (this.donutChart) {
-      this.donutChart.update();
-    }
-    else {
-      this.donutChart = new Chart('canvas2',
-        {
-          type: 'doughnut',
-          data: this.donutChartData,
-          options: donutChartOption
-        }
-      );
 
 
 
 
-    }
-
-
-
-
-  }
-
-
-  updateCenter() {
-    let chart : any = this;
-    let i = chart.active[0]._index;
-    let label = chart.data.labels[i] + ' / ' + chart.data.datasets["0"].data[i] + '%'
-    $('#label').html( label);
-  }
   updateCharts() {
-
-
     this.updateChart();
-    this.updateDonutChart();
-    //console.log(this.donutChart)
+    this.fundsBS.next(this.funds);
 
   }
   updateChart() {
@@ -225,10 +116,6 @@ export class FundsComponent {
     }
   }
   constructor() {
-    Chart.pluginService.register(
-      {
-        afterEvent: this.customizeDonutChart
-      });
 
 
   }
