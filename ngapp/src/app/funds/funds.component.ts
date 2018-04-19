@@ -10,7 +10,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 })
 export class FundsComponent {
   barChart;
-  fundsBS : BehaviorSubject<any> = new BehaviorSubject(null);
+
 
   barChartData = {
     labels: [],
@@ -30,6 +30,7 @@ export class FundsComponent {
     fund5: 0,
     fund6: 0
   }
+fundsBS : BehaviorSubject<any> = new BehaviorSubject(this.funds);
   colors = ['lightblue', 'lightgreen', 'lightpink', 'RosyBrown', 'LightSalmon', 'MediumAquaMarine']
 
   getTotalFunds() {

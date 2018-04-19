@@ -114,11 +114,12 @@ export class DonutchartComponent implements OnInit {
 
       chart.update();
 
-      active["_model"].outerRadius = active["_model"].outerRadius * 1.1;
+      active["_model"].outerRadius = active["_model"].outerRadius * 1.08;
       //active["_model"].innerRadius = active["_model"].innerRadius * 0.9;
 
-      let info = chart.data.labels[clickedElementindex] + ' / ' + chart.data.datasets["0"].data[clickedElementindex] + '%'
+      let info = chart.data.labels[clickedElementindex] + ' <br> ' + chart.data.datasets["0"].data[clickedElementindex] + '%'
       $('#label').html(info);
+      $("#label").css({top: height/2, left: width/2, position:'absolute'});
     }
   }
 
