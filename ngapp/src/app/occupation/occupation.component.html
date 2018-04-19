@@ -1,6 +1,9 @@
 <span *ngIf="!showSearch" (click)="search()">{{getOccupationName()}}</span>
 <span *ngIf="showSearch">
-<input id="searchText" [(ngModel)]="searchText" placeholder="search text goes here">
+
+<mat-form-field>
+  <input matInput placeholder="Occupation Search" [(ngModel)]="searchText" id="searchText">
+</mat-form-field>
 <mat-chip-list>
   <mat-chip (click)="select(o.id)"
   *ngFor="let o of mappedData |  searchText : searchText">{{o.label}}</mat-chip>
