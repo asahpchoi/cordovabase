@@ -1,10 +1,14 @@
-<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
+<h1> Cordova test </h1>
 <nav>
   <a routerLink="/" routerLinkActive="active">Summary</a>
   <a routerLink="/slider" routerLinkActive="active">Touch Slider</a>
   <a routerLink="/funds" routerLinkActive="active">Funds allocation</a>
   <a routerLink="/occupation" routerLinkActive="active">occupation</a>
 </nav>
+<button mat-raised-button (click)="openDialog(false)">Open Dialog</button>
+<button mat-raised-button (click)="openDialog(true)">Open Dialog (Patched)</button>
 
 <router-outlet></router-outlet>
+<input id="dummy">

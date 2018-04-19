@@ -9,12 +9,29 @@ import { DialogsampleComponent } from './dialogsample/dialogsample.component';
 })
 export class AppComponent {
   title = 'app';
+
   constructor(public dialog: MatDialog) {
 
   }
 
-  openDialog() {
- 
 
-  }
+  openDialog(mode) {
+    if(mode) {
+            document.getElementById("dummy").focus();
+            this.dialog.closeAll();
+
+    }
+
+    window.setTimeout(
+          (dialog) => {
+            dialog.open(
+              DialogsampleComponent
+            ).afterClosed().subscribe(result => {
+              //tidy up bug fix
+              console.log(result, mode)
+            });
+          }, 300, this.dialog, true);
+
+
+}
 }
