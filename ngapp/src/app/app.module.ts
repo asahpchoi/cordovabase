@@ -33,7 +33,7 @@ import { SearchTextPipe } from './search-text.pipe';
 import { TableComponent } from './table/table.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
   { path: 'funds', component: FundsComponent },
@@ -75,6 +75,7 @@ const appRoutes: Routes = [
     MatSliderModule,
     MatCardModule,
 MatIconModule,
+MatProgressBarModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only

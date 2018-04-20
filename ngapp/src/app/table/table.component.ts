@@ -11,6 +11,7 @@ import * as _ from 'lodash';
 })
 export class TableComponent implements OnInit {
   ds;
+  isLoading = false;
   years = [];
   ages = [];
   dt = [];
@@ -51,6 +52,7 @@ export class TableComponent implements OnInit {
       );
     }
     this.pe.updateFundActivities(this.input.fundActivities);
+    this.isLoading = true;
     this.pe.callPE();
     console.log(this.pe.request);
   }
@@ -59,6 +61,7 @@ export class TableComponent implements OnInit {
       x => {        //this.productType =  this.pe.productType;
         this.ds = x;
         this.setColumns();
+        this.isLoading = false;
       }
     )
   }
