@@ -33,8 +33,17 @@ export class PeService {
   }
 
   updateFundActivities(acts) {
-    this.request.fundActivities.fundActivity = acts;
+
     console.log(this.request);
+    //keep initial regular Payment and term settings
+    let initialSetting = this.request.fundActivities.fundActivity.filter(
+      fa => (fa["regularPayment"]) || (fa["regularPayment"] == 0)
+    );
+    console.log(initialSetting);
+    this.request.fundActivities.fundActivity = [...initialSetting, ...acts];
+
+
+
     //this.request.fundActivities = acts;
     //this.adhocFundActivities = acts;
   }
