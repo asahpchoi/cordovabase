@@ -39,6 +39,10 @@ export class PeService {
     //this.adhocFundActivities = acts;
   }
 
+  getFundActivities() {
+    return JSON.parse(JSON.stringify(this.request.fundActivities.fundActivity));
+  }
+
   validate(req) {
     let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/validate';
 
