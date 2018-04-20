@@ -1,4 +1,9 @@
+
 <app-input></app-input>
 <app-validation-result></app-validation-result>
-<app-chart>
+<mat-slide-toggle (change)="tableView=!tableView">Chart / Table</mat-slide-toggle>
+
+<app-chart *ngIf="!tableView">
 </app-chart>
+<app-table *ngIf="tableView">
+</app-table>

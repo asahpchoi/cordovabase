@@ -16,6 +16,10 @@ export class PeService {
   request = null;
   productType = null;
 
+  getRequestCopy() {
+    return JSON.parse(JSON.stringify(this.request));
+  }
+
   constructor(
     private http: HttpClient
   ) { }
@@ -26,6 +30,13 @@ export class PeService {
 
   getValidationResult() {
     return this.validationSubject;
+  }
+
+  updateFundActivities(acts) {
+    this.request.fundActivities.fundActivity = acts;
+    console.log(this.request);
+    //this.request.fundActivities = acts;
+    //this.adhocFundActivities = acts;
   }
 
   validate(req) {
@@ -42,8 +53,9 @@ export class PeService {
 
   }
 
-  private callPE() {
+  callPE() {
     let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/project';
+
     this.http
       .post(url, this.request)
       .subscribe(
@@ -74,6 +86,7 @@ export class PeService {
       }
       );
   }
+
 
   calculate(req, productType) {
     this.request = req;

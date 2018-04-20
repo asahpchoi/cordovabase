@@ -9,7 +9,11 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./input.component.css']
 })
 export class InputComponent implements OnInit {
-
+  input = {
+    duration: 15,
+    insuredAge: 29,
+    regularPayment: 15000
+  }
   ENC12 = {
     "watchPoints": [],
     "riders": {
@@ -192,6 +196,102 @@ export class InputComponent implements OnInit {
     "channel": "Agency"
   }
   UL007 = {
+    "watchPoints": [],
+    "riders": {
+      "coverageInfo": []
+    },
+    "dependents": [],
+    "funds": {
+      "fundRecord": [{
+        "returnRate": 4.0000,
+        "returnRateMedium": 5.0000,
+        "returnRateHigh": 7.0000,
+        "code": "UL007",
+        "allocation": 100
+      }]
+    },
+    "fundActivities": {
+      "fundActivity": null
+    },
+    "owner": {
+      "ownerSex": "M",
+      "ownerId": "PROJ, RIDER(ADD 800K)",
+      "ownerDOB": "19890101070000",
+      "ownerAge": 29,
+      "insuredIsOwner": false
+    },
+    "stopDebugYear": 10,
+    "startDebugYear": 0,
+    "sortRider": "N",
+    "reference": "PROP-000000659",
+    "policyYearDate": "20180313070000",
+    "policyExcludeSOS": "N",
+    "language": "en_vn",
+    "enableDebug": true,
+    "displayEOYOnly": false,
+    "coverageInfo": {
+      "startAnnuityAge": "0",
+      "prepayYear": 0,
+      "plannedPremium": 10000,
+      "product": {
+        "productKey": {
+          "valueDate": "20180313070000",
+          "location": "VN",
+          "basicProduct": {
+            "productPK": {
+              "productId": "--"
+            }
+          },
+          "associateProduct": {
+            "productPK": {
+              "productId": "--"
+            }
+          },
+          "primaryProduct": {
+            "productPK": {
+              "productId": "UL007"
+            }
+          }
+        }
+      },
+      "parties": {
+        "party": {
+          "type": "BASIC",
+          "smokingStatus": "NS",
+          "insuredSex": "M",
+          "insuredId": "PROJ, STOP PAYMENT AT Y11",
+          "insuredAge": 29,
+          "birthDate": "19890101070000"
+        }
+      },
+      "options": {
+        "paymentMode": "A",
+        "fundWithdrawalsByPercentage": "N",
+        "dbLevel": "Increase",
+        "calculateSinglePremiumBand": "N",
+        "billingMethod": "DirectBilling"
+      },
+      "noOfInstallmentYear": 0,
+      "initialDumpIn": 0.00,
+      "faceAmount": 800000.00,
+      "extraRating": {
+        "tempPercentage": 1.00,
+        "tempPercentageDuration": 0,
+        "tempFlat": 0.00,
+        "tempFlatDuration": 0,
+        "percentageExtra": 1.00,
+        "flatExtra": 0.00
+      },
+      "currency": {
+        "currencyPK": {
+          "currencyId": "VND"
+        }
+      }
+    },
+    "channel": "Agency"
+  }
+  /*
+  UL007 = {
     "channel": "Agency",
     "coverageInfo": {
       "currency": {
@@ -289,6 +389,105 @@ export class InputComponent implements OnInit {
     "watchPoints": []
   }
 
+  UL007 = {
+    "watchPoints": [],
+    "riders": {
+      "coverageInfo": []
+    },
+    "dependents": [],
+    "funds": {
+      "fundRecord": [{
+        "returnRate": 4.0000,
+        "returnRateMedium": 5.0000,
+        "returnRateHigh": 7.0000,
+        "code": "UL007",
+        "allocation": 100
+      }]
+    },
+    "fundActivities": {
+      "fundActivity": [{
+        "faceAmount": 700000,
+        "attainAge": 39
+      }]
+    },
+    "owner": {
+      "ownerSex": "M",
+      "ownerId": "PROJ, RIDER(ADD 800K)",
+      "ownerDOB": "19890101070000",
+      "ownerAge": 29,
+      "insuredIsOwner": false
+    },
+    "stopDebugYear": 10,
+    "startDebugYear": 0,
+    "sortRider": "N",
+    "reference": "PROP-000000658",
+    "policyYearDate": "20180313070000",
+    "policyExcludeSOS": "N",
+    "language": "en_vn",
+    "enableDebug": true,
+    "displayEOYOnly": false,
+    "coverageInfo": {
+      "startAnnuityAge": "0",
+      "prepayYear": 0,
+      "plannedPremium": 10000,
+      "product": {
+        "productKey": {
+          "valueDate": "20180313070000",
+          "location": "VN",
+          "basicProduct": {
+            "productPK": {
+              "productId": "--"
+            }
+          },
+          "associateProduct": {
+            "productPK": {
+              "productId": "--"
+            }
+          },
+          "primaryProduct": {
+            "productPK": {
+              "productId": "UL007"
+            }
+          }
+        }
+      },
+      "parties": {
+        "party": {
+          "type": "BASIC",
+          "smokingStatus": "NS",
+          "insuredSex": "M",
+          "insuredId": "PROJ, FA CHANGE AT Y11",
+          "insuredAge": 29,
+          "birthDate": "19890101070000"
+        }
+      },
+      "options": {
+        "paymentMode": "A",
+        "fundWithdrawalsByPercentage": "N",
+        "dbLevel": "Increase",
+        "calculateSinglePremiumBand": "N",
+        "billingMethod": "DirectBilling"
+      },
+      "noOfInstallmentYear": 0,
+      "initialDumpIn": 0.00,
+      "faceAmount": 800000.00,
+      "extraRating": {
+        "tempPercentage": 1.00,
+        "tempPercentageDuration": 0,
+        "tempFlat": 0.00,
+        "tempFlatDuration": 0,
+        "percentageExtra": 1.00,
+        "flatExtra": 0.00
+      },
+      "currency": {
+        "currencyPK": {
+          "currencyId": "VND"
+        }
+      }
+    },
+    "channel": "Agency"
+  }
+  */
   testcases;
   selectedTestcase;
 
@@ -317,14 +516,50 @@ export class InputComponent implements OnInit {
     ];
   }
 
+  updatePayload() {
+    let payload = this.selectedTestcase.payload;
+    console.log(payload)
+    payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
+
+    payload.fundActivities.fundActivity = [
+      {
+        "regularPayment": this.input.regularPayment,
+        "attainAge": this.input.insuredAge
+      },
+      {
+        "regularPayment": 0.00,
+        "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
+      },
+
+      {
+        "plannedPremium" : 7000.00,
+        "attainAge" :  + (+this.input.insuredAge + 5)
+      },
+      {
+        "plannedPremium" : 8000.00,
+        "attainAge" :  + (+this.input.insuredAge + 10)
+      }
+      /*
+      , {
+        "withdrawal" : 100000.00,
+        "attainAge" : + (+this.input.insuredAge + +this.input.duration - 2)
+      }*/
+    ];
+
+    console.log(payload)
+
+  }
+
   calculate() {
-    if(this.selectedTestcase.payload) {
+    this.updatePayload()
+    if (this.selectedTestcase.payload) {
       this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
     }
   }
 
   validate() {
-    if(this.selectedTestcase.payload) {
+    this.updatePayload()
+    if (this.selectedTestcase.payload) {
       this.pe.validate(this.selectedTestcase.payload);
     }
   }
@@ -334,5 +569,5 @@ export class InputComponent implements OnInit {
 
   }
 
- 
+
 }

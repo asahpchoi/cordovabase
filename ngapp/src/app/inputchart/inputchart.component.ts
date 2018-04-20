@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inputchart.component.css']
 })
 export class InputchartComponent implements OnInit {
-
+  tableView;
   constructor() { }
 
   ngOnInit() {

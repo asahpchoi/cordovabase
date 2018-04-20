@@ -30,6 +30,10 @@ import { DonutchartComponent } from './donutchart/donutchart.component';
 import { OccupationComponent } from './occupation/occupation.component';
 import { OccupationSearchComponent } from './occupation-search/occupation-search.component';
 import { SearchTextPipe } from './search-text.pipe';
+import { TableComponent } from './table/table.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatIconModule} from '@angular/material/icon';
+
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
   { path: 'funds', component: FundsComponent },
@@ -53,11 +57,13 @@ const appRoutes: Routes = [
     DonutchartComponent,
     OccupationComponent,
     OccupationSearchComponent,
-    SearchTextPipe
+    SearchTextPipe,
+    TableComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatSlideToggleModule,
     MatGridListModule,
     HttpClientModule,
     FlexLayoutModule,
@@ -68,7 +74,7 @@ const appRoutes: Routes = [
     FormsModule, ReactiveFormsModule,
     MatSliderModule,
     MatCardModule,
-
+MatIconModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only

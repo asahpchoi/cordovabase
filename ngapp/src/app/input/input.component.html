@@ -5,16 +5,29 @@
         <mat-option *ngFor="let o of testcases" [value]="o">{{o.name}}</mat-option>
       </mat-select>
     </mat-form-field>
+
     <div *ngIf="selectedTestcase && selectedTestcase.payload">
-      <mat-form-field>
-        <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.faceAmount" name="faceAmount" placeholder="face amount">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.plannedPremium" name="plannedPremium" placeholder="planned premium">
-      </mat-form-field>
+      <div>
+        <mat-form-field>
+          <input matInput required [(ngModel)]="input.insuredAge" name="insuredage" placeholder="Insured Age">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.faceAmount" name="faceAmount" placeholder="face amount">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.plannedPremium" name="plannedPremium" placeholder="planned premium">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Duration">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput required [(ngModel)]="input.regularPayment" name="regularpayment" placeholder="Regular Payment">
+        </mat-form-field>
+      </div>
     </div>
     <button mat-raised-button (click)="validate()">Validate</button>
     <button mat-raised-button (click)="calculate()">Get Projection</button>
   </form>
 </div>
- 

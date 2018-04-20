@@ -1,0 +1,21 @@
+<table *ngIf="ds">
+  <tr>
+    <th>Year/Age</th>
+    <th *ngFor="let c of columns">
+      {{c}}
+    </th>
+  </tr>
+  <tr *ngFor="let r of dt; let i = index">
+    <td>{{years[i]}} / {{ages[i]}}</td>
+    <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(columns[ci], ages[i]).component"
+    (click)="changeValue(columns[ci], ages[i] - 1)"
+    >
+      {{ formatValue(c) }}
+      <span *ngIf="cellType(columns[ci])!=''">
+        Edit
+      </span>
+    </td>
+  </tr>
+</table>
+
+{{input | json}}
