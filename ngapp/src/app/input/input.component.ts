@@ -529,15 +529,6 @@ export class InputComponent implements OnInit {
       {
         "regularPayment": 0.00,
         "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
-      },
-
-      {
-        "plannedPremium" : 7000.00,
-        "attainAge" :  + (+this.input.insuredAge + 5)
-      },
-      {
-        "plannedPremium" : 8000.00,
-        "attainAge" :  + (+this.input.insuredAge + 10)
       }
       /*
       , {
