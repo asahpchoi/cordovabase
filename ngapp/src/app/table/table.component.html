@@ -11,9 +11,6 @@
     (click)="changeValue(columns[ci], ages[i] - 1)"
     >
       {{ formatValue(c) }}
-      <span *ngIf="cellType(columns[ci])!=''">
-        Edit
-      </span>
     </td>
   </tr>
 </table>
