@@ -1,100 +1,136 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+
 import { PeService } from '../pe.service';
 import { Chart } from 'chart.js';
 import * as $ from 'jquery';
 import * as _ from 'lodash';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { NumpadComponent } from '../numpad/numpad.component';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
   ds;
+  showall = true;
+  rowStep = 5;
   isLoading = false;
   years = [];
   ages = [];
   dt = [];
   columns = [];
+  defaultCols = ['Year', 'Age', 'Account Value (LOW)', 'Account Value (MEDIUM)',
+    'Account Value (HIGH)',
+    'Withdrawal', 'Premium', 'Top-up Premium', 'Total Premium'];
   editableFields = [
     {
       name: "Withdrawal",
-      component: "numpad",
+      component: "NumpadComponent",
       activity: "withdrawal"
     },
     {
       name: "Premium",
-      component: "numpad2",
+      component: "NumpadComponent",
       activity: "plannedPremium"
     },
     {
       name: "Total Premium",
-      component: "numpad2",
+      component: "NumpadComponent",
       activity: "regularPayment"
     }
   ]
   input = {
-    fundActivities:[]
+    fundActivities: []
   }
+  editorOptions;
 
-
-  changeValue(colName, attainAge) {
-    let cellType : any = this.cellType(colName);
-    if(cellType != "") {
-      let number = prompt();
-      let fa = {
-        attainAge: attainAge
-      }
-      fa[cellType.activity] = number;
-      console.log(fa)
-      this.input.fundActivities.push(
-        fa
-      );
-    }
-    this.pe.updateFundActivities(this.input.fundActivities);
-    this.isLoading = true;
-    this.pe.callPE();
-    console.log(this.pe.request);
-  }
-  constructor(private pe: PeService) {
+  constructor(private pe: PeService,
+    public dialog: MatDialog
+  ) {
     pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
         this.ds = x;
+        this.resetColumns();
         this.setColumns();
         this.isLoading = false;
       }
     )
+
+
+  }
+
+  changeValue(colName, attainAge, value) {
+    let cellType: any = this.cellType(colName);
+    if (cellType != "") {
+
+      let dialogRef = this.dialog.open(NumpadComponent, {
+        width: '250px',
+        data: { number: value + '' }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+        let number = result;
+        let fa = {
+          attainAge: attainAge
+        }
+        fa[cellType.activity] = number;
+
+        this.input.fundActivities.push(
+          fa
+        );
+
+        this.pe.updateFundActivities(this.input.fundActivities);
+        this.isLoading = true;
+        this.pe.callPE();
+
+
+      });
+    }
+
   }
   cellType(colName) {
     let fieldConfig = this.editableFields.filter(
       f => f.name == colName
     )
 
-    if(fieldConfig.length > 0) {
+    if (fieldConfig.length > 0) {
       return fieldConfig[0];
     }
     return ""
   }
+  resetColumns() {
+    this.columns = this.ds.dataSets.map(
+      ds => {
+        return {
+          column: ds.label,
+          display: true
+        }
+      }
+    );
+  }
 
   setColumns() {
-    this.columns = this.ds.dataSets.map(
-      ds => ds.label
-    );
-
-    this.years = this.ds.dataSets.filter(
-      ds => ds.label == 'Year'
-    )[0].data
-
-    this.ages = this.ds.dataSets.filter(
-      ds => ds.label == 'Age'
-    )[0].data
-
-    this.columns.splice(0,2);
-
-
-
+   
+    if (!this.showall) {
+      this.columns = this.defaultCols.map(
+        d => {
+          return {
+            column: d,
+            display: true
+          }
+        }
+      )
+    }
     let ds = this.ds.dataSets.filter(
-      d => this.columns.includes(d.label)
+      d => {
+        let l = this.columns.filter(
+          c => c.column == d.label && c.display
+        ).length
+        return l > 0;
+      }
     ).map(
       d => d.data
     );
@@ -102,13 +138,17 @@ export class TableComponent implements OnInit {
     this.dt = _.zip(...ds);
 
   }
-
+  displayColumns() {
+    return this.columns.filter(
+      c => c.display
+    )
+  }
   formatValue(v) {
     if (_.isNumber(v)) {
       var value = v.toLocaleString(
         "vn-vn", // leave undefined to use the browser's locale,
         // or use a string like 'en-US' to override it.
-        { minimumFractionDigits: 0}
+        { minimumFractionDigits: 0 }
       )
       return value;
     }
@@ -117,8 +157,9 @@ export class TableComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    //this.input.fundActivities = this.pe.getFundActivities();
+  getRows(data) {
+    return data.filter((d, i) => i % this.rowStep == 0);
   }
+
 
 }

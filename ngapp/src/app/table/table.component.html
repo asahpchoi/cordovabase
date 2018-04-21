@@ -1,20 +1,22 @@
 <div *ngIf="isLoading">
-<mat-progress-bar mode="query"></mat-progress-bar></div>
+  <mat-progress-bar mode="query"></mat-progress-bar>
+</div>
+row steps
+<mat-form-field>
+  <mat-select [(value)]="rowStep">
+    <mat-option *ngFor="let i of [1, 5, 10]" [value]="i">{{i}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-slide-toggle (change)="showall=!showall; setColumns()">show all columns</mat-slide-toggle>
 <table *ngIf="ds">
   <tr>
-    <th>Year/Age</th>
-    <th *ngFor="let c of columns">
-      {{c}}
+    <th *ngFor="let c of displayColumns()">
+      {{c.column}}
     </th>
   </tr>
-  <tr *ngFor="let r of dt; let i = index">
-    <td>{{years[i]}} / {{ages[i]}}</td>
-    <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(columns[ci], ages[i]).component"
-    (click)="changeValue(columns[ci], ages[i] - 1)"
-    >
+  <tr *ngFor="let r of getRows(dt); let i = index">
+    <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(columns[ci].column).component" (click)="changeValue(columns[ci].column, r[1]-1, c)">
       {{ formatValue(c) }}
     </td>
   </tr>
 </table>
-
-{{input | json}}

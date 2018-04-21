@@ -227,7 +227,7 @@ export class InputComponent implements OnInit {
     "policyYearDate": "20180313070000",
     "policyExcludeSOS": "N",
     "language": "en_vn",
-    "enableDebug": true,
+    "enableDebug": false,
     "displayEOYOnly": false,
     "coverageInfo": {
       "startAnnuityAge": "0",
@@ -516,9 +516,16 @@ export class InputComponent implements OnInit {
     ];
   }
 
+  fachange() {
+    this.pe.premiumCalculation(this.selectedTestcase.payload).subscribe(
+      x => {
+        console.log(x)
+      }
+    )
+  }
   updatePayload() {
     let payload = this.selectedTestcase.payload;
-    console.log(payload)
+
     payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
 
     payload.fundActivities.fundActivity = [
@@ -537,7 +544,7 @@ export class InputComponent implements OnInit {
       }*/
     ];
 
-    console.log(payload)
+    //console.log(payload)
 
   }
 

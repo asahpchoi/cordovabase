@@ -100,11 +100,17 @@ export class PeService {
       );
   }
 
-
   calculate(req, productType) {
     this.request = req;
     this.productType = productType;
     this.callPE();
   }
 
+  premiumCalculation(req) {
+    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/calculatePremiums';
+    return this.http
+      .post(url, req)
+      .first();
+
+  }
 }

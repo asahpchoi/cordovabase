@@ -14,7 +14,8 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.faceAmount" name="faceAmount" placeholder="face amount">
+          <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.faceAmount" name="faceAmount"
+          (change)="fachange()" placeholder="face amount">
         </mat-form-field>
         <mat-form-field>
           <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.plannedPremium" name="plannedPremium" placeholder="planned premium">

@@ -34,6 +34,10 @@ import { TableComponent } from './table/table.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatIconModule} from '@angular/material/icon';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { NumpadComponent } from './numpad/numpad.component';
+
+
+
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
   { path: 'funds', component: FundsComponent },
@@ -58,7 +62,8 @@ const appRoutes: Routes = [
     OccupationComponent,
     OccupationSearchComponent,
     SearchTextPipe,
-    TableComponent
+    TableComponent,
+    NumpadComponent
   ],
   imports: [
     BrowserModule,
@@ -76,6 +81,7 @@ const appRoutes: Routes = [
     MatCardModule,
 MatIconModule,
 MatProgressBarModule,
+
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
@@ -83,6 +89,6 @@ MatProgressBarModule,
   ],
   providers: [PeService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogsampleComponent]
+  entryComponents: [DialogsampleComponent, NumpadComponent]
 })
 export class AppModule { }
