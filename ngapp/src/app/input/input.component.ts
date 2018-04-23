@@ -14,12 +14,10 @@ export class InputComponent implements OnInit {
     insuredAge: 29,
     regularPayment: 15000
   }
-  faceAmountCtrl = new FormControl("", [Validators.min(100000), Validators.required]);
-  plannedPremiumCtrl = new FormControl("", [Validators.min(7000), Validators.required]);
 
   ranges = {
     faceAmount: {
-      min: 100000,
+      min: 1000000,
       max: null
     },
     plannedPremium: {
@@ -27,6 +25,9 @@ export class InputComponent implements OnInit {
       max: null
     }
   }
+  faceAmountCtrl = new FormControl("", [Validators.min(this.ranges.faceAmount.min), Validators.required]);
+  plannedPremiumCtrl = new FormControl("", [Validators.min(this.ranges.plannedPremium.min), Validators.required]);
+
   ENC12 = {
     "watchPoints": [],
     "riders": {
@@ -509,7 +510,7 @@ export class InputComponent implements OnInit {
     this.pe.calculatePlannedPremiumRange007(this.selectedTestcase.payload.coverageInfo.faceAmount, this.input.insuredAge).
       subscribe(x => {
         let data: any = x;
-        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
+        this.ranges.plannedPremium.min = Math.max(7000,Math.round(data.value.minLimit));
         this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
         this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
       })
@@ -522,7 +523,7 @@ export class InputComponent implements OnInit {
     this.pe.calculateFaceAmountRange007(this.selectedTestcase.payload.coverageInfo.plannedPremium, this.input.insuredAge).
       subscribe(x => {
         let data: any = x;
-        this.ranges.faceAmount.min = Math.round(data.value.minLimit);
+        this.ranges.faceAmount.min = Math.max(1000000,Math.round(data.value.minLimit));
         this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
         this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
       })
@@ -554,7 +555,7 @@ export class InputComponent implements OnInit {
     ];
   }
 
- 
+
   updatePayload() {
     let payload = this.selectedTestcase.payload;
 

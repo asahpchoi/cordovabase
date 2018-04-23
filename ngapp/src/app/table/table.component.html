@@ -7,7 +7,8 @@ row steps
     <mat-option *ngFor="let i of [1, 5, 10]" [value]="i">{{i}}</mat-option>
   </mat-select>
 </mat-form-field>
-<mat-slide-toggle (change)="showall=!showall; setColumns()">show all columns</mat-slide-toggle>
+<button mat-raised-button (click)="showall = false;setColumns()">show selected Columns</button>
+
 <table *ngIf="ds">
   <tr>
     <th *ngFor="let c of displayColumns()">
