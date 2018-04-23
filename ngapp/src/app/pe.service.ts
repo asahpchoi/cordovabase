@@ -16,6 +16,42 @@ export class PeService {
   request = null;
   productType = null;
 
+  calculateFaceAmountRange007(plannedPremium, insuredAge) {
+    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculateFaceAmountRangeUL007';
+
+    let payload = {
+      "productId": "UL007",
+      "location": "Vietnam",
+      "channel": "Agency",
+      "insuredAge": insuredAge,
+      "plannedPremium": plannedPremium,
+      "paymentMode": "Annual",
+      "extraRating": null,
+      "currencyId": "VND"
+    }
+    return this.http
+      .post(url, payload)
+      .first();
+  }
+
+  calculatePlannedPremiumRange007(faceAmount, insuredAge) {
+    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculatePlannedPremiumRangeUL007';
+
+    let payload = {
+      "productId": "UL007",
+      "location": "Vietnam",
+      "channel": "Agency",
+      "insuredAge": insuredAge,
+      "faceAmount": faceAmount,
+      "paymentMode": "Annual",
+      "extraRating": null,
+      "currencyId": "VND"
+    }
+    return this.http
+      .post(url, payload)
+      .first();
+  }
+
   getRequestCopy() {
     return JSON.parse(JSON.stringify(this.request));
   }
@@ -58,10 +94,9 @@ export class PeService {
     this.http
       .post(url, req)
       .first()
-      .subscribe(r =>
-        {
-          this.validationSubject.next(r);
-        }
+      .subscribe(r => {
+        this.validationSubject.next(r);
+      }
       );
 
   }
@@ -72,31 +107,31 @@ export class PeService {
     this.http
       .post(url, this.request)
       .subscribe(
-      x => {
-        console.log(x)
-        let rs = x['projections'][0]['columns'].map(
-          c => {
-            return {
-              label: c['Name'],
-              data: c['Values'].map(
-                d => d.value
-              )
-            }
-          }
-        );
-
-        this.resultSubject.next(
-          {
-            labels: rs.filter(x => x.label == 'Year')[0].data.map(
-              (year, index) => {
-                return year + '/' + rs.filter(x => x.label == 'Age')[0].data[index];
+        x => {
+          console.log(x)
+          let rs = x['projections'][0]['columns'].map(
+            c => {
+              return {
+                label: c['Name'],
+                data: c['Values'].map(
+                  d => d.value
+                )
               }
-            ),
-            dataSets: rs,
-            validationResult: x['projections'][0].validationResult
-          }
-        )
-      }
+            }
+          );
+
+          this.resultSubject.next(
+            {
+              labels: rs.filter(x => x.label == 'Year')[0].data.map(
+                (year, index) => {
+                  return year + '/' + rs.filter(x => x.label == 'Age')[0].data[index];
+                }
+              ),
+              dataSets: rs,
+              validationResult: x['projections'][0].validationResult
+            }
+          )
+        }
       );
   }
 

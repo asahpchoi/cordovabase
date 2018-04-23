@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PeService } from '../pe.service';
 import { NgModel } from '@angular/forms';
-
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -13,6 +13,19 @@ export class InputComponent implements OnInit {
     duration: 15,
     insuredAge: 29,
     regularPayment: 15000
+  }
+  faceAmountCtrl = new FormControl("", [Validators.min(100000), Validators.required]);
+  plannedPremiumCtrl = new FormControl("", [Validators.min(7000), Validators.required]);
+
+  ranges = {
+    faceAmount: {
+      min: 100000,
+      max: null
+    },
+    plannedPremium: {
+      min: 7000,
+      max: null
+    }
   }
   ENC12 = {
     "watchPoints": [],
@@ -491,6 +504,31 @@ export class InputComponent implements OnInit {
   testcases;
   selectedTestcase;
 
+  updatePremiumRange() {
+    if (this.faceAmountCtrl.invalid) return
+    this.pe.calculatePlannedPremiumRange007(this.selectedTestcase.payload.coverageInfo.faceAmount, this.input.insuredAge).
+      subscribe(x => {
+        let data: any = x;
+        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
+        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
+        this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
+      })
+
+
+  }
+
+  updateFaceamountRange() {
+    if (this.plannedPremiumCtrl.invalid) return
+    this.pe.calculateFaceAmountRange007(this.selectedTestcase.payload.coverageInfo.plannedPremium, this.input.insuredAge).
+      subscribe(x => {
+        let data: any = x;
+        this.ranges.faceAmount.min = Math.round(data.value.minLimit);
+        this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
+        this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
+      })
+
+  }
+
   getKeys(obj) {
     return Object.keys(obj);
   }
@@ -516,13 +554,7 @@ export class InputComponent implements OnInit {
     ];
   }
 
-  fachange() {
-    this.pe.premiumCalculation(this.selectedTestcase.payload).subscribe(
-      x => {
-        console.log(x)
-      }
-    )
-  }
+ 
   updatePayload() {
     let payload = this.selectedTestcase.payload;
 
@@ -562,8 +594,8 @@ export class InputComponent implements OnInit {
     }
   }
 
-
   ngOnInit() {
+    console.log(this.ranges)
 
   }
 

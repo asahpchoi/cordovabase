@@ -14,12 +14,15 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.faceAmount" name="faceAmount"
-          (change)="fachange()" placeholder="face amount">
+          <input matInput [(ngModel)]="selectedTestcase.payload.coverageInfo.faceAmount" name="faceAmount" (change)="updatePremiumRange()" [formControl]="faceAmountCtrl" placeholder="face amount">
         </mat-form-field>
+        ({{ranges.faceAmount.min}} - {{ranges.faceAmount.max}})
         <mat-form-field>
-          <input matInput required [(ngModel)]="selectedTestcase.payload.coverageInfo.plannedPremium" name="plannedPremium" placeholder="planned premium">
+          <input matInput [(ngModel)]="selectedTestcase.payload.coverageInfo.plannedPremium" name="plannedPremium" (change)="updateFaceamountRange()" placeholder="planned premium" [formControl]="plannedPremiumCtrl">
         </mat-form-field>
+        ({{ranges.plannedPremium.min}} - {{ranges.plannedPremium.max}})
+      </div>
+      <div>
         <mat-form-field>
           <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Duration">
         </mat-form-field>
