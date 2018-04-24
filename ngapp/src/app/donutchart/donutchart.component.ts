@@ -22,7 +22,6 @@ export class DonutchartComponent implements OnInit {
     datasets: []
   };
 
-
   ngOnInit() {
     this.bs.subscribe(data => {
       if (data) {
@@ -35,7 +34,6 @@ export class DonutchartComponent implements OnInit {
 
 
   constructor() {
-
   }
 
   getDonutDS() {
@@ -79,7 +77,8 @@ export class DonutchartComponent implements OnInit {
           display: false
         }]
       },
-      'onClick': this.updateCenter
+      events: ['click'], // apo: remove touchstart & allow click only.
+      'onClick': this.updateCenter.bind(this)
     }
 
     if (this.donutChart) {
@@ -111,8 +110,9 @@ export class DonutchartComponent implements OnInit {
           ctx.shadowOffsetX = 0;
           ctx.shadowOffsetY = 0;
           ctx.beginPath();
+          let wid = 0.2 * easingValue;
+          if (wid > view.circumference/2) wid = view.circumference/2;
           let len = .2,
-              wid = 0.2*easingValue,
               ang = (view.endAngle+view.startAngle)/2,
               rad = view.innerRadius - (view.innerRadius*len*easingValue),
               start_ang = ang-wid,
@@ -122,19 +122,7 @@ export class DonutchartComponent implements OnInit {
           ctx.fill();
         },
         drawChart: function(easingValue) {
-          let ctx = this.chart.chart.ctx,
-              active = undefined;
-          if (this.chart.active && this.chart.active.length>0) {
-            active = this.chart.active[0];
-            if (this.activeElements.active!=active){
-              this.activeElements.last = this.activeElements.active;
-              this.activeElements.active = active;
-            }
-          }
-          else {
-            this.activeElements.last = this.activeElements.active;
-            this.activeElements.active = undefined;
-          }
+          let ctx = this.chart.chart.ctx;
           ctx.save();
           let scaledown = 1/this.highlightScaleUp;
           ctx.scale(scaledown, scaledown); // zoom out chart to prevent arc goes out of stage
@@ -143,11 +131,11 @@ export class DonutchartComponent implements OnInit {
             let vm = arc._view;
             if (this.activeElements.last && 
                 index==this.activeElements.last._index && 
-                (active && active._index!=this.activeElements.last._index)
+                (this.activeElements.active && this.activeElements.active._index!=this.activeElements.last._index)
             ) { // rollback last active element
               this.drawDonutArc(ctx, this.activeElements.last._model, 1-easingValue);
             }
-            else if (!active || index!=active._index) { // ignore active element
+            else if (!this.activeElements.active || index!=this.activeElements.active._index) { // ignore active element
               let vm = arc._view;
               ctx.fillStyle = vm.backgroundColor;  
               ctx.beginPath();
@@ -157,10 +145,21 @@ export class DonutchartComponent implements OnInit {
               ctx.fill();
             }
           });
-          if (active) this.drawDonutArc(ctx, active._model, easingValue); // active element always on top 
+          if (this.activeElements.active) this.drawDonutArc(ctx, this.activeElements.active._model, easingValue); // active element always on top 
           ctx.restore();
         },
         draw: function(easingValue) {
+          if (this.chart.active && this.chart.active.length>0) {
+            let active = this.chart.active[0];
+            if (this.activeElements.active!=active){
+              this.activeElements.last = this.activeElements.active;
+              this.activeElements.active = active;
+            }
+          }
+          else {
+            this.activeElements.last = this.activeElements.active;
+            this.activeElements.active = undefined;
+          }
           this.drawChart(easingValue);
         },
       });
@@ -171,18 +170,28 @@ export class DonutchartComponent implements OnInit {
           options: donutChartOption
         }
       );
+      // this.setChartHighlight(1); //test: highlight segment when init
       // --- apo: code end ---
     }
   }
 
-  updateCenter(event,item) {
-    let chart: any = this;
+  //setChartHighlight: set active element by Index dynamically
+  setChartHighlight(index) { 
+    let element = this.donutChart.data.datasets[0]._meta[0].data[index];
+    this.donutChart.active = [element]; 
+    this.donutChart.updateHoverStyle(this.donutChart.active, null, true);
+    this.donutChart.render(); 
+  }
 
-    if (chart.active.length > 0) {
-      let active = chart.active[0];
+  updateCenter(event,items) {
+    let chart: any = this.donutChart;
+
+    if (items.length > 0) {
+      let active = items[0];
 
       //get the internal index of slice in pie chart
       let clickedElementindex = active["_index"];
+      // this.setChartHighlight(clickedElementindex);
 
       //get specific label by index
       let label = chart.data.labels[clickedElementindex];
