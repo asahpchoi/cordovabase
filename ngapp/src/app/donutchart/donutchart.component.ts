@@ -79,6 +79,7 @@ export class DonutchartComponent implements OnInit {
           display: false
         }]
       },
+      events: ['click'], // apo: remove touchstart & allow click only.
       'onClick': this.updateCenter
     }
 
@@ -121,20 +122,15 @@ export class DonutchartComponent implements OnInit {
           ctx.lineTo(view.x+ Math.cos(ang) *rad, view.y + Math.sin(ang) * rad);
           ctx.fill();
         },
-        drawChart: function(easingValue) {
-          let ctx = this.chart.chart.ctx,
-              active = undefined;
-          if (this.chart.active && this.chart.active.length>0) {
-            active = this.chart.active[0];
-            if (this.activeElements.active!=active){
-              this.activeElements.last = this.activeElements.active;
-              this.activeElements.active = active;
-            }
-          }
-          else {
+        updateActive: function(active) {
+          console.log(active);
+          if (this.activeElements.active!=active){
             this.activeElements.last = this.activeElements.active;
-            this.activeElements.active = undefined;
+            this.activeElements.active = active;
           }
+        },
+        drawChart: function(easingValue) {
+          let ctx = this.chart.chart.ctx;
           ctx.save();
           let scaledown = 1/this.highlightScaleUp;
           ctx.scale(scaledown, scaledown); // zoom out chart to prevent arc goes out of stage
@@ -143,11 +139,11 @@ export class DonutchartComponent implements OnInit {
             let vm = arc._view;
             if (this.activeElements.last && 
                 index==this.activeElements.last._index && 
-                (active && active._index!=this.activeElements.last._index)
+                (this.activeElements.active && this.activeElements.active._index!=this.activeElements.last._index)
             ) { // rollback last active element
               this.drawDonutArc(ctx, this.activeElements.last._model, 1-easingValue);
             }
-            else if (!active || index!=active._index) { // ignore active element
+            else if (!this.activeElements.active || index!=this.activeElements.active._index) { // ignore active element
               let vm = arc._view;
               ctx.fillStyle = vm.backgroundColor;  
               ctx.beginPath();
@@ -157,10 +153,21 @@ export class DonutchartComponent implements OnInit {
               ctx.fill();
             }
           });
-          if (active) this.drawDonutArc(ctx, active._model, easingValue); // active element always on top 
+          if (this.activeElements.active) this.drawDonutArc(ctx, this.activeElements.active._model, easingValue); // active element always on top 
           ctx.restore();
         },
         draw: function(easingValue) {
+          if (this.chart.active && this.chart.active.length>0) {
+            let active = this.chart.active[0];
+            if (this.activeElements.active!=active){
+              this.activeElements.last = this.activeElements.active;
+              this.activeElements.active = active;
+            }
+          }
+          else {
+            this.activeElements.last = this.activeElements.active;
+            this.activeElements.active = undefined;
+          }
           this.drawChart(easingValue);
         },
       });
@@ -175,8 +182,9 @@ export class DonutchartComponent implements OnInit {
     }
   }
 
-  updateCenter(event,item) {
+  updateCenter(event,items) {
     let chart: any = this;
+    //chart.active = items; //apo: set active elements dynamically
 
     if (chart.active.length > 0) {
       let active = chart.active[0];
