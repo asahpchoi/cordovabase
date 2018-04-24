@@ -22,7 +22,6 @@ export class DonutchartComponent implements OnInit {
     datasets: []
   };
 
-
   ngOnInit() {
     this.bs.subscribe(data => {
       if (data) {
@@ -35,7 +34,6 @@ export class DonutchartComponent implements OnInit {
 
 
   constructor() {
-
   }
 
   getDonutDS() {
@@ -80,7 +78,7 @@ export class DonutchartComponent implements OnInit {
         }]
       },
       events: ['click'], // apo: remove touchstart & allow click only.
-      'onClick': this.updateCenter
+      'onClick': this.updateCenter.bind(this)
     }
 
     if (this.donutChart) {
@@ -112,8 +110,9 @@ export class DonutchartComponent implements OnInit {
           ctx.shadowOffsetX = 0;
           ctx.shadowOffsetY = 0;
           ctx.beginPath();
+          let wid = 0.2 * easingValue;
+          if (wid > view.circumference/2) wid = view.circumference/2;
           let len = .2,
-              wid = 0.2*easingValue,
               ang = (view.endAngle+view.startAngle)/2,
               rad = view.innerRadius - (view.innerRadius*len*easingValue),
               start_ang = ang-wid,
@@ -121,13 +120,6 @@ export class DonutchartComponent implements OnInit {
           ctx.arc(view.x, view.y, view.innerRadius, start_ang, end_ang);
           ctx.lineTo(view.x+ Math.cos(ang) *rad, view.y + Math.sin(ang) * rad);
           ctx.fill();
-        },
-        updateActive: function(active) {
-          console.log(active);
-          if (this.activeElements.active!=active){
-            this.activeElements.last = this.activeElements.active;
-            this.activeElements.active = active;
-          }
         },
         drawChart: function(easingValue) {
           let ctx = this.chart.chart.ctx;
@@ -178,19 +170,28 @@ export class DonutchartComponent implements OnInit {
           options: donutChartOption
         }
       );
+      // this.setChartHighlight(1); //test: highlight segment when init
       // --- apo: code end ---
     }
   }
 
-  updateCenter(event,items) {
-    let chart: any = this;
-    //chart.active = items; //apo: set active elements dynamically
+  //setChartHighlight: set active element by Index dynamically
+  setChartHighlight(index) { 
+    let element = this.donutChart.data.datasets[0]._meta[0].data[index];
+    this.donutChart.active = [element]; 
+    this.donutChart.updateHoverStyle(this.donutChart.active, null, true);
+    this.donutChart.render(); 
+  }
 
-    if (chart.active.length > 0) {
-      let active = chart.active[0];
+  updateCenter(event,items) {
+    let chart: any = this.donutChart;
+
+    if (items.length > 0) {
+      let active = items[0];
 
       //get the internal index of slice in pie chart
       let clickedElementindex = active["_index"];
+      // this.setChartHighlight(clickedElementindex);
 
       //get specific label by index
       let label = chart.data.labels[clickedElementindex];
