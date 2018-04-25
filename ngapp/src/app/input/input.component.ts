@@ -12,12 +12,12 @@ export class InputComponent implements OnInit {
   input = {
     duration: 15,
     insuredAge: 29,
-    faceAmount: 0,
-    plannedPremium: 0,
-    regularPayment: 0,
+    faceAmount: null,
+    plannedPremium: null,
+    regularPayment: null,
     term: {
-      faceAmount: 0,
-      plannedPremium: 0,
+      faceAmount: null,
+      plannedPremium: null,
     },
     paymentMode : 'Annual'
   }
