@@ -36,6 +36,7 @@ export class InputComponent implements OnInit {
   }
   faceAmountCtrl = new FormControl("", [Validators.min(this.ranges.faceAmount.min), Validators.required]);
   plannedPremiumCtrl = new FormControl("", [Validators.min(this.ranges.plannedPremium.min), Validators.required]);
+  regularPaymentCtrl = new FormControl("", [Validators.required]);
 
   testcases;
   selectedTestcase;
@@ -49,6 +50,7 @@ export class InputComponent implements OnInit {
         this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
         this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
         this.input.plannedPremium = Math.round(data.value.defPremium);
+        this.updateRegularPayment();
         //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
       })
   }
@@ -63,6 +65,8 @@ export class InputComponent implements OnInit {
         this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
         //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
       })
+    this.updateRegularPayment();
+
   }
 
   getKeys(obj) {
@@ -99,7 +103,7 @@ export class InputComponent implements OnInit {
         console.log(data);
         //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
         this.input.term.plannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium
-
+        this.updateRegularPayment();
       }
     )
   }
@@ -107,6 +111,11 @@ export class InputComponent implements OnInit {
     this.updateTermFaceAmount();
     this.updateBaseProtection();
     this.updateBasePremium();
+  }
+
+  updateRegularPayment() {
+    this.regularPaymentCtrl.setValidators([Validators.min(this.input.regularPayment), Validators.required]);
+    this.input.regularPayment = this.input.plannedPremium + this.input.term.plannedPremium;
   }
 
   updatePayload() {

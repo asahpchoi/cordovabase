@@ -35,7 +35,7 @@
           <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Duration">
         </mat-form-field>
         <mat-form-field>
-          <input matInput required [(ngModel)]="input.regularPayment" name="regularpayment" placeholder="Regular Payment">
+          <input matInput required [(ngModel)]="input.regularPayment" name="regularpayment" placeholder="Regular Payment" [formControl]="regularPaymentCtrl" >
         </mat-form-field>
         <mat-form-field>
           <mat-select placeholder="Payment mode" [(value)]="input.paymentMode" (change)="updatePaymentMode()">
