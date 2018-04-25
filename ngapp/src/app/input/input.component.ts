@@ -96,6 +96,11 @@ export class InputComponent implements OnInit {
   }
 
   updateTermFaceAmount() {
+    if(this.input.term.faceAmount == 0) {
+      this.input.term.plannedPremium = 0;
+      this.updateRegularPayment();
+      return;
+    }
     this.updatePayload();
     this.pe.premiumCalculation(this.selectedTestcase.payload).subscribe(
       d => {
