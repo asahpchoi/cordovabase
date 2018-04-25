@@ -19,6 +19,14 @@ export class FundsComponent {
     labels: [],
     datasets: []
   };
+  fundName = {
+    fund1: 'Aggressive',
+    fund2: 'Growth',
+    fund3: 'Balanced',
+    fund4: 'Diversified',
+    fund5: 'Fixed Income',
+    fund6: 'Money Market',
+  }
   funds = {
     fund1: 0,
     fund2: 20,

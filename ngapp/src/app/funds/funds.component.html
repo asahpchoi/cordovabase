@@ -4,7 +4,7 @@
     <mat-grid-list cols="7" class="container">
       <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
         <mat-grid-tile colspan=2 class="legend" [ngStyle]="{'background-color': colors[i]}">
-          {{f}}
+          {{fundName[f]}}
         </mat-grid-tile>
         <mat-grid-tile>{{fundROI[f][0]}}
         </mat-grid-tile>
