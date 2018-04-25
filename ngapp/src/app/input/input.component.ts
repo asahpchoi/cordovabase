@@ -114,8 +114,8 @@ export class InputComponent implements OnInit {
   }
 
   updateRegularPayment() {
+    this.input.regularPayment = +this.input.plannedPremium + +this.input.term.plannedPremium;
     this.regularPaymentCtrl.setValidators([Validators.min(this.input.regularPayment), Validators.required]);
-    this.input.regularPayment = this.input.plannedPremium + this.input.term.plannedPremium;
   }
 
   updatePayload() {
@@ -125,7 +125,10 @@ export class InputComponent implements OnInit {
     payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
     payload.coverageInfo.plannedPremium = this.input.plannedPremium;
     payload.coverageInfo.faceAmount = this.input.faceAmount;
-    payload.riders.coverageInfo["0"].faceAmount = this.input.term.faceAmount;
+    if(this.input.term.faceAmount != 0) {
+      payload.riders.coverageInfo["0"].faceAmount = this.input.term.faceAmount;
+    }
+
     payload.coverageInfo.options.paymentMode = this.input.paymentMode.substring(0, 1);
     //A S M Q
     console.log('payload', payload)
