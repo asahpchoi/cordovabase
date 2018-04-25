@@ -1,7 +1,6 @@
 <mat-grid-list cols="3" rowHeight="2:1">
   <mat-grid-tile rowspan=4>
-
-    <mat-grid-list cols="7" class="container">
+    <mat-grid-list cols="9" class="container">
       <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
         <mat-grid-tile colspan=2 class="legend" [ngStyle]="{'background-color': colors[i]}">
           {{fundName[f]}}
@@ -10,10 +9,10 @@
         </mat-grid-tile>
         <mat-grid-tile>{{fundROI[f][1]}}
         </mat-grid-tile>
-        <mat-grid-tile colspan=3>
+        <mat-grid-tile colspan=5 >
           <mat-form-field>
-            <mat-select placeholder="" [(value)]="funds[f]" (change)="updateCharts()">
-              <mat-option *ngFor="let fund of getOptions(funds[f])" [value]="fund">
+            <mat-select placeholder="" [(value)]="input.funds[f]" (change)="updateCharts()">
+              <mat-option *ngFor="let fund of getOptions(input.funds[f])" [value]="fund">
                 {{ fund }}
               </mat-option>
             </mat-select>

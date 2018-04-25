@@ -21,9 +21,7 @@ canvas {
   position: absolute;
 }
 
-mat-select {
-  width: 100px;
-}
+ 
 .funddiv {
   display: flex;
   flex-wrap: wrap;

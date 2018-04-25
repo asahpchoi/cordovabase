@@ -19,39 +19,43 @@ export class FundsComponent {
     labels: [],
     datasets: []
   };
+
+
   fundName = {
-    fund1: 'Aggressive',
-    fund2: 'Growth',
-    fund3: 'Balanced',
-    fund4: 'Diversified',
-    fund5: 'Fixed Income',
-    fund6: 'Money Market',
+    VNAGR: 'Aggressive',
+    VNGRW: 'Growth',
+    VNBAL: 'Balanced',
+    VNDIV: 'Diversified',
+    VNFIX: 'Fixed Income',
+    VNMMK: 'Money Market',
   }
-  funds = {
-    fund1: 0,
-    fund2: 20,
-    fund3: 30,
-    fund4: 10,
-    fund5: 0,
-    fund6: 0
+  input = {
+    funds: {
+      VNAGR: 0,
+      VNGRW: 20,
+      VNBAL: 30,
+      VNDIV: 10,
+      VNFIX: 0,
+      VNMMK: 0
+    }
   }
   fundROI = {
-    fund1: [3, 4],
-    fund2: [4, 10],
-    fund3: [3, 7],
-    fund4: [6, 7],
-    fund5: [2, 5],
-    fund6: [3, 7]
+    VNAGR: [6,10],
+    VNGRW: [5,8.5],
+    VNBAL: [4,6],
+    VNDIV: [3.5,7],
+    VNFIX: [3,6],
+    VNMMK: [2,4],
   }
-  fundsBS: BehaviorSubject<any> = new BehaviorSubject(this.funds);
+  fundsBS: BehaviorSubject<any> = new BehaviorSubject(this.input.funds);
   colors = ['lightblue', 'lightgreen', 'lightpink', 'RosyBrown', 'LightSalmon', 'MediumAquaMarine']
   agAllocation = [0, 0];
 
   updateAggAllocaiton() {
     this.agAllocation = [0, 0];
-    Object.keys(this.funds).forEach(f => {
-      this.agAllocation[0] += this.fundROI[f][0] * this.funds[f] / this.getTotalFunds();
-      this.agAllocation[1] += this.fundROI[f][1] * this.funds[f] / this.getTotalFunds();
+    Object.keys(this.input.funds).forEach(f => {
+      this.agAllocation[0] += this.fundROI[f][0] * this.input.funds[f] / this.getTotalFunds();
+      this.agAllocation[1] += this.fundROI[f][1] * this.input.funds[f] / this.getTotalFunds();
     })
     this.agAllocation = this.agAllocation.map(
       a => Math.round(a * 1000) / 1000
@@ -60,7 +64,7 @@ export class FundsComponent {
   }
 
   getTotalFunds() {
-    return Object.values(this.funds).reduce((a, b) => a + b, 0)
+    return Object.values(this.input.funds).reduce((a, b) => a + b, 0)
   }
 
   getOptions(value) {
@@ -73,17 +77,17 @@ export class FundsComponent {
   }
 
   getfunds() {
-    return Object.keys(this.funds);
+    return Object.keys(this.input.funds);
   }
 
   getDS() {
-    let ds = Object.keys(this.funds).map(
+    let ds = Object.keys(this.input.funds).map(
       (x, i) => {
         return {
           label: x,
           backgroundColor: this.colors[i],
           stack: '0',
-          data: [this.funds[x]]
+          data: [this.input.funds[x]]
         }
       }
     )
@@ -105,7 +109,7 @@ export class FundsComponent {
   updateCharts() {
     this.updateChart();
     this.updateAggAllocaiton();
-    this.fundsBS.next(this.funds);
+    this.fundsBS.next(this.input.funds);
 
   }
   updateChart() {
