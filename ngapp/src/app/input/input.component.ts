@@ -18,10 +18,11 @@ export class InputComponent implements OnInit {
     term: {
       faceAmount: 0,
       plannedPremium: 0,
-    }
+    },
+    paymentMode : 'Annual'
   }
 
-  paymentMode = 'Annual';
+
 
   ranges = {
     faceAmount: {
@@ -41,7 +42,7 @@ export class InputComponent implements OnInit {
 
   updateBaseProtection() {
     if (this.faceAmountCtrl.invalid) return
-    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.paymentMode).
+    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
       subscribe(x => {
         let data: any = x;
         console.log('premium range', data)
@@ -54,7 +55,7 @@ export class InputComponent implements OnInit {
 
   updateBasePremium() {
     if (this.plannedPremiumCtrl.invalid) return
-    this.pe.calculateFaceAmountRange007(this.input.plannedPremium, this.input.insuredAge, this.paymentMode).
+    this.pe.calculateFaceAmountRange007(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
       subscribe(x => {
         let data: any = x;
         console.log('fa range', data)
@@ -94,29 +95,29 @@ export class InputComponent implements OnInit {
     this.updatePayload();
     this.pe.premiumCalculation(this.selectedTestcase.payload).subscribe(
       d => {
-        let data:any = d;
-                console.log(data);
+        let data: any = d;
+        console.log(data);
         //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
-        this.input.term.plannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
+        this.input.term.plannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium
 
       }
     )
   }
   updatePaymentMode() {
-      this.updateTermFaceAmount();
-      this.updateBasePremium();
-      this.updateBaseProtection();
+    this.updateTermFaceAmount();
+    this.updateBaseProtection();
+    this.updateBasePremium();
   }
 
   updatePayload() {
-    if(!this.selectedTestcase) return;
+    if (!this.selectedTestcase) return;
     let payload = this.selectedTestcase.payload;
 
     payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
     payload.coverageInfo.plannedPremium = this.input.plannedPremium;
     payload.coverageInfo.faceAmount = this.input.faceAmount;
     payload.riders.coverageInfo["0"].faceAmount = this.input.term.faceAmount;
-    payload.coverageInfo.options.paymentMode = this.paymentMode.substring(0,1);
+    payload.coverageInfo.options.paymentMode = this.input.paymentMode.substring(0, 1);
     //A S M Q
     console.log('payload', payload)
     payload.fundActivities.fundActivity = [
@@ -136,7 +137,9 @@ export class InputComponent implements OnInit {
   }
 
   calculate() {
+
     this.updatePayload()
+
     if (this.selectedTestcase.payload) {
       this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
     }
@@ -367,31 +370,31 @@ export class InputComponent implements OnInit {
     "language": "en_vn",
     "enableDebug": false,
     "displayEOYOnly": false,
-    "riders" : {
-      "coverageInfo" : [ {
-        "product" : {
-          "productKey" : {
-            "valueDate" : "20180313070000",
-            "location" : "VN",
-            "basicProduct" : {
-              "productPK" : {
-                "productId" : "--"
+    "riders": {
+      "coverageInfo": [{
+        "product": {
+          "productKey": {
+            "valueDate": "20180313070000",
+            "location": "VN",
+            "basicProduct": {
+              "productPK": {
+                "productId": "--"
               }
             },
-            "associateProduct" : {
-              "productPK" : {
-                "productId" : "UL007"
+            "associateProduct": {
+              "productPK": {
+                "productId": "UL007"
               }
             },
-            "primaryProduct" : {
-              "productPK" : {
-                "productId" : "TRI07"
+            "primaryProduct": {
+              "productPK": {
+                "productId": "TRI07"
               }
             }
           }
         },
-        "parties" : {
-          "party" : {
+        "parties": {
+          "party": {
             "type": "BASIC",
             "smokingStatus": "NS",
             "insuredSex": "M",
@@ -400,17 +403,17 @@ export class InputComponent implements OnInit {
             "birthDate": "19890101070000"
           }
         },
-        "faceAmount" : null,
-        "extraRating" : {
-          "tempPercentage" : 1.00,
-          "percentageExtra" : 1.00
+        "faceAmount": null,
+        "extraRating": {
+          "tempPercentage": 1.00,
+          "percentageExtra": 1.00
         },
-        "currency" : {
-          "currencyPK" : {
-            "currencyId" : "VND"
+        "currency": {
+          "currencyPK": {
+            "currencyId": "VND"
           }
         }
-      } ]
+      }]
     },
     "coverageInfo": {
       "startAnnuityAge": "0",

@@ -141,7 +141,7 @@ export class TableComponent {
     ).map(
       d => d.data
       );
-    let cs =  this.addColumns("","");
+    //let cs =  this.addColumns("","");
     this.dt = _.zip(...ds);
 
   }

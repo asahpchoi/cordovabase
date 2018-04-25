@@ -1,28 +1,41 @@
-
-
-
 <mat-grid-list cols="3" rowHeight="2:1">
   <mat-grid-tile rowspan=4>
-    <div class="container">
-    <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
 
-      <div class="legend" [ngStyle]="{'background-color': colors[i]}">
+    <mat-grid-list cols="5" class="container" rowHeight="2:1">
+      <div *ngFor="let f of getfunds() ;  let i = index" class="funddiv">
+        <mat-grid-tile class="legend" [ngStyle]="{'background-color': colors[i]}">
+          {{f}}
+        </mat-grid-tile>
+        <mat-grid-tile>{{fundROI[f][0]}}
+        </mat-grid-tile>
+        <mat-grid-tile>{{fundROI[f][1]}}
+        </mat-grid-tile>
+        <mat-grid-tile colspan=2>
+          <mat-form-field>
+            <mat-select placeholder="" [(value)]="funds[f]" (change)="updateCharts()">
+              <mat-option *ngFor="let fund of getOptions(funds[f])" [value]="fund">
+                {{ fund }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
       </div>
-      {{f}} :
-      <mat-form-field>
-        <mat-select placeholder="" [(value)]="funds[f]" (change)="updateCharts()">
-          <mat-option *ngFor="let fund of getOptions(funds[f])" [value]="fund">
-            {{ fund }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    </div>
+      <mat-grid-tile>
+        Aggregated ROI
+      </mat-grid-tile>
+      <mat-grid-tile>{{agAllocation[0]}}
+      </mat-grid-tile>
+      <mat-grid-tile>{{agAllocation[1]}}
+      </mat-grid-tile>
+    </mat-grid-list>
+
   </mat-grid-tile>
-  <mat-grid-tile colspan=2><div class="total">Total: {{getTotalFunds()}}</div></mat-grid-tile>
+  <mat-grid-tile colspan=2>
+    <div class="total">Total: {{getTotalFunds()}}</div>
+  </mat-grid-tile>
   <mat-grid-tile colspan=2 rowspan=2>
     <app-donutchart [bs]="fundsBS"></app-donutchart>
- </mat-grid-tile>
+  </mat-grid-tile>
   <mat-grid-tile colspan=2><canvas id="canvas"></canvas></mat-grid-tile>
-
 </mat-grid-list>
+ 

@@ -10,13 +10,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 })
 export class FundsComponent {
   barChart;
-
-
   barChartData = {
     labels: [],
     datasets: []
   };
-
   donutChart;
   donutChartData = {
     labels: [],
@@ -30,8 +27,29 @@ export class FundsComponent {
     fund5: 0,
     fund6: 0
   }
-fundsBS : BehaviorSubject<any> = new BehaviorSubject(this.funds);
+  fundROI = {
+    fund1: [3, 4],
+    fund2: [4, 10],
+    fund3: [3, 7],
+    fund4: [6, 7],
+    fund5: [2, 5],
+    fund6: [3, 7]
+  }
+  fundsBS: BehaviorSubject<any> = new BehaviorSubject(this.funds);
   colors = ['lightblue', 'lightgreen', 'lightpink', 'RosyBrown', 'LightSalmon', 'MediumAquaMarine']
+  agAllocation = [0, 0];
+
+  updateAggAllocaiton() {
+    this.agAllocation = [0, 0];
+    Object.keys(this.funds).forEach(f => {
+      this.agAllocation[0] += this.fundROI[f][0] * this.funds[f] / this.getTotalFunds();
+      this.agAllocation[1] += this.fundROI[f][1] * this.funds[f] / this.getTotalFunds();
+    })
+    this.agAllocation = this.agAllocation.map(
+      a => Math.round(a * 1000) / 1000
+    )
+    return this.agAllocation;
+  }
 
   getTotalFunds() {
     return Object.values(this.funds).reduce((a, b) => a + b, 0)
@@ -78,6 +96,7 @@ fundsBS : BehaviorSubject<any> = new BehaviorSubject(this.funds);
 
   updateCharts() {
     this.updateChart();
+    this.updateAggAllocaiton();
     this.fundsBS.next(this.funds);
 
   }
@@ -93,13 +112,15 @@ fundsBS : BehaviorSubject<any> = new BehaviorSubject(this.funds);
       },
       responsive: false,
       scales: {
-          xAxes: [{display: false,
-            barThickness:20
-                  }],
-          yAxes: [{display: false,
-            barThickness:20
-                  }]
-          }
+        xAxes: [{
+          display: false,
+          barThickness: 20
+        }],
+        yAxes: [{
+          display: false,
+          barThickness: 20
+        }]
+      }
     }
 
     if (this.barChart) {

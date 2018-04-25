@@ -38,7 +38,7 @@
           <input matInput required [(ngModel)]="input.regularPayment" name="regularpayment" placeholder="Regular Payment">
         </mat-form-field>
         <mat-form-field>
-          <mat-select placeholder="Payment mode" [(value)]="paymentMode" (change)="updatePaymentMode()">
+          <mat-select placeholder="Payment mode" [(value)]="input.paymentMode" (change)="updatePaymentMode()">
             <mat-option *ngFor="let o of ['Annual','Semi-Annual','Quarterly','Monthly']" [value]="o">{{o}}</mat-option>
           </mat-select>
         </mat-form-field>
