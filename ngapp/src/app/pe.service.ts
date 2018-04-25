@@ -16,7 +16,7 @@ export class PeService {
   request = null;
   productType = null;
 
-  calculateFaceAmountRange007(plannedPremium, insuredAge) {
+  calculateFaceAmountRange007(plannedPremium, insuredAge, paymentMode) {
     let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculateFaceAmountRangeUL007';
 
     let payload = {
@@ -25,7 +25,7 @@ export class PeService {
       "channel": "Agency",
       "insuredAge": insuredAge,
       "plannedPremium": plannedPremium,
-      "paymentMode": "Annual",
+      "paymentMode": paymentMode,
       "extraRating": null,
       "currencyId": "VND"
     }
@@ -34,7 +34,7 @@ export class PeService {
       .first();
   }
 
-  calculatePlannedPremiumRange007(faceAmount, insuredAge) {
+  calculatePlannedPremiumRange007(faceAmount, insuredAge, paymentMode) {
     let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
@@ -43,7 +43,7 @@ export class PeService {
       "channel": "Agency",
       "insuredAge": insuredAge,
       "faceAmount": faceAmount,
-      "paymentMode": "Annual",
+      "paymentMode": paymentMode,
       "extraRating": null,
       "currencyId": "VND"
     }
@@ -146,6 +146,5 @@ export class PeService {
     return this.http
       .post(url, req)
       .first();
-
   }
 }

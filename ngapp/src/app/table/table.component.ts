@@ -112,8 +112,15 @@ export class TableComponent {
     );
   }
 
+  addColumns(c1, c2) {
+    let r1  = this.ds.dataSets.filter(d => d.label == c1)[0];
+    let r2  = this.ds.dataSets.filter(d => d.label == c2)[0];
+    let r3 = r1.forEach((d, i) => +d + +r2[i]);
+
+    return r3;
+  }
+
   setColumns() {
-   
     if (!this.showall) {
       this.columns = this.defaultCols.map(
         d => {
@@ -133,8 +140,8 @@ export class TableComponent {
       }
     ).map(
       d => d.data
-    );
-
+      );
+    let cs =  this.addColumns("","");
     this.dt = _.zip(...ds);
 
   }
@@ -148,7 +155,9 @@ export class TableComponent {
       var value = v.toLocaleString(
         "vn-vn", // leave undefined to use the browser's locale,
         // or use a string like 'en-US' to override it.
-        { minimumFractionDigits: 0 }
+        {
+          minimumFractionDigits: 0
+        }
       )
       return value;
     }

@@ -12,8 +12,16 @@ export class InputComponent implements OnInit {
   input = {
     duration: 15,
     insuredAge: 29,
-    regularPayment: 15000
+    faceAmount: 0,
+    plannedPremium: 0,
+    regularPayment: 0,
+    term: {
+      faceAmount: 0,
+      plannedPremium: 0,
+    }
   }
+
+  paymentMode = 'Annual';
 
   ranges = {
     faceAmount: {
@@ -27,6 +35,124 @@ export class InputComponent implements OnInit {
   }
   faceAmountCtrl = new FormControl("", [Validators.min(this.ranges.faceAmount.min), Validators.required]);
   plannedPremiumCtrl = new FormControl("", [Validators.min(this.ranges.plannedPremium.min), Validators.required]);
+
+  testcases;
+  selectedTestcase;
+
+  updateBaseProtection() {
+    if (this.faceAmountCtrl.invalid) return
+    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.paymentMode).
+      subscribe(x => {
+        let data: any = x;
+        console.log('premium range', data)
+        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
+        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
+        this.input.plannedPremium = Math.round(data.value.defPremium);
+        //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
+      })
+  }
+
+  updateBasePremium() {
+    if (this.plannedPremiumCtrl.invalid) return
+    this.pe.calculateFaceAmountRange007(this.input.plannedPremium, this.input.insuredAge, this.paymentMode).
+      subscribe(x => {
+        let data: any = x;
+        console.log('fa range', data)
+        this.ranges.faceAmount.min = Math.max(1000000, Math.round(data.value.minLimit));
+        this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
+        //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
+      })
+  }
+
+  getKeys(obj) {
+    return Object.keys(obj);
+  }
+
+  constructor(private pe: PeService) {
+    this.testcases = [
+      {
+        name: 'UL007',
+        payload: this.UL007,
+        productType: 'UL'
+      }
+      ,
+      {
+        name: 'ENC12',
+        payload: this.ENC12,
+        productType: 'CI'
+      },
+
+      {
+        name: 'ADD03',
+        payload: this.ADD03,
+        productType: 'UVL'
+      }
+    ];
+  }
+
+  updateTermFaceAmount() {
+    this.updatePayload();
+    this.pe.premiumCalculation(this.selectedTestcase.payload).subscribe(
+      d => {
+        let data:any = d;
+                console.log(data);
+        //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
+        this.input.term.plannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
+
+      }
+    )
+  }
+  updatePaymentMode() {
+      this.updateTermFaceAmount();
+      this.updateBasePremium();
+      this.updateBaseProtection();
+  }
+
+  updatePayload() {
+    if(!this.selectedTestcase) return;
+    let payload = this.selectedTestcase.payload;
+
+    payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
+    payload.coverageInfo.plannedPremium = this.input.plannedPremium;
+    payload.coverageInfo.faceAmount = this.input.faceAmount;
+    payload.riders.coverageInfo["0"].faceAmount = this.input.term.faceAmount;
+    payload.coverageInfo.options.paymentMode = this.paymentMode.substring(0,1);
+    //A S M Q
+    console.log('payload', payload)
+    payload.fundActivities.fundActivity = [
+      {
+        "regularPayment": this.input.regularPayment,
+        "attainAge": this.input.insuredAge
+      },
+      {
+        "regularPayment": 0.00,
+        "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
+      }
+
+    ];
+
+    //console.log(payload)
+
+  }
+
+  calculate() {
+    this.updatePayload()
+    if (this.selectedTestcase.payload) {
+      this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
+    }
+  }
+
+  validate() {
+    this.updatePayload()
+    if (this.selectedTestcase.payload) {
+      this.pe.validate(this.selectedTestcase.payload);
+    }
+  }
+
+  ngOnInit() {
+    console.log(this.ranges)
+
+  }
 
   ENC12 = {
     "watchPoints": [],
@@ -211,9 +337,7 @@ export class InputComponent implements OnInit {
   }
   UL007 = {
     "watchPoints": [],
-    "riders": {
-      "coverageInfo": []
-    },
+
     "dependents": [],
     "funds": {
       "fundRecord": [{
@@ -243,6 +367,51 @@ export class InputComponent implements OnInit {
     "language": "en_vn",
     "enableDebug": false,
     "displayEOYOnly": false,
+    "riders" : {
+      "coverageInfo" : [ {
+        "product" : {
+          "productKey" : {
+            "valueDate" : "20180313070000",
+            "location" : "VN",
+            "basicProduct" : {
+              "productPK" : {
+                "productId" : "--"
+              }
+            },
+            "associateProduct" : {
+              "productPK" : {
+                "productId" : "UL007"
+              }
+            },
+            "primaryProduct" : {
+              "productPK" : {
+                "productId" : "TRI07"
+              }
+            }
+          }
+        },
+        "parties" : {
+          "party" : {
+            "type": "BASIC",
+            "smokingStatus": "NS",
+            "insuredSex": "M",
+            "insuredId": "PROJ, STOP PAYMENT AT Y11",
+            "insuredAge": 29,
+            "birthDate": "19890101070000"
+          }
+        },
+        "faceAmount" : null,
+        "extraRating" : {
+          "tempPercentage" : 1.00,
+          "percentageExtra" : 1.00
+        },
+        "currency" : {
+          "currencyPK" : {
+            "currencyId" : "VND"
+          }
+        }
+      } ]
+    },
     "coverageInfo": {
       "startAnnuityAge": "0",
       "prepayYear": 0,
@@ -501,104 +670,143 @@ export class InputComponent implements OnInit {
     },
     "channel": "Agency"
   }
+  {
+  "watchPoints" : [ ],
+  "riders" : {
+    "coverageInfo" : [ {
+      "product" : {
+        "productKey" : {
+          "valueDate" : "20180401070000",
+          "location" : "VN",
+          "basicProduct" : {
+            "productPK" : {
+              "productId" : "--"
+            }
+          },
+          "associateProduct" : {
+            "productPK" : {
+              "productId" : "UL007"
+            }
+          },
+          "primaryProduct" : {
+            "productPK" : {
+              "productId" : "TRI07"
+            }
+          }
+        }
+      },
+      "parties" : {
+        "party" : {
+          "insuredAge" : 18,
+          "type" : "BASIC",
+          "smokingStatus" : "NS",
+          "insuredSex" : "M",
+          "insuredId" : "H-3032 Rider TR7 ,FA cannot lower than lower limit",
+          "birthDate" : "19991111070000"
+        }
+      },
+      "faceAmount" : 100000.00,
+      "extraRating" : {
+        "tempPercentage" : 1.00,
+        "percentageExtra" : 1.00
+      },
+      "currency" : {
+        "currencyPK" : {
+          "currencyId" : "VND"
+        }
+      }
+    } ]
+  },
+  "dependents" : [ ],
+  "funds" : {
+    "fundRecord" : [ {
+      "returnRate" : 4.0000,
+      "returnRateMedium" : 5.0000,
+      "returnRateHigh" : 7.0000,
+      "code" : "UL007",
+      "allocation" : 100
+    } ]
+  },
+  "fundActivities" : {
+    "fundActivity" : [ ]
+  },
+  "owner" : {
+    "ownerSex" : "M",
+    "ownerId" : "Owner Name XXX",
+    "ownerDOB" : "19890305070000",
+    "ownerAge" : 29,
+    "insuredIsOwner" : false
+  },
+  "stopDebugYear" : 10,
+  "startDebugYear" : 0,
+  "sortRider" : "N",
+  "reference" : "PROP-000000414",
+  "policyYearDate" : "20180102070000",
+  "policyExcludeSOS" : "N",
+  "language" : "en_vn",
+  "enableDebug" : true,
+  "displayEOYOnly" : false,
+  "coverageInfo" : {
+    "startAnnuityAge" : "0",
+    "prepayYear" : 0,
+    "plannedPremium" : 10000,
+    "product" : {
+      "productKey" : {
+        "valueDate" : "20180102070000",
+        "location" : "VN",
+        "basicProduct" : {
+          "productPK" : {
+            "productId" : "--"
+          }
+        },
+        "associateProduct" : {
+          "productPK" : {
+            "productId" : "--"
+          }
+        },
+        "primaryProduct" : {
+          "productPK" : {
+            "productId" : "UL007"
+          }
+        }
+      }
+    },
+    "parties" : {
+      "party" : {
+        "type" : "BASIC",
+        "smokingStatus" : "NS",
+        "insuredSex" : "F",
+        "insuredId" : "H-3032 Rider TR7 ,FA cannot lower than lower limit",
+        "insuredAge" : 18,
+        "birthDate" : "19991111070000"
+      }
+    },
+    "options" : {
+      "paymentMode" : "A",
+      "fundWithdrawalsByPercentage" : "N",
+      "dbLevel" : "Increase",
+      "calculateSinglePremiumBand" : "N",
+      "billingMethod" : "DirectBilling"
+    },
+    "noOfInstallmentYear" : 0,
+    "initialDumpIn" : 0.00,
+    "faceAmount" : 1000000.00,
+    "extraRating" : {
+      "tempPercentage" : 1.00,
+      "tempPercentageDuration" : 0,
+      "tempFlat" : 0.00,
+      "tempFlatDuration" : 0,
+      "percentageExtra" : 1.00,
+      "flatExtra" : 0.00
+    },
+    "currency" : {
+      "currencyPK" : {
+        "currencyId" : "VND"
+      }
+    }
+  },
+  "channel" : "Agency"
+}
   */
-  testcases;
-  selectedTestcase;
-
-  updatePremiumRange() {
-    if (this.faceAmountCtrl.invalid) return
-    this.pe.calculatePlannedPremiumRange007(this.selectedTestcase.payload.coverageInfo.faceAmount, this.input.insuredAge).
-      subscribe(x => {
-        let data: any = x;
-        this.ranges.plannedPremium.min = Math.max(7000,Math.round(data.value.minLimit));
-        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
-        this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
-      })
-
-
-  }
-
-  updateFaceamountRange() {
-    if (this.plannedPremiumCtrl.invalid) return
-    this.pe.calculateFaceAmountRange007(this.selectedTestcase.payload.coverageInfo.plannedPremium, this.input.insuredAge).
-      subscribe(x => {
-        let data: any = x;
-        this.ranges.faceAmount.min = Math.max(1000000,Math.round(data.value.minLimit));
-        this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
-        this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
-      })
-
-  }
-
-  getKeys(obj) {
-    return Object.keys(obj);
-  }
-  constructor(private pe: PeService) {
-    this.testcases = [
-      {
-        name: 'UL007',
-        payload: this.UL007,
-        productType: 'UL'
-      }
-      ,
-      {
-        name: 'ENC12',
-        payload: this.ENC12,
-        productType: 'CI'
-      },
-
-      {
-        name: 'ADD03',
-        payload: this.ADD03,
-        productType: 'UVL'
-      }
-    ];
-  }
-
-
-  updatePayload() {
-    let payload = this.selectedTestcase.payload;
-
-    payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
-
-    payload.fundActivities.fundActivity = [
-      {
-        "regularPayment": this.input.regularPayment,
-        "attainAge": this.input.insuredAge
-      },
-      {
-        "regularPayment": 0.00,
-        "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
-      }
-      /*
-      , {
-        "withdrawal" : 100000.00,
-        "attainAge" : + (+this.input.insuredAge + +this.input.duration - 2)
-      }*/
-    ];
-
-    //console.log(payload)
-
-  }
-
-  calculate() {
-    this.updatePayload()
-    if (this.selectedTestcase.payload) {
-      this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
-    }
-  }
-
-  validate() {
-    this.updatePayload()
-    if (this.selectedTestcase.payload) {
-      this.pe.validate(this.selectedTestcase.payload);
-    }
-  }
-
-  ngOnInit() {
-    console.log(this.ranges)
-
-  }
-
 
 }

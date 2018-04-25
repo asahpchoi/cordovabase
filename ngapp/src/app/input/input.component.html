@@ -14,13 +14,21 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput [(ngModel)]="selectedTestcase.payload.coverageInfo.faceAmount" name="faceAmount" (change)="updatePremiumRange()" [formControl]="faceAmountCtrl" placeholder="face amount">
+          <input matInput [(ngModel)]="input.faceAmount" name="faceAmount" (change)="updateBaseProtection()" [formControl]="faceAmountCtrl" placeholder="face amount">
         </mat-form-field>
         ({{ranges.faceAmount.min}} - {{ranges.faceAmount.max}})
         <mat-form-field>
-          <input matInput [(ngModel)]="selectedTestcase.payload.coverageInfo.plannedPremium" name="plannedPremium" (change)="updateFaceamountRange()" placeholder="planned premium" [formControl]="plannedPremiumCtrl">
+          <input matInput [(ngModel)]="input.plannedPremium" name="plannedPremium" (change)="updateBasePremium()" placeholder="planned premium" [formControl]="plannedPremiumCtrl">
         </mat-form-field>
         ({{ranges.plannedPremium.min}} - {{ranges.plannedPremium.max}})
+      </div>
+      <div>
+        <mat-form-field>
+          <input matInput [(ngModel)]="input.term.faceAmount" name="termFaceAmount" (change)="updateTermFaceAmount()" placeholder="Term Protection">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [(ngModel)]="input.term.plannedPremium" readonly name="termPlannedPremium" placeholder="Term Premium">
+        </mat-form-field>
       </div>
       <div>
         <mat-form-field>
@@ -29,9 +37,18 @@
         <mat-form-field>
           <input matInput required [(ngModel)]="input.regularPayment" name="regularpayment" placeholder="Regular Payment">
         </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Payment mode" [(value)]="paymentMode" (change)="updatePaymentMode()">
+            <mat-option *ngFor="let o of ['Annual','Semi-Annual','Quarterly','Monthly']" [value]="o">{{o}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
+
     <button mat-raised-button (click)="validate()">Validate</button>
     <button mat-raised-button (click)="calculate()">Get Projection</button>
   </form>
 </div>
+<pre>
+
+</pre>
