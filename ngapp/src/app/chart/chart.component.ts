@@ -11,6 +11,7 @@ import * as $ from 'jquery';
 
 export class ChartComponent {
 
+  lapsedYear = [];
 
   constructor(private pe: PeService) {
     pe.getData().filter(x => x).subscribe(
@@ -21,6 +22,37 @@ export class ChartComponent {
         this.createChart();
       }
     )
+    const verticalLinePlugin = {
+      getLinePosition: function (chart, pointIndex) {
+          const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
+          const data = meta.data;
+          return data[pointIndex]._model.x;
+      },
+      renderVerticalLine: function (chartInstance, pointIndex) {
+          const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+          const scale = chartInstance.scales['y-axis-0'];
+          const context = chartInstance.chart.ctx;
+
+          // render vertical line
+          context.beginPath();
+          context.strokeStyle = '#ff0000';
+          context.moveTo(lineLeftOffset, scale.top);
+          context.lineTo(lineLeftOffset, scale.bottom);
+          context.stroke();
+
+          // write label
+          context.fillStyle = "#ff0000";
+          context.textAlign = 'center';
+          context.fillText('Lapsed Year', lineLeftOffset, (scale.bottom - scale.top) / 2 + scale.top);
+      },
+
+      afterDatasetsDraw: function (chart, easing) {
+          if (chart.config.lineAtIndex) {
+              chart.config.lineAtIndex.forEach(pointIndex => this.renderVerticalLine(chart, pointIndex));
+          }
+      }
+    };
+    Chart.plugins.register(verticalLinePlugin);
   }
 
   private viewOptions = [
@@ -110,6 +142,9 @@ export class ChartComponent {
     }
   }
 
+
+
+
   private selectView(v) {
     this.selectedView = v;
     this.input.units = {
@@ -124,6 +159,7 @@ export class ChartComponent {
     this.columns = Object.keys(this.input.units).filter(x => {
       return this.input.units[x] == true;
     });
+
     this.createChart()
   }
 
@@ -140,15 +176,9 @@ export class ChartComponent {
 
 
   private prepareData() {
-    //this.pecolumns = this.ds.dataSets.map(ds => ds.label);
+    //console.log('prepare data')
+    //debugger
     this.chartLabels = this.ds.labels;
-
-    //if (this.columns.length == 0) {
-      //this.columns.push(this.selectedView.default);
-    //}
-
-    //if (this.selectedView.guarantedScenario)
-      //this.columns.push(this.selectedView.guarantedScenario);
 
     let areaData = this.ds.dataSets.filter(ds => {
       let match = this.columns.filter(
@@ -162,6 +192,14 @@ export class ChartComponent {
 
 
     let lineData = this.ds.dataSets.filter(ds => ds.label == this.selectedView.line);
+
+
+    let lapsedYear = this.ds.dataSets.filter(ds => ds.label.includes("Lapse"));
+    debugger
+
+    this.lapsedYear = lapsedYear.map( x => x.data.filter(y => y == 'N').length )
+    console.log('DS',this.lapsedYear)
+
     lineData[0].fill = false;
     lineData[0].borderColor = 'blue';
 
@@ -178,6 +216,7 @@ export class ChartComponent {
     if (this.selectedView) {
       this.prepareData();
 
+
       if (this.chart)
         this.chart = null;
 
@@ -187,7 +226,8 @@ export class ChartComponent {
           labels: this.chartLabels,
           datasets: this.chartData,
         },
-        options: this.chartOptions
+        options: this.chartOptions,
+        lineAtIndex: this.lapsedYear,
       });
     }
 

@@ -229,7 +229,9 @@ export class InputComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.input[field] = result;
+      if(result) {
+        this.input[field] = result;
+      }
     });
   }
 
