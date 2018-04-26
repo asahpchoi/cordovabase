@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { PeService } from '../pe.service';
 import { NgModel } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { NumpadComponent } from '../numpad/numpad.component';
 
 @Component({
   selector: 'app-input',
@@ -12,17 +14,13 @@ export class InputComponent implements OnInit {
   input = {
     duration: 15,
     insuredAge: 29,
-    faceAmount: null,
-    plannedPremium: null,
-    regularPayment: null,
-    term: {
-      faceAmount: null,
-      plannedPremium: null,
-    },
-    paymentMode : 'Annual'
+    faceAmount: 0,
+    plannedPremium: 0,
+    regularPayment: 0,
+    termfaceAmount: 0,
+    termplannedPremium: 0,
+    paymentMode: 'Annual'
   }
-
-
 
   ranges = {
     faceAmount: {
@@ -41,39 +39,9 @@ export class InputComponent implements OnInit {
   testcases;
   selectedTestcase;
 
-  updateBaseProtection() {
-    if (this.faceAmountCtrl.invalid) return
-    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
-      subscribe(x => {
-        let data: any = x;
-        console.log('premium range', data)
-        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
-        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
-        this.input.plannedPremium = Math.round(data.value.defPremium);
-        this.updateRegularPayment();
-        //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
-      })
-  }
-
-  updateBasePremium() {
-    if (this.plannedPremiumCtrl.invalid) return
-    this.pe.calculateFaceAmountRange007(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
-      subscribe(x => {
-        let data: any = x;
-        console.log('fa range', data)
-        this.ranges.faceAmount.min = Math.max(1000000, Math.round(data.value.minLimit));
-        this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
-        //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
-      })
-    this.updateRegularPayment();
-
-  }
-
-  getKeys(obj) {
-    return Object.keys(obj);
-  }
-
-  constructor(private pe: PeService) {
+  constructor(private pe: PeService,
+    public dialog: MatDialog
+  ) {
     this.testcases = [
       {
         name: 'UL007',
@@ -94,10 +62,13 @@ export class InputComponent implements OnInit {
       }
     ];
   }
+  ngOnDestroy() {
+    //this.pe.
+  }
 
   updateTermFaceAmount() {
-    if(this.input.term.faceAmount == 0) {
-      this.input.term.plannedPremium = 0;
+    if (this.input.termfaceAmount == 0) {
+      this.input.termplannedPremium = 0;
       this.updateRegularPayment();
       return;
     }
@@ -107,20 +78,44 @@ export class InputComponent implements OnInit {
         let data: any = d;
         console.log(data);
         //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
-        this.input.term.plannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium
+        this.input.termplannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium
         this.updateRegularPayment();
       }
     )
+  }
+  updateBasePremium() {
+    if (this.plannedPremiumCtrl.invalid) return
+    this.pe.calculateFaceAmountRange007(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
+      subscribe(x => {
+        let data: any = x;
+        console.log('fa range', data)
+        this.ranges.faceAmount.min = Math.max(1000000, Math.round(data.value.minLimit));
+        this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
+        //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
+      })
+    this.updateRegularPayment();
+
   }
   updatePaymentMode() {
     this.updateTermFaceAmount();
     this.updateBaseProtection();
     this.updateBasePremium();
   }
-
   updateRegularPayment() {
-    this.input.regularPayment = +this.input.plannedPremium + +this.input.term.plannedPremium;
+    this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;
     this.regularPaymentCtrl.setValidators([Validators.min(this.input.regularPayment), Validators.required]);
+  }
+  updateBaseProtection() {
+    if (this.faceAmountCtrl.invalid) return
+    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
+      subscribe(x => {
+        let data: any = x;
+        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
+        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
+        this.input.plannedPremium = Math.round(data.value.defPremium);
+        this.updateRegularPayment();
+        //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
+      })
   }
 
   updatePayload() {
@@ -130,8 +125,57 @@ export class InputComponent implements OnInit {
     payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
     payload.coverageInfo.plannedPremium = this.input.plannedPremium;
     payload.coverageInfo.faceAmount = this.input.faceAmount;
-    if(this.input.term.faceAmount != 0) {
-      payload.riders.coverageInfo["0"].faceAmount = this.input.term.faceAmount;
+    if (!this.input.termfaceAmount || this.input.termfaceAmount == 0) {
+      payload.riders = {
+        "coverageInfo": []
+      };
+    }
+    else { // no rider if
+      payload.riders = {
+        "coverageInfo": [{
+          "product": {
+            "productKey": {
+              "valueDate": "20180313070000",
+              "location": "VN",
+              "basicProduct": {
+                "productPK": {
+                  "productId": "--"
+                }
+              },
+              "associateProduct": {
+                "productPK": {
+                  "productId": "UL007"
+                }
+              },
+              "primaryProduct": {
+                "productPK": {
+                  "productId": "TRI07"
+                }
+              }
+            }
+          },
+          "parties": {
+            "party": {
+              "type": "BASIC",
+              "smokingStatus": "NS",
+              "insuredSex": "M",
+              "insuredId": "PROJ, STOP PAYMENT AT Y11",
+              "insuredAge": this.input.insuredAge,
+              "birthDate": "19890101070000"
+            }
+          },
+          "faceAmount": this.input.termfaceAmount,
+          "extraRating": {
+            "tempPercentage": 1.00,
+            "percentageExtra": 1.00
+          },
+          "currency": {
+            "currencyPK": {
+              "currencyId": "VND"
+            }
+          }
+        }]
+      };
     }
 
     payload.coverageInfo.options.paymentMode = this.input.paymentMode.substring(0, 1);
@@ -152,7 +196,6 @@ export class InputComponent implements OnInit {
     //console.log(payload)
 
   }
-
   calculate() {
 
     this.updatePayload()
@@ -161,18 +204,35 @@ export class InputComponent implements OnInit {
       this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
     }
   }
-
   validate() {
     this.updatePayload()
     if (this.selectedTestcase.payload) {
       this.pe.validate(this.selectedTestcase.payload);
     }
   }
-
   ngOnInit() {
     console.log(this.ranges)
 
   }
+  getKeys(obj) {
+    return Object.keys(obj);
+  }
+  changeValue(field, min, max) {
+
+    let dialogRef = this.dialog.open(NumpadComponent, {
+      width: '250px',
+      data: {
+        number: this.input[field] + '',
+        min: min,
+        max: max,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.input[field] = result;
+    });
+  }
+
 
   ENC12 = {
     "watchPoints": [],

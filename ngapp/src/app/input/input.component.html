@@ -14,20 +14,32 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput [(ngModel)]="input.faceAmount" name="faceAmount" (change)="updateBaseProtection()" [formControl]="faceAmountCtrl" placeholder="Base Protection">
+          <input matInput   [(ngModel)]="input.faceAmount"
+          (click)="changeValue('faceAmount', ranges.faceAmount.min, ranges.faceAmount.max)"
+          name="faceAmount" (blur)="updateBaseProtection()" [formControl]="faceAmountCtrl" placeholder="Base Protection">
           <mat-hint>from: ({{ranges.faceAmount.min}} to {{ranges.faceAmount.max}})</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="input.term.faceAmount" name="termFaceAmount" (change)="updateTermFaceAmount()" placeholder="Term Protection">
+          <input matInput   [(ngModel)]="input.termfaceAmount"
+          (click)="changeValue('termfaceAmount')"
+          name="termFaceAmount" (blur)="updateTermFaceAmount()" placeholder="Term Protection">
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput [(ngModel)]="input.plannedPremium" name="plannedPremium" (change)="updateBasePremium()" placeholder="Planned Premium" [formControl]="plannedPremiumCtrl">
+          <input matInput
+          [(ngModel)]="input.plannedPremium"
+          name="plannedPremium"
+          (click)="changeValue('plannedPremium', ranges.plannedPremium.min, ranges.plannedPremium.max)"
+          (blur)="updateBasePremium()"
+          placeholder="Planned Premium"
+          [formControl]="plannedPremiumCtrl">
           <mat-hint>from: ({{ranges.plannedPremium.min}} to {{ranges.plannedPremium.max}})</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [(ngModel)]="input.term.plannedPremium" readonly name="termPlannedPremium" placeholder="Term Premium">
+          <input matInput
+          [(ngModel)]="input.termplannedPremium"
+          name="termPlannedPremium" placeholder="Term Premium">
         </mat-form-field>
       </div>
       <div>
@@ -35,7 +47,7 @@
           <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Duration">
         </mat-form-field>
         <mat-form-field>
-          <input matInput required [(ngModel)]="input.regularPayment" name="regularpayment" placeholder="Regular Payment" [formControl]="regularPaymentCtrl">
+          <input matInput readonly required (click)="changeValue('regularPayment')" [(ngModel)]="input.regularPayment" name="regularpayment" placeholder="Regular Payment" [formControl]="regularPaymentCtrl">
         </mat-form-field>
         <mat-form-field>
           <mat-select placeholder="Payment mode" [(value)]="input.paymentMode" (change)="updatePaymentMode()">

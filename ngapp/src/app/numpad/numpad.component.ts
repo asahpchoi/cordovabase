@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy, } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as _ from 'lodash';
 @Component({
@@ -6,7 +6,7 @@ import * as _ from 'lodash';
   templateUrl: './numpad.component.html',
   styleUrls: ['./numpad.component.css']
 })
-export class NumpadComponent {
+export class NumpadComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<NumpadComponent>,
@@ -14,23 +14,32 @@ export class NumpadComponent {
 
   }
 
+  ngOnInit() {
+    if (this.data.number == null || !this.data) {
+      this.data = {
+        number: ''
+      }
+    }
+
+  }
+
   pressKey(i) {
-    if(i=='B') {
+    if (i == 'B') {
       this.data.number = this.data.number.substring(0, this.data.number.length - 1)
       return
     }
-    if(i=='C') {
-      this.data.number=0;
+    if (i == 'C') {
+      this.data.number = 0;
       return
     }
-    if(this.data.number == 0)
+    if (this.data.number == 0)
       this.data.number = "";
 
-    this.data.number +=  i;
+    this.data.number += i;
   }
 
   numberArray() {
-    let a:any = _.range(1, 10);
+    let a: any = _.range(1, 10);
 
     return a;
   }
