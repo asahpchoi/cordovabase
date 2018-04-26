@@ -195,7 +195,7 @@ export class ChartComponent {
 
 
     let lapsedYear = this.ds.dataSets.filter(ds => ds.label.includes("Lapse"));
-    debugger
+    //debugger
 
     this.lapsedYear = lapsedYear.map( x => x.data.filter(y => y == 'N').length )
     console.log('DS',this.lapsedYear)
