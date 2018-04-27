@@ -32,8 +32,9 @@ import { OccupationSearchComponent } from './occupation-search/occupation-search
 import { SearchTextPipe } from './search-text.pipe';
 import { TableComponent } from './table/table.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatIconModule} from '@angular/material/icon';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NumpadComponent } from './numpad/numpad.component';
 
 
@@ -79,8 +80,9 @@ const appRoutes: Routes = [
     FormsModule, ReactiveFormsModule,
     MatSliderModule,
     MatCardModule,
-MatIconModule,
-MatProgressBarModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatButtonToggleModule,
 
     RouterModule.forRoot(
       appRoutes,

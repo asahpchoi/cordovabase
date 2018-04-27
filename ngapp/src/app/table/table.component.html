@@ -3,11 +3,11 @@
 </div>
 row steps
 <mat-form-field>
-  <mat-select [(value)]="rowStep">
+  <mat-select [(value)]="input.rowStep">
     <mat-option *ngFor="let i of [1, 5, 10]" [value]="i">{{i}}</mat-option>
   </mat-select>
 </mat-form-field>
-<button mat-raised-button (click)="showall = false;setColumns()">show selected Columns</button>
+<button mat-raised-button (click)="showall = false;setDisplayColumns()">show selected Columns</button>
 
 <table *ngIf="ds">
   <thead>
@@ -15,8 +15,8 @@ row steps
       <th class="sticky-header">
         Year/Age
       </th>
-      <th *ngFor="let c of displayColumns()" class="sticky-header">
-        {{c.column}}
+      <th *ngFor="let c of displayColumns" class="sticky-header">
+        {{c}}
       </th>
     </tr>
   </thead>
@@ -25,9 +25,12 @@ row steps
       <th class="sticky-col">
         {{firstColumn[i]}}
       </th>
-      <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(columns[ci].column).component" (click)="changeValue(columns[ci].column, r[1]-1, c)">
+      <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(displayColumns[ci]).component" (click)="changeValue(displayColumns[ci], r[1]-1, c)">
         {{ formatValue(c) }}
       </td>
     </tr>
-  </tbody>
-</table>
+  </tbody>  
+</table> 
+<mat-checkbox *ngFor="let c of allColumns" [(ngModel)]="selectedColumns[c]">{{c}}</mat-checkbox>
+  
+{{selectedColumns | json }}

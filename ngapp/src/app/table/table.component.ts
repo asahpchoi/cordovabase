@@ -12,19 +12,23 @@ import { NumpadComponent } from '../numpad/numpad.component';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnDestroy{
+export class TableComponent implements OnDestroy {
   ds;
   showall = true;
-  rowStep = 5;
+
   isLoading = false;
   years = [];
   ages = [];
   dt = [];
+
+  allColumns = [];
+  displayColumns = [];
+  selectedColumns = [];
   firstColumn = [];
-  columns = [];
   defaultCols = ['Account Value (LOW)', 'Account Value (MEDIUM)',
     'Account Value (HIGH)',
     'Withdrawal', 'Premium', 'Top-up Premium', 'Total Premium'];
+
   editableFields = [
     {
       name: "Withdrawal",
@@ -42,8 +46,10 @@ export class TableComponent implements OnDestroy{
       activity: "regularPayment"
     }
   ]
+
   input = {
-    fundActivities: []
+    fundActivities: [],
+    rowStep: 5
   }
   editorOptions;
   subscriber;
@@ -54,8 +60,8 @@ export class TableComponent implements OnDestroy{
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
         this.ds = x;
-        this.resetColumns();
-        this.setColumns();
+        this.reloadColumnData();
+        this.setDisplayColumns();
         this.isLoading = false;
       }
     )
@@ -66,6 +72,60 @@ export class TableComponent implements OnDestroy{
     //this.pe.
   }
 
+  reloadColumnData() {
+    this.allColumns = this.ds.dataSets.map(ds => ds.label);
+    this.selectedColumns = this.allColumns.map(c => {
+      return {
+        name: c,
+        display: true
+      }
+    }
+    )
+  }
+
+  setDisplayColumns() {
+    this.displayColumns = this.allColumns;
+
+    if (!this.showall) {
+      this.displayColumns = this.defaultCols;
+    }
+
+    let rawDS = this.ds.dataSets;
+    let rawData = rawDS.map(d => d.data);
+
+
+    this.firstColumn = (rawData[0].map((d, i) => { return d + '/' + rawData[1][i] }));
+
+    let ds = rawDS.filter(
+      d => this.displayColumns.filter(c => c == d.label).length
+    ).map(
+      d => d.data
+    );
+
+    this.dt = _.zip(...ds);
+  }
+
+
+
+  formatValue(v) {
+    if (_.isNumber(v)) {
+      var value = v.toLocaleString(
+        "vn-vn", // leave undefined to use the browser's locale,
+        // or use a string like 'en-US' to override it.
+        {
+          minimumFractionDigits: 0
+        }
+      )
+      return value;
+    }
+    else {
+      return v
+    }
+  }
+
+  getRows(data) {
+    return data.filter((d, i) => i % this.input.rowStep == 0);
+  }
 
   changeValue(colName, attainAge, value) {
     let cellType: any = this.cellType(colName);
@@ -96,6 +156,7 @@ export class TableComponent implements OnDestroy{
     }
 
   }
+
   cellType(colName) {
     let fieldConfig = this.editableFields.filter(
       f => f.name == colName
@@ -106,78 +167,4 @@ export class TableComponent implements OnDestroy{
     }
     return ""
   }
-  resetColumns() {
-    this.columns = this.ds.dataSets.map(
-      ds => {
-        return {
-          column: ds.label,
-          display: true
-        }
-      }
-    );
-  }
-
-
-  setColumns() {
-    if (!this.showall) {
-      this.columns = this.defaultCols.map(
-        d => {
-          return {
-            column: d,
-            display: true
-          }
-        }
-      )
-    }
-
-    let rawDS = this.ds.dataSets;
-    let rawData = rawDS.map(d => d.data);
-
-
-    this.firstColumn = (rawData[0].map((d, i) => { return d + '/' + rawData[1][i] }));
-
-    let ds = rawDS.filter(
-      d => {
-        let l = this.columns.filter(
-          c => c.column == d.label && c.display
-        ).length
-        return l > 0;
-      }
-    ).map(
-      d => d.data
-    );
-
-
-
-
-    //let cs =  this.addColumns("","");
-    this.dt = _.zip(...ds);
-
-  }
-  displayColumns() {
-    return this.columns.filter(
-      c => c.display
-    )
-  }
-  formatValue(v) {
-    if (_.isNumber(v)) {
-      var value = v.toLocaleString(
-        "vn-vn", // leave undefined to use the browser's locale,
-        // or use a string like 'en-US' to override it.
-        {
-          minimumFractionDigits: 0
-        }
-      )
-      return value;
-    }
-    else {
-      return v
-    }
-  }
-
-  getRows(data) {
-    return data.filter((d, i) => i % this.rowStep == 0);
-  }
-
-
 }

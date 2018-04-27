@@ -94,6 +94,12 @@ export class InputComponent implements OnInit {
 
   //UI Functions 
   updatePaymentMode() {
+    switch(this.input.paymentMode) {
+      case 'Annual': this.ranges.plannedPremium.hardMin = 7000; break;
+      case 'Semi-Annual':  this.ranges.plannedPremium.hardMin = 7000 / 2; break;
+      case 'Quarterly' : this.ranges.plannedPremium.hardMin = 7000 / 4; break;
+      case 'Monthly':  this.ranges.plannedPremium.hardMin = 7000 / 12; break;
+    }
     this.updateTermFaceAmount();
     this.updateBaseProtection();
     this.updateBasePremium();
@@ -110,7 +116,7 @@ export class InputComponent implements OnInit {
       this.pe.validate(this.selectedTestcase.payload);
     }
   }
- 
+
   changeValue(field) {
     let r = this.ranges[field]
     let dialogRef = this.dialog.open(NumpadComponent, {
@@ -165,15 +171,18 @@ export class InputComponent implements OnInit {
 
   }
   private updateBaseProtection() {
-    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
-      subscribe(x => {
-        let data: any = x;
-        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
-        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
-        this.input.plannedPremium = Math.round(data.value.defPremium);
-        this.updateRegularPaymentRange();
-        //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
-      })
+    if (this.input.plannedPremium == 0) {
+      this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
+        subscribe(x => {
+          let data: any = x;
+          this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
+          this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
+          this.input.plannedPremium = Math.round(data.value.defPremium);
+          this.updateRegularPaymentRange();
+          this.updateBasePremium();
+          //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
+        })
+    }
   }
   private updateRegularPaymentRange() {
     this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;
