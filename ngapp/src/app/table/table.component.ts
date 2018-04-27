@@ -23,11 +23,8 @@ export class TableComponent implements OnDestroy {
 
   allColumns = [];
   displayColumns = [];
-  selectedColumns = [];
   firstColumn = [];
-  defaultCols = ['Account Value (LOW)', 'Account Value (MEDIUM)',
-    'Account Value (HIGH)',
-    'Withdrawal', 'Premium', 'Top-up Premium', 'Total Premium'];
+ 
 
   editableFields = [
     {
@@ -49,7 +46,12 @@ export class TableComponent implements OnDestroy {
 
   input = {
     fundActivities: [],
-    rowStep: 5
+    rowStep: 5,
+    checked: {
+      'Account Value (LOW)': true, 'Account Value (MEDIUM)': true,
+      'Account Value (HIGH)': true,
+      'Withdrawal': true, 'Premium': true, 'Top-up Premium': true, 'Total Premium': true
+    }
   }
   editorOptions;
   subscriber;
@@ -74,20 +76,13 @@ export class TableComponent implements OnDestroy {
 
   reloadColumnData() {
     this.allColumns = this.ds.dataSets.map(ds => ds.label);
-    this.selectedColumns = this.allColumns.map(c => {
-      return {
-        name: c,
-        display: true
-      }
-    }
-    )
   }
 
   setDisplayColumns() {
     this.displayColumns = this.allColumns;
-
+    //debugger
     if (!this.showall) {
-      this.displayColumns = this.defaultCols;
+      this.displayColumns = Object.keys(this.input.checked).filter(k => this.input.checked[k])
     }
 
     let rawDS = this.ds.dataSets;
@@ -104,6 +99,7 @@ export class TableComponent implements OnDestroy {
 
     this.dt = _.zip(...ds);
   }
+
 
 
 

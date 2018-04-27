@@ -29,8 +29,12 @@ row steps
         {{ formatValue(c) }}
       </td>
     </tr>
-  </tbody>  
-</table> 
-<mat-checkbox *ngFor="let c of allColumns" [(ngModel)]="selectedColumns[c]">{{c}}</mat-checkbox>
-  
-{{selectedColumns | json }}
+  </tbody>
+</table>
+
+<h2>Select Columns to be Displayed</h2>
+<mat-grid-list cols="8" rowHeight="5:1">
+  <mat-grid-tile *ngFor="let c of allColumns">
+    <mat-checkbox [(ngModel)]="input.checked[c]">{{c}}</mat-checkbox>
+  </mat-grid-tile>
+</mat-grid-list>

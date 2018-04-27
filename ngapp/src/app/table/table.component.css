@@ -28,3 +28,7 @@ th.sticky-col {
   background-color: white;
 
 }
+
+mat-grid-tile {
+  text-align: left
+}
