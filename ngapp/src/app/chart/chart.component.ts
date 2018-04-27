@@ -11,7 +11,7 @@ import * as $ from 'jquery';
 
 export class ChartComponent {
 
-  lapsedYear = [];
+  lapsedYear : number[] = [0,0,0];
 
   constructor(private pe: PeService) {
     pe.getData().filter(x => x).subscribe(
@@ -198,6 +198,7 @@ export class ChartComponent {
     //debugger
 
     this.lapsedYear = lapsedYear.map( x => x.data.filter(y => y == 'N').length )
+    this.lapsedYear = [Math.max(...this.lapsedYear)];
     console.log('DS',this.lapsedYear)
 
     lineData[0].fill = false;

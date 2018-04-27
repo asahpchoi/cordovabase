@@ -4,6 +4,7 @@ import { NgModel } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../numpad/numpad.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-input',
@@ -30,95 +31,149 @@ export class InputComponent implements OnInit {
     plannedPremium: {
       min: 7000,
       max: null
+    },
+    regularPayment: {
+      min: 0,
+      max: null
+    },
+    termfaceAmount: {
+      min: 0,
+      max: null
     }
+
   }
-  faceAmountCtrl = new FormControl("", [Validators.min(this.ranges.faceAmount.min), Validators.required]);
-  plannedPremiumCtrl = new FormControl("", [Validators.min(this.ranges.plannedPremium.min), Validators.required]);
-  regularPaymentCtrl = new FormControl("", [Validators.required]);
 
   testcases;
   selectedTestcase;
 
-  constructor(private pe: PeService,
-    public dialog: MatDialog
+  constructor(
+    private pe: PeService,
+    public dialog: MatDialog,
+    private http: HttpClient
   ) {
-    this.testcases = [
-      {
-        name: 'UL007',
-        payload: this.UL007,
-        productType: 'UL'
-      }
-      ,
-      {
-        name: 'ENC12',
-        payload: this.ENC12,
-        productType: 'CI'
-      },
+    http.get('./assets/payloads.json').first().subscribe(
+      json => {
+        let data: any = json;
 
-      {
-        name: 'ADD03',
-        payload: this.ADD03,
-        productType: 'UVL'
+        this.testcases = [
+          {
+            name: 'UL007',
+            payload: data.UL007,
+            productType: 'UL'
+          }
+          ,
+          {
+            name: 'ENC12',
+            payload: data.ENC12,
+            productType: 'CI'
+          },
+
+          {
+            name: 'ADD03',
+            payload: data.ADD03,
+            productType: 'UVL'
+          }
+        ];
       }
-    ];
+
+    )
+
   }
   ngOnDestroy() {
     //this.pe.
   }
 
-  updateTermFaceAmount() {
+  ngOnInit() {
+    console.log(this.ranges)
+
+  }
+
+  //UI Functions 
+  updatePaymentMode() {
+    this.updateTermFaceAmount();
+    this.updateBaseProtection();
+    this.updateBasePremium();
+  }
+  calculate() {
+    this.updatePayload();
+    if (this.selectedTestcase.payload) {
+      this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
+    }
+  }
+  validate() {
+    this.updatePayload();
+    if (this.selectedTestcase.payload) {
+      this.pe.validate(this.selectedTestcase.payload);
+    }
+  }
+ 
+  changeValue(field) {
+    let r = this.ranges[field]
+    let dialogRef = this.dialog.open(NumpadComponent, {
+      width: '250px',
+      data: {
+        number: this.input[field] + '',
+        min: r.min,
+        max: r.max,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.input[field] = result;
+        switch (field) {
+          case 'faceAmount': this.updateBaseProtection(); break;
+          case 'termfaceAmount': this.updateTermFaceAmount(); break;
+          case 'plannedPremium': this.updateBasePremium(); break;
+        }
+      }
+    });
+  }
+
+  //logic functions
+  private updateTermFaceAmount() {
     if (this.input.termfaceAmount == 0) {
       this.input.termplannedPremium = 0;
-      this.updateRegularPayment();
+      this.updateRegularPaymentRange();
       return;
     }
     this.updatePayload();
     this.pe.premiumCalculation(this.selectedTestcase.payload).subscribe(
       d => {
         let data: any = d;
-        console.log(data);
         //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
         this.input.termplannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium
-        this.updateRegularPayment();
+        this.updateRegularPaymentRange();
       }
     )
   }
-  updateBasePremium() {
-    if (this.plannedPremiumCtrl.invalid) return
+  private updateBasePremium() {
     this.pe.calculateFaceAmountRange007(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
       subscribe(x => {
         let data: any = x;
-        console.log('fa range', data)
+
         this.ranges.faceAmount.min = Math.max(1000000, Math.round(data.value.minLimit));
         this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
         //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
       })
-    this.updateRegularPayment();
+    this.updateRegularPaymentRange();
 
   }
-  updatePaymentMode() {
-    this.updateTermFaceAmount();
-    this.updateBaseProtection();
-    this.updateBasePremium();
-  }
-  updateRegularPayment() {
-    this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;
-    this.regularPaymentCtrl.setValidators([Validators.min(this.input.regularPayment), Validators.required]);
-  }
-  updateBaseProtection() {
-    if (this.faceAmountCtrl.invalid) return
+  private updateBaseProtection() {
     this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
       subscribe(x => {
         let data: any = x;
         this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
         this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
         this.input.plannedPremium = Math.round(data.value.defPremium);
-        this.updateRegularPayment();
+        this.updateRegularPaymentRange();
         //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
       })
   }
-
-  updatePayload() {
+  private updateRegularPaymentRange() {
+    this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;
+    this.ranges['regularPayment'].min = this.input.regularPayment;
+  }
+  private updatePayload() {
     if (!this.selectedTestcase) return;
     let payload = this.selectedTestcase.payload;
 
@@ -196,699 +251,5 @@ export class InputComponent implements OnInit {
     //console.log(payload)
 
   }
-  calculate() {
-
-    this.updatePayload()
-
-    if (this.selectedTestcase.payload) {
-      this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
-    }
-  }
-  validate() {
-    this.updatePayload()
-    if (this.selectedTestcase.payload) {
-      this.pe.validate(this.selectedTestcase.payload);
-    }
-  }
-  ngOnInit() {
-    console.log(this.ranges)
-
-  }
-  getKeys(obj) {
-    return Object.keys(obj);
-  }
-  changeValue(field, min, max) {
-
-    let dialogRef = this.dialog.open(NumpadComponent, {
-      width: '250px',
-      data: {
-        number: this.input[field] + '',
-        min: min,
-        max: max,
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        this.input[field] = result;
-      }
-    });
-  }
-
-
-  ENC12 = {
-    "watchPoints": [],
-    "riders": {
-      "coverageInfo": []
-    },
-    "dependents": [],
-    "funds": {
-      "fundRecord": [{
-        "returnRate": 4.0000,
-        "returnRateMedium": 5.0000,
-        "returnRateHigh": 7.0000,
-        "code": "UL007",
-        "allocation": 100
-      }]
-    },
-    "fundActivities": {
-      "fundActivity": []
-    },
-    "owner": {
-      "ownerSex": "M",
-      "ownerId": "MINH, ENC12",
-      "ownerDOB": "19800101070000",
-      "ownerAge": 38,
-      "insuredIsOwner": false
-    },
-    "stopDebugYear": 5,
-    "startDebugYear": 0,
-    "sortRider": "N",
-    "reference": "PROP-000000315",
-    "policyYearDate": "20180101070000",
-    "policyExcludeSOS": "N",
-    "language": "en_vn",
-    "enableDebug": false,
-    "displayEOYOnly": false,
-    "coverageInfo": {
-      "regularPayment": 0.00,
-      "startAnnuityAge": "0",
-      "prepayYear": 0,
-      "plannedPremium": 0,
-      "product": {
-        "productKey": {
-          "valueDate": "20180101070000",
-          "location": "VN",
-          "basicProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "associateProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "primaryProduct": {
-            "productPK": {
-              "productId": "ENC12"
-            }
-          }
-        }
-      },
-      "parties": {
-        "party": {
-          "type": "BASIC",
-          "smokingStatus": "NS",
-          "insuredSex": "M",
-          "insuredId": "MINH, ENC12",
-          "insuredAge": 1,
-          "birthDate": "20170101070000"
-        }
-      },
-      "options": {
-        "paymentMode": "A",
-        "fundWithdrawalsByPercentage": "N",
-        "calculateSinglePremiumBand": "N",
-        "billingMethod": "DirectBilling"
-      },
-      "noOfInstallmentYear": 0,
-      "initialDumpIn": 0.00,
-      "faceAmount": 1000000.00,
-      "extraRating": {
-        "tempPercentage": 1.00,
-        "tempPercentageDuration": 0,
-        "tempFlat": 0.00,
-        "tempFlatDuration": 0,
-        "percentageExtra": 1.00,
-        "flatExtra": 0.00
-      },
-      "currency": {
-        "currencyPK": {
-          "currencyId": "VND"
-        }
-      }
-    },
-    "channel": "Agency"
-  }
-  ADD03 = {
-    "riders": {
-      "coverageInfo": []
-    },
-    "dependents": [],
-    "funds": {
-      "fundRecord": []
-    },
-    "fundActivities": {
-      "fundActivity": []
-    },
-    "owner": {
-      "ownerSex": "M",
-      "ownerId": "Test Projection Case 1",
-      "ownerDOB": "19890305070000",
-      "ownerAge": 29,
-      "insuredIsOwner": false
-    },
-    "stopDebugYear": 10,
-    "startDebugYear": 0,
-    "sortRider": "N",
-    "reference": "PROP-000000027",
-    "policyYearDate": "20180305070000",
-    "policyExcludeSOS": "N",
-    "language": "en_vn",
-    "enableDebug": true,
-    "displayEOYOnly": false,
-    "coverageInfo": {
-      "startAnnuityAge": "0",
-      "prepayYear": 0,
-      "product": {
-        "productKey": {
-          "valueDate": "20180305070000",
-          "location": "VN",
-          "basicProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "associateProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "primaryProduct": {
-            "productPK": {
-              "productId": "ADD03"
-            }
-          }
-        }
-      },
-      "parties": {
-        "party": {
-          "type": "BASIC",
-          "smokingStatus": "NS",
-          "insuredSex": "M",
-          "insuredId": "-VALID, ADD03 as Base Plan",
-          "insuredAge": 29,
-          "birthDate": "19890305070000"
-        }
-      },
-      "options": {
-        "paymentMode": "A",
-        "fundWithdrawalsByPercentage": "N",
-        "calculateSinglePremiumBand": "N",
-        "billingMethod": "DirectBilling"
-      },
-      "noOfInstallmentYear": 0,
-      "initialDumpIn": 0.00,
-      "faceAmount": 800000.00,
-      "extraRating": {
-        "tempPercentage": 1.00,
-        "tempPercentageDuration": 0,
-        "tempFlat": 0.00,
-        "tempFlatDuration": 0,
-        "percentageExtra": 1.00,
-        "flatExtra": 0.00
-      },
-      "currency": {
-        "currencyPK": {
-          "currencyId": "VND"
-        }
-      }
-    },
-    "channel": "Agency"
-  }
-  UL007 = {
-    "watchPoints": [],
-
-    "dependents": [],
-    "funds": {
-      "fundRecord": [{
-        "returnRate": 4.0000,
-        "returnRateMedium": 5.0000,
-        "returnRateHigh": 7.0000,
-        "code": "UL007",
-        "allocation": 100
-      }]
-    },
-    "fundActivities": {
-      "fundActivity": null
-    },
-    "owner": {
-      "ownerSex": "M",
-      "ownerId": "PROJ, RIDER(ADD 800K)",
-      "ownerDOB": "19890101070000",
-      "ownerAge": 29,
-      "insuredIsOwner": false
-    },
-    "stopDebugYear": 10,
-    "startDebugYear": 0,
-    "sortRider": "N",
-    "reference": "PROP-000000659",
-    "policyYearDate": "20180313070000",
-    "policyExcludeSOS": "N",
-    "language": "en_vn",
-    "enableDebug": false,
-    "displayEOYOnly": false,
-    "riders": {
-      "coverageInfo": [{
-        "product": {
-          "productKey": {
-            "valueDate": "20180313070000",
-            "location": "VN",
-            "basicProduct": {
-              "productPK": {
-                "productId": "--"
-              }
-            },
-            "associateProduct": {
-              "productPK": {
-                "productId": "UL007"
-              }
-            },
-            "primaryProduct": {
-              "productPK": {
-                "productId": "TRI07"
-              }
-            }
-          }
-        },
-        "parties": {
-          "party": {
-            "type": "BASIC",
-            "smokingStatus": "NS",
-            "insuredSex": "M",
-            "insuredId": "PROJ, STOP PAYMENT AT Y11",
-            "insuredAge": 29,
-            "birthDate": "19890101070000"
-          }
-        },
-        "faceAmount": null,
-        "extraRating": {
-          "tempPercentage": 1.00,
-          "percentageExtra": 1.00
-        },
-        "currency": {
-          "currencyPK": {
-            "currencyId": "VND"
-          }
-        }
-      }]
-    },
-    "coverageInfo": {
-      "startAnnuityAge": "0",
-      "prepayYear": 0,
-      "plannedPremium": 10000,
-      "product": {
-        "productKey": {
-          "valueDate": "20180313070000",
-          "location": "VN",
-          "basicProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "associateProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "primaryProduct": {
-            "productPK": {
-              "productId": "UL007"
-            }
-          }
-        }
-      },
-      "parties": {
-        "party": {
-          "type": "BASIC",
-          "smokingStatus": "NS",
-          "insuredSex": "M",
-          "insuredId": "PROJ, STOP PAYMENT AT Y11",
-          "insuredAge": 29,
-          "birthDate": "19890101070000"
-        }
-      },
-      "options": {
-        "paymentMode": "A",
-        "fundWithdrawalsByPercentage": "N",
-        "dbLevel": "Increase",
-        "calculateSinglePremiumBand": "N",
-        "billingMethod": "DirectBilling"
-      },
-      "noOfInstallmentYear": 0,
-      "initialDumpIn": 0.00,
-      "faceAmount": 800000.00,
-      "extraRating": {
-        "tempPercentage": 1.00,
-        "tempPercentageDuration": 0,
-        "tempFlat": 0.00,
-        "tempFlatDuration": 0,
-        "percentageExtra": 1.00,
-        "flatExtra": 0.00
-      },
-      "currency": {
-        "currencyPK": {
-          "currencyId": "VND"
-        }
-      }
-    },
-    "channel": "Agency"
-  }
-  /*
-  UL007 = {
-    "channel": "Agency",
-    "coverageInfo": {
-      "currency": {
-        "currencyPK": {
-          "currencyId": "VND"
-        }
-      },
-      "extraRating": {
-        "flatExtra": 0,
-        "percentageExtra": 1,
-        "tempFlatDuration": 0,
-        "tempFlat": 0,
-        "tempPercentageDuration": 0,
-        "tempPercentage": 1
-      },
-      "faceAmount": 500000,
-      "initialDumpIn": 0,
-      "noOfInstallmentYear": 0,
-      "options": {
-        "billingMethod": "DirectBilling",
-        "calculateSinglePremiumBand": "N",
-        "dbLevel": "Increase",
-        "fundWithdrawalsByPercentage": "N",
-        "paymentMode": "A"
-      },
-      "parties": {
-        "party": {
-          "birthDate": "19800101070000",
-          "insuredAge": 38,
-          "insuredId": "-VALID, Total Premium Test",
-          "insuredSex": "F",
-          "smokingStatus": "NS",
-          "type": "BASIC"
-        }
-      },
-      "product": {
-        "productKey": {
-          "primaryProduct": {
-            "productPK": {
-              "productId": "UL007"
-            }
-          },
-          "associateProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "basicProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "location": "VN",
-          "valueDate": "20180102070000"
-        }
-      },
-      "plannedPremium": 8334,
-      "prepayYear": 0,
-      "startAnnuityAge": "0"
-    },
-    "displayEOYOnly": false,
-    "enableDebug": true,
-    "language": "en_vn",
-    "policyExcludeSOS": "N",
-    "policyYearDate": "20180102070000",
-    "reference": "PROP-000000065",
-    "sortRider": "N",
-    "startDebugYear": 0,
-    "stopDebugYear": 10,
-    "owner": {
-      "insuredIsOwner": false,
-      "ownerAge": 38,
-      "ownerDOB": "19800101070000",
-      "ownerId": "Owner Name XXX",
-      "ownerSex": "F"
-    },
-    "fundActivities": {
-      "fundActivity": []
-    },
-    "funds": {
-      "fundRecord": [
-        {
-          "allocation": 100,
-          "code": "UL007",
-          "returnRateHigh": 7,
-          "returnRateMedium": 5,
-          "returnRate": 4
-        }
-      ]
-    },
-    "dependents": [],
-    "riders": {
-      "coverageInfo": []
-    },
-    "watchPoints": []
-  }
-
-  UL007 = {
-    "watchPoints": [],
-    "riders": {
-      "coverageInfo": []
-    },
-    "dependents": [],
-    "funds": {
-      "fundRecord": [{
-        "returnRate": 4.0000,
-        "returnRateMedium": 5.0000,
-        "returnRateHigh": 7.0000,
-        "code": "UL007",
-        "allocation": 100
-      }]
-    },
-    "fundActivities": {
-      "fundActivity": [{
-        "faceAmount": 700000,
-        "attainAge": 39
-      }]
-    },
-    "owner": {
-      "ownerSex": "M",
-      "ownerId": "PROJ, RIDER(ADD 800K)",
-      "ownerDOB": "19890101070000",
-      "ownerAge": 29,
-      "insuredIsOwner": false
-    },
-    "stopDebugYear": 10,
-    "startDebugYear": 0,
-    "sortRider": "N",
-    "reference": "PROP-000000658",
-    "policyYearDate": "20180313070000",
-    "policyExcludeSOS": "N",
-    "language": "en_vn",
-    "enableDebug": true,
-    "displayEOYOnly": false,
-    "coverageInfo": {
-      "startAnnuityAge": "0",
-      "prepayYear": 0,
-      "plannedPremium": 10000,
-      "product": {
-        "productKey": {
-          "valueDate": "20180313070000",
-          "location": "VN",
-          "basicProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "associateProduct": {
-            "productPK": {
-              "productId": "--"
-            }
-          },
-          "primaryProduct": {
-            "productPK": {
-              "productId": "UL007"
-            }
-          }
-        }
-      },
-      "parties": {
-        "party": {
-          "type": "BASIC",
-          "smokingStatus": "NS",
-          "insuredSex": "M",
-          "insuredId": "PROJ, FA CHANGE AT Y11",
-          "insuredAge": 29,
-          "birthDate": "19890101070000"
-        }
-      },
-      "options": {
-        "paymentMode": "A",
-        "fundWithdrawalsByPercentage": "N",
-        "dbLevel": "Increase",
-        "calculateSinglePremiumBand": "N",
-        "billingMethod": "DirectBilling"
-      },
-      "noOfInstallmentYear": 0,
-      "initialDumpIn": 0.00,
-      "faceAmount": 800000.00,
-      "extraRating": {
-        "tempPercentage": 1.00,
-        "tempPercentageDuration": 0,
-        "tempFlat": 0.00,
-        "tempFlatDuration": 0,
-        "percentageExtra": 1.00,
-        "flatExtra": 0.00
-      },
-      "currency": {
-        "currencyPK": {
-          "currencyId": "VND"
-        }
-      }
-    },
-    "channel": "Agency"
-  }
-  {
-  "watchPoints" : [ ],
-  "riders" : {
-    "coverageInfo" : [ {
-      "product" : {
-        "productKey" : {
-          "valueDate" : "20180401070000",
-          "location" : "VN",
-          "basicProduct" : {
-            "productPK" : {
-              "productId" : "--"
-            }
-          },
-          "associateProduct" : {
-            "productPK" : {
-              "productId" : "UL007"
-            }
-          },
-          "primaryProduct" : {
-            "productPK" : {
-              "productId" : "TRI07"
-            }
-          }
-        }
-      },
-      "parties" : {
-        "party" : {
-          "insuredAge" : 18,
-          "type" : "BASIC",
-          "smokingStatus" : "NS",
-          "insuredSex" : "M",
-          "insuredId" : "H-3032 Rider TR7 ,FA cannot lower than lower limit",
-          "birthDate" : "19991111070000"
-        }
-      },
-      "faceAmount" : 100000.00,
-      "extraRating" : {
-        "tempPercentage" : 1.00,
-        "percentageExtra" : 1.00
-      },
-      "currency" : {
-        "currencyPK" : {
-          "currencyId" : "VND"
-        }
-      }
-    } ]
-  },
-  "dependents" : [ ],
-  "funds" : {
-    "fundRecord" : [ {
-      "returnRate" : 4.0000,
-      "returnRateMedium" : 5.0000,
-      "returnRateHigh" : 7.0000,
-      "code" : "UL007",
-      "allocation" : 100
-    } ]
-  },
-  "fundActivities" : {
-    "fundActivity" : [ ]
-  },
-  "owner" : {
-    "ownerSex" : "M",
-    "ownerId" : "Owner Name XXX",
-    "ownerDOB" : "19890305070000",
-    "ownerAge" : 29,
-    "insuredIsOwner" : false
-  },
-  "stopDebugYear" : 10,
-  "startDebugYear" : 0,
-  "sortRider" : "N",
-  "reference" : "PROP-000000414",
-  "policyYearDate" : "20180102070000",
-  "policyExcludeSOS" : "N",
-  "language" : "en_vn",
-  "enableDebug" : true,
-  "displayEOYOnly" : false,
-  "coverageInfo" : {
-    "startAnnuityAge" : "0",
-    "prepayYear" : 0,
-    "plannedPremium" : 10000,
-    "product" : {
-      "productKey" : {
-        "valueDate" : "20180102070000",
-        "location" : "VN",
-        "basicProduct" : {
-          "productPK" : {
-            "productId" : "--"
-          }
-        },
-        "associateProduct" : {
-          "productPK" : {
-            "productId" : "--"
-          }
-        },
-        "primaryProduct" : {
-          "productPK" : {
-            "productId" : "UL007"
-          }
-        }
-      }
-    },
-    "parties" : {
-      "party" : {
-        "type" : "BASIC",
-        "smokingStatus" : "NS",
-        "insuredSex" : "F",
-        "insuredId" : "H-3032 Rider TR7 ,FA cannot lower than lower limit",
-        "insuredAge" : 18,
-        "birthDate" : "19991111070000"
-      }
-    },
-    "options" : {
-      "paymentMode" : "A",
-      "fundWithdrawalsByPercentage" : "N",
-      "dbLevel" : "Increase",
-      "calculateSinglePremiumBand" : "N",
-      "billingMethod" : "DirectBilling"
-    },
-    "noOfInstallmentYear" : 0,
-    "initialDumpIn" : 0.00,
-    "faceAmount" : 1000000.00,
-    "extraRating" : {
-      "tempPercentage" : 1.00,
-      "tempPercentageDuration" : 0,
-      "tempFlat" : 0.00,
-      "tempFlatDuration" : 0,
-      "percentageExtra" : 1.00,
-      "flatExtra" : 0.00
-    },
-    "currency" : {
-      "currencyPK" : {
-        "currencyId" : "VND"
-      }
-    }
-  },
-  "channel" : "Agency"
-}
-  */
 
 }

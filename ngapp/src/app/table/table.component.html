@@ -10,14 +10,24 @@ row steps
 <button mat-raised-button (click)="showall = false;setColumns()">show selected Columns</button>
 
 <table *ngIf="ds">
-  <tr>
-    <th *ngFor="let c of displayColumns()">
-      {{c.column}}
-    </th>
-  </tr>
-  <tr *ngFor="let r of getRows(dt); let i = index">
-    <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(columns[ci].column).component" (click)="changeValue(columns[ci].column, r[1]-1, c)">
-      {{ formatValue(c) }}
-    </td>
-  </tr>
+  <thead>
+    <tr>
+      <th class="sticky-header">
+        Year/Age
+      </th>
+      <th *ngFor="let c of displayColumns()" class="sticky-header">
+        {{c.column}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of getRows(dt); let i = index">
+      <th class="sticky-col">
+        {{firstColumn[i]}}
+      </th>
+      <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(columns[ci].column).component" (click)="changeValue(columns[ci].column, r[1]-1, c)">
+        {{ formatValue(c) }}
+      </td>
+    </tr>
+  </tbody>
 </table>

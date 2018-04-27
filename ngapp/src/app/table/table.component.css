@@ -9,3 +9,22 @@
 td {
   text-align: right;
 }
+
+table {
+  height: 400px;
+}
+th.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: white;
+
+}
+
+th.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 10;
+  background-color: white;
+
+}

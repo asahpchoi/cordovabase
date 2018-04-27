@@ -20,8 +20,9 @@ export class TableComponent {
   years = [];
   ages = [];
   dt = [];
+  firstColumn = [];
   columns = [];
-  defaultCols = ['Year', 'Age', 'Account Value (LOW)', 'Account Value (MEDIUM)',
+  defaultCols = ['Account Value (LOW)', 'Account Value (MEDIUM)',
     'Account Value (HIGH)',
     'Withdrawal', 'Premium', 'Top-up Premium', 'Total Premium'];
   editableFields = [
@@ -86,7 +87,6 @@ export class TableComponent {
         this.isLoading = true;
         this.pe.callPE();
 
-
       });
     }
 
@@ -112,13 +112,6 @@ export class TableComponent {
     );
   }
 
-  addColumns(c1, c2) {
-    let r1  = this.ds.dataSets.filter(d => d.label == c1)[0];
-    let r2  = this.ds.dataSets.filter(d => d.label == c2)[0];
-    let r3 = r1.forEach((d, i) => +d + +r2[i]);
-
-    return r3;
-  }
 
   setColumns() {
     if (!this.showall) {
@@ -131,7 +124,14 @@ export class TableComponent {
         }
       )
     }
-    let ds = this.ds.dataSets.filter(
+
+    let rawDS = this.ds.dataSets;
+    let rawData = rawDS.map(d=>d.data);
+
+
+    this.firstColumn = (rawData[0].map((d, i) => { return d + '/' + rawData[1][i] }));
+
+    let ds = rawDS.filter(
       d => {
         let l = this.columns.filter(
           c => c.column == d.label && c.display
@@ -140,7 +140,11 @@ export class TableComponent {
       }
     ).map(
       d => d.data
-      );
+    );
+
+
+
+
     //let cs =  this.addColumns("","");
     this.dt = _.zip(...ds);
 

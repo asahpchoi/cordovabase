@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-occupation',
@@ -11,6 +12,9 @@ export class OccupationComponent implements OnInit {
   @Output() occupationIdChange: EventEmitter<string> = new EventEmitter<string>();
   mappedData;
   showSearch = false;
+  input = {
+    data:0
+  };
 
   constructor() { }
   select(id) {
@@ -18,10 +22,16 @@ export class OccupationComponent implements OnInit {
     this.showSearch = false;
 
   }
+  update() {
+    this.input.data++
+  }
+  change(event) {
+    console.log(event)
+  }
   search() {
     this.showSearch=true;
     setTimeout(() => {
-      console.log(document.getElementById("searchText"));
+ 
       let field : any =  document.getElementById("searchText");
       field.focus();
       field.setSelectionRange(0, field.value.length)
@@ -31,7 +41,7 @@ export class OccupationComponent implements OnInit {
 
   getOccupationName() {
     let data = this.mappedData.filter(x => x.id == this.occupationId);
-    console.log(data)
+ 
     if(data.length == 0)
       return "Please Select";
     else

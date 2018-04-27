@@ -1,11 +1,20 @@
 <span *ngIf="!showSearch" (click)="search()">{{getOccupationName()}}</span>
 <span *ngIf="showSearch">
 
-<mat-form-field>
-  <input matInput placeholder="Occupation Search" [(ngModel)]="searchText" id="searchText">
-</mat-form-field>
-<mat-chip-list>
-  <mat-chip (click)="select(o.id)"
-  *ngFor="let o of mappedData |  searchText : searchText">{{o.label}}</mat-chip>
-</mat-chip-list>
+  <mat-form-field>
+    <input matInput placeholder="Occupation Search" [(ngModel)]="searchText" id="searchText">
+  </mat-form-field>
+  <mat-chip-list>
+    <mat-chip (click)="select(o.id)" *ngFor="let o of mappedData |  searchText : searchText">{{o.label}}</mat-chip>
+  </mat-chip-list>
 </span>
+
+
+<mat-form-field>
+  <input matInput [ngModel]="input.data" name="data" 
+  (change)="change('change')"
+  (ngModelChange)="change('modelchange')"
+  >
+</mat-form-field>
+
+<button (click)="update()"></button>

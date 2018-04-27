@@ -8,9 +8,11 @@ import * as _ from 'lodash';
 })
 export class NumpadComponent implements OnInit {
 
+  first = true;
   constructor(
     public dialogRef: MatDialogRef<NumpadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+    
 
   }
 
@@ -24,6 +26,10 @@ export class NumpadComponent implements OnInit {
   }
 
   pressKey(i) {
+    if(this.first) {
+      this.data.number = '';
+    }
+    this.first = false;
     if (i == 'B') {
       this.data.number = this.data.number.substring(0, this.data.number.length - 1)
       return
