@@ -36,7 +36,7 @@ export class ChartComponent {
       },
       renderVerticalLine: function (chartInstance, pointIndex) {
         console.log(pointIndex);
-        if(pointIndex == 0 || pointIndex == -Infinity) return;
+        if(pointIndex == 0 || pointIndex == -Infinity || pointIndex == Infinity) return;
 
         const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
         const scale = chartInstance.scales['y-axis-0'];
@@ -147,7 +147,7 @@ export class ChartComponent {
 
   input = {
     units: {
-
+      
     }
   }
 
@@ -207,13 +207,14 @@ export class ChartComponent {
 
 
     let lapsedYear = this.ds.dataSets.filter(ds => acs.includes(ds.label));
+    //let lapsedYear = this.ds.dataSets.filter(ds => ds.label == "Lapse (LOW)");
 
     if(lapsedYear == []) {
       this.lapsedYear = null;
     }
     else {
       this.lapsedYear = lapsedYear.map(x => x.data.filter(y => y == 'N').length)
-      this.lapsedYear = [Math.max(...this.lapsedYear)];
+      this.lapsedYear = [Math.min(...this.lapsedYear)];
     }
  
 
