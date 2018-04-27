@@ -37,7 +37,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NumpadComponent } from './numpad/numpad.component';
 
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -83,7 +83,7 @@ const appRoutes: Routes = [
     MatIconModule,
     MatProgressBarModule,
     MatButtonToggleModule,
-
+    MatExpansionModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only

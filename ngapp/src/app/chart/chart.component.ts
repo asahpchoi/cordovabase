@@ -11,9 +11,9 @@ import * as $ from 'jquery';
 
 export class ChartComponent {
 
-  lapsedYear : number[] = [0,0,0];
+  lapsedYear: number[] = null;
   subscriber;
-  
+
   ngOnDestroy() {
     this.subscriber.unsubscribe();
     //this.pe.
@@ -30,32 +30,35 @@ export class ChartComponent {
     )
     const verticalLinePlugin = {
       getLinePosition: function (chart, pointIndex) {
-          const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
-          const data = meta.data;
-          return data[pointIndex]._model.x;
+        const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
+        const data = meta.data;
+        return data[pointIndex]._model.x;
       },
       renderVerticalLine: function (chartInstance, pointIndex) {
-          const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
-          const scale = chartInstance.scales['y-axis-0'];
-          const context = chartInstance.chart.ctx;
+        console.log(pointIndex);
+        if(pointIndex == 0 || pointIndex == -Infinity) return;
 
-          // render vertical line
-          context.beginPath();
-          context.strokeStyle = '#ff0000';
-          context.moveTo(lineLeftOffset, scale.top);
-          context.lineTo(lineLeftOffset, scale.bottom);
-          context.stroke();
+        const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+        const scale = chartInstance.scales['y-axis-0'];
+        const context = chartInstance.chart.ctx;
 
-          // write label
-          context.fillStyle = "#ff0000";
-          context.textAlign = 'center';
-          context.fillText('Lapsed Year', lineLeftOffset, (scale.bottom - scale.top) / 2 + scale.top);
+        // render vertical line
+        context.beginPath();
+        context.strokeStyle = '#ff0000';
+        context.moveTo(lineLeftOffset, scale.top);
+        context.lineTo(lineLeftOffset, scale.bottom);
+        context.stroke();
+
+        // write label
+        context.fillStyle = "#ff0000";
+        context.textAlign = 'center';
+        context.fillText('Lapsed Year', lineLeftOffset, (scale.bottom - scale.top) / 2 + scale.top);
       },
 
       afterDatasetsDraw: function (chart, easing) {
-          if (chart.config.lineAtIndex) {
-              chart.config.lineAtIndex.forEach(pointIndex => this.renderVerticalLine(chart, pointIndex));
-          }
+        if (chart.config.lineAtIndex != null) {
+          chart.config.lineAtIndex.forEach(pointIndex => this.renderVerticalLine(chart, pointIndex));
+        }
       }
     };
     Chart.plugins.register(verticalLinePlugin);
@@ -182,8 +185,6 @@ export class ChartComponent {
 
 
   private prepareData() {
-    //console.log('prepare data')
-    //debugger
     this.chartLabels = this.ds.labels;
 
     let areaData = this.ds.dataSets.filter(ds => {
@@ -199,16 +200,23 @@ export class ChartComponent {
 
     let lineData = this.ds.dataSets.filter(ds => ds.label == this.selectedView.line);
 
-
-    let lapsedYear = this.ds.dataSets.filter(ds => ds.label.includes("Lapse"));
-    //debugger
-
-    this.lapsedYear = lapsedYear.map( x => x.data.filter(y => y == 'N').length )
-    this.lapsedYear = [Math.max(...this.lapsedYear)];
-    console.log('DS',this.lapsedYear)
-
     lineData[0].fill = false;
     lineData[0].borderColor = 'blue';
+
+    let acs = areaData.map(x => x.label).filter(x => x.includes("Account Value")).map(x => x.replace("Account Value", "Lapse"));
+
+
+    let lapsedYear = this.ds.dataSets.filter(ds => acs.includes(ds.label));
+
+    if(lapsedYear == []) {
+      this.lapsedYear = null;
+    }
+    else {
+      this.lapsedYear = lapsedYear.map(x => x.data.filter(y => y == 'N').length)
+      this.lapsedYear = [Math.max(...this.lapsedYear)];
+    }
+ 
+
 
     this.chartData = [...lineData, ...areaData]
     this.chartData.forEach(
@@ -241,19 +249,19 @@ export class ChartComponent {
   }
 
   private chartOptions =
-  {
-    legend: {
-      display: true
-    },
-    scales: {
-      xAxes: [{
+    {
+      legend: {
         display: true
-      }],
-      yAxes: [{
-        display: true
-      }],
-    }
-  };
+      },
+      scales: {
+        xAxes: [{
+          display: true
+        }],
+        yAxes: [{
+          display: true
+        }],
+      }
+    };
 
   private chartData = [
     {

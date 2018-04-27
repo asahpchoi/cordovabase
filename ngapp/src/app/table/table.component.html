@@ -1,40 +1,57 @@
 <div *ngIf="isLoading">
   <mat-progress-bar mode="query"></mat-progress-bar>
 </div>
-row steps
-<mat-form-field>
-  <mat-select [(value)]="input.rowStep">
-    <mat-option *ngFor="let i of [1, 5, 10]" [value]="i">{{i}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<button mat-raised-button (click)="showall = false;setDisplayColumns()">show selected Columns</button>
+<mat-accordion>
 
-<table *ngIf="ds">
-  <thead>
-    <tr>
-      <th class="sticky-header">
-        Year/Age
-      </th>
-      <th *ngFor="let c of displayColumns" class="sticky-header">
-        {{c}}
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let r of getRows(dt); let i = index">
-      <th class="sticky-col">
-        {{firstColumn[i]}}
-      </th>
-      <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(displayColumns[ci]).component" (click)="changeValue(displayColumns[ci], r[1]-1, c)">
-        {{ formatValue(c) }}
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2>Select Columns to be Displayed</h2>
-<mat-grid-list cols="8" rowHeight="5:1">
-  <mat-grid-tile *ngFor="let c of allColumns">
-    <mat-checkbox [(ngModel)]="input.checked[c]">{{c}}</mat-checkbox>
-  </mat-grid-tile>
-</mat-grid-list>
+  <mat-expansion-panel expanded=true>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Tabel
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div id="table">
+      <table *ngIf="ds">
+        <thead>
+          <tr>
+            <th class="sticky-header">
+              Year/Age
+            </th>
+            <th *ngFor="let c of displayColumns" class="sticky-header">
+              {{c}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of getRows(dt); let i = index">
+            <th class="sticky-col">
+              {{firstColumn[i]}}
+            </th>
+            <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(displayColumns[ci]).component" (click)="changeValue(displayColumns[ci], r[1]-1, c)">
+              {{ formatValue(c) }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-expansion-panel>
+  <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Config
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <h2>Select Columns to be Displayed</h2>
+      <mat-grid-list cols="5" rowHeight="5:1">
+        <mat-grid-tile *ngFor="let c of allColumns">
+          <mat-checkbox [(ngModel)]="input.checked[c]">{{c}}</mat-checkbox>
+        </mat-grid-tile>
+      </mat-grid-list>
+      row steps
+      <mat-form-field>
+        <mat-select [(value)]="input.rowStep">
+          <mat-option *ngFor="let i of [1, 5, 10]" [value]="i">{{i}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button (click)="showall = false;setDisplayColumns()">show selected Columns</button>
+    </mat-expansion-panel>  
+</mat-accordion>

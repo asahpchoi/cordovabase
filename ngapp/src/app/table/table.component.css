@@ -10,13 +10,15 @@ td {
   text-align: right;
 }
 
-table {
+#table {
   height: 400px;
+  width: 100%;
+  overflow: scroll;
 }
 th.sticky-header {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   background-color: white;
 
 }
