@@ -1,20 +1,17 @@
 <div *ngIf="viewOption">
   <button mat-raised-button (click)="selectView(v)" *ngFor="let v of viewOption.views">
-  {{v.viewType}}
-</button>
+    {{v.viewType}}
+  </button>
 </div>
 <div *ngIf="chart">
   <div class="wrap">
     <span *ngFor="let unit of pecolumns" class="box">
-    <mat-checkbox [checked]="unit.checked"
-    (change)="valueChange(unit,$event)"
-    >{{ unit }}</mat-checkbox>
-  </span>
+      <mat-checkbox [checked]="unit.checked" (change)="valueChange(unit,$event)">{{ unit }}</mat-checkbox>
+    </span>
   </div>
 </div>
- 
+
 <div>
   <canvas id="canvas" height="40vh" width="100%">
   </canvas>
 </div>
- 
