@@ -10,4 +10,5 @@
   <mat-grid-tile><button mat-raised-button (click)="pressKey('B')">BACK</button></mat-grid-tile>
 </mat-grid-list>
 <br>
-<button mat-raised-button [mat-dialog-close]="+data.number">Ok</button>
+<button mat-raised-button (click)="close(true)">Cancel</button>
+<button mat-raised-button [mat-dialog-close]="+data.number" [disabled]="data.hardMin > data.number">Ok</button>

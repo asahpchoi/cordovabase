@@ -49,8 +49,13 @@ export class NumpadComponent implements OnInit {
 
     return a;
   }
-  onNoClick(): void {
 
+  close(isCancel): void {
+    if(!isCancel) {
+      if(+this.data.hardMin > +this.data.number)
+        return;
+      this.dialogRef.close(+this.data.number);  
+    }
     this.dialogRef.close();
   }
 

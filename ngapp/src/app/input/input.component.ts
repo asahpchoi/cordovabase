@@ -25,18 +25,22 @@ export class InputComponent implements OnInit {
 
   ranges = {
     faceAmount: {
+      hardMin: 1000000,
       min: 1000000,
       max: null
     },
     plannedPremium: {
+      hardMin: 7000,
       min: 7000,
       max: null
     },
     regularPayment: {
+      hardMin: 0,
       min: 0,
       max: null
     },
     termfaceAmount: {
+      hardMin: 0,
       min: 0,
       max: null
     }
@@ -115,9 +119,11 @@ export class InputComponent implements OnInit {
         number: this.input[field] + '',
         min: r.min,
         max: r.max,
+        hardMin: r.hardMin
       }
     });
     dialogRef.afterClosed().subscribe(result => {
+      //debugger
       if (result) {
         this.input[field] = result;
         switch (field) {
@@ -172,6 +178,7 @@ export class InputComponent implements OnInit {
   private updateRegularPaymentRange() {
     this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;
     this.ranges['regularPayment'].min = this.input.regularPayment;
+    this.ranges['regularPayment'].hardMin = this.input.regularPayment;
   }
   private updatePayload() {
     if (!this.selectedTestcase) return;

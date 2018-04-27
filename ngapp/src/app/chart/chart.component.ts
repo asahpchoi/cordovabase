@@ -12,9 +12,15 @@ import * as $ from 'jquery';
 export class ChartComponent {
 
   lapsedYear : number[] = [0,0,0];
+  subscriber;
+  
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
+    //this.pe.
+  }
 
   constructor(private pe: PeService) {
-    pe.getData().filter(x => x).subscribe(
+    this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
         this.viewOption = this.viewOptions.filter(vo => vo.productType == this.pe.productType)[0];
 

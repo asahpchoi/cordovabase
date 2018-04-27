@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
 
 import { PeService } from '../pe.service';
 import { Chart } from 'chart.js';
@@ -12,7 +12,7 @@ import { NumpadComponent } from '../numpad/numpad.component';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent {
+export class TableComponent implements OnDestroy{
   ds;
   showall = true;
   rowStep = 5;
@@ -46,11 +46,12 @@ export class TableComponent {
     fundActivities: []
   }
   editorOptions;
+  subscriber;
 
   constructor(private pe: PeService,
     public dialog: MatDialog
   ) {
-    pe.getData().filter(x => x).subscribe(
+    this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
         this.ds = x;
         this.resetColumns();
@@ -58,9 +59,13 @@ export class TableComponent {
         this.isLoading = false;
       }
     )
-
-
   }
+
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
+    //this.pe.
+  }
+
 
   changeValue(colName, attainAge, value) {
     let cellType: any = this.cellType(colName);
@@ -126,7 +131,7 @@ export class TableComponent {
     }
 
     let rawDS = this.ds.dataSets;
-    let rawData = rawDS.map(d=>d.data);
+    let rawData = rawDS.map(d => d.data);
 
 
     this.firstColumn = (rawData[0].map((d, i) => { return d + '/' + rawData[1][i] }));
