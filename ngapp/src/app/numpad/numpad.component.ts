@@ -19,10 +19,10 @@ export class NumpadComponent implements OnInit {
   ngOnInit() {
     if (this.data.number == null || !this.data) {
       this.data = {
-        number: ''
+        number: '',
+        year:1
       }
     }
-
   }
 
   pressKey(i) {

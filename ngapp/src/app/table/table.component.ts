@@ -24,18 +24,19 @@ export class TableComponent implements OnDestroy {
   allColumns = [];
   displayColumns = [];
   firstColumn = [];
- 
+
 
   editableFields = [
     {
       name: "Withdrawal",
       component: "NumpadComponent",
-      activity: "withdrawal"
+      activity: "withdrawal",
+      multipleYear: true
     },
     {
       name: "colBasePlanFaceAmount",
       component: "NumpadComponent",
-      activity: "faceAmount"      
+      activity: "faceAmount"
     },
     {
       name: "Premium",
@@ -105,6 +106,10 @@ export class TableComponent implements OnDestroy {
     this.dt = _.zip(...ds);
   }
 
+  showFirstColumn() {    
+    return this.firstColumn.filter((d, i) => i % this.input.rowStep == 0);
+  }
+
 
 
 
@@ -134,20 +139,29 @@ export class TableComponent implements OnDestroy {
 
       let dialogRef = this.dialog.open(NumpadComponent, {
         width: '250px',
-        data: { number: value + '' }
+        data: { 
+          number: value + '', 
+          year: 1,
+          multipleYear: cellType.multipleYear
+        }
       });
 
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().first().subscribe(result => {
+ 
+        let number = +result.number;
+        let year = +result.year;
 
-        let number = result;
-        let fa = {
-          attainAge: attainAge
+        for (var i = 0; i < year; i++) {
+          let fa = {
+            attainAge: +attainAge + i
+          }
+          fa[cellType.activity] = number;
+
+          this.input.fundActivities.push(
+            fa
+          );
         }
-        fa[cellType.activity] = number;
-
-        this.input.fundActivities.push(
-          fa
-        );
+ 
 
         this.pe.updateFundActivities(this.input.fundActivities);
         this.isLoading = true;

@@ -10,5 +10,8 @@
   <mat-grid-tile><button mat-raised-button (click)="pressKey('B')">BACK</button></mat-grid-tile>
 </mat-grid-list>
 <br>
+<mat-form-field *ngIf="data.multipleYear">
+  <input matInput [(ngModel)]="data.year" placeholder="year">
+</mat-form-field>
 <button mat-raised-button (click)="close(true)">Cancel</button>
-<button mat-raised-button [mat-dialog-close]="+data.number" [disabled]="data.hardMin > data.number">Ok</button>
+<button mat-raised-button [mat-dialog-close]="data" [disabled]="data.hardMin > data.number">Ok</button>

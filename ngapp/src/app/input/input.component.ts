@@ -145,13 +145,14 @@ export class InputComponent implements OnInit {
         number: this.input[field] + '',
         min: r.min,
         max: r.max,
-        hardMin: r.hardMin
+        hardMin: r.hardMin,
+        year: 1
       }
     });
     dialogRef.afterClosed().subscribe(result => {
       //debugger
-      if (result) {
-        this.input[field] = result;
+      if (result.number) {
+        this.input[field] = result.number;
         switch (field) {
           case 'faceAmount': this.updateBaseProtection(); break;
           case 'termfaceAmount': this.updateTermFaceAmount(); break;

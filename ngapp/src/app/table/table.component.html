@@ -24,7 +24,7 @@
         <tbody>
           <tr *ngFor="let r of getRows(dt); let i = index">
             <th class="sticky-col">
-              {{firstColumn[i]}}
+              {{ showFirstColumn()[i] }}
             </th>
             <td *ngFor="let c of r; let ci = index" [ngClass]="cellType(displayColumns[ci]).component" (click)="changeValue(displayColumns[ci], r[1]-1, c)">
               {{ formatValue(c) }}
