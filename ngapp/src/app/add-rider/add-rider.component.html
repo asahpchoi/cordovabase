@@ -1,0 +1,8 @@
+<mat-form-field>
+  <mat-select placeholder="Rider Code" [(value)]="data.riderType" (selectionChange)="changeRiderType()">
+    <mat-option *ngFor="let o of getRiderTypes()" [value]="o">{{o}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<pre>
+  {{input | json}}
+</pre>

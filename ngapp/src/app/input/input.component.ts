@@ -5,6 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../numpad/numpad.component';
 import { HttpClient } from '@angular/common/http';
+import { AddRiderComponent } from '../add-rider/add-rider.component';
 
 @Component({
   selector: 'app-input',
@@ -110,7 +111,6 @@ export class InputComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   //UI Functions 
@@ -159,6 +159,20 @@ export class InputComponent implements OnInit {
           case 'plannedPremium': this.updateBasePremium(); break;
         }
       }
+    });
+  }
+
+  addRider() {
+     let dialogRef = this.dialog.open(AddRiderComponent, {
+      width: '250px',
+      data: {
+        productID: 'UL007',
+        riderType: 'ADD',
+        userList: []
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+ 
     });
   }
 

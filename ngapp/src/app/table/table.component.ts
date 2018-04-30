@@ -67,6 +67,7 @@ export class TableComponent implements OnDestroy {
   ) {
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
+        
         this.ds = x;
         this.reloadColumnData();
         this.setDisplayColumns();
@@ -107,6 +108,7 @@ export class TableComponent implements OnDestroy {
   }
 
   showFirstColumn() {    
+
     return this.firstColumn.filter((d, i) => i % this.input.rowStep == 0);
   }
 
@@ -161,6 +163,8 @@ export class TableComponent implements OnDestroy {
             fa
           );
         }
+
+        console.log('fa', this.input.fundActivities)
  
 
         this.pe.updateFundActivities(this.input.fundActivities);

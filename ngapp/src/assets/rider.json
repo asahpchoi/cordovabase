@@ -1,0 +1,46 @@
+[    
+    {
+        "occupation": "1",
+        "product": {
+            "productKey": {
+                "valueDate": "20180314070000",
+                "location": "VN",
+                "basicProduct": {
+                    "productPK": {
+                        "productId": "--"
+                    }
+                },
+                "associateProduct": {
+                    "productPK": {
+                        "productId": "UL007"
+                    }
+                },
+                "primaryProduct": {
+                    "productPK": {
+                        "productId": "ADD03"
+                    }
+                }
+            }
+        },
+        "parties": {
+            "party": {
+                "insuredAge": 29,
+                "type": "BASIC",
+                "smokingStatus": "NS",
+                "insuredSex": "M",
+                "insuredId": "PROJ, RIDER(ADD 800K)",
+                "birthDate": "19890101070000"
+            }
+        },
+        "faceAmount": 800000.00,
+        "extraRating": {
+            "tempPercentage": 1.00,
+            "percentageExtra": 1.00
+        },
+        "currency": {
+            "currencyPK": {
+                "currencyId": "VND"
+            }
+        }
+    }
+]

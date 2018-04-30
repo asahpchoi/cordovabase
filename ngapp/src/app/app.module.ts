@@ -38,6 +38,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NumpadComponent } from './numpad/numpad.component';
 
 import {MatExpansionModule} from '@angular/material/expansion';
+import { AddRiderComponent } from './add-rider/add-rider.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -64,7 +65,8 @@ const appRoutes: Routes = [
     OccupationSearchComponent,
     SearchTextPipe,
     TableComponent,
-    NumpadComponent
+    NumpadComponent,
+    AddRiderComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +93,6 @@ const appRoutes: Routes = [
   ],
   providers: [PeService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogsampleComponent, NumpadComponent]
+  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent]
 })
 export class AppModule { }
