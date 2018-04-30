@@ -29,7 +29,7 @@ export class PeService {
   ) {
     return {
       min: 100000,
-      max: basePlanFaceAmount * 5
+      max: Math.min(...[basePlanFaceAmount * 5, 10000000])
     }
     //100M
     //10B

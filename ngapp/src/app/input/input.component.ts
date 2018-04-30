@@ -92,14 +92,14 @@ export class InputComponent implements OnInit {
   }
 
   selectBasePlan() {
-    this.setPremiumDuration();     
+    this.setPremiumDuration();
   }
-  
+
   private setPremiumDuration() {
     let planID = this.selectedTestcase.name;
     let ranges: any = this.pe.getDurationRange(planID, this.input.insuredAge);
-    
-    this.input.duration = ranges.max;  
+
+    this.input.duration = ranges.max;
     this.formControls.duration.setValidators(
       [
         Validators.required,
@@ -191,19 +191,22 @@ export class InputComponent implements OnInit {
 
   }
   private updateBaseProtection() {
-    if (this.input.plannedPremium == 0) {
-      this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
-        subscribe(x => {
-          let data: any = x;
-          this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
-          this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
+
+    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
+      subscribe(x => {
+        let data: any = x;
+        this.updateRiderProtectionRange();
+        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
+        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
+        if (this.input.plannedPremium == 0) {
           this.input.plannedPremium = Math.round(data.value.defPremium);
           this.updateRegularPaymentRange();
           this.updateBasePremium();
-          this.updateRiderProtectionRange();
-          //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
-        })
-    }
+
+        }
+        //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
+      })
+
   }
   private updateRiderProtectionRange() {
     let range = this.pe.calculateRiderFaceAmountRange(
