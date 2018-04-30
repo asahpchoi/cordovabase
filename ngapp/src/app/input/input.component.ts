@@ -44,11 +44,15 @@ export class InputComponent implements OnInit {
       min: 0,
       max: null
     }
-
   }
 
   testcases;
   selectedTestcase;
+
+  formControls = {
+    duration: new FormControl('duration', [Validators.min(4), Validators.max(99), Validators.required])
+  }
+
 
   constructor(
     private pe: PeService,
@@ -87,18 +91,37 @@ export class InputComponent implements OnInit {
     //this.pe.
   }
 
+  selectBasePlan() {
+    this.setPremiumDuration();
+     
+  }
+  
+
+  private setPremiumDuration() {
+    let planID = this.selectedTestcase.name;
+    let ranges: any = this.pe.getDurationRange(planID, this.input.insuredAge);
+    
+    this.input.duration = ranges.max;  
+    this.formControls.duration.setValidators(
+      [
+        Validators.required,
+        Validators.min(+ranges.min),
+        Validators.max(+ranges.max)
+      ]
+    );
+  }
+
   ngOnInit() {
-    console.log(this.ranges)
 
   }
 
   //UI Functions 
   updatePaymentMode() {
-    switch(this.input.paymentMode) {
+    switch (this.input.paymentMode) {
       case 'Annual': this.ranges.plannedPremium.hardMin = 7000; break;
-      case 'Semi-Annual':  this.ranges.plannedPremium.hardMin = 7000 / 2; break;
-      case 'Quarterly' : this.ranges.plannedPremium.hardMin = 7000 / 4; break;
-      case 'Monthly':  this.ranges.plannedPremium.hardMin = 7000 / 12; break;
+      case 'Semi-Annual': this.ranges.plannedPremium.hardMin = 7000 / 2; break;
+      case 'Quarterly': this.ranges.plannedPremium.hardMin = 7000 / 4; break;
+      case 'Monthly': this.ranges.plannedPremium.hardMin = 7000 / 12; break;
     }
     this.updateTermFaceAmount();
     this.updateBaseProtection();
@@ -180,9 +203,20 @@ export class InputComponent implements OnInit {
           this.input.plannedPremium = Math.round(data.value.defPremium);
           this.updateRegularPaymentRange();
           this.updateBasePremium();
+          this.updateRiderProtectionRange();
           //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
         })
     }
+  }
+  private updateRiderProtectionRange() {
+    let range = this.pe.calculateRiderFaceAmountRange(
+      null, null,
+      this.input.faceAmount
+      , null, null
+    );
+
+    this.ranges['termfaceAmount'].min = range.min;
+    this.ranges['termfaceAmount'].max = range.max;
   }
   private updateRegularPaymentRange() {
     this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;

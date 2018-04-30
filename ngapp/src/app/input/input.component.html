@@ -1,7 +1,7 @@
 <div class="example-container">
   <form>
     <mat-form-field>
-      <mat-select placeholder="Select Test Case" [(value)]="selectedTestcase">
+      <mat-select placeholder="Select Test Case" [(value)]="selectedTestcase" (change)="selectBasePlan()" (selectionChange)="selectBasePlan()">
         <mat-option *ngFor="let o of testcases" [value]="o">{{o.name}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -19,6 +19,7 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput name="termFaceAmount" placeholder="Term Protection" [ngModel]="input.termfaceAmount" (click)="changeValue('termfaceAmount')" readonly>
+          <mat-hint>from: ({{ranges.termfaceAmount.min}} to {{ranges.termfaceAmount.max}})</mat-hint>
         </mat-form-field>
       </div>
       <div>
@@ -32,7 +33,9 @@
       </div>
       <div>
         <mat-form-field>
-          <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Duration">
+          <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Premium Duration"
+          [formControl]="formControls.duration"
+          >
         </mat-form-field>
         <mat-form-field>
           <input matInput name="regularpayment" placeholder="Regular Payment" [(ngModel)]="input.regularPayment" (click)="changeValue('regularPayment')" readonly>

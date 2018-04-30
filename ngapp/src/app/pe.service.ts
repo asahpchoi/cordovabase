@@ -17,6 +17,31 @@ export class PeService {
   productType = null;
   endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
 
+  calculateRiderFaceAmountRange(    
+    basePlanID,
+    riderID,
+    basePlanFaceAmount,
+    basePlanInsuredAge,
+    riderInsuredAge
+  ) {
+    return {
+      min: 7000,
+      max: basePlanFaceAmount * 4
+    }
+  }
+
+  getDurationRange(
+    basePlanID,
+    insuredAge
+  ) {
+    let limit = 99;
+
+    return {
+      min: 4,
+      max:+limit - +insuredAge
+    }
+  }
+
   calculateFaceAmountRange007(plannedPremium, insuredAge, paymentMode) {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRangeUL007';
 
