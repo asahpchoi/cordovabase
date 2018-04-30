@@ -29,16 +29,19 @@ export class ChartComponent {
       }
     )
     const verticalLinePlugin = {
-      getLinePosition: function (chart, pointIndex) {
+      getLinePosition: function (chart, pointIndex) {        
         const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
         const data = meta.data;
+        if(pointIndex >= data.length) return null;
+
         return data[pointIndex]._model.x;
       },
       renderVerticalLine: function (chartInstance, pointIndex) {
-        console.log(pointIndex);
+ 
         if(pointIndex == 0 || pointIndex == -Infinity || pointIndex == Infinity) return;
 
         const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+        if(!lineLeftOffset) return;
         const scale = chartInstance.scales['y-axis-0'];
         const context = chartInstance.chart.ctx;
 
