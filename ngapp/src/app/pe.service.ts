@@ -17,7 +17,7 @@ export class PeService {
   productType = null;
 
   calculateFaceAmountRange007(plannedPremium, insuredAge, paymentMode) {
-    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculateFaceAmountRangeUL007';
+    let url = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculateFaceAmountRangeUL007';
 
     let payload = {
       "productId": "UL007",
@@ -35,7 +35,7 @@ export class PeService {
   }
 
   calculatePlannedPremiumRange007(faceAmount, insuredAge, paymentMode) {
-    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculatePlannedPremiumRangeUL007';
+    let url = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
       "productId": "UL007",
@@ -89,7 +89,7 @@ export class PeService {
   }
 
   validate(req) {
-    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/validate';
+    let url = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1/product/validate';
 
     this.http
       .post(url, req)
@@ -102,7 +102,7 @@ export class PeService {
   }
 
   callPE() {
-    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/project';
+    let url = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1/product/project';
 
     this.http
       .post(url, this.request)
@@ -142,7 +142,7 @@ export class PeService {
   }
 
   premiumCalculation(req) {
-    let url = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1/product/calculatePremiums';
+    let url = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1/product/calculatePremiums';
     return this.http
       .post(url, req)
       .first();
