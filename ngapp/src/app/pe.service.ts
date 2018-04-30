@@ -125,7 +125,7 @@ export class PeService {
       .first();        
   }
 
-  private callPE() {
+  callPE() {
     let url = this.endpoint + '/product/project';
 
     this.http
