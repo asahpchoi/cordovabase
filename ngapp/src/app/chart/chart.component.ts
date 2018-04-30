@@ -154,8 +154,9 @@ export class ChartComponent {
     }
   }
 
-
-
+  getScenario() {
+    return Object.keys(this.input.units);
+  }
 
   selectView(v) {
     //viewType: "AV",
@@ -167,7 +168,7 @@ export class ChartComponent {
 
     this.selectedView = v;
     this.input.units = [];
-    
+
     v.scenario.forEach(
       s => {
         let k = v.chart.replace("%s", s);
@@ -176,9 +177,6 @@ export class ChartComponent {
     )
     this.input.units[this.selectedView.default] = true;
     this.columns = [];
-    this.pecolumns = this.selectedView.scenario.map(
-      s => this.selectedView.chart.replace("%s", s)
-    )
     this.chart = null;
     this.columns = Object.keys(this.input.units).filter(x => {
       return this.input.units[x] == true;
@@ -296,7 +294,7 @@ export class ChartComponent {
   private colors = ['#00AA59', '#FF5D55', '#006F61'];
   private selectedView;
   private productType;
-  private pecolumns;
+  
 
   viewOption;
   chart;

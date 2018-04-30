@@ -5,7 +5,7 @@
 </div>
 <div *ngIf="chart">
   <div class="wrap">
-    <span *ngFor="let unit of pecolumns" class="box">
+    <span *ngFor="let unit of getScenario()" class="box">
       <mat-checkbox [checked]="input.units[unit]" (change)="valueChange(unit,$event)">{{ unit }}</mat-checkbox>
     </span>
   </div>
