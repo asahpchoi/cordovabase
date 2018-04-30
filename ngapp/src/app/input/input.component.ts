@@ -179,7 +179,7 @@ export class InputComponent implements OnInit {
     )
   }
   private updateBasePremium() {
-    this.pe.calculateFaceAmountRange007(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
+    this.pe.calculateFaceAmountRange(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
       subscribe(x => {
         let data: any = x;
 
