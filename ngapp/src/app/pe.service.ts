@@ -15,7 +15,10 @@ export class PeService {
   validationSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   request = null;
   productType = null;
-  endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
+  //endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
+  //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
+  endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
+
 
   calculateRiderFaceAmountRange(
     basePlanID,
@@ -25,7 +28,7 @@ export class PeService {
     riderInsuredAge
   ) {
     return {
-      min: basePlanFaceAmount / 4,
+      min: 100000,
       max: basePlanFaceAmount * 5
     }
     //100M
@@ -111,18 +114,18 @@ export class PeService {
   }
 
   validate(req) {
-    let url = this.endpoint + '/product/validate';
-
-    this.http
-      .post(url, req)
-      .first()
-      .subscribe(r => {
-        this.validationSubject.next(r);
-      }
-      );
+    this.makeValidationRequest(req).subscribe(r => { this.validationSubject.next(r); });
   }
 
-  callPE() {
+  private makeValidationRequest(req) {
+    let url = this.endpoint + '/product/validate';
+
+    return this.http
+      .post(url, req)
+      .first();        
+  }
+
+  private callPE() {
     let url = this.endpoint + '/product/project';
 
     this.http
@@ -159,7 +162,18 @@ export class PeService {
   calculate(req, productType) {
     this.request = req;
     this.productType = productType;
-    this.callPE();
+    this.getValidationResult
+    this.makeValidationRequest(req).subscribe(
+      r => {
+        let result : any = r;
+        if (result && result.length == 0) {
+          
+          this.callPE();
+        }        
+        this.validationSubject.next(r);        
+      }
+    );
+
   }
 
   premiumCalculation(req) {

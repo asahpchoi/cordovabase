@@ -92,8 +92,7 @@ export class InputComponent implements OnInit {
   }
 
   selectBasePlan() {
-    this.setPremiumDuration();
-     
+    this.setPremiumDuration();     
   }
   
   private setPremiumDuration() {
@@ -138,7 +137,6 @@ export class InputComponent implements OnInit {
       this.pe.validate(this.selectedTestcase.payload);
     }
   }
-
   changeValue(field) {
     let r = this.ranges[field]
     let dialogRef = this.dialog.open(NumpadComponent, {
@@ -227,7 +225,7 @@ export class InputComponent implements OnInit {
     let payload = this.selectedTestcase.payload;
 
     payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
-    payload.coverageInfo.parties.party.insuredSex = this.input.insuredAge;
+    payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
     payload.coverageInfo.plannedPremium = this.input.plannedPremium;
     payload.coverageInfo.faceAmount = this.input.faceAmount;
     if (!this.input.termfaceAmount || this.input.termfaceAmount == 0) {
