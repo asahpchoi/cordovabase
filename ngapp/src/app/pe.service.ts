@@ -51,7 +51,7 @@ export class PeService {
 
   //mock services
   calculateFaceAmountRange(plannedPremium, insuredAge, paymentMode) {
-    let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
+    let url = this.endpoint + '/product/functions/CalculateFaceAmountRangeUL007';
 
     let payload = {
       "productId": "UL007",

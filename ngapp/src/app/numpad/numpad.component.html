@@ -2,7 +2,7 @@
   <input matInput [(ngModel)]="data.number" readonly>
 </mat-form-field>
 <br>
-({{data.min}} - {{data.max}})
+<span (click)="data.number=data.min">({{data.min}}</span> - <span (click)="data.number=data.max">{{data.max}})</span>
 <mat-grid-list cols="3" rowHeight="2:1">
   <mat-grid-tile *ngFor="let i of numberArray()"><button mat-raised-button (click)="pressKey(i + '')">{{i}}</button></mat-grid-tile>
   <mat-grid-tile><button mat-raised-button (click)="pressKey('C')">C</button></mat-grid-tile>
