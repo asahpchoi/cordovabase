@@ -157,11 +157,23 @@ export class ChartComponent {
 
 
 
-  private selectView(v) {
-    this.selectedView = v;
-    this.input.units = {
+  selectView(v) {
+    //viewType: "AV",
+    //chart: 'Account Value (%s)',
+    //scenario: ['LOW', 'MEDIUM', 'HIGH'],
+    //guarantedScenario: 'Account Value (LOW)',
+    //default: 'Account Value (LOW)',
+    //line: "Total Premium"
 
-    };
+    this.selectedView = v;
+    this.input.units = [];
+    
+    v.scenario.forEach(
+      s => {
+        let k = v.chart.replace("%s", s);
+        this.input.units[k] = false;
+      }
+    )
     this.input.units[this.selectedView.default] = true;
     this.columns = [];
     this.pecolumns = this.selectedView.scenario.map(

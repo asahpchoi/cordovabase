@@ -3,11 +3,10 @@
     {{v.viewType}}
   </button>
 </div>
-{{input.units | json}}
 <div *ngIf="chart">
   <div class="wrap">
     <span *ngFor="let unit of pecolumns" class="box">
-      <mat-checkbox [checked]="input.units[unit].checked" (change)="valueChange(unit,$event)">{{ unit }}</mat-checkbox>
+      <mat-checkbox [checked]="input.units[unit]" (change)="valueChange(unit,$event)">{{ unit }}</mat-checkbox>
     </span>
   </div>
 </div>
