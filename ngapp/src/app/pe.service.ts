@@ -17,7 +17,7 @@ export class PeService {
   productType = null;
   endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
 
-  calculateRiderFaceAmountRange(    
+  calculateRiderFaceAmountRange(
     basePlanID,
     riderID,
     basePlanFaceAmount,
@@ -25,11 +25,15 @@ export class PeService {
     riderInsuredAge
   ) {
     return {
-      min: 7000,
-      max: basePlanFaceAmount * 4
+      min: basePlanFaceAmount / 4,
+      max: basePlanFaceAmount * 5
     }
+    //100M
+    //10B
+
   }
 
+  //mock services
   getDurationRange(
     basePlanID,
     insuredAge
@@ -38,10 +42,11 @@ export class PeService {
 
     return {
       min: 4,
-      max:+limit - +insuredAge
+      max: +limit - +insuredAge
     }
   }
 
+  //mock services
   calculateFaceAmountRange007(plannedPremium, insuredAge, paymentMode) {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRangeUL007';
 
@@ -95,19 +100,10 @@ export class PeService {
   }
 
   updateFundActivities(acts) {
-
-    console.log(this.request);
-    //keep initial regular Payment and term settings
     let initialSetting = this.request.fundActivities.fundActivity.filter(
       fa => (fa["regularPayment"]) || (fa["regularPayment"] == 0)
     );
-    console.log(initialSetting);
     this.request.fundActivities.fundActivity = [...initialSetting, ...acts];
-
-
-
-    //this.request.fundActivities = acts;
-    //this.adhocFundActivities = acts;
   }
 
   getFundActivities() {
@@ -124,7 +120,6 @@ export class PeService {
         this.validationSubject.next(r);
       }
       );
-
   }
 
   callPE() {

@@ -15,6 +15,7 @@ export class InputComponent implements OnInit {
   input = {
     duration: 15,
     insuredAge: 29,
+    insuredSex: 'M',
     faceAmount: 0,
     plannedPremium: 0,
     regularPayment: 0,
@@ -48,7 +49,6 @@ export class InputComponent implements OnInit {
 
   testcases;
   selectedTestcase;
-
   formControls = {
     duration: new FormControl('duration', [Validators.min(4), Validators.max(99), Validators.required])
   }
@@ -96,7 +96,6 @@ export class InputComponent implements OnInit {
      
   }
   
-
   private setPremiumDuration() {
     let planID = this.selectedTestcase.name;
     let ranges: any = this.pe.getDurationRange(planID, this.input.insuredAge);
@@ -228,6 +227,7 @@ export class InputComponent implements OnInit {
     let payload = this.selectedTestcase.payload;
 
     payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
+    payload.coverageInfo.parties.party.insuredSex = this.input.insuredAge;
     payload.coverageInfo.plannedPremium = this.input.plannedPremium;
     payload.coverageInfo.faceAmount = this.input.faceAmount;
     if (!this.input.termfaceAmount || this.input.termfaceAmount == 0) {
@@ -284,8 +284,6 @@ export class InputComponent implements OnInit {
     }
 
     payload.coverageInfo.options.paymentMode = this.input.paymentMode.substring(0, 1);
-    //A S M Q
-    console.log('payload', payload)
     payload.fundActivities.fundActivity = [
       {
         "regularPayment": this.input.regularPayment,
@@ -295,11 +293,7 @@ export class InputComponent implements OnInit {
         "regularPayment": 0.00,
         "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
       }
-
     ];
-
-    //console.log(payload)
-
   }
 
 }
