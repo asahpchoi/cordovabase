@@ -33,12 +33,17 @@ export class TableComponent implements OnDestroy {
       activity: "withdrawal"
     },
     {
+      name: "colBasePlanFaceAmount",
+      component: "NumpadComponent",
+      activity: "faceAmount"      
+    },
+    {
       name: "Premium",
       component: "NumpadComponent",
       activity: "plannedPremium"
     },
     {
-      name: "Total Premium",
+      name: "colRegularPayment",
       component: "NumpadComponent",
       activity: "regularPayment"
     }
