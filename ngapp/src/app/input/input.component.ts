@@ -163,7 +163,7 @@ export class InputComponent implements OnInit {
   }
 
   addRider() {
-     let dialogRef = this.dialog.open(AddRiderComponent, {
+    let dialogRef = this.dialog.open(AddRiderComponent, {
       width: '250px',
       data: {
         productID: 'UL007',
@@ -172,7 +172,7 @@ export class InputComponent implements OnInit {
       }
     });
     dialogRef.afterClosed().subscribe(result => {
- 
+
     });
   }
 
@@ -224,14 +224,21 @@ export class InputComponent implements OnInit {
 
   }
   private updateRiderProtectionRange() {
-    let range = this.pe.calculateRiderFaceAmountRange(
-      null, null,
+    this.pe.calculateTermRiderFaceAmount(
+      this.input.insuredAge,
       this.input.faceAmount
-      , null, null
-    );
+    ).subscribe(
+      result => {
+        console.log('result??', result)
+        let data: any = result;
 
-    this.ranges['termfaceAmount'].min = range.min;
-    this.ranges['termfaceAmount'].max = range.max;
+        if (data.value) {
+          this.ranges['termfaceAmount'].max = data.value.maxLimit;
+          this.ranges['termfaceAmount'].min = data.value.minLimit;
+        }
+
+      }
+    )
   }
   private updateRegularPaymentRange() {
     this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;

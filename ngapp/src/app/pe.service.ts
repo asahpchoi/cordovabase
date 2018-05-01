@@ -50,8 +50,26 @@ export class PeService {
   }
 
   //mock services
+  calculateTermRiderFaceAmount(insuredAge, bpFaceAmount) {
+    let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
+
+    let payload = {
+      "productId": "TRI07", 
+      "associateProductId": "UL007",
+      "location": "Vietnam",
+      "channel": "Agency",
+      "insuredAge" : insuredAge,
+      "currencyId": "VND",
+      "bpFaceAmount": bpFaceAmount
+    }
+
+    console.log(payload)
+    return this.http
+      .post(url, payload)
+      .first();
+  }
   calculateFaceAmountRange(plannedPremium, insuredAge, paymentMode) {
-    let url = this.endpoint + '/product/functions/CalculateFaceAmountRangeUL007';
+    let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 
     let payload = {
       "productId": "UL007",

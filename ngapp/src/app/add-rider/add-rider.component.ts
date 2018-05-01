@@ -10,12 +10,9 @@ import * as _ from 'lodash';
 export class AddRiderComponent implements OnInit {
   riders = {
     "UL007": {
-      "ADD": {
-        riderId: ["ADD03"],
-        fields: { faceAmount: 0 }
-      },
+      "ADD": { riderId: ["ADD03"], fields: { faceAmount: 0 } },
       "ECI": { riderId: ["ECI01"], fields: { faceAmount: 0 } },
-      "RHC": { riderId: ["RHC2I", "RHC2O", "RHC2D"], fields: { coverageClass: "M" } },
+      "RHC": { riderId: ["RHC2I", "RHC2O", "RHC2D"], fields: { coverageClass: "A" } },
       "MC": { riderId: ["MC005"], fields: { faceAmount: 0 } },
       "TR": { riderId: ["TRI07"], fields: { faceAmount: 0 } }
     }
