@@ -28,8 +28,8 @@ export class InputComponent implements OnInit {
 
   ranges = {
     faceAmount: {
-      hardMin: 1000000,
-      min: 1000000,
+      hardMin: 100000,
+      min: 100000,
       max: null
     },
     plannedPremium: {
