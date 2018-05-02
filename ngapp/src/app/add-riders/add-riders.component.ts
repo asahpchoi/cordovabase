@@ -76,6 +76,7 @@ export class AddRidersComponent implements OnInit {
       data: _data
     });
     dialogRef.afterClosed().subscribe(result => {
+      if(!result) return;
       this.input.riders.push(result);      
       this.transformRiders();
       this.pe.updateRiders(this.transformedRiders);
