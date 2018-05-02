@@ -9,7 +9,7 @@
     <div *ngIf="selectedTestcase && selectedTestcase.payload">
       <div>
         <mat-form-field>
-          <input matInput name="insuredage" placeholder="Insured Age" [(ngModel)]="input.insuredAge">
+          <input matInput name="insuredage" placeholder="Insured Age" [(ngModel)]="input.insuredAge" (change)="selectBasePlan()">
         </mat-form-field>
         <mat-form-field>
           <input matInput name="insuredsex" placeholder="Gender" [(ngModel)]="input.insuredSex">
@@ -48,6 +48,9 @@
             <mat-option *ngFor="let o of ['Annual','Semi-Annual','Quarterly','Monthly']" [value]="o">{{o}}</mat-option>
           </mat-select>
         </mat-form-field>
+      </div>
+      <div *ngFor="let r of input.riders">
+        <pre>{{r | json}}</pre>
       </div>
     </div>
     <button mat-raised-button (click)="addRider()">Add Rider</button>

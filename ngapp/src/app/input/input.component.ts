@@ -22,7 +22,8 @@ export class InputComponent implements OnInit {
     regularPayment: 0,
     termfaceAmount: 0,
     termplannedPremium: 0,
-    paymentMode: 'Annual'
+    paymentMode: 'Annual',
+    riders:[]
   }
 
   ranges = {
@@ -46,6 +47,47 @@ export class InputComponent implements OnInit {
       min: 0,
       max: null
     }
+  }
+
+  userlist = {
+    insured: {
+      type: 'insured',
+      name: 'Insured Name',
+      id: 'insured id',
+      insuredAge: 30,
+      sex: 'M'
+    },
+    owner: {
+      type: 'owner',
+      name: 'Owner Name',
+      id: 'owner id',
+      insuredAge: 26,
+      sex: 'M'
+    },
+    dependents: [
+      {
+        type: 'dependent',
+        name: 'Dependent 1',
+        id: 'dependent 1 id',
+        insuredAge: 28,
+        sex: 'F'
+      },
+      {
+        type: 'dependent',
+        name: 'Dependent 2',
+        id: 'dependent 2 id',
+        insuredAge: 35,
+        sex: 'F'
+      },
+      {
+        type: 'dependent',
+        name: 'Dependent 3',
+        id: 'dependent 3 id',
+        insuredAge: 15,
+        sex: 'F'
+      }
+    ]
+
   }
 
   testcases;
@@ -164,15 +206,17 @@ export class InputComponent implements OnInit {
 
   addRider() {
     let dialogRef = this.dialog.open(AddRiderComponent, {
-      width: '250px',
+      width: '640px',
       data: {
         productID: 'UL007',
         riderType: 'ADD',
-        userList: []
+        userlist: this.userlist,
+        riders: [],
+        selectedRiders: this.input.riders
       }
     });
     dialogRef.afterClosed().subscribe(result => {
-
+      this.input.riders.push(result);
     });
   }
 
@@ -224,21 +268,14 @@ export class InputComponent implements OnInit {
 
   }
   private updateRiderProtectionRange() {
-    this.pe.calculateTermRiderFaceAmount(
-      this.input.insuredAge,
+    let range = this.pe.calculateRiderFaceAmountRange(
+      null, null,
       this.input.faceAmount
-    ).subscribe(
-      result => {
-        console.log('result??', result)
-        let data: any = result;
+      , null, null
+    );
 
-        if (data.value) {
-          this.ranges['termfaceAmount'].max = data.value.maxLimit;
-          this.ranges['termfaceAmount'].min = data.value.minLimit;
-        }
-
-      }
-    )
+    this.ranges['termfaceAmount'].min = range.min;
+    this.ranges['termfaceAmount'].max = range.max;
   }
   private updateRegularPaymentRange() {
     this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;
@@ -309,7 +346,7 @@ export class InputComponent implements OnInit {
     payload.coverageInfo.options.paymentMode = this.input.paymentMode.substring(0, 1);
     payload.fundActivities.fundActivity = [
       {
-        "regularPayment": this.input.regularPayment,
+        "regularPayment": +this.input.regularPayment,
         "attainAge": this.input.insuredAge
       },
       {

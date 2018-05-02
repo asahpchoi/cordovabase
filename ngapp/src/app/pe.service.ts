@@ -138,6 +138,8 @@ export class PeService {
   private makeValidationRequest(req) {
     let url = this.endpoint + '/product/validate';
 
+    console.log('validate', url, req)
+
     return this.http
       .post(url, req)
       .first();        
@@ -145,6 +147,7 @@ export class PeService {
 
   callPE() {
     let url = this.endpoint + '/product/project';
+
 
     this.http
       .post(url, this.request)
@@ -180,8 +183,8 @@ export class PeService {
   calculate(req, productType) {
     this.request = req;
     this.productType = productType;
-    this.getValidationResult
-    this.makeValidationRequest(req).subscribe(
+    
+    this.makeValidationRequest(req).first().subscribe(
       r => {
         let result : any = r;
         if (result && result.length == 0) {
