@@ -26,12 +26,12 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div *ngIf="['ADD', 'ECI', 'TR'].includes(data.riderType)">
+      <div *ngIf="['ADD', 'ECI', 'TRI'].includes(data.riderType)">
         <mat-form-field>
           <input matInput name="faceAmount" placeholder="Face Amount" [(ngModel)]="getInputRider(r).faceAmount">
         </mat-form-field>
       </div>
-      <div *ngIf="['MC'].includes(data.riderType)">
+      <div *ngIf="['MC0'].includes(data.riderType)">
         <mat-chip-list>
           <mat-chip *ngFor="let v of [200,300,500,1000,2000,3000]" (remove)="remove(v)" (click)="getInputRider(r).faceAmount = +v * 1000">
             {{v}}            

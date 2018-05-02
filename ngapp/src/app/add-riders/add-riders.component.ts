@@ -162,7 +162,7 @@ export class AddRidersComponent implements OnInit {
                 delete obj.occupation;
                 //obj.
               }
-              if (rg.riderType == "TR") {                
+              if (rg.riderType == "TRI") {                
                 obj.occupation = null;                
                 delete obj.occupation;
                 //obj.
