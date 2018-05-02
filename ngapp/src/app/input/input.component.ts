@@ -33,8 +33,8 @@ export class InputComponent implements OnInit {
       max: null
     },
     plannedPremium: {
-      hardMin: 700,
-      min: 700,
+      hardMin: 7000,
+      min: 7000,
       max: null
     },
     regularPayment: {
@@ -95,19 +95,19 @@ export class InputComponent implements OnInit {
           console.log(d)
           //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
           this.input.termplannedPremium = 0;
-          data.riders.filter(r => r.riderCode=="TRI07").forEach(
+          data.riders.filter(r => r.riderCode == "TRI07").forEach(
             r => {
               this.input.termplannedPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
             }
           )
 
           this.input.riderPremium = 0;
-          data.riders.filter(r => r.riderCode!="TRI07").forEach(
+          data.riders.filter(r => r.riderCode != "TRI07").forEach(
             r => {
               this.input.riderPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
             }
           )
-          
+
 
           this.updateRegularPaymentRange();
         }
@@ -244,7 +244,7 @@ export class InputComponent implements OnInit {
   }
   private updateRegularPaymentRange() {
     let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
-    if(this.input.regularPayment < min) this.input.regularPayment = min;
+    if (this.input.regularPayment < min) this.input.regularPayment = min;
     this.ranges['regularPayment'].min = min;
     this.ranges['regularPayment'].hardMin = this.input.regularPayment;
   }

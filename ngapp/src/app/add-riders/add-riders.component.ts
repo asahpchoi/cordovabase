@@ -40,7 +40,6 @@ export class AddRidersComponent implements OnInit {
   }
 
   ngOnInit() {
-
   }
 
   remove(rider: any): void {
@@ -77,8 +76,7 @@ export class AddRidersComponent implements OnInit {
       data: _data
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.input.riders.push(result);
-      
+      this.input.riders.push(result);      
       this.transformRiders();
       this.pe.updateRiders(this.transformedRiders);
       this.pe.validate();
@@ -87,7 +85,6 @@ export class AddRidersComponent implements OnInit {
   }
 
   transformRiders() {
-
     this.transformedRiders = [];
     let template = {
       "occupation": "1",

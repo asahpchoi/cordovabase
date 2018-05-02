@@ -128,6 +128,10 @@ export class AddRiderComponent implements OnInit {
     this.updateUserList();
   }
 
+  close(isCancel): void {
+    this.dialogRef.close();
+  }
+
   ngOnDestroy() {
 
   }
