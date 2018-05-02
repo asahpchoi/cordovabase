@@ -18,6 +18,7 @@ export class AddRidersComponent implements OnInit {
   }
   userlist;
   transformedRiders = [];
+  validationMsg = [];
 
   constructor(
     private pe: PeService,
@@ -25,6 +26,17 @@ export class AddRidersComponent implements OnInit {
     private us: UserService
   ) {
     this.userlist = us.getUserList();
+    pe.getValidationResult().subscribe(
+      vr => {
+        if(vr) 
+        {this.validationMsg = vr.map(e => {
+          if(e["parameters"]["%INSURED%"])
+          return  e["parameters"]["%PRODUCT_ID%"].substring(0,3) + '|' + e["parameters"]["%INSURED%"]["insuredId"]
+         
+        })}
+        //this.message = vr;
+      }
+    )
   }
 
   ngOnInit() {
@@ -40,6 +52,7 @@ export class AddRidersComponent implements OnInit {
     }
     this.transformRiders();
     this.pe.updateRiders(this.transformedRiders);
+    this.pe.validate();
     this.pe.premiumCalculation();    
   }
 
@@ -68,6 +81,7 @@ export class AddRidersComponent implements OnInit {
       
       this.transformRiders();
       this.pe.updateRiders(this.transformedRiders);
+      this.pe.validate();
       this.pe.premiumCalculation();
     });
   }

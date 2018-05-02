@@ -217,6 +217,7 @@ export class InputComponent implements OnInit {
 
     this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
       subscribe(x => {
+        console.log('Premium Range:', x)
         let data: any = x;
         this.updateRiderProtectionRange();
         this.ranges.plannedPremium.min = Math.round(data.value.minLimit);

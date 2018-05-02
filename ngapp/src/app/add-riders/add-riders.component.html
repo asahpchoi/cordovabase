@@ -2,9 +2,11 @@
   Add Rider</button>
 
 <h3>Rider Added</h3>
-<mat-chip-list >
-  <mat-chip *ngFor="let r of input.riders"  (remove)="remove(r)">
+<mat-chip-list>
+  <mat-chip *ngFor="let r of input.riders" (remove)="remove(r)">
+    <i class="material-icons" *ngIf="validationMsg.includes(r.riderType + '|' + r.insured.id)">error</i>
     {{r.insured.name}} - {{r.riderType}}
     <mat-icon matChipRemove>cancel</mat-icon>
+
   </mat-chip>
 </mat-chip-list>

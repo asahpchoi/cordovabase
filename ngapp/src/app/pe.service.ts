@@ -134,8 +134,9 @@ export class PeService {
     return JSON.parse(JSON.stringify(this.request.fundActivities.fundActivity));
   }
 
-  validate(req) {    
+  validate(req?) {    
     if(req) this.premiumCalRequest = req;
+    if(!req) req = this.premiumCalRequest;
     this.makeValidationRequest(req).subscribe(r => { this.validationSubject.next(r); });
   }
 
