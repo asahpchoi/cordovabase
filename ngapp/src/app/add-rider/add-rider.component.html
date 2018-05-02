@@ -13,12 +13,11 @@
   </mat-select>
 </mat-form-field>
 
-
-<div *ngIf="data.riderType=='RHC'">
-  <mat-grid-list cols="3" rowHeight="2:1">
-    <mat-grid-tile *ngFor="let r of riders[data.productID][data.riderType].riderId">
-      <div>
-        <h2>Plan: {{labels[r]}}</h2>
+<mat-grid-list [cols]="['RHC'].includes(data.riderType)?3:1" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let r of riders[data.productID][data.riderType].riderId">
+    <div>
+      <h2>Plan: {{labels[r]}}</h2>
+      <div *ngIf="['RHC'].includes(data.riderType)">
         <mat-form-field>
           <mat-select placeholder="Coverage Class" [(value)]="getInputRider(r).coverageClass" (selectionChange)="updateOptions(r)">
             <mat-option *ngFor="let o of loadRiderOptions(r)" [value]="o">
@@ -27,22 +26,21 @@
           </mat-select>
         </mat-form-field>
       </div>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
+      <div *ngIf="['ADD', 'ECI', 'TR'].includes(data.riderType)">
+        <mat-form-field>
+          <input matInput name="faceAmount" placeholder="Face Amount" [(ngModel)]="getInputRider(r).faceAmount">
+        </mat-form-field>
+      </div>
+      <div *ngIf="['MC'].includes(data.riderType)">
+        <mat-chip-list>
+          <mat-chip *ngFor="let v of [200,300,500,1000,2000,3000]" (remove)="remove(v)" (click)="getInputRider(r).faceAmount = +v * 1000">
+            {{v}}            
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
 
-<div *ngIf="data.riderType!='RHC'">
-  <div *ngFor="let r of riders[data.productID][data.riderType].riderId">
-    <h2>Plan: {{labels[r]}}</h2>
-    <mat-form-field>
-      <input matInput name="faceAmount" placeholder="Face Amount" [(ngModel)]="getInputRider(r).faceAmount">
-    </mat-form-field>
-  </div>
-</div>
 <button mat-raised-button (click)="close(true)">Cancel</button>
-<button mat-raised-button [mat-dialog-close]="input">Ok</button>
-<br>result---------------------------------------------------------------------------------------------
-<br>
-<pre>
-  {{input | json}}
-</pre>
+<button mat-raised-button [mat-dialog-close]="input" [disabled]="!(input.insured.id && input.riderType)">Ok</button>

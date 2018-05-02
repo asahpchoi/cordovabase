@@ -36,9 +36,11 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NumpadComponent } from './numpad/numpad.component';
-
-import {MatExpansionModule} from '@angular/material/expansion';
+ 
+import { MatExpansionModule } from '@angular/material/expansion';
 import { AddRiderComponent } from './add-rider/add-rider.component';
+import { AddRidersComponent } from './add-riders/add-riders.component';
+import { UserService } from './user.service';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -66,7 +68,8 @@ const appRoutes: Routes = [
     SearchTextPipe,
     TableComponent,
     NumpadComponent,
-    AddRiderComponent
+    AddRiderComponent,
+    AddRidersComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,7 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [PeService],
+  providers: [PeService, UserService],
   bootstrap: [AppComponent],
   entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent]
 })

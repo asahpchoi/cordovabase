@@ -5,7 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../numpad/numpad.component';
 import { HttpClient } from '@angular/common/http';
-import { AddRiderComponent } from '../add-rider/add-rider.component';
+
 
 @Component({
   selector: 'app-input',
@@ -23,7 +23,7 @@ export class InputComponent implements OnInit {
     termfaceAmount: 0,
     termplannedPremium: 0,
     paymentMode: 'Annual',
-    riders:[]
+    riderPremium: 0
   }
 
   ranges = {
@@ -47,47 +47,6 @@ export class InputComponent implements OnInit {
       min: 0,
       max: null
     }
-  }
-
-  userlist = {
-    insured: {
-      type: 'insured',
-      name: 'Insured Name',
-      id: 'insured id',
-      insuredAge: 30,
-      sex: 'M'
-    },
-    owner: {
-      type: 'owner',
-      name: 'Owner Name',
-      id: 'owner id',
-      insuredAge: 26,
-      sex: 'M'
-    },
-    dependents: [
-      {
-        type: 'dependent',
-        name: 'Dependent 1',
-        id: 'dependent 1 id',
-        insuredAge: 28,
-        sex: 'F'
-      },
-      {
-        type: 'dependent',
-        name: 'Dependent 2',
-        id: 'dependent 2 id',
-        insuredAge: 35,
-        sex: 'F'
-      },
-      {
-        type: 'dependent',
-        name: 'Dependent 3',
-        id: 'dependent 3 id',
-        insuredAge: 15,
-        sex: 'F'
-      }
-    ]
-
   }
 
   testcases;
@@ -127,6 +86,25 @@ export class InputComponent implements OnInit {
         ];
       }
 
+    )
+
+    pe.premiumSubject.subscribe(
+      d => {
+        if (d) {
+          let data: any = d;
+          //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
+          this.input.termplannedPremium = data.riders.filter(r => r.riderCode=="TRI07")[0].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
+          this.input.riderPremium = 0;
+          data.riders.filter(r => r.riderCode!="TRI07").forEach(
+            r => {
+              this.input.riderPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
+            }
+          )
+          
+
+          this.updateRegularPaymentRange();
+        }
+      }
     )
 
   }
@@ -204,21 +182,7 @@ export class InputComponent implements OnInit {
     });
   }
 
-  addRider() {
-    let dialogRef = this.dialog.open(AddRiderComponent, {
-      width: '640px',
-      data: {
-        productID: 'UL007',
-        riderType: 'ADD',
-        userlist: this.userlist,
-        riders: [],
-        selectedRiders: this.input.riders
-      }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.input.riders.push(result);
-    });
-  }
+
 
   //logic functions
   private updateTermFaceAmount() {
@@ -228,14 +192,7 @@ export class InputComponent implements OnInit {
       return;
     }
     this.updatePayload();
-    this.pe.premiumCalculation(this.selectedTestcase.payload).subscribe(
-      d => {
-        let data: any = d;
-        //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
-        this.input.termplannedPremium = data.riders["0"].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium
-        this.updateRegularPaymentRange();
-      }
-    )
+    this.pe.premiumCalculation(this.selectedTestcase.payload);
   }
   private updateBasePremium() {
     this.pe.calculateFaceAmountRange(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
@@ -278,8 +235,9 @@ export class InputComponent implements OnInit {
     this.ranges['termfaceAmount'].max = range.max;
   }
   private updateRegularPaymentRange() {
-    this.input.regularPayment = +this.input.plannedPremium + +this.input.termplannedPremium;
-    this.ranges['regularPayment'].min = this.input.regularPayment;
+    let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
+    if(this.input.regularPayment < min) this.input.regularPayment = min;
+    this.ranges['regularPayment'].min = min;
     this.ranges['regularPayment'].hardMin = this.input.regularPayment;
   }
   private updatePayload() {

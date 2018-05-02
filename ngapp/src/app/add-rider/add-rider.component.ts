@@ -28,7 +28,7 @@ export class AddRiderComponent implements OnInit {
         r => r.riderType == this.input.riderType
       ).map(sr => sr.insured.id);
       
-    debugger
+    //debugger
 
     let fulluserlist =  [...[this.data.userlist.owner],
     ...[this.data.userlist.insured],

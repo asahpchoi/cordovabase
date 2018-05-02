@@ -1,0 +1,10 @@
+<button mat-raised-button (click)="addRider(null)">
+  Add Rider</button>
+
+<h3>Rider Added</h3>
+<mat-chip-list >
+  <mat-chip *ngFor="let r of input.riders"  (remove)="remove(r)">
+    {{r.insured.name}} - {{r.riderType}}
+    <mat-icon matChipRemove>cancel</mat-icon>
+  </mat-chip>
+</mat-chip-list>

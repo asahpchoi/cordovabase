@@ -13,8 +13,11 @@ import { HttpClient } from '@angular/common/http';
 export class PeService {
   resultSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   validationSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  premiumSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   request = null;
+  premiumCalRequest = null;
   productType = null;
+  riders = [];
   endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
   //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
   //endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
@@ -131,26 +134,43 @@ export class PeService {
     return JSON.parse(JSON.stringify(this.request.fundActivities.fundActivity));
   }
 
-  validate(req) {
+  validate(req) {    
+    if(req) this.premiumCalRequest = req;
     this.makeValidationRequest(req).subscribe(r => { this.validationSubject.next(r); });
   }
 
   private makeValidationRequest(req) {
     let url = this.endpoint + '/product/validate';
+    let reqCopy = JSON.parse(JSON.stringify(req));
 
-    console.log('validate', url, req)
+    if(this.riders.length > 0) {
+      
+      reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
+      console.log('add Rider', reqCopy, this.riders)
+    }
+
 
     return this.http
-      .post(url, req)
+      .post(url, reqCopy)
       .first();        
+  }
+
+  updateRiders(riders) {
+    this.riders = riders;
   }
 
   callPE() {
     let url = this.endpoint + '/product/project';
+    let reqCopy = JSON.parse(JSON.stringify(this.request));
 
+
+    if(this.riders.length > 0) {      
+      reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
+      console.log('add Rider', reqCopy, this.riders)
+    }
 
     this.http
-      .post(url, this.request)
+      .post(url, reqCopy)
       .subscribe(
         x => {
           console.log(x)
@@ -183,12 +203,11 @@ export class PeService {
   calculate(req, productType) {
     this.request = req;
     this.productType = productType;
-    
+
     this.makeValidationRequest(req).first().subscribe(
       r => {
         let result : any = r;
-        if (result && result.length == 0) {
-          
+        if (result && result.length == 0) {          
           this.callPE();
         }        
         this.validationSubject.next(r);        
@@ -197,10 +216,23 @@ export class PeService {
 
   }
 
-  premiumCalculation(req) {
+  premiumCalculation(req?) {
     let url = this.endpoint + '/product/calculatePremiums';
+    if(req) this.premiumCalRequest = req;
+    if(!req) req = this.premiumCalRequest;
+    
+
+    let reqCopy = JSON.parse(JSON.stringify(req));
+
+    if(this.riders.length > 0) {      
+      reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
+      console.log('add Rider', reqCopy, this.riders)
+    }    
     return this.http
-      .post(url, req)
-      .first();
+      .post(url, reqCopy)
+      .first()
+      .subscribe(
+        x=>this.premiumSubject.next(x)
+      );
   }
 }
