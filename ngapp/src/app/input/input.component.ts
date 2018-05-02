@@ -33,8 +33,8 @@ export class InputComponent implements OnInit {
       max: null
     },
     plannedPremium: {
-      hardMin: 7000,
-      min: 7000,
+      hardMin: 700,
+      min: 700,
       max: null
     },
     regularPayment: {
