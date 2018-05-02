@@ -45,7 +45,10 @@
         </mat-form-field>
         <mat-form-field>
           <input matInput name="regularpayment" placeholder="Regular Payment" [(ngModel)]="input.regularPayment" (click)="changeValue('regularPayment')" readonly>
+          
+          <mat-hint>from: {{ranges['regularPayment'].min}}</mat-hint>
         </mat-form-field>
+
         <mat-form-field>
           <mat-select placeholder="Payment mode" [(value)]="input.paymentMode" (change)="updatePaymentMode()">
             <mat-option *ngFor="let o of ['Annual','Semi-Annual','Quarterly','Monthly']" [value]="o">{{o}}</mat-option>

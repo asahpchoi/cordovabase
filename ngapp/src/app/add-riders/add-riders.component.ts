@@ -150,7 +150,11 @@ export class AddRidersComponent implements OnInit {
                 delete obj.occupation;
                 //obj.
               }
-
+              if (rg.riderType == "TR") {                
+                obj.occupation = null;                
+                delete obj.occupation;
+                //obj.
+              }
               this.transformedRiders.push(obj)
             }
           }

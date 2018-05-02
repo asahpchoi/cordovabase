@@ -92,8 +92,15 @@ export class InputComponent implements OnInit {
       d => {
         if (d) {
           let data: any = d;
+          console.log(d)
           //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
-          this.input.termplannedPremium = data.riders.filter(r => r.riderCode=="TRI07")[0].premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
+          this.input.termplannedPremium = 0;
+          data.riders.filter(r => r.riderCode=="TRI07").forEach(
+            r => {
+              this.input.termplannedPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
+            }
+          )
+
           this.input.riderPremium = 0;
           data.riders.filter(r => r.riderCode!="TRI07").forEach(
             r => {
