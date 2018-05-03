@@ -1,51 +1,54 @@
 <div class="example-container">
   <form>
+    <div>
+      <mat-form-field>
+        <input matInput name="insuredage" placeholder="Insured Age" [(ngModel)]="input.insuredAge" (change)="selectBasePlan()">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput name="insuredsex" placeholder="Gender" [(ngModel)]="input.insuredSex">
+      </mat-form-field>
+    </div>
     <mat-form-field>
       <mat-select placeholder="Select Test Case" [(value)]="selectedTestcase" (change)="selectBasePlan()" (selectionChange)="selectBasePlan()">
-        <mat-option *ngFor="let o of testcases" [value]="o">{{o.name}}</mat-option>
+        <mat-option *ngFor="let o of filterTestCases()" [value]="o">{{o.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <div *ngIf="selectedTestcase && selectedTestcase.payload">
+
       <div>
         <mat-form-field>
-          <input matInput name="insuredage" placeholder="Insured Age" [(ngModel)]="input.insuredAge" (change)="selectBasePlan()">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput name="insuredsex" placeholder="Gender" [(ngModel)]="input.insuredSex">
-        </mat-form-field>        
-      </div>
-      <div>
-        <mat-form-field>
-          <input matInput name="faceAmount" placeholder="Base Protection" [ngModel]="input.faceAmount" (click)="changeValue('faceAmount')" readonly>
+          <input matInput name="faceAmount" placeholder="Base Protection" [ngModel]="input.faceAmount" (click)="changeValue('faceAmount')"
+            readonly>
           <mat-hint>from: ({{ranges.faceAmount.min}} to {{ranges.faceAmount.max}})</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput name="termFaceAmount" placeholder="Term Protection" [ngModel]="input.termfaceAmount" (click)="changeValue('termfaceAmount')" readonly>
+          <input matInput name="termFaceAmount" placeholder="Term Protection" [ngModel]="input.termfaceAmount" (click)="changeValue('termfaceAmount')"
+            readonly>
           <mat-hint>from: ({{ranges.termfaceAmount.min}} to {{ranges.termfaceAmount.max}})</mat-hint>
         </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput name="plannedPremium" placeholder="Planned Premium" [(ngModel)]="input.plannedPremium" (click)="changeValue('plannedPremium')" readonly>
+          <input matInput name="plannedPremium" placeholder="Planned Premium" [(ngModel)]="input.plannedPremium" (click)="changeValue('plannedPremium')"
+            readonly>
           <mat-hint>from: ({{ranges.plannedPremium.min}} to {{ranges.plannedPremium.max}})</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [ngModel]="input.termplannedPremium" name="termPlannedPremium" placeholder="Term Premium" readonly>
+          <input matInput [ngModel]="input.termplannedPremium" name="termPlannedPremium" placeholder="Term Premium" [formControl]="formControls.termPremium" readonly>
         </mat-form-field>
         <mat-form-field>
-            <input matInput [ngModel]="input.riderPremium" name="riderPremium" placeholder="Rider Premium" readonly>
-          </mat-form-field>
+          <input matInput [ngModel]="input.riderPremium" name="riderPremium" placeholder="Rider Premium" [formControl]="formControls.riderPremium" readonly>
+        </mat-form-field>
       </div>
       <div>
         <mat-form-field>
-          <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Premium Duration"
-          [formControl]="formControls.duration"
-          >
+          <input matInput required [(ngModel)]="input.duration" name="duration" placeholder="Premium Duration" [formControl]="formControls.duration">
         </mat-form-field>
         <mat-form-field>
-          <input matInput name="regularpayment" placeholder="Regular Payment" [(ngModel)]="input.regularPayment" (click)="changeValue('regularPayment')" readonly>
-          
+          <input matInput name="regularpayment" placeholder="Regular Payment" [(ngModel)]="input.regularPayment" (click)="changeValue('regularPayment')"
+            readonly>
+
           <mat-hint>from: {{ranges['regularPayment'].min}}</mat-hint>
         </mat-form-field>
 
@@ -55,9 +58,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      
     </div>
-
     <button mat-raised-button (click)="validate()">Validate</button>
     <button mat-raised-button (click)="calculate()">Get Projection</button>
   </form>

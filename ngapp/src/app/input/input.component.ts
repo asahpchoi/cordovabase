@@ -5,7 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../numpad/numpad.component';
 import { HttpClient } from '@angular/common/http';
-
+import * as ts from "typescript";
 
 @Component({
   selector: 'app-input',
@@ -53,7 +53,9 @@ export class InputComponent implements OnInit {
   testcases;
   selectedTestcase;
   formControls = {
-    duration: new FormControl('duration', [Validators.min(4), Validators.max(99), Validators.required])
+    duration: new FormControl('duration', [Validators.min(4), Validators.max(99), Validators.required]),
+    riderPremium: new FormControl({value: '', disabled: true}),
+    termPremium: new FormControl({value: '', disabled: true})
   }
 
 
@@ -76,9 +78,125 @@ export class InputComponent implements OnInit {
           {
             name: 'ENC12',
             payload: data.ENC12,
-            productType: 'CI'
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 0,
+                max: 17
+              }
+            },
+            duration: 12
           },
-
+          {
+            name: 'ENC15',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 0,
+                max: 17
+              }
+            }
+            ,
+            duration: 15
+          },
+          {
+            name: 'ENC20',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 0,
+                max: 17
+              }
+            }
+            ,
+            duration: 20
+          },
+          {
+            name: 'ENF12',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 18,
+                max: 99
+              },
+              insuredSex: 'F'
+            }
+            ,
+            duration: 12
+          },
+          {
+            name: 'ENF15',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 18,
+                max: 99
+              },
+              insuredSex: 'F'
+            }
+            ,
+            duration: 15
+          },
+          {
+            name: 'ENF20',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 18,
+                max: 99
+              },
+              insuredSex: 'F'
+            }
+            ,
+            duration: 20
+          },
+          {
+            name: 'ENM12',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 18,
+                max: 99
+              },
+              insuredSex: 'M'
+            }
+            ,
+            duration: 12
+          },
+          {
+            name: 'ENM15',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 18,
+                max: 99
+              },
+              insuredSex: 'M'
+            }
+            ,
+            duration: 15
+          },
+          {
+            name: 'ENM20',
+            payload: data.ENC12,
+            productType: 'CI',
+            filters: {
+              insuredAge: {
+                min: 18,
+                max: 99
+              },
+              insuredSex: 'M'
+            }
+            ,
+            duration: 20
+          },
           {
             name: 'ADD03',
             payload: data.ADD03,
@@ -92,7 +210,7 @@ export class InputComponent implements OnInit {
     pe.premiumSubject.subscribe(
       d => {
         if (d) {
-          debugger
+
           let data: any = d;
           console.log(d)
           //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
@@ -109,8 +227,6 @@ export class InputComponent implements OnInit {
               this.input.riderPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
             }
           )
-
-
           this.updateRegularPaymentRange();
         }
       }
@@ -121,22 +237,47 @@ export class InputComponent implements OnInit {
     //this.pe.
   }
 
+  filterTestCases() {
+    return this.testcases.filter(t => {
+      if (t.filters) {
+        return (
+          t.filters.insuredAge.min <= this.input.insuredAge &&
+          t.filters.insuredAge.max >= this.input.insuredAge &&
+          (t.filters.insuredSex == this.input.insuredSex || t.filters.insuredSex == null)
+        )
+
+      }
+      return true;
+    })
+  }
+
   selectBasePlan() {
     this.setPremiumDuration();
   }
 
-  private setPremiumDuration() {
-    let planID = this.selectedTestcase.name;
-    let ranges: any = this.pe.getDurationRange(planID, this.input.insuredAge);
+  private setPremiumDurationCI() {
+    this.input.duration = this.selectedTestcase.duration;
+    this.formControls.duration.disable();
 
-    this.input.duration = ranges.max;
-    this.formControls.duration.setValidators(
-      [
-        Validators.required,
-        Validators.min(+ranges.min),
-        Validators.max(+ranges.max)
-      ]
-    );
+  }
+
+  private setPremiumDuration() {
+    switch (this.selectedTestcase.productType) {
+      case 'CI': this.setPremiumDurationCI(); break;
+      default:
+        let planID = this.selectedTestcase.name;
+        let ranges: any = this.pe.getDurationRange(planID, this.input.insuredAge);
+        
+        this.input.duration = ranges.max;
+        this.formControls.duration.enable();
+        this.formControls.duration.setValidators(
+          [
+            Validators.required,
+            Validators.min(+ranges.min),
+            Validators.max(+ranges.max)
+          ]
+        );
+    }
   }
 
   ngOnInit() {
@@ -319,7 +460,7 @@ export class InputComponent implements OnInit {
       },
       {
         "regularPayment": 0.00,
-        "attainAge": "" +(+this.input.insuredAge + +this.input.duration)
+        "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
       }
     ];
   }
