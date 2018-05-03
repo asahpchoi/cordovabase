@@ -23,18 +23,24 @@ export class AddRiderComponent implements OnInit {
   private updateUserList() {
     if (!this.data.userlist) return;
 
+    let insuredId = this.data.userlist.insured.id;
+
     let selectedUsers: any = this.data.selectedRiders
       .filter(
         r => r.riderType == this.input.riderType
       ).map(sr => sr.insured.id);
-      
+
+    if (this.input.riderType == 'TRI') {
+      selectedUsers.push(insuredId);
+    }
+
     //debugger
 
-    let fulluserlist =  [...[this.data.userlist.owner],
+    let fulluserlist = [...[this.data.userlist.owner],
     ...[this.data.userlist.insured],
     ...this.data.userlist.dependents]
-    
-    this.userlist =  fulluserlist.filter(
+
+    this.userlist = fulluserlist.filter(
       sr => !selectedUsers.includes(sr.id)
     );
   }
