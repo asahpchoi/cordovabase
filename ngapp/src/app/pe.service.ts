@@ -80,7 +80,7 @@ export class PeService {
       "location": "Vietnam",
       "channel": "Agency",
       "insuredAge": insuredAge,
-      "plannedPremium": plannedPremium,
+      "plannedPremium": +plannedPremium,
       "paymentMode": paymentMode,
       "extraRating": null,
       "currencyId": "VND"
@@ -136,9 +136,11 @@ export class PeService {
   }
 
   validate(req?): void {
+    
     if (req) this.premiumCalRequest = req;
     if (!req) req = this.premiumCalRequest;
     if (!req) return null;
+
     this.makeValidationRequest(req).subscribe(r => { this.validationSubject.next(r); });
   }
 
@@ -153,7 +155,7 @@ export class PeService {
       console.log('add Rider', reqCopy, this.riders)
     }
 
-
+    console.log('Validation:',  reqCopy)
     return this.http
       .post(url, reqCopy)
       .first();

@@ -29,13 +29,14 @@ export class InputComponent implements OnInit {
   ranges = {
     faceAmount: {
       hardMin: 100000,
-      min: 100000,
+      min: null,
       max: null
     },
     plannedPremium: {
       hardMin: 7000,
-      min: 7000,
-      max: null
+      min: null,
+      max: null,
+      hardMax: null
     },
     regularPayment: {
       hardMin: 0,
@@ -255,8 +256,8 @@ export class InputComponent implements OnInit {
 
     payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
     payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
-    payload.coverageInfo.plannedPremium = this.input.plannedPremium;
-    payload.coverageInfo.faceAmount = this.input.faceAmount;
+    payload.coverageInfo.plannedPremium = +this.input.plannedPremium;
+    payload.coverageInfo.faceAmount = +this.input.faceAmount;
     if (!this.input.termfaceAmount || this.input.termfaceAmount == 0) {
       payload.riders = {
         "coverageInfo": []
@@ -296,7 +297,7 @@ export class InputComponent implements OnInit {
               "birthDate": "19890101070000"
             }
           },
-          "faceAmount": this.input.termfaceAmount,
+          "faceAmount": +this.input.termfaceAmount,
           "extraRating": {
             "tempPercentage": 1.00,
             "percentageExtra": 1.00
@@ -314,11 +315,11 @@ export class InputComponent implements OnInit {
     payload.fundActivities.fundActivity = [
       {
         "regularPayment": +this.input.regularPayment,
-        "attainAge": this.input.insuredAge
+        "attainAge": +this.input.insuredAge
       },
       {
         "regularPayment": 0.00,
-        "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
+        "attainAge": "" +(+this.input.insuredAge + +this.input.duration)
       }
     ];
   }
