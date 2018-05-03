@@ -248,7 +248,7 @@ export class InputComponent implements OnInit {
     let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
     if (this.input.regularPayment < min) this.input.regularPayment = min;
     this.ranges['regularPayment'].min = min;
-    this.ranges['regularPayment'].hardMin = this.input.regularPayment;
+    this.ranges['regularPayment'].hardMin = min;
   }
   private updatePayload() {
     if (!this.selectedTestcase) return;
