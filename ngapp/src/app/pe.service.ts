@@ -5,6 +5,7 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import 'rxjs/observable/from';
 
 import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +15,7 @@ export class PeService {
   resultSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   validationSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   premiumSubject: BehaviorSubject<any> = new BehaviorSubject(null);
-  request = null;
+  projectionRequest = null;
   premiumCalRequest = null;
   productType = null;
   riders = [];
@@ -29,7 +30,7 @@ export class PeService {
     basePlanFaceAmount,
     basePlanInsuredAge,
     riderInsuredAge
-  ) {
+  ): any {
     return {
       min: 100000,
       max: Math.min(...[basePlanFaceAmount * 5, 10000000])
@@ -43,7 +44,7 @@ export class PeService {
   getDurationRange(
     basePlanID,
     insuredAge
-  ) {
+  ): any {
     let limit = 99;
 
     return {
@@ -53,15 +54,15 @@ export class PeService {
   }
 
   //mock services
-  calculateTermRiderFaceAmount(insuredAge, bpFaceAmount) {
+  calculateTermRiderFaceAmount(insuredAge, bpFaceAmount): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 
     let payload = {
-      "productId": "TRI07", 
+      "productId": "TRI07",
       "associateProductId": "UL007",
       "location": "Vietnam",
       "channel": "Agency",
-      "insuredAge" : insuredAge,
+      "insuredAge": insuredAge,
       "currencyId": "VND",
       "bpFaceAmount": bpFaceAmount
     }
@@ -71,7 +72,7 @@ export class PeService {
       .post(url, payload)
       .first();
   }
-  calculateFaceAmountRange(plannedPremium, insuredAge, paymentMode) {
+  calculateFaceAmountRange(plannedPremium, insuredAge, paymentMode): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 
     let payload = {
@@ -89,7 +90,7 @@ export class PeService {
       .first();
   }
 
-  calculatePlannedPremiumRange007(faceAmount, insuredAge, paymentMode) {
+  calculatePlannedPremiumRange007(faceAmount, insuredAge, paymentMode): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
@@ -107,45 +108,47 @@ export class PeService {
       .first();
   }
 
-  getRequestCopy() {
-    return JSON.parse(JSON.stringify(this.request));
+  getRequestCopy(): any {
+    return JSON.parse(JSON.stringify(this.projectionRequest));
   }
 
   constructor(
     private http: HttpClient
   ) { }
 
-  getData() {
+  getData(): BehaviorSubject<any> {
     return this.resultSubject;
   }
 
-  getValidationResult() {
+  getValidationResult(): BehaviorSubject<any> {
     return this.validationSubject;
   }
 
-  updateFundActivities(acts) {
-    let initialSetting = this.request.fundActivities.fundActivity.filter(
+  updateFundActivities(acts): void {
+    let initialSetting = this.projectionRequest.fundActivities.fundActivity.filter(
       fa => (fa["regularPayment"]) || (fa["regularPayment"] == 0)
     );
-    this.request.fundActivities.fundActivity = [...initialSetting, ...acts];
+    this.projectionRequest.fundActivities.fundActivity = [...initialSetting, ...acts];
   }
 
-  getFundActivities() {
-    return JSON.parse(JSON.stringify(this.request.fundActivities.fundActivity));
+  getFundActivities(): any {
+    return JSON.parse(JSON.stringify(this.projectionRequest.fundActivities.fundActivity));
   }
 
-  validate(req?) {    
-    if(req) this.premiumCalRequest = req;
-    if(!req) req = this.premiumCalRequest;
+  validate(req?): void {
+    if (req) this.premiumCalRequest = req;
+    if (!req) req = this.premiumCalRequest;
+    if (!req) return null;
     this.makeValidationRequest(req).subscribe(r => { this.validationSubject.next(r); });
   }
 
-  private makeValidationRequest(req) {
+  private makeValidationRequest(req): Observable<any> {
     let url = this.endpoint + '/product/validate';
+    if (!req) return Observable.from(null);
     let reqCopy = JSON.parse(JSON.stringify(req));
 
-    if(this.riders.length > 0) {
-      
+
+    if (this.riders.length > 0) {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
       console.log('add Rider', reqCopy, this.riders)
     }
@@ -153,19 +156,20 @@ export class PeService {
 
     return this.http
       .post(url, reqCopy)
-      .first();        
+      .first();
   }
 
-  updateRiders(riders) {
+  updateRiders(riders): void {
     this.riders = riders;
   }
 
-  callPE() {
+  callPEProjection(): void {
     let url = this.endpoint + '/product/project';
-    let reqCopy = JSON.parse(JSON.stringify(this.request));
+    let reqCopy = JSON.parse(JSON.stringify(this.projectionRequest));
+    if (!reqCopy) return null;
 
 
-    if(this.riders.length > 0) {      
+    if (this.riders.length > 0) {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
       console.log('add Rider', reqCopy, this.riders)
     }
@@ -201,39 +205,43 @@ export class PeService {
       );
   }
 
-  calculate(req, productType) {
-    this.request = req;
+  calculate(req, productType): void {
+    if (!req) return null;
+
+    this.projectionRequest = req;
     this.productType = productType;
 
     this.makeValidationRequest(req).first().subscribe(
       r => {
-        let result : any = r;
-        if (result && result.length == 0) {          
-          this.callPE();
-        }        
-        this.validationSubject.next(r);        
+        let result: any = r;
+        if (result && result.length == 0) {
+          this.callPEProjection();
+        }
+        this.validationSubject.next(r);
       }
     );
 
   }
 
-  premiumCalculation(req?) {
+  premiumCalculation(req?): void {
     let url = this.endpoint + '/product/calculatePremiums';
-    if(req) this.premiumCalRequest = req;
-    if(!req) req = this.premiumCalRequest;
-    
+    if (req) this.premiumCalRequest = req;
+    if (!req) req = this.premiumCalRequest;
+
+    if (!req) return null;
+
 
     let reqCopy = JSON.parse(JSON.stringify(req));
 
-    if(this.riders.length > 0) {      
+    if (this.riders.length > 0) {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
       console.log('add Rider', reqCopy, this.riders)
-    }    
-    return this.http
+    }
+    this.http
       .post(url, reqCopy)
       .first()
       .subscribe(
-        x=>this.premiumSubject.next(x)
+        x => this.premiumSubject.next(x)
       );
   }
 }

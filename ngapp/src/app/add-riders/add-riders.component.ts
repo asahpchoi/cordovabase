@@ -33,7 +33,10 @@ export class AddRidersComponent implements OnInit {
           if(e["parameters"]["%INSURED%"])
           return  e["parameters"]["%PRODUCT_ID%"].substring(0,3) + '|' + e["parameters"]["%INSURED%"]["insuredId"]
          
-        })}
+        })}       
+        
+        
+        
         //this.message = vr;
       }
     )
@@ -79,9 +82,9 @@ export class AddRidersComponent implements OnInit {
       if(!result) return;
       this.input.riders.push(result);      
       this.transformRiders();
-      this.pe.updateRiders(this.transformedRiders);
-      this.pe.validate();
+      this.pe.updateRiders(this.transformedRiders);      
       this.pe.premiumCalculation();
+      //this.pe.validate();
     });
   }
 
@@ -157,16 +160,36 @@ export class AddRidersComponent implements OnInit {
               obj.product.productKey.primaryProduct.productPK.productId = r.riderID;
               if (rg.riderType == "RHC") {
                 obj.faceAmount = null;
-                obj.occupation = null;
-                delete obj.faceAmount
+                obj.occupation = null;                
+                delete obj.faceAmount;
                 delete obj.occupation;
+                
                 //obj.
               }
               if (rg.riderType == "TRI") {                
                 obj.occupation = null;                
+                obj.otherOptions = null;
+                
                 delete obj.occupation;
+                delete obj.otherOptions;
                 //obj.
               }
+              if (rg.riderType == "ECI") {                
+                obj.occupation = null;                
+                obj.otherOptions = null;
+                
+                delete obj.occupation;
+                delete obj.otherOptions;
+                //obj.
+              }
+              if (rg.riderType == "MC0") {                
+                obj.occupation = null;                
+                obj.otherOptions = null;
+                
+                delete obj.occupation;
+                delete obj.otherOptions;
+                //obj.
+              }              
               this.transformedRiders.push(obj)
             }
           }

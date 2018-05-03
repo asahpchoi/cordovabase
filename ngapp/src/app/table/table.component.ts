@@ -169,7 +169,7 @@ export class TableComponent implements OnDestroy {
 
         this.pe.updateFundActivities(this.input.fundActivities);
         this.isLoading = true;
-        this.pe.callPE();
+        this.pe.callPEProjection();
 
       });
     }

@@ -91,6 +91,7 @@ export class InputComponent implements OnInit {
     pe.premiumSubject.subscribe(
       d => {
         if (d) {
+          debugger
           let data: any = d;
           console.log(d)
           //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
