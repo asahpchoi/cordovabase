@@ -15,6 +15,12 @@ export class AddRiderComponent implements OnInit {
       "RHC": { riderId: ["RHC2I", "RHC2O", "RHC2D"], fields: { coverageClass: "" } },
       "MC0": { riderId: ["MC005"], fields: { faceAmount: 0 } },
       "TRI": { riderId: ["TRI07"], fields: { faceAmount: 0 } }
+    },
+    "ENC12": {
+      "ADD": { riderId: ["ADD10"], fields: { faceAmount: 0 } },      
+      "RHC": { riderId: ["RHC1I", "RHC1O", "RHC1D"], fields: { coverageClass: "" } },
+      "MC0": { riderId: ["MC012"], fields: { faceAmount: 0 } },
+      "TRI": { riderId: ["TRI08"], fields: { faceAmount: 0 } }
     }
   }
   getKeys = Object.keys;
@@ -58,7 +64,6 @@ export class AddRiderComponent implements OnInit {
     "TRI07": "Term Rider",
     "ECI01": "ECI Rider",
     "MC005": "MC Rider"
-
   }
 
 

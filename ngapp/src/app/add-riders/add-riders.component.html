@@ -1,4 +1,4 @@
-<button mat-raised-button (click)="addRider(null)">
+<button mat-raised-button (click)="addRider(null)" [disabled]="!allowAddRider">
   Add Rider</button>
 
 <h3>Rider Added</h3>

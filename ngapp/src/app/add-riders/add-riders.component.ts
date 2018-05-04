@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AddRiderComponent } from '../add-rider/add-rider.component';
 import { PeService } from '../pe.service';
 import { NgModel } from '@angular/forms';
@@ -13,6 +13,10 @@ import { UserService } from '../user.service';
   styleUrls: ['./add-riders.component.css']
 })
 export class AddRidersComponent implements OnInit {
+  @Input() planCode: string;
+  @Input() allowAddRider: boolean;
+
+  
   input = {
     riders: []
   }
@@ -28,16 +32,13 @@ export class AddRidersComponent implements OnInit {
     this.userlist = us.getUserList();
     pe.getValidationResult().subscribe(
       vr => {
-        if(vr) 
-        {this.validationMsg = vr.map(e => {
-          if(e["parameters"]["%INSURED%"])
-          return  e["parameters"]["%PRODUCT_ID%"].substring(0,3) + '|' + e["parameters"]["%INSURED%"]["insuredId"]
-         
-        })}       
-        
-        
-        
-        //this.message = vr;
+        if (vr) {
+        this.validationMsg = vr.map(e => {
+          if (e["parameters"]["%INSURED%"])
+            return e["parameters"]["%PRODUCT_ID%"].substring(0, 3) + '|' + e["parameters"]["%INSURED%"]["insuredId"]
+
+        })
+        }
       }
     )
   }
@@ -45,8 +46,7 @@ export class AddRidersComponent implements OnInit {
   ngOnInit() {
   }
 
-  remove(rider: any): void {
-    console.log(rider)
+  remove(rider: any): void {    
     let index = this.input.riders.indexOf(rider);
 
     if (index >= 0) {
@@ -55,13 +55,12 @@ export class AddRidersComponent implements OnInit {
     this.transformRiders();
     this.pe.updateRiders(this.transformedRiders);
     this.pe.validate();
-    this.pe.premiumCalculation();    
+    this.pe.premiumCalculation();
   }
 
   addRider(data) {
-
     let _data = {
-      productID: 'UL007',
+      productID: this.planCode,
       riderType: 'ADD',
       userlist: this.userlist,
       riders: [],
@@ -72,19 +71,16 @@ export class AddRidersComponent implements OnInit {
       _data.riders = data.rider;
     }
 
-    console.log(data)
-
     let dialogRef = this.dialog.open(AddRiderComponent, {
       width: '640px',
       data: _data
     });
     dialogRef.afterClosed().subscribe(result => {
-      if(!result) return;
-      this.input.riders.push(result);      
+      if (!result) return;
+      this.input.riders.push(result);
       this.transformRiders();
-      this.pe.updateRiders(this.transformedRiders);      
+      this.pe.updateRiders(this.transformedRiders);
       this.pe.premiumCalculation();
-      //this.pe.validate();
     });
   }
 
@@ -93,7 +89,7 @@ export class AddRidersComponent implements OnInit {
     let template = {
       "occupation": "1",
       "otherOptions": {
-        "coverageClass": "D"
+        "coverageClass": null
       },
       "product": {
         "productKey": {
@@ -106,23 +102,23 @@ export class AddRidersComponent implements OnInit {
           },
           "associateProduct": {
             "productPK": {
-              "productId": "UL007"
+              "productId": this.planCode
             }
           },
           "primaryProduct": {
             "productPK": {
-              "productId": "ADD03"
+              "productId": null
             }
           }
         }
       },
       "parties": {
         "party": {
-          "insuredAge": 29,
+          "insuredAge": null,
           "type": "BASIC",
           "smokingStatus": "NS",
-          "insuredSex": "M",
-          "insuredId": "PROJ, RIDER(ADD 800K)",
+          "insuredSex": null,
+          "insuredId": null,
           "birthDate": "19890101070000"
         }
       },
@@ -160,36 +156,33 @@ export class AddRidersComponent implements OnInit {
               obj.product.productKey.primaryProduct.productPK.productId = r.riderID;
               if (rg.riderType == "RHC") {
                 obj.faceAmount = null;
-                obj.occupation = null;                
+                obj.occupation = null;
                 delete obj.faceAmount;
                 delete obj.occupation;
-                
-                //obj.
               }
-              if (rg.riderType == "TRI") {                
-                obj.occupation = null;                
+              if (rg.riderType == "TRI") {
+                obj.occupation = null;
                 obj.otherOptions = null;
-                
+
                 delete obj.occupation;
                 delete obj.otherOptions;
                 //obj.
               }
-              if (rg.riderType == "ECI") {                
-                obj.occupation = null;                
+              if (rg.riderType == "ECI") {
+                obj.occupation = null;
                 obj.otherOptions = null;
-                
+
                 delete obj.occupation;
                 delete obj.otherOptions;
                 //obj.
               }
-              if (rg.riderType == "MC0") {                
-                obj.occupation = null;                
+              if (rg.riderType == "MC0") {
+                obj.occupation = null;
                 obj.otherOptions = null;
-                
+
                 delete obj.occupation;
                 delete obj.otherOptions;
-                //obj.
-              }              
+              }
               this.transformedRiders.push(obj)
             }
           }
