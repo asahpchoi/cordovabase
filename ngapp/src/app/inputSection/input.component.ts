@@ -76,10 +76,10 @@ export class InputComponent implements OnInit {
             termRiderId: 'TRI07',
             readOnlyFields: ["termPremium", "riderPremium"],
             paymentModeFactor: {
-              "A":1,
-              "S":2,
-              "Q":4,
-              "M":12
+              "A": 1,
+              "S": 2,
+              "Q": 4,
+              "M": 12
             }
           }
           ,
@@ -289,7 +289,7 @@ export class InputComponent implements OnInit {
   }
 
   private setPremiumDuration() {
-    if(!this.selectedTestcase) return
+    if (!this.selectedTestcase) return
     switch (this.selectedTestcase.productType) {
       case 'CI': this.setPremiumDurationCI(); break;
       default:
@@ -314,12 +314,12 @@ export class InputComponent implements OnInit {
   //UI Functions 
   updatePaymentMode() {
     let pmfactor = this.selectedTestcase.paymentModeFactor;
-    if(!pmfactor)
+    if (!pmfactor)
       pmfactor = {
-        "A":1,
-        "S":2,
-        "Q":4,
-        "M":12
+        "A": 1,
+        "S": 2,
+        "Q": 4,
+        "M": 12
       }
 
     switch (this.input.paymentMode) {
@@ -328,9 +328,11 @@ export class InputComponent implements OnInit {
       case 'Quarterly': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["Q"]; break;
       case 'Monthly': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["M"]; break;
     }
+ 
     this.updateTermFaceAmount();
     this.updateBaseProtection();
     this.updateBasePremium();
+
   }
   calculate() {
     this.updatePayload();
@@ -373,13 +375,14 @@ export class InputComponent implements OnInit {
 
   //logic functions
   private updateTermFaceAmount() {
+    this.updatePayload();
+    this.pe.premiumCalculation(this.selectedTestcase.payload);
     if (this.input.termfaceAmount == 0) {
       this.input.termplannedPremium = 0;
       this.updateRegularPaymentRange();
       return;
     }
-    this.updatePayload();
-    this.pe.premiumCalculation(this.selectedTestcase.payload);
+
   }
   private updateBasePremium() {
     this.pe.calculateFaceAmountRange(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
@@ -415,7 +418,7 @@ export class InputComponent implements OnInit {
   private updateTermProtectionRange(): void {
     this.pe.calculateTermRiderFaceAmount(
       this.input.insuredAge,
-      this.input.faceAmount,      
+      this.input.faceAmount,
       this.selectedTestcase.termRiderId,
       this.selectedTestcase.name
     ).subscribe(
@@ -459,7 +462,7 @@ export class InputComponent implements OnInit {
               },
               "associateProduct": {
                 "productPK": {
-                  "productId":  this.selectedTestcase.name
+                  "productId": this.selectedTestcase.name
                 }
               },
               "primaryProduct": {
