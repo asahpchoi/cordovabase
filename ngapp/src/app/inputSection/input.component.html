@@ -1,5 +1,6 @@
 <div class="example-container">
   <form>
+ 
     <div>
       <mat-form-field>
         <input matInput name="insuredage" placeholder="Insured Age" [(ngModel)]="input.insuredAge" (change)="selectBasePlan()">
@@ -35,10 +36,12 @@
           <mat-hint>from: ({{ranges.plannedPremium.min}} to {{ranges.plannedPremium.max}})</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [ngModel]="input.termplannedPremium" name="termPlannedPremium" placeholder="Term Premium" [formControl]="formControls.termPremium" readonly>
+          <input matInput [ngModel]="input.termplannedPremium" name="termPlannedPremium" placeholder="Term Premium" [formControl]="formControls.termPremium"
+            readonly>
         </mat-form-field>
         <mat-form-field>
-          <input matInput [ngModel]="input.riderPremium" name="riderPremium" placeholder="Rider Premium" [formControl]="formControls.riderPremium" readonly>
+          <input matInput [ngModel]="input.riderPremium" name="riderPremium" placeholder="Rider Premium" [formControl]="formControls.riderPremium"
+            readonly>
         </mat-form-field>
       </div>
       <div>
@@ -63,7 +66,7 @@
     <button mat-raised-button (click)="calculate()">Get Projection</button>
   </form>
 </div>
- 
+
 <app-add-riders [planCode]="selectedTestcase?.name" [allowAddRider]="!selectedTestcase?.disableAddRiders"></app-add-riders>
 <pre>
 
