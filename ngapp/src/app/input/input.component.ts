@@ -376,14 +376,16 @@ export class InputComponent implements OnInit {
         //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
       })
     this.updateRegularPaymentRange();
-
   }
   private updateBaseProtection() {
 
-    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
+    this.pe.calculatePlannedPremiumRange(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
       subscribe(x => {
-         let data: any = x;
+        //Not work for non UL007
+        console.log(x)
+        let data: any = x;
         this.updateTermProtectionRange();
+
         this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
         this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
         if (this.input.plannedPremium == 0) {

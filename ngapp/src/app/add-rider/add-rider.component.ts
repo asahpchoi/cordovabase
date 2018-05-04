@@ -25,6 +25,7 @@ export class AddRiderComponent implements OnInit {
   }
   getKeys = Object.keys;
   userlist;
+  RHCRiderCode="";
 
   private updateUserList() {
     if (!this.data.userlist) return;
@@ -80,16 +81,24 @@ export class AddRiderComponent implements OnInit {
       this.getInputRider("RHC2O").coverageClass = "";
       this.getInputRider("RHC2D").coverageClass = "";
     }
+    if (r == "RHC1I") {
+      this.getInputRider("RHC1O").coverageClass = "";
+      this.getInputRider("RHC1D").coverageClass = "";
+    }    
   }
 
   loadRiderOptions(r) {
     let options = [];
-    switch (r) {
-      case "RHC2I": {
+    switch(this.data.productID) {
+      case "UL007": this.RHCRiderCode = "RHC2I"; break;
+      case "ENC12": this.RHCRiderCode = "RHC1I"; break;
+    }
+    switch (r) {      
+      case this.RHCRiderCode: {
         return this.input.insured.insuredAge >= 18 ? ["A", "B", "C", "D"] : ["A", "B", "C"];
-      }
+      }  
       default: {
-        let baseClass = this.getInputRider("RHC2I").coverageClass;
+        let baseClass = this.getInputRider(this.RHCRiderCode).coverageClass;
         switch (baseClass) {
           case "A": return [""];
           case "B": return ["", "B"];

@@ -37,7 +37,6 @@ export class PeService {
     }
   }
 
-  //mock services
   calculateTermRiderFaceAmount(insuredAge, bpFaceAmount, termRiderId, productId): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 
@@ -73,7 +72,7 @@ export class PeService {
       .first();
   }
 
-  calculatePlannedPremiumRange007(faceAmount, insuredAge, paymentMode, productId): Observable<any> {
+  calculatePlannedPremiumRange(faceAmount, insuredAge, paymentMode, productId): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
