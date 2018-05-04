@@ -5,7 +5,7 @@ import { Chart } from 'chart.js';
 import * as $ from 'jquery';
 import * as _ from 'lodash';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NumpadComponent } from '../numpad/numpad.component';
+import { NumpadComponent } from '../components/numpad/numpad.component';
 
 @Component({
   selector: 'app-table',

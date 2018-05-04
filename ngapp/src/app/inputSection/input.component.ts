@@ -3,7 +3,7 @@ import { PeService } from '../pe.service';
 import { NgModel } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { NumpadComponent } from '../numpad/numpad.component';
+import { NumpadComponent } from '../components/numpad/numpad.component';
 import { HttpClient } from '@angular/common/http';
 import * as ts from "typescript";
 

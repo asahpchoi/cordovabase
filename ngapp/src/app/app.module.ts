@@ -9,17 +9,17 @@ import { DialogsampleComponent } from './misc/dialogsample/dialogsample.componen
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ChartComponent } from './chart/chart.component';
+import { ChartComponent } from './chartSection/chart.component';
 import { PeService } from './pe.service';
-import { InputComponent } from './input/input.component';
+import { InputComponent } from './inputSection/input.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatChipsModule } from '@angular/material/chips';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ValidationResultComponent } from './validation-result/validation-result.component';
+import { ValidationResultComponent } from './validationSection/validation-result.component';
 import { RouterModule, Routes } from '@angular/router';
-import { SliderComponent } from './slider/slider.component';
-import { InputchartComponent } from './inputchart/inputchart.component';
+import { SliderComponent } from './misc/slider/slider.component';
+import { InputchartComponent } from './mainSection/inputchart.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { HammerCardComponent } from './misc/hammer-card/hammer-card.component';
  
@@ -31,15 +31,15 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { OccupationComponent } from './misc/occupation/occupation.component';
 import { OccupationSearchComponent } from './misc/occupation-search/occupation-search.component';
 import { SearchTextPipe } from './misc/search-text.pipe';
-import { TableComponent } from './table/table.component';
+import { TableComponent } from './tableSection/table.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { NumpadComponent } from './numpad/numpad.component';
+import { NumpadComponent } from './components/numpad/numpad.component';
  
 import { MatExpansionModule } from '@angular/material/expansion';
-import { AddRiderComponent } from './add-rider/add-rider.component';
+import { AddRiderComponent } from './components/add-rider/add-rider.component';
 import { AddRidersComponent } from './addRiderSection/add-riders.component';
 import { UserService } from './user.service';
 

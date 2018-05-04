@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AddRiderComponent } from '../add-rider/add-rider.component';
+import { AddRiderComponent } from '../components/add-rider/add-rider.component';
 import { PeService } from '../pe.service';
 import { NgModel } from '@angular/forms';
 import { FormControl, Validators } from '@angular/forms';
