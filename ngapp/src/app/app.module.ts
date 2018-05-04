@@ -40,7 +40,7 @@ import { NumpadComponent } from './numpad/numpad.component';
  
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AddRiderComponent } from './add-rider/add-rider.component';
-import { AddRidersComponent } from './add-riders/add-riders.component';
+import { AddRidersComponent } from './addRiderSection/add-riders.component';
 import { UserService } from './user.service';
 
 const appRoutes: Routes = [
