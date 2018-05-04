@@ -73,6 +73,7 @@ export class InputComponent implements OnInit {
             name: 'UL007',
             payload: data.UL007,
             productType: 'UL',
+            termRiderId: 'TRI07',
             readOnlyFields: ["termPremium", "riderPremium"]
           }
           ,
@@ -80,6 +81,7 @@ export class InputComponent implements OnInit {
             name: 'ENC12',
             payload: data.ENC12,
             productType: 'CI',
+            termRiderId: 'TRI08',
             filters: {
               insuredAge: {
                 min: 0,
@@ -228,14 +230,14 @@ export class InputComponent implements OnInit {
           console.log(d)
           //this.input.plannedPremium = data.premiums.premiums.filter(p => p.paymentMode == this.paymentMode)[0].premium
           this.input.termplannedPremium = 0;
-          data.riders.filter(r => r.riderCode == "TRI07").forEach(
+          data.riders.filter(r => r.riderCode == this.selectedTestcase.termRiderId).forEach(
             r => {
               this.input.termplannedPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
             }
           )
 
           this.input.riderPremium = 0;
-          data.riders.filter(r => r.riderCode != "TRI07").forEach(
+          data.riders.filter(r => r.riderCode != this.selectedTestcase.termRiderId).forEach(
             r => {
               this.input.riderPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
             }
@@ -365,7 +367,7 @@ export class InputComponent implements OnInit {
     this.pe.premiumCalculation(this.selectedTestcase.payload);
   }
   private updateBasePremium() {
-    this.pe.calculateFaceAmountRange(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode).
+    this.pe.calculateFaceAmountRange(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
       subscribe(x => {
         let data: any = x;
 
@@ -378,32 +380,33 @@ export class InputComponent implements OnInit {
   }
   private updateBaseProtection() {
 
-    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode).
+    this.pe.calculatePlannedPremiumRange007(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
       subscribe(x => {
-        console.log('Premium Range:', x)
-        let data: any = x;
-        this.updateRiderProtectionRange();
+         let data: any = x;
+        this.updateTermProtectionRange();
         this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
         this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
         if (this.input.plannedPremium == 0) {
           this.input.plannedPremium = Math.round(data.value.defPremium);
           this.updateRegularPaymentRange();
           this.updateBasePremium();
-
         }
         //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
       })
 
   }
-  private updateRiderProtectionRange() {
-    let range = this.pe.calculateRiderFaceAmountRange(
-      null, null,
-      this.input.faceAmount
-      , null, null
-    );
-
-    this.ranges['termfaceAmount'].min = range.min;
-    this.ranges['termfaceAmount'].max = range.max;
+  private updateTermProtectionRange(): void {
+    this.pe.calculateTermRiderFaceAmount(
+      this.input.insuredAge,
+      this.input.faceAmount,      
+      this.selectedTestcase.termRiderId,
+      this.selectedTestcase.name
+    ).subscribe(
+      range => {
+        this.ranges['termfaceAmount'].min = range.value.minLimit;
+        this.ranges['termfaceAmount'].max = range.value.maxLimit;
+      }
+    )
   }
   private updateRegularPaymentRange() {
     let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
@@ -425,6 +428,7 @@ export class InputComponent implements OnInit {
       };
     }
     else { // no rider if
+      //add default term rider for owner.
       payload.riders = {
         "coverageInfo": [{
           "product": {
@@ -438,12 +442,12 @@ export class InputComponent implements OnInit {
               },
               "associateProduct": {
                 "productPK": {
-                  "productId": "UL007"
+                  "productId":  this.selectedTestcase.name
                 }
               },
               "primaryProduct": {
                 "productPK": {
-                  "productId": "TRI07"
+                  "productId": this.selectedTestcase.termRiderId
                 }
               }
             }

@@ -22,23 +22,7 @@ export class PeService {
   endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
   //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
   //endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
-
-
-  calculateRiderFaceAmountRange(
-    basePlanID,
-    riderID,
-    basePlanFaceAmount,
-    basePlanInsuredAge,
-    riderInsuredAge
-  ): any {
-    return {
-      min: 100000,
-      max: Math.min(...[basePlanFaceAmount * 5, 10000000])
-    }
-    //100M
-    //10B
-
-  }
+ 
 
   //mock services
   getDurationRange(
@@ -54,29 +38,28 @@ export class PeService {
   }
 
   //mock services
-  calculateTermRiderFaceAmount(insuredAge, bpFaceAmount): Observable<any> {
+  calculateTermRiderFaceAmount(insuredAge, bpFaceAmount, termRiderId, productId): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 
     let payload = {
-      "productId": "TRI07",
-      "associateProductId": "UL007",
+      "productId": termRiderId,//"TRI07",
+      "associateProductId": productId,//"UL007",
       "location": "Vietnam",
       "channel": "Agency",
       "insuredAge": insuredAge,
       "currencyId": "VND",
       "bpFaceAmount": bpFaceAmount
     }
-
-    console.log(payload)
+    
     return this.http
       .post(url, payload)
       .first();
   }
-  calculateFaceAmountRange(plannedPremium, insuredAge, paymentMode): Observable<any> {
+  calculateFaceAmountRange(plannedPremium, insuredAge, paymentMode, productId): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 
     let payload = {
-      "productId": "UL007",
+      "productId": productId,//"UL007",
       "location": "Vietnam",
       "channel": "Agency",
       "insuredAge": insuredAge,
@@ -90,11 +73,11 @@ export class PeService {
       .first();
   }
 
-  calculatePlannedPremiumRange007(faceAmount, insuredAge, paymentMode): Observable<any> {
+  calculatePlannedPremiumRange007(faceAmount, insuredAge, paymentMode, productId): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
-      "productId": "UL007",
+      "productId": productId,//"UL007",
       "location": "Vietnam",
       "channel": "Agency",
       "insuredAge": insuredAge,
