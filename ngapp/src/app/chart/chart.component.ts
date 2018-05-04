@@ -29,19 +29,19 @@ export class ChartComponent {
       }
     )
     const verticalLinePlugin = {
-      getLinePosition: function (chart, pointIndex) {        
+      getLinePosition: function (chart, pointIndex) {
         const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
         const data = meta.data;
-        if(pointIndex >= data.length) return null;
+        if (pointIndex >= data.length) return null;
 
         return data[pointIndex]._model.x;
       },
       renderVerticalLine: function (chartInstance, pointIndex) {
- 
-        if(pointIndex == 0 || pointIndex == -Infinity || pointIndex == Infinity) return;
+
+        if (pointIndex == 0 || pointIndex == -Infinity || pointIndex == Infinity) return;
 
         const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
-        if(!lineLeftOffset) return;
+        if (!lineLeftOffset) return;
         const scale = chartInstance.scales['y-axis-0'];
         const context = chartInstance.chart.ctx;
 
@@ -103,18 +103,18 @@ export class ChartComponent {
       views: [
         {
           viewType: "DB",
-          chart: 'Total Death Benefit (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          default: 'Total Death Benefit (LOW)',
-          line: 'Accumulated Premiums'
+          chart: 'colTradTotalDeathBenefit%s',
+          scenario: ['LOW', '', 'HIGH'],
+          default: 'colTradTotalDeathBenefitLOW',
+          line: 'Accumulative Premiums'
         }
         ,
         {
           viewType: "SV",
-          chart: 'Total Surrender Value (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          default: 'Total Surrender Value (LOW)',
-          line: 'Accumulated Premiums'
+          chart: 'colTradTotalSurrValue%s',
+          scenario: ['LOW', '', 'HIGH'],
+          default: 'colTradTotalSurrValueLOW',
+          line: 'Accumulative Premiums'
         }
       ]
     }
@@ -150,7 +150,7 @@ export class ChartComponent {
 
   input = {
     units: {
-      
+
     }
   }
 
@@ -168,7 +168,7 @@ export class ChartComponent {
 
     this.selectedView = v;
     this.input.units = [];
-
+    debugger
     v.scenario.forEach(
       s => {
         let k = v.chart.replace("%s", s);
@@ -222,14 +222,14 @@ export class ChartComponent {
     let lapsedYear = this.ds.dataSets.filter(ds => acs.includes(ds.label));
     //let lapsedYear = this.ds.dataSets.filter(ds => ds.label == "Lapse (LOW)");
 
-    if(lapsedYear == []) {
+    if (lapsedYear == []) {
       this.lapsedYear = null;
     }
     else {
       this.lapsedYear = lapsedYear.map(x => x.data.filter(y => y == 'N').length)
       this.lapsedYear = [Math.min(...this.lapsedYear)];
     }
- 
+
 
 
     this.chartData = [...lineData, ...areaData]
@@ -294,7 +294,7 @@ export class ChartComponent {
   private colors = ['#00AA59', '#FF5D55', '#006F61'];
   private selectedView;
   private productType;
-  
+
 
   viewOption;
   chart;

@@ -54,8 +54,8 @@ export class InputComponent implements OnInit {
   selectedTestcase;
   formControls = {
     duration: new FormControl('duration', [Validators.min(4), Validators.max(99), Validators.required]),
-    riderPremium: new FormControl({value: '', disabled: true}),
-    termPremium: new FormControl({value: '', disabled: true})
+    riderPremium: new FormControl('riderPremium'),
+    termPremium: new FormControl('termPremium')
   }
 
 
@@ -72,7 +72,8 @@ export class InputComponent implements OnInit {
           {
             name: 'UL007',
             payload: data.UL007,
-            productType: 'UL'
+            productType: 'UL',
+            readOnlyFields: ["termPremium", "riderPremium"]
           }
           ,
           {
@@ -85,7 +86,8 @@ export class InputComponent implements OnInit {
                 max: 17
               }
             },
-            duration: 12
+            duration: 12,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"]
           },
           {
             name: 'ENC15',
@@ -98,7 +100,8 @@ export class InputComponent implements OnInit {
               }
             }
             ,
-            duration: 15
+            duration: 15,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"]
           },
           {
             name: 'ENC20',
@@ -111,7 +114,9 @@ export class InputComponent implements OnInit {
               }
             }
             ,
-            duration: 20
+            duration: 20,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"],
+            disableAddRiders: true
           },
           {
             name: 'ENF12',
@@ -125,7 +130,8 @@ export class InputComponent implements OnInit {
               insuredSex: 'F'
             }
             ,
-            duration: 12
+            duration: 12,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"]
           },
           {
             name: 'ENF15',
@@ -139,7 +145,8 @@ export class InputComponent implements OnInit {
               insuredSex: 'F'
             }
             ,
-            duration: 15
+            duration: 15,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"]
           },
           {
             name: 'ENF20',
@@ -153,7 +160,9 @@ export class InputComponent implements OnInit {
               insuredSex: 'F'
             }
             ,
-            duration: 20
+            duration: 20,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"],
+            disableAddRiders: true
           },
           {
             name: 'ENM12',
@@ -167,7 +176,8 @@ export class InputComponent implements OnInit {
               insuredSex: 'M'
             }
             ,
-            duration: 12
+            duration: 12,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"]
           },
           {
             name: 'ENM15',
@@ -181,7 +191,8 @@ export class InputComponent implements OnInit {
               insuredSex: 'M'
             }
             ,
-            duration: 15
+            duration: 15,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"]
           },
           {
             name: 'ENM20',
@@ -195,7 +206,9 @@ export class InputComponent implements OnInit {
               insuredSex: 'M'
             }
             ,
-            duration: 20
+            duration: 20,
+            readOnlyFields: ["duration", "termPremium", "riderPremium"],
+            disableAddRiders: true
           },
           {
             name: 'ADD03',
@@ -234,10 +247,11 @@ export class InputComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    //this.pe.
+    //
   }
 
   filterTestCases() {
+    if (!this.testcases) return;
     return this.testcases.filter(t => {
       if (t.filters) {
         return (
@@ -245,13 +259,18 @@ export class InputComponent implements OnInit {
           t.filters.insuredAge.max >= this.input.insuredAge &&
           (t.filters.insuredSex == this.input.insuredSex || t.filters.insuredSex == null)
         )
-
       }
       return true;
     })
   }
 
   selectBasePlan() {
+    this.formControls['duration'].enable();
+    if (this.selectedTestcase && this.selectedTestcase.readOnlyFields) {
+      this.selectedTestcase.readOnlyFields.forEach(
+        f => { this.formControls[f].disable(); }
+      )
+    }
     this.setPremiumDuration();
   }
 
@@ -262,14 +281,15 @@ export class InputComponent implements OnInit {
   }
 
   private setPremiumDuration() {
+    if(!this.selectedTestcase) return
     switch (this.selectedTestcase.productType) {
       case 'CI': this.setPremiumDurationCI(); break;
       default:
         let planID = this.selectedTestcase.name;
         let ranges: any = this.pe.getDurationRange(planID, this.input.insuredAge);
-        
+
         this.input.duration = ranges.max;
-        this.formControls.duration.enable();
+
         this.formControls.duration.setValidators(
           [
             Validators.required,
@@ -395,7 +415,7 @@ export class InputComponent implements OnInit {
     if (!this.selectedTestcase) return;
     let payload = this.selectedTestcase.payload;
 
-    payload.coverageInfo.parties.party.insuredAge = this.input.insuredAge;
+    payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;
     payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
     payload.coverageInfo.plannedPremium = +this.input.plannedPremium;
     payload.coverageInfo.faceAmount = +this.input.faceAmount;
@@ -453,16 +473,22 @@ export class InputComponent implements OnInit {
     }
 
     payload.coverageInfo.options.paymentMode = this.input.paymentMode.substring(0, 1);
-    payload.fundActivities.fundActivity = [
-      {
-        "regularPayment": +this.input.regularPayment,
-        "attainAge": +this.input.insuredAge
-      },
-      {
-        "regularPayment": 0.00,
-        "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
-      }
-    ];
+
+    switch (payload.coverageInfo.product.productKey.primaryProduct.productPK.productId) {
+      case "UL007":
+        payload.fundActivities.fundActivity = [
+          {
+            "regularPayment": +this.input.regularPayment,
+            "attainAge": +this.input.insuredAge
+          },
+          {
+            "regularPayment": 0.00,
+            "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
+          }
+        ];
+        break;
+      case "ENC12": payload.fundActivities.fundActivity = []; break;
+    }
   }
 
 }
