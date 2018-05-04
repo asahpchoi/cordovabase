@@ -74,7 +74,13 @@ export class InputComponent implements OnInit {
             payload: data.UL007,
             productType: 'UL',
             termRiderId: 'TRI07',
-            readOnlyFields: ["termPremium", "riderPremium"]
+            readOnlyFields: ["termPremium", "riderPremium"],
+            paymentModeFactor: {
+              "A":1,
+              "S":2,
+              "Q":4,
+              "M":12
+            }
           }
           ,
           {
@@ -307,11 +313,20 @@ export class InputComponent implements OnInit {
 
   //UI Functions 
   updatePaymentMode() {
+    let pmfactor = this.selectedTestcase.paymentModeFactor;
+    if(!pmfactor)
+      pmfactor = {
+        "A":1,
+        "S":2,
+        "Q":4,
+        "M":12
+      }
+
     switch (this.input.paymentMode) {
-      case 'Annual': this.ranges.plannedPremium.hardMin = 7000; break;
-      case 'Semi-Annual': this.ranges.plannedPremium.hardMin = 7000 / 2; break;
-      case 'Quarterly': this.ranges.plannedPremium.hardMin = 7000 / 4; break;
-      case 'Monthly': this.ranges.plannedPremium.hardMin = 7000 / 12; break;
+      case 'Annual': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["A"]; break;
+      case 'Semi-Annual': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["S"]; break;
+      case 'Quarterly': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["Q"]; break;
+      case 'Monthly': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["M"]; break;
     }
     this.updateTermFaceAmount();
     this.updateBaseProtection();

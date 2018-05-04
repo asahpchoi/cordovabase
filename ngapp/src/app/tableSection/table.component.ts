@@ -31,22 +31,26 @@ export class TableComponent implements OnDestroy {
       name: "Withdrawal",
       component: "NumpadComponent",
       activity: "withdrawal",
-      multipleYear: true
+      multipleYear: true,
+      startYear: 4
     },
     {
       name: "colBasePlanFaceAmount",
       component: "NumpadComponent",
-      activity: "faceAmount"
+      activity: "faceAmount",
+      stopAttainAge: 65
     },
     {
       name: "Premium",
       component: "NumpadComponent",
-      activity: "plannedPremium"
+      activity: "plannedPremium",
+      startYear: 4
     },
     {
       name: "colRegularPayment",
       component: "NumpadComponent",
-      activity: "regularPayment"
+      activity: "regularPayment",
+      startYear: 4
     }
   ]
 
@@ -67,7 +71,7 @@ export class TableComponent implements OnDestroy {
   ) {
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
-        
+
         this.ds = x;
         this.reloadColumnData();
         this.setDisplayColumns();
@@ -96,7 +100,13 @@ export class TableComponent implements OnDestroy {
     let rawData = rawDS.map(d => d.data);
 
 
-    this.firstColumn = (rawData[0].map((d, i) => { return d + '/' + rawData[1][i] }));
+    this.firstColumn = (rawData[0].map((d, i) => {
+      return {
+        year: d,
+        age: rawData[1][i]
+      }
+
+    }));
 
     let ds = rawDS.filter(
       d => this.displayColumns.filter(c => c == d.label).length
@@ -107,8 +117,7 @@ export class TableComponent implements OnDestroy {
     this.dt = _.zip(...ds);
   }
 
-  showFirstColumn() {    
-
+  showFirstColumn() {
     return this.firstColumn.filter((d, i) => i % this.input.rowStep == 0);
   }
 
@@ -135,45 +144,57 @@ export class TableComponent implements OnDestroy {
     return data.filter((d, i) => i % this.input.rowStep == 0);
   }
 
-  changeValue(colName, attainAge, value) {
+  getClass(colName, yearAge, value) {
     let cellType: any = this.cellType(colName);
-    if (cellType != "") {
 
-      let dialogRef = this.dialog.open(NumpadComponent, {
-        width: '250px',
-        data: { 
-          number: value + '', 
-          year: 1,
-          multipleYear: cellType.multipleYear
+    if (cellType == "") return "";
+
+    if (cellType.stopAttainAge && cellType.stopAttainAge < yearAge.age)
+      return "";
+    if (cellType.startYear && cellType.startYear > yearAge.year)
+      return "";
+
+    return cellType.component;
+  }
+
+  changeValue(colName, yearAge, value) {
+    let cellType: any = this.cellType(colName);
+
+    if (cellType == "") return "";
+
+    if (cellType.stopAttainAge && cellType.stopAttainAge < yearAge.age)
+      return "";
+    if (cellType.startYear && cellType.startYear > yearAge.year)
+      return "";
+    let dialogRef = this.dialog.open(NumpadComponent, {
+      width: '250px',
+      data: {
+        number: value + '',
+        year: 1,
+        multipleYear: cellType.multipleYear
+      }
+    });
+
+    dialogRef.afterClosed().first().subscribe(result => {
+
+      let number = +result.number;
+      let year = +result.year;
+
+      for (var i = 0; i < year; i++) {
+        let fa = {
+          attainAge: +yearAge.age + i
         }
-      });
+        fa[cellType.activity] = number;
 
-      dialogRef.afterClosed().first().subscribe(result => {
- 
-        let number = +result.number;
-        let year = +result.year;
+        this.input.fundActivities.push(
+          fa
+        );
+      }
+      this.pe.updateFundActivities(this.input.fundActivities);
+      this.isLoading = true;
+      this.pe.callPEProjection();
 
-        for (var i = 0; i < year; i++) {
-          let fa = {
-            attainAge: +attainAge + i
-          }
-          fa[cellType.activity] = number;
-
-          this.input.fundActivities.push(
-            fa
-          );
-        }
-
-        console.log('fa', this.input.fundActivities)
- 
-
-        this.pe.updateFundActivities(this.input.fundActivities);
-        this.isLoading = true;
-        this.pe.callPEProjection();
-
-      });
-    }
-
+    });
   }
 
   cellType(colName) {
@@ -182,6 +203,7 @@ export class TableComponent implements OnDestroy {
     )
 
     if (fieldConfig.length > 0) {
+
       return fieldConfig[0];
     }
     return ""
