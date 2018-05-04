@@ -12,20 +12,26 @@ export class AddRiderComponent implements OnInit {
     "UL007": {
       "ADD": { riderId: ["ADD03"], fields: { faceAmount: 0 } },
       "ECI": { riderId: ["ECI01"], fields: { faceAmount: 0 } },
-      "RHC": { riderId: ["RHC2I", "RHC2O", "RHC2D"], fields: { coverageClass: "" } },
+      "RHC": {
+        riderId: ["RHC2I", "RHC2O", "RHC2D"], fields: { coverageClass: "" }
+        , baseRiderId: "RHC2I"
+      },
       "MC0": { riderId: ["MC005"], fields: { faceAmount: 0 } },
       "TRI": { riderId: ["TRI07"], fields: { faceAmount: 0 } }
     },
     "ENC12": {
-      "ADD": { riderId: ["ADD10"], fields: { faceAmount: 0 } },      
-      "RHC": { riderId: ["RHC1I", "RHC1O", "RHC1D"], fields: { coverageClass: "" } },
+      "ADD": { riderId: ["ADD10"], fields: { faceAmount: 0 } },
+      "RHC": {
+        riderId: ["RHC1I", "RHC1O", "RHC1D"], fields: { coverageClass: "" }
+        , baseRiderId: "RHC1I"
+      },
       "MC0": { riderId: ["MC012"], fields: { faceAmount: 0 } },
       "TRI": { riderId: ["TRI08"], fields: { faceAmount: 0 } }
     }
   }
   getKeys = Object.keys;
   userlist;
-  RHCRiderCode="";
+  RHCRiderCode = "";
 
   private updateUserList() {
     if (!this.data.userlist) return;
@@ -77,28 +83,30 @@ export class AddRiderComponent implements OnInit {
   }
 
   updateOptions(r) {
-    if (r == "RHC2I") {
-      this.getInputRider("RHC2O").coverageClass = "";
-      this.getInputRider("RHC2D").coverageClass = "";
+    if (this.input.riderType == "RHC") {
+      const baseRiderId = this.riders[this.data.productID]["RHC"].baseRiderId;
+      if (baseRiderId == r) {
+        this.riders[this.data.productID]["RHC"].riderId.filter(
+          r => r != baseRiderId
+        )
+          .forEach(
+            r => {
+              this.getInputRider(r).coverageClass = "";
+            }
+          )
+      }
     }
-    if (r == "RHC1I") {
-      this.getInputRider("RHC1O").coverageClass = "";
-      this.getInputRider("RHC1D").coverageClass = "";
-    }    
   }
 
   loadRiderOptions(r) {
     let options = [];
-    switch(this.data.productID) {
-      case "UL007": this.RHCRiderCode = "RHC2I"; break;
-      case "ENC12": this.RHCRiderCode = "RHC1I"; break;
-    }
-    switch (r) {      
-      case this.RHCRiderCode: {
+    const baseRiderId = this.riders[this.data.productID]["RHC"].baseRiderId;
+    switch (r) {
+      case baseRiderId: {
         return this.input.insured.insuredAge >= 18 ? ["A", "B", "C", "D"] : ["A", "B", "C"];
-      }  
+      }
       default: {
-        let baseClass = this.getInputRider(this.RHCRiderCode).coverageClass;
+        let baseClass = this.getInputRider(baseRiderId).coverageClass;
         switch (baseClass) {
           case "A": return [""];
           case "B": return ["", "B"];
