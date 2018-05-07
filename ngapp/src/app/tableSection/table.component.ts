@@ -96,7 +96,7 @@ export class TableComponent implements OnDestroy {
       this.displayColumns = Object.keys(this.input.checked).filter(k => this.input.checked[k])
     }
 
-    let rawDS = this.ds.dataSets;
+    let rawDS : any = this.ds.dataSets;
     let rawData = rawDS.map(d => d.data);
 
 
@@ -108,11 +108,17 @@ export class TableComponent implements OnDestroy {
 
     }));
 
-    let ds = rawDS.filter(
-      d => this.displayColumns.filter(c => c == d.label).length
-    ).map(
-      d => d.data
-    );
+    let ds = []
+
+    this.displayColumns.forEach(
+      c => {
+        let col = rawDS.filter(
+          d => d.label == c
+        )[0]
+        ds.push(col.data);
+      }
+    )
+
 
     this.dt = _.zip(...ds);
   }
