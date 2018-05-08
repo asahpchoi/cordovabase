@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component,HostBinding, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,7 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./occupation.component.css']
 })
 export class OccupationComponent implements OnInit {
+ exp = true;
 
   @Input() occupationId: string;
   @Output() occupationIdChange: EventEmitter<string> = new EventEmitter<string>();

@@ -1,4 +1,15 @@
- 
+<mat-card class="result">
+  <mat-card-content [@.disabled]="exp">
+    <h2 class="example-h2">Result</h2>
+    <section class="example-section">
+      <mat-checkbox class="example-margin" [(ngModel)]="vertical"
+      >Vertical</mat-checkbox>
+     
+    </section>
+    <mat-slider value=10 [vertical]="vertical"  >
+    </mat-slider>
+  </mat-card-content>
+</mat-card>
   <mat-form-field>
     <input matInput placeholder="Occupation Search" [(ngModel)]="searchText" id="searchText"  (click)="search()">
   </mat-form-field>

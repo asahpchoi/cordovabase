@@ -497,6 +497,9 @@ export class InputComponent implements OnInit {
     }
 
     payload.coverageInfo.options.paymentMode = this.input.paymentMode.substring(0, 1);
+    payload.inputInfo = {
+      duration: this.input.duration
+    };
 
     switch (payload.coverageInfo.product.productKey.primaryProduct.productPK.productId) {
       case "UL007":

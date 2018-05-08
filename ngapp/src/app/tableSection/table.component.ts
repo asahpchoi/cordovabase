@@ -32,25 +32,29 @@ export class TableComponent implements OnDestroy {
       component: "NumpadComponent",
       activity: "withdrawal",
       multipleYear: true,
-      startYear: 4
+      startYear: 5
     },
     {
       name: "colBasePlanFaceAmount",
       component: "NumpadComponent",
-      activity: "faceAmount",
-      stopAttainAge: 65
+      activity: "faceAmount"
+      ,
+      startYear: 5
+      //stopAttainAge: 65
     },
     {
       name: "Premium",
       component: "NumpadComponent",
       activity: "plannedPremium",
-      startYear: 4
+      startYear: 5,
+      stopYear: this.getDuration()
     },
     {
       name: "colRegularPayment",
       component: "NumpadComponent",
       activity: "regularPayment",
-      startYear: 4
+      startYear: 5,
+      stopYear: this.getDuration()
     }
   ]
 
@@ -89,6 +93,10 @@ export class TableComponent implements OnDestroy {
     this.allColumns = this.ds.dataSets.map(ds => ds.label);
   }
 
+  getDuration() {
+    return +this.pe.projectionRequest.inputInfo.duration;
+  }
+
   setDisplayColumns() {
     this.displayColumns = this.allColumns;
     //debugger
@@ -96,7 +104,7 @@ export class TableComponent implements OnDestroy {
       this.displayColumns = Object.keys(this.input.checked).filter(k => this.input.checked[k])
     }
 
-    let rawDS : any = this.ds.dataSets;
+    let rawDS: any = this.ds.dataSets;
     let rawData = rawDS.map(d => d.data);
 
 
@@ -159,6 +167,11 @@ export class TableComponent implements OnDestroy {
       return "";
     if (cellType.startYear && cellType.startYear > yearAge.year)
       return "";
+ 
+    if(cellType.stopYear) 
+      debugger;
+    if (cellType.stopYear && +cellType.stopYear < yearAge.year)
+      return "";
 
     return cellType.component;
   }
@@ -171,6 +184,9 @@ export class TableComponent implements OnDestroy {
     if (cellType.stopAttainAge && cellType.stopAttainAge < yearAge.age)
       return "";
     if (cellType.startYear && cellType.startYear > yearAge.year)
+      return "";
+
+    if (cellType.stopYear && cellType.stopYear < yearAge.year)
       return "";
     let dialogRef = this.dialog.open(NumpadComponent, {
       width: '250px',

@@ -80,6 +80,7 @@ const appRoutes: Routes = [
     FlexLayoutModule,
     MatChipsModule,
     MatFormFieldModule,
+    MatCheckboxModule,
     MatSelectModule,
     MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule,
     FormsModule, ReactiveFormsModule,
