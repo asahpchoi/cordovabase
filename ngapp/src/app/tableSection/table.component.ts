@@ -26,37 +26,41 @@ export class TableComponent implements OnDestroy {
   firstColumn = [];
 
 
-  editableFields = [
-    {
-      name: "Withdrawal",
-      component: "NumpadComponent",
-      activity: "withdrawal",
-      multipleYear: true,
-      startYear: 5
-    },
-    {
-      name: "colBasePlanFaceAmount",
-      component: "NumpadComponent",
-      activity: "faceAmount"
-      ,
-      startYear: 5
-      //stopAttainAge: 65
-    },
-    {
-      name: "Premium",
-      component: "NumpadComponent",
-      activity: "plannedPremium",
-      startYear: 5,
-      stopYear: this.getDuration()
-    },
-    {
-      name: "colRegularPayment",
-      component: "NumpadComponent",
-      activity: "regularPayment",
-      startYear: 5,
-      stopYear: this.getDuration()
-    }
-  ]
+  editableFields;
+  
+  reloadSettings() {
+    this.editableFields = [
+      {
+        name: "Withdrawal",
+        component: "NumpadComponent",
+        activity: "withdrawal",
+        multipleYear: true,
+        startYear: 5
+      },
+      {
+        name: "colBasePlanFaceAmount",
+        component: "NumpadComponent",
+        activity: "faceAmount"
+        ,
+        startYear: 5
+        //stopAttainAge: 65
+      },
+      {
+        name: "Premium",
+        component: "NumpadComponent",
+        activity: "plannedPremium",
+        startYear: 5,
+        stopYear: this.getDuration()
+      },
+      {
+        name: "colRegularPayment",
+        component: "NumpadComponent",
+        activity: "regularPayment",
+        startYear: 5,
+        stopYear: this.getDuration()
+      }
+    ]
+  }
 
   input = {
     fundActivities: [],
@@ -80,6 +84,7 @@ export class TableComponent implements OnDestroy {
         this.reloadColumnData();
         this.setDisplayColumns();
         this.isLoading = false;
+        this.reloadSettings();
       }
     )
   }
@@ -167,8 +172,8 @@ export class TableComponent implements OnDestroy {
       return "";
     if (cellType.startYear && cellType.startYear > yearAge.year)
       return "";
- 
-    if(cellType.stopYear) 
+
+    if (cellType.stopYear)
       debugger;
     if (cellType.stopYear && +cellType.stopYear < yearAge.year)
       return "";
