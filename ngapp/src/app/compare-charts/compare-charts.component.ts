@@ -33,7 +33,12 @@ export class CompareChartsComponent implements OnInit {
   draw(id, data, max) {
     let html: any = document.getElementById(id)
     let ctx = html.getContext('2d');
-    let label = data.filter(x => x.label == "Year")[0].data;
+    let years = data.filter(x => x.label == "Year")[0].data;
+    let ages = data.filter(x => x.label == "Age")[0].data;
+    let label = years.map((d, i) => 
+      d + '/' + ages[i]
+     )
+
     let chartdata = data.filter(x => x.label == "Account Value (LOW)")[0].data;
 
     let myChart = new Chart(ctx, {
@@ -63,7 +68,7 @@ export class CompareChartsComponent implements OnInit {
               stepValue: 5,
               max: max,
               autoSkip: true,
- 
+
             }
           }],
           xAxes: [{
@@ -88,7 +93,7 @@ export class CompareChartsComponent implements OnInit {
   ngOnInit() {
 
     if (this.pe.proposals != []) {
-       this.proposals = this.pe.proposals;
+      this.proposals = this.pe.proposals;
     }
     var max = this.getMaxValue();
 
