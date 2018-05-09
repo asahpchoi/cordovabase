@@ -19,11 +19,11 @@ export class PeService {
   premiumCalRequest = null;
   productType = null;
   riders = [];
+  proposals = [];
   //endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
   endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
   //endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
  
-
   //mock services
   getDurationRange(
     basePlanID,
@@ -174,16 +174,21 @@ export class PeService {
             }
           );
 
+          let projectionResult = 
+          {
+            labels: rs.filter(x => x.label == 'Year')[0].data.map(
+              (year, index) => {
+                return year + '/' + rs.filter(x => x.label == 'Age')[0].data[index];
+              }
+            ),
+            dataSets: rs,
+            validationResult: x['projections'][0].validationResult
+          };
+
+          this.proposals.push(projectionResult);
+
           this.resultSubject.next(
-            {
-              labels: rs.filter(x => x.label == 'Year')[0].data.map(
-                (year, index) => {
-                  return year + '/' + rs.filter(x => x.label == 'Age')[0].data[index];
-                }
-              ),
-              dataSets: rs,
-              validationResult: x['projections'][0].validationResult
-            }
+            projectionResult
           )
         }
       );

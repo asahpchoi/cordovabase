@@ -43,12 +43,13 @@ import { AddRiderComponent } from './components/add-rider/add-rider.component';
 import { AddRidersComponent } from './addRiderSection/add-riders.component';
 import { UserService } from './user.service';
 import { UlinputComponent } from './ulinput/ulinput.component';
+import { CompareChartsComponent } from './compare-charts/compare-charts.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
   { path: 'funds', component: FundsComponent },
   { path: 'occupation', component: OccupationComponent },
-  { path: 'ulinput', component: UlinputComponent },
+  { path: 'compareChart', component: CompareChartsComponent },
   
   { path: '', component: InputchartComponent },
 
@@ -73,7 +74,8 @@ const appRoutes: Routes = [
     NumpadComponent,
     AddRiderComponent,
     AddRidersComponent,
-    UlinputComponent
+    UlinputComponent,
+    CompareChartsComponent
   ],
   imports: [
     BrowserModule,
