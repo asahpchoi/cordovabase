@@ -42,11 +42,14 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { AddRiderComponent } from './components/add-rider/add-rider.component';
 import { AddRidersComponent } from './addRiderSection/add-riders.component';
 import { UserService } from './user.service';
+import { UlinputComponent } from './ulinput/ulinput.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
   { path: 'funds', component: FundsComponent },
   { path: 'occupation', component: OccupationComponent },
+  { path: 'ulinput', component: UlinputComponent },
+  
   { path: '', component: InputchartComponent },
 
 ];
@@ -69,7 +72,8 @@ const appRoutes: Routes = [
     TableComponent,
     NumpadComponent,
     AddRiderComponent,
-    AddRidersComponent
+    AddRidersComponent,
+    UlinputComponent
   ],
   imports: [
     BrowserModule,
@@ -97,6 +101,6 @@ const appRoutes: Routes = [
   ],
   providers: [PeService, UserService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent]
+  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent]
 })
 export class AppModule { }

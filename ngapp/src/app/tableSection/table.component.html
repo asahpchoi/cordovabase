@@ -58,7 +58,12 @@
     <button mat-raised-button (click)="showall = false;setDisplayColumns()">show selected Columns</button>
   </mat-expansion-panel>
 </mat-accordion>
-
+<mat-slide-toggle
+ 
+[(ngModel)]="ulmode"
+>
+UL Input mode
+</mat-slide-toggle>
 <pre>
 {{pe.request | json}}
 </pre>

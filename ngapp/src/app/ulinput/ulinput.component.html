@@ -1,0 +1,14 @@
+
+Duration 
+<input mat-Input="year" [(ngModel)]="data.year">
+ 
+
+<mat-form-field>
+  <mat-select placeholder="face amount" [(value)]="data.number">
+    <mat-option *ngFor="let o of getMaxMulitpier()" [value]="o">{{o}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button [mat-dialog-close]="data">Ok</button>
+
+

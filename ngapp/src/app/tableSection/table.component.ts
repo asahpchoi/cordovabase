@@ -6,6 +6,7 @@ import * as $ from 'jquery';
 import * as _ from 'lodash';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../components/numpad/numpad.component';
+import { UlinputComponent } from '../ulinput/ulinput.component';
 
 @Component({
   selector: 'app-table',
@@ -24,10 +25,10 @@ export class TableComponent implements OnDestroy {
   allColumns = [];
   displayColumns = [];
   firstColumn = [];
-
+  ulmode = false;
 
   editableFields;
-  
+
   reloadSettings() {
     this.editableFields = [
       {
@@ -35,28 +36,29 @@ export class TableComponent implements OnDestroy {
         component: "NumpadComponent",
         activity: "withdrawal",
         multipleYear: true,
-        startYear: 5
+        startYear: 2
       },
       {
         name: "colBasePlanFaceAmount",
         component: "NumpadComponent",
         activity: "faceAmount"
         ,
-        startYear: 5
+        startYear: 2
         //stopAttainAge: 65
       },
       {
         name: "Premium",
         component: "NumpadComponent",
+        componentul: "UlinputComponent",
         activity: "plannedPremium",
-        startYear: 5,
+        startYear: 4,
         stopYear: this.getDuration()
       },
       {
         name: "colRegularPayment",
         component: "NumpadComponent",
         activity: "regularPayment",
-        startYear: 5,
+        startYear: 4,
         stopYear: this.getDuration()
       }
     ]
@@ -68,7 +70,8 @@ export class TableComponent implements OnDestroy {
     checked: {
       'Account Value (LOW)': true, 'Account Value (MEDIUM)': true,
       'Account Value (HIGH)': true,
-      'Withdrawal': true, 'Premium': true, 'Top-up Premium': true, 'Total Premium': true
+      'Withdrawal': true, 'Premium': true, 'Top-up Premium': true, 'Total Premium': true,
+
     }
   }
   editorOptions;
@@ -193,14 +196,29 @@ export class TableComponent implements OnDestroy {
 
     if (cellType.stopYear && cellType.stopYear < yearAge.year)
       return "";
-    let dialogRef = this.dialog.open(NumpadComponent, {
-      width: '250px',
-      data: {
-        number: value + '',
-        year: 1,
-        multipleYear: cellType.multipleYear
-      }
-    });
+
+    let dialogRef;
+
+    if (colName == "Premium" && this.ulmode) {
+      dialogRef = this.dialog.open(UlinputComponent, {
+        width: '250px',
+        data: {
+          unit: this.ds.dataSets.filter(ds => ds.label == colName)[0][0],
+          dataColumn: this.ds.dataSets.filter(ds => ds.label == colName)[0],
+          dataYear: yearAge.year
+        }
+      });
+    }
+    else {
+      dialogRef = this.dialog.open(NumpadComponent, {
+        width: '250px',
+        data: {
+          number: value + '',
+          year: 1,
+          multipleYear: cellType.multipleYear
+        }
+      });
+    }
 
     dialogRef.afterClosed().first().subscribe(result => {
 
@@ -209,7 +227,7 @@ export class TableComponent implements OnDestroy {
 
       for (var i = 0; i < year; i++) {
         let fa = {
-          attainAge: +yearAge.age + i
+          attainAge: +yearAge.age -1 + i
         }
         fa[cellType.activity] = number;
 
