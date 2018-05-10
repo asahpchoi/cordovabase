@@ -74,6 +74,7 @@ export class PeService {
   }
 
   calculatePlannedPremiumRange(faceAmount, insuredAge, paymentMode, productId): Observable<any> {
+    console.log('CP', paymentMode)
     let url = this.endpoint + '/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
@@ -88,6 +89,9 @@ export class PeService {
     }
     return this.http
       .post(url, payload)
+      .do(x=>{
+        console.log('CPResult', x)
+      })
       .first();
   }
 

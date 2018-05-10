@@ -322,7 +322,7 @@ export class InputComponent implements OnInit {
         "Q": 4,
         "M": 12
       }
-
+ 
     switch (this.input.paymentMode) {
       case 'Annual': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["A"]; break;
       case 'Semi-Annual': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["S"]; break;
@@ -331,7 +331,7 @@ export class InputComponent implements OnInit {
     }
 
     this.updateTermFaceAmount();
-    this.updateBaseProtection();
+    this.updateBaseProtection(true);
     this.updateBasePremium();
 
   }
@@ -399,18 +399,19 @@ export class InputComponent implements OnInit {
       })
     this.updateRegularPaymentRange();
   }
-  private updateBaseProtection() {
-
+  private updateBaseProtection(forceChange?) {
+    debugger
     this.pe.calculatePlannedPremiumRange(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
       subscribe(x => {
-        //Not work for non UL007
-        console.log(x)
+ 
         let data: any = x;
         this.updateTermProtectionRange();
 
         this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
         this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
-        if (this.input.plannedPremium == 0) {
+      
+        debugger;
+        if (this.input.plannedPremium == 0 || forceChange) {
           this.input.plannedPremium = Math.round(data.value.defPremium);
           this.updateRegularPaymentRange();
           this.updateBasePremium();
