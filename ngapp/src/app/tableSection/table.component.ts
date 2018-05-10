@@ -242,9 +242,9 @@ export class TableComponent implements OnDestroy {
           fa
         );
       }
-      console.log('old', this.input.fundActivities)
-      this.input.fundActivities = _.sortBy(this.input.fundActivities, "attainAge");
-      console.log('new', this.input.fundActivities)
+     // console.log('old', this.input.fundActivities)
+     // this.input.fundActivities = _.sortBy(this.input.fundActivities, "attainAge");
+      //console.log('new', this.input.fundActivities)
       this.pe.updateFundActivities(this.input.fundActivities);
       this.isLoading = true;
       

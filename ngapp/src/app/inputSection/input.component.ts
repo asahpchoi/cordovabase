@@ -329,7 +329,7 @@ export class InputComponent implements OnInit {
       case 'Quarterly': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["Q"]; break;
       case 'Monthly': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["M"]; break;
     }
- 
+
     this.updateTermFaceAmount();
     this.updateBaseProtection();
     this.updateBasePremium();
@@ -509,12 +509,12 @@ export class InputComponent implements OnInit {
       case "UL007":
         payload.fundActivities.fundActivity = [
           {
+            "attainAge": +this.input.insuredAge,
             "regularPayment": +this.input.regularPayment,
-            "attainAge": +this.input.insuredAge
           },
           {
+            "attainAge": +(+this.input.insuredAge + +this.input.duration),
             "regularPayment": 0.00,
-            "attainAge": "" + (+this.input.insuredAge + +this.input.duration)
           }
         ];
         break;

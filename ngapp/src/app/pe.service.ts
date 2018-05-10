@@ -9,6 +9,7 @@ import 'rxjs/observable/from';
 
 import 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
+import * as _ from 'lodash';
 
 @Injectable()
 export class PeService {
@@ -110,7 +111,26 @@ export class PeService {
     let initialSetting = this.projectionRequest.fundActivities.fundActivity.filter(
       fa => (fa["regularPayment"]) || (fa["regularPayment"] == 0)
     );
-    this.projectionRequest.fundActivities.fundActivity = [...initialSetting, ...acts];
+
+    let tempfunds : any = [...initialSetting, ...acts];
+    let key: any = tempfunds.map(x => x.attainAge).filter((v, i, a) => a.indexOf(v) === i); 
+    let results = [];
+    key.forEach(
+      k => {
+        let objs : any = tempfunds.filter(x=> x.attainAge == k);
+        let result = {};
+        objs.forEach(
+          o => {
+            result = Object.assign(result, o)
+          }
+        )
+        results.push(result);
+      }
+    )
+ 
+     this.projectionRequest.fundActivities.fundActivity = _.sortBy(results,"attainAge");
+
+    console.log('Fund',  this.projectionRequest.fundActivities.fundActivity )
   }
 
   getFundActivities(): any {
