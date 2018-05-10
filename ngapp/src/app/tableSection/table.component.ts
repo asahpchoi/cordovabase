@@ -215,7 +215,14 @@ export class TableComponent implements OnDestroy {
         data: {
           number: value + '',
           year: 1,
-          multipleYear: cellType.multipleYear
+          multipleYear: cellType.multipleYear,
+          /*
+          productInfo: {
+            productID: ,
+            attainedAge: yearAge.age,
+            fieldType: colName
+
+          }*/
         }
       });
     }
@@ -235,10 +242,13 @@ export class TableComponent implements OnDestroy {
           fa
         );
       }
+      console.log('old', this.input.fundActivities)
+      this.input.fundActivities = _.sortBy(this.input.fundActivities, "attainAge");
+      console.log('new', this.input.fundActivities)
       this.pe.updateFundActivities(this.input.fundActivities);
       this.isLoading = true;
+      
       this.pe.callPEProjection();
-
     });
   }
 

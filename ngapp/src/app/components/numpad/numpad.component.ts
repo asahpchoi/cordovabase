@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit, OnDestroy, } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as _ from 'lodash';
+import { PeService } from '../../pe.service';
+
 @Component({
   selector: 'app-numpad',
   templateUrl: './numpad.component.html',
@@ -11,7 +13,8 @@ export class NumpadComponent implements OnInit {
   first = true;
   constructor(
     public dialogRef: MatDialogRef<NumpadComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public pe: PeService) {
     
 
   }
@@ -52,11 +55,14 @@ export class NumpadComponent implements OnInit {
 
   close(isCancel): void {
     if(!isCancel) {
+       
       if(+this.data.hardMin > +this.data.number)
         return;
-      this.dialogRef.close(+this.data.number);  
+      this.dialogRef.close(this.data);  
     }
-    this.dialogRef.close();
+    else {
+      this.dialogRef.close();
+    }
   }
 
 }

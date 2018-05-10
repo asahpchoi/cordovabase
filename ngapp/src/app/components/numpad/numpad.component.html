@@ -2,20 +2,25 @@
   <input matInput [(ngModel)]="data.number" readonly>
 </mat-form-field>
 <br>
-<span (click)="data.number=data.min">({{data.min}}</span> - <span (click)="data.number=data.max">{{data.max}})</span>
+<span (click)="data.number=data.min">({{data.min}}</span> -
+<span (click)="data.number=data.max">{{data.max}})</span>
 <mat-grid-list cols="3" rowHeight="2:1">
-  <mat-grid-tile *ngFor="let i of numberArray()"><button mat-raised-button (click)="pressKey(i + '')">{{i}}</button></mat-grid-tile>
-  <mat-grid-tile><button mat-raised-button (click)="pressKey('C')">C</button></mat-grid-tile>
-  <mat-grid-tile><button mat-raised-button (click)="pressKey('0')">0</button></mat-grid-tile>
-  <mat-grid-tile><button mat-raised-button (click)="pressKey('B')">BACK</button></mat-grid-tile>
+  <mat-grid-tile *ngFor="let i of numberArray()">
+    <button mat-raised-button (click)="pressKey(i + '')">{{i}}</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button (click)="pressKey('C')">C</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button (click)="pressKey('0')">0</button>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button (click)="pressKey('B')">BACK</button>
+  </mat-grid-tile>
 </mat-grid-list>
 <br>
 <mat-form-field *ngIf="data.multipleYear">
   <input matInput [(ngModel)]="data.year" placeholder="year">
 </mat-form-field>
 <button mat-raised-button (click)="close(true)">Cancel</button>
-<button mat-raised-button [mat-dialog-close]="data" [disabled]="data.hardMin > data.number">Ok</button>
-
-
-
- 
+<button mat-raised-button (click)="close(false)">Ok</button>

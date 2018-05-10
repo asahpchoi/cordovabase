@@ -29,14 +29,15 @@ export class InputComponent implements OnInit {
   ranges = {
     faceAmount: {
       hardMin: 100000,
+      hardMax: 9999999999999,
       min: null,
       max: null
     },
     plannedPremium: {
       hardMin: 7000,
+      hardMax: 9999999999999,
       min: null,
-      max: null,
-      hardMax: null
+      max: null
     },
     regularPayment: {
       hardMin: 0,
@@ -388,9 +389,12 @@ export class InputComponent implements OnInit {
     this.pe.calculateFaceAmountRange(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
       subscribe(x => {
         let data: any = x;
+        debugger
 
-        this.ranges.faceAmount.min = Math.max(1000000, Math.round(data.value.minLimit));
+        this.ranges.faceAmount.min = Math.round(data.value.minLimit);
         this.ranges.faceAmount.max = Math.round(data.value.maxLimit);
+        this.ranges.faceAmount.hardMax = Math.round(data.value.maxFixLimit);
+        this.ranges.faceAmount.hardMin = Math.round(data.value.minFixLimit);
         //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
       })
     this.updateRegularPaymentRange();
