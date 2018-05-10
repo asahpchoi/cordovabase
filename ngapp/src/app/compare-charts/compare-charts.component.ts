@@ -22,19 +22,19 @@ export class CompareChartsComponent implements OnInit {
     let max = 0;
     this.proposals.forEach(
       p => {
-        let data: any = p.dataSets.filter(x => x.label == "Account Value (LOW)")[0].data;
+        let data: any = p.dataSets.find(x => x.label == "Account Value (LOW)").data;
 
         max = Math.max(...data) > max ? Math.max(...data) : max;
       }
     )
-    return max * 1.2;
+    return Math.ceil((max * 1.2) / 200000) * 200000;
   }
 
   draw(id, data, max) {
     let html: any = document.getElementById(id)
     let ctx = html.getContext('2d');
-    let years = data.filter(x => x.label == "Year")[0].data;
-    let ages = data.filter(x => x.label == "Age")[0].data;
+    let years = data.find(x => x.label == "Year").data;
+    let ages = data.find(x => x.label == "Age").data;
     let label = years.map((d, i) => 
       d + '/' + ages[i]
      )
@@ -68,7 +68,11 @@ export class CompareChartsComponent implements OnInit {
               stepValue: 5,
               max: max,
               autoSkip: true,
-
+              mirror: true
+ 
+            },
+            gridLines: { 
+              display:false
             }
           }],
           xAxes: [{
@@ -76,10 +80,13 @@ export class CompareChartsComponent implements OnInit {
             ticks: {
               beginAtZero: true,
               steps: 10,
-              stepValue: 5,
+              stepValue: 10,
               autoSkip: true,
               maxTicksLimit: 10,
               stepSize: 10
+            },
+            gridLines: { 
+              display:false
             }
           }]
         }
@@ -91,8 +98,9 @@ export class CompareChartsComponent implements OnInit {
   }
 
   ngOnInit() {
+ 
 
-    if (this.pe.proposals != []) {
+    if ( this.pe.proposals.length > 0) {
       this.proposals = this.pe.proposals;
     }
     var max = this.getMaxValue();
