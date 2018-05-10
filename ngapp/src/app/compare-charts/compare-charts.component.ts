@@ -27,7 +27,8 @@ export class CompareChartsComponent implements OnInit {
         max = Math.max(...data) > max ? Math.max(...data) : max;
       }
     )
-    return Math.ceil((max * 1.2) / 200000) * 200000;
+    //return max;
+    return Math.ceil((max * 1) / 200000) * 200000;
   }
 
   draw(id, data, max) {
@@ -39,7 +40,7 @@ export class CompareChartsComponent implements OnInit {
       d + '/' + ages[i]
      )
 
-    let chartdata = data.filter(x => x.label == "Account Value (LOW)")[0].data;
+    let chartdata = data.find(x => x.label == "Account Value (LOW)").data;
 
     let myChart = new Chart(ctx, {
       type: 'line',
