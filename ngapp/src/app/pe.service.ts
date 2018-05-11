@@ -18,11 +18,12 @@ export class PeService {
   premiumSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   projectionRequest = null;
   premiumCalRequest = null;
+  validationRequest = null;
   productType = null;
   riders = [];
   proposals = [];
-  endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
-  //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
+  //endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
+  endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
   ////endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
  
   //mock services
@@ -111,8 +112,12 @@ export class PeService {
     return this.validationSubject;
   }
 
-  updateFundActivities(acts): void {
-    let initialSetting = this.projectionRequest.fundActivities.fundActivity.filter(
+  private getFundActs() {
+
+  }
+
+  updateFundActivities(acts, req:any): void {
+    let initialSetting = req.fundActivities.fundActivity.filter(
       fa => (fa["regularPayment"]) || (fa["regularPayment"] == 0)
     );
 
@@ -130,24 +135,22 @@ export class PeService {
         )
         results.push(result);
       }
-    )
- 
-     this.projectionRequest.fundActivities.fundActivity = _.sortBy(results,"attainAge");
-
-    console.log('Fund',  this.projectionRequest.fundActivities.fundActivity )
+    ) 
+    req.fundActivities.fundActivity = _.sortBy(results,"attainAge");
   }
 
   getFundActivities(): any {
     return JSON.parse(JSON.stringify(this.projectionRequest.fundActivities.fundActivity));
   }
 
-  validate(req?): void {
-    
-    if (req) this.premiumCalRequest = req;
-    if (!req) req = this.premiumCalRequest;
-    if (!req) return null;
+  validate(req?): void {    
+    if (req) this.validationRequest = req;
+    console.log('V', this.validationRequest)
+    if(!this.validationRequest) return;
+    this.validationSubject.next(null);
 
-    this.makeValidationRequest(req).subscribe(r => { this.validationSubject.next(r); });
+    this.makeValidationRequest(this.validationRequest).subscribe(r => { this.validationSubject.next(r); });
+
   }
 
   private makeValidationRequest(req): Observable<any> {

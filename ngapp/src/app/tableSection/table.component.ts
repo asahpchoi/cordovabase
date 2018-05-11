@@ -177,7 +177,7 @@ export class TableComponent implements OnDestroy {
       return "";
 
     if (cellType.stopYear)
-      debugger;
+      
     if (cellType.stopYear && +cellType.stopYear < yearAge.year)
       return "";
 
@@ -226,15 +226,18 @@ export class TableComponent implements OnDestroy {
         }
       });
     }
-
+    
+    let tempFA = JSON.parse(JSON.stringify(this.input.fundActivities));
     dialogRef.afterClosed().first().subscribe(result => {
-
       let number = +result.number;
       let year = +result.year;
 
+      
+      
+
       for (var i = 0; i < year; i++) {
         let fa = {
-          attainAge: +yearAge.age -1 + i
+          attainAge: +yearAge.age - 1 + i
         }
         fa[cellType.activity] = number;
 
@@ -242,14 +245,45 @@ export class TableComponent implements OnDestroy {
           fa
         );
       }
-     // console.log('old', this.input.fundActivities)
-     // this.input.fundActivities = _.sortBy(this.input.fundActivities, "attainAge");
+      // console.log('old', this.input.fundActivities)
+      // this.input.fundActivities = _.sortBy(this.input.fundActivities, "attainAge");
       //console.log('new', this.input.fundActivities)
-      this.pe.updateFundActivities(this.input.fundActivities);
       this.isLoading = true;
+      //debugger
+      if(!this.pe.validationRequest)  {
+        this.pe.validationRequest = JSON.parse(JSON.stringify(this.pe.projectionRequest));
+      }
       
-      this.pe.callPEProjection();
+      this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);      
+
+      this.pe.validate();      
+      let sub = this.pe.validationSubject.subscribe(
+        x=> {
+          let result:any = x;
+          if(!x) return;
+          if(result.length == 0) {
+            this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
+            this.pe.callPEProjection();
+            sub.unsubscribe();
+          }
+          else{ 
+            this.isLoading = false;
+            this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));            
+            sub.unsubscribe();
+          }
+        }
+      )
+
+      
+      
+      
     });
+  }
+
+  resetFundActs() {
+    this.input.fundActivities = [];
+    this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
+    this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
   }
 
   cellType(colName) {
