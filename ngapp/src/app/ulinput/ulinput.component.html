@@ -5,7 +5,7 @@ Duration
 
 <mat-form-field>
   <mat-select placeholder="face amount" [(value)]="data.number">
-    <mat-option *ngFor="let o of getMaxMulitpier()" [value]="o">{{o}}</mat-option>
+    <mat-option *ngFor="let o of getYearSelection()" [value]="o">{{o}}</mat-option>
   </mat-select>
 </mat-form-field>
 

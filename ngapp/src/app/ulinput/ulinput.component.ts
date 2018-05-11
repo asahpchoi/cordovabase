@@ -13,8 +13,7 @@ export class UlinputComponent implements OnInit {
  
   unitAmount;
   dataYear;
-
-
+  unpaidedUnits;
 
   constructor(
     public dialogRef: MatDialogRef<UlinputComponent>,
@@ -28,8 +27,8 @@ export class UlinputComponent implements OnInit {
     }
   }
 
-  getMaxMulitpier() : any{
-    let max = Math.floor((this.getStopPayment() + +this.data.year) / +this.data.year);
+  getYearSelection() : any{
+    let max = Math.floor((this.getMaxMultipler() + +this.data.year) / +this.data.year);
     let items = [0];
     for(var i = 0; i < max ; i++) {
       items.push((i + 1) * this.unitAmount);
@@ -37,14 +36,15 @@ export class UlinputComponent implements OnInit {
     return items;
   }
 
-  private getStopPayment() : number {
-    let stopPaymentYear = 0;
-    for(var i = this.dataYear - 2; this.cols[i] == 0; i--) {
-      stopPaymentYear ++;
-    }
-    return stopPaymentYear
+  private getMaxMultipler(): number {
+
+     let sumOfPaid = this.cols.filter((d, i) => i < this.dataYear - 1).reduce((p,v) => +p + +v, 0);
+     let sum = (this.dataYear - 1) * this.unitAmount;
+
+     return (sum - sumOfPaid) / this.unitAmount;
   }
 
+ 
 
 
   ngOnInit() {
