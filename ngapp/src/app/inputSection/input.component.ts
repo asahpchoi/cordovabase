@@ -249,6 +249,13 @@ export class InputComponent implements OnInit {
               this.input.riderPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
             }
           )
+          if (this.selectedTestcase.name != "UL007") {
+            this.input.plannedPremium = data.basePlan.premiums.filter(
+              x => x.paymentMode == this.input.paymentMode
+            )[0].premium;
+          }
+
+
           this.updateRegularPaymentRange();
         }
       }
@@ -327,7 +334,7 @@ export class InputComponent implements OnInit {
         "Q": 4,
         "M": 12
       }
- 
+
     switch (this.input.paymentMode) {
       case 'Annual': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["A"]; break;
       case 'Semi-Annual': this.ranges.plannedPremium.hardMin = 7000 / +pmfactor["S"]; break;
@@ -391,6 +398,7 @@ export class InputComponent implements OnInit {
 
   }
   private updateBasePremium() {
+
     this.pe.calculateFaceAmountRange(this.input.plannedPremium, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
       subscribe(x => {
         let data: any = x;
@@ -403,26 +411,34 @@ export class InputComponent implements OnInit {
         //this.faceAmountCtrl.setValidators([Validators.min(data.value.minLimit), Validators.max(data.value.maxLimit), Validators.required]);
       })
     this.updateRegularPaymentRange();
+
+
   }
   private updateBaseProtection(forceChange?) {
-    debugger
-    this.pe.calculatePlannedPremiumRange(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
-      subscribe(x => {
- 
-        let data: any = x;
-        this.updateTermProtectionRange();
 
-        this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
-        this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
-      
-        debugger;
-        if (this.input.plannedPremium == 0 || forceChange) {
-          this.input.plannedPremium = Math.round(data.value.defPremium);
-          this.updateRegularPaymentRange();
-          this.updateBasePremium();
-        }
-        //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
-      })
+    if (this.selectedTestcase.name == "UL007") {
+      this.pe.calculatePlannedPremiumRange(this.input.faceAmount, this.input.insuredAge, this.input.paymentMode, this.selectedTestcase.name).
+        subscribe(x => {
+
+          let data: any = x;
+          this.updateTermProtectionRange();
+
+          this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
+          this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
+
+          debugger;
+          if (this.input.plannedPremium == 0 || forceChange) {
+            this.input.plannedPremium = Math.round(data.value.defPremium);
+            this.updateRegularPaymentRange();
+            this.updateBasePremium();
+          }
+          //this.plannedPremiumCtrl.setValidators([Validators.min(this.ranges.plannedPremium.min), Validators.max(this.ranges.plannedPremium.max), Validators.required]);
+        })
+    }
+    else {
+      console.log(this.selectedTestcase.payload)
+      this.pe.premiumCalculation(this.selectedTestcase.payload);
+    }
 
   }
   private updateTermProtectionRange(): void {
@@ -440,7 +456,8 @@ export class InputComponent implements OnInit {
   }
   private updateRegularPaymentRange() {
     let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
-    if (this.input.regularPayment < min) this.input.regularPayment = min;
+    if (this.input.regularPayment < min || this.selectedTestcase.name != "UL007") this.input.regularPayment = min;
+    
     this.ranges['regularPayment'].min = min;
     this.ranges['regularPayment'].hardMin = min;
   }
