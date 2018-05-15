@@ -53,7 +53,16 @@ export class ReportChartComponent implements OnInit {
     console.log(this.barData)
   }
   
-  colors = ['salmon', 'red', 'green', 'lightgreen', 'gray', 'white', 'blue', 'lightblue', 'gray'];
+  colors = ['#FF5D55',
+'#FF8C86',
+'#00AA59',
+'#B8E986',
+'#F5F5F5',
+'white',
+'#006FF1',
+'#5ACFD6',
+'#F5F5F5',]
+
   ngOnInit() {
 
 
@@ -61,7 +70,8 @@ export class ReportChartComponent implements OnInit {
 
   getD(item: any) {
     let len = +item.point < +item.x ? +item.point - +item.x : +item.point - +item.x + 40;
-    return "M " + item.x + " " + item.y + " l 0 -" + (+item.delta * 2) + " l " + len + " 0";
+    let delta = +item.point < +item.x ? item.delta : 4 - item.delta
+    return "M " + item.x + " " + item.y + " l 0 -" + delta + " l " + len + " 0";
   }
 
 }
