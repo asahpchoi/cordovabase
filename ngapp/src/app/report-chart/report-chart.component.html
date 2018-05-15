@@ -4,8 +4,10 @@
       <input mat-input [(ngModel)]="i.v">
     </div>
     <button mat-raised-button (click)="update()">Update</button>
+    <button mat-raised-button (click)="saveSVG()">Save SVG</button>
 </div>
-<svg viewBox="0 0 200 120">
+
+<svg viewBox="0 0 200 120" id="svg">
   <ng-container *ngFor="let item of barData">
     <rect [attr.width]="item.width" height="10" [attr.y]="item.y" [attr.x]="item.x" [attr.fill]="item.color"></rect>
     <path [attr.d]="getD(item)" [attr.stroke]="item.color" stroke-width="0.1" fill="none" />
