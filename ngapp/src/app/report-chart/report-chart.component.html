@@ -1,4 +1,10 @@
-
+<div>
+    <div *ngFor="let i of input">
+      {{i.label}}
+      <input mat-input [(ngModel)]="i.v">
+    </div>
+    <button mat-raised-button (click)="update()">Update</button>
+</div>
 <svg viewBox="0 0 200 120">
   <ng-container *ngFor="let item of barData">
     <rect [attr.width]="item.width" height="10" [attr.y]="item.y" [attr.x]="item.x" [attr.fill]="item.color"></rect>
@@ -7,11 +13,5 @@
     <text [attr.x]="item.point" [attr.y]="item.y - 10" fill="grey" style="font-size:7px;">{{item.value | number}}</text>
   </ng-container>
 </svg>
-<div>
-    <div *ngFor="let i of input">
-      {{i.label}}
-      <input [(ngModel)]="i.v">
-    </div>
-    <button (click)="update()">Update</button>
-  </div>
+
   
