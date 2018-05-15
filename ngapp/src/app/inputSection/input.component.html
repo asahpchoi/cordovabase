@@ -54,6 +54,7 @@
 
           <mat-hint>from: {{ranges['regularPayment'].min}}</mat-hint>
         </mat-form-field>
+        <button (click)="resetRegularPayment()">Reset</button>
 
         <mat-form-field>
           <mat-select placeholder="Payment mode" [(value)]="input.paymentMode" (change)="updatePaymentMode()">

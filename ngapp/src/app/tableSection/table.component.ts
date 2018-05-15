@@ -148,6 +148,8 @@ export class TableComponent implements OnDestroy {
 
   formatValue(v) {
     if (_.isNumber(v)) {
+      let n = +v;
+     
       var value = v.toLocaleString(
         "vn-vn", // leave undefined to use the browser's locale,
         // or use a string like 'en-US' to override it.
@@ -155,12 +157,13 @@ export class TableComponent implements OnDestroy {
           minimumFractionDigits: 0
         }
       )
-      return value;
+      return  Math.round(v);
     }
     else {
       return v
     }
   }
+
 
   getRows(data) {
     return data.filter((d, i) => i % this.input.rowStep == 0);
@@ -177,9 +180,9 @@ export class TableComponent implements OnDestroy {
       return "";
 
     if (cellType.stopYear)
-      
-    if (cellType.stopYear && +cellType.stopYear < yearAge.year)
-      return "";
+
+      if (cellType.stopYear && +cellType.stopYear < yearAge.year)
+        return "";
 
     return cellType.component;
   }
@@ -226,14 +229,14 @@ export class TableComponent implements OnDestroy {
         }
       });
     }
-    
+
     let tempFA = JSON.parse(JSON.stringify(this.input.fundActivities));
     dialogRef.afterClosed().first().subscribe(result => {
       let number = +result.number;
       let year = +result.year;
 
-      
-      
+
+
 
       for (var i = 0; i < year; i++) {
         let fa = {
@@ -250,33 +253,33 @@ export class TableComponent implements OnDestroy {
       //console.log('new', this.input.fundActivities)
       this.isLoading = true;
       //debugger
-      if(!this.pe.validationRequest)  {
+      if (!this.pe.validationRequest) {
         this.pe.validationRequest = JSON.parse(JSON.stringify(this.pe.projectionRequest));
       }
-      
-      this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);      
 
-      this.pe.validate();      
+      this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
+
+      this.pe.validate();
       let sub = this.pe.validationSubject.subscribe(
-        x=> {
-          let result:any = x;
-          if(!x) return;
-          if(result.length == 0) {
+        x => {
+          let result: any = x;
+          if (!x) return;
+          if (result.length == 0) {
             this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
             this.pe.callPEProjection();
             sub.unsubscribe();
           }
-          else{ 
+          else {
             this.isLoading = false;
-            this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));            
+            this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
             sub.unsubscribe();
           }
         }
       )
 
-      
-      
-      
+
+
+
     });
   }
 
@@ -284,6 +287,12 @@ export class TableComponent implements OnDestroy {
     this.input.fundActivities = [];
     this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
     this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
+  }
+
+  clearFA() {
+    this.isLoading = true;
+    this.resetFundActs();
+    this.pe.callPEProjection();
   }
 
   cellType(colName) {

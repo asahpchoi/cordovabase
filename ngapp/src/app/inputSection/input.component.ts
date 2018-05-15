@@ -273,6 +273,11 @@ export class InputComponent implements OnInit {
     })
   }
 
+  resetRegularPayment() {
+    let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
+    this.input.regularPayment = min;
+  }
+
   selectBasePlan() {
     this.formControls['duration'].enable();
     if (this.selectedTestcase && this.selectedTestcase.readOnlyFields) {

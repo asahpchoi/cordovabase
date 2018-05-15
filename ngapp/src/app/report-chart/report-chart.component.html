@@ -1,0 +1,17 @@
+
+<svg viewBox="0 0 200 120">
+  <ng-container *ngFor="let item of barData">
+    <rect [attr.width]="item.width" height="10" [attr.y]="item.y" [attr.x]="item.x" [attr.fill]="item.color"></rect>
+    <path [attr.d]="getD(item)" [attr.stroke]="item.color" stroke-width="0.1" fill="none" />
+    <text [attr.x]="item.point" [attr.y]="item.y - 18" fill="grey" style="font-size:4px;">{{item.label}}</text>
+    <text [attr.x]="item.point" [attr.y]="item.y - 10" fill="grey" style="font-size:7px;">{{item.value | number}}</text>
+  </ng-container>
+</svg>
+<div>
+    <div *ngFor="let i of input">
+      {{i.label}}
+      <input [(ngModel)]="i.v">
+    </div>
+    <button (click)="update()">Update</button>
+  </div>
+  
