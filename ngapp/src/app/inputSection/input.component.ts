@@ -56,7 +56,9 @@ export class InputComponent implements OnInit {
   formControls = {
     duration: new FormControl('duration', [Validators.min(4), Validators.max(99), Validators.required]),
     riderPremium: new FormControl('riderPremium'),
-    termPremium: new FormControl('termPremium')
+    termPremium: new FormControl('termPremium'),
+    regularPayment: new FormControl('regularPayment'),
+    plannedPremium: new FormControl('plannedPremium'),
   }
 
 
@@ -96,7 +98,7 @@ export class InputComponent implements OnInit {
               }
             },
             duration: 12,
-            readOnlyFields: ["duration", "termPremium", "riderPremium"]
+            readOnlyFields: ["duration", "termPremium", "riderPremium", "regularPayment", "plannedPremium"]
           },
           {
             name: 'ENC15',
@@ -437,6 +439,7 @@ export class InputComponent implements OnInit {
     }
     else {
       console.log(this.selectedTestcase.payload)
+      this.updatePayload();
       this.pe.premiumCalculation(this.selectedTestcase.payload);
     }
 
