@@ -470,7 +470,12 @@ export class InputComponent implements OnInit {
 
     payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;
     payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
-    payload.coverageInfo.plannedPremium = +this.input.plannedPremium;
+    if(this.selectedTestcase.name == "UL007") {
+      payload.coverageInfo.plannedPremium = +this.input.plannedPremium;
+    }
+    else {
+      delete payload.coverageInfo.plannedPremium;
+    }
     payload.coverageInfo.faceAmount = +this.input.faceAmount;
     if (!this.input.termfaceAmount || this.input.termfaceAmount == 0) {
       payload.riders = {

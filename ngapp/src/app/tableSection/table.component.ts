@@ -164,6 +164,7 @@ export class TableComponent implements OnDestroy {
     }
   }
 
+  isNaN: Function = isNaN;
 
   getRows(data) {
     return data.filter((d, i) => i % this.input.rowStep == 0);
