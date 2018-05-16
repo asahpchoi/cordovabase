@@ -294,8 +294,10 @@ export class ChartComponent {
       this.prepareData();
 
 
-      if (this.chart)
+      if (this.chart) {
+        this.chart.destroy();
         this.chart = null;
+      }
 
       this.chart = new Chart('canvas', {
         type: 'line',
