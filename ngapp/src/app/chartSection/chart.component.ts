@@ -36,7 +36,7 @@ export class ChartComponent {
         if (pointIndex >= data.length) return null;
 
         return data[pointIndex]._model.x;
-      },      
+      },
       afterDatasetsDraw: function (chart, easing) {
         let lineLabel = "colAccumulatePremiumsHigh";
 
@@ -52,24 +52,24 @@ export class ChartComponent {
               areaDataDS.forEach(
                 ds => {
                   if (+ds.data[i] > payment) {
-                    if(BreakevenPoint == 0) {
+                    if (BreakevenPoint == 0) {
                       BreakevenPoint = i;
-                    } 
+                    }
                   }
                 }
-              ) 
+              )
             }
           )
           const scale = chart.scales['y-axis-0'];
-          const offSet = this.getLinePosition(chart,BreakevenPoint);
+          const offSet = this.getLinePosition(chart, BreakevenPoint);
           const context = chart.ctx;
           context.fillStyle = "blue";
           context.fillText('Breakeven: ' + BreakevenPoint, offSet, scale.bottom - 100);
         }
-        
+
 
       }
-      
+
     }
     const verticalLinePlugin = {
       getLinePosition: function (chart, pointIndex) {
@@ -262,7 +262,7 @@ export class ChartComponent {
     let lineData = this.ds.dataSets.filter(ds => ds.label == this.selectedView.line);
 
     lineData[0].fill = false;
-    lineData[0].borderColor = 'blue';
+    lineData[0].borderColor = '#B8E986';
 
     let acs = areaData.map(x => x.label).filter(x => x.includes("Account Value")).map(x => x.replace("Account Value", "Lapse"));
 
@@ -278,8 +278,6 @@ export class ChartComponent {
       this.lapsedYear = [Math.min(...this.lapsedYear)];
     }
 
-
-
     this.chartData = [...lineData, ...areaData]
     this.chartData.forEach(
       (ds, i) => {
@@ -292,12 +290,14 @@ export class ChartComponent {
   private createChart() {
     if (this.selectedView) {
       this.prepareData();
-
-
-      if (this.chart) {
-        this.chart.destroy();
-        this.chart = null;
+      if(document.getElementById("canvas")) {
+        document.getElementById("canvas").remove();
       }
+      
+      var mycanvas = document.createElement("canvas");
+      mycanvas.id = "canvas";
+      document.getElementById("canvasDiv").appendChild(mycanvas);
+
 
       this.chart = new Chart('canvas', {
         type: 'line',
@@ -325,8 +325,8 @@ export class ChartComponent {
           display: true
         }],
       },
-      tooltips: {enabled: false},
-      hover: {mode: null},
+      tooltips: { enabled: false },
+      hover: { mode: null },
     };
 
   private chartData = [
@@ -343,7 +343,16 @@ export class ChartComponent {
   private chartLabels = [];
 
   private ds;
-  private colors = ['#00AA59', '#FF5D55', '#006F61'];
+
+  private colors = ['#FF5D55',
+    '#FF8C86',
+    '#00AA59',
+    '#B8E986',
+    '#F5F5F5',
+    'white',
+    '#006FF1',
+    '#5ACFD6',
+    '#F5F5F5',]
   private selectedView;
   private productType;
 
