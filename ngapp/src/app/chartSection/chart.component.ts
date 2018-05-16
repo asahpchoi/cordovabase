@@ -28,6 +28,49 @@ export class ChartComponent {
         this.createChart();
       }
     )
+
+    const breakevenPlugin = {
+      getLinePosition: function (chart, pointIndex) {
+        const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
+        const data = meta.data;
+        if (pointIndex >= data.length) return null;
+
+        return data[pointIndex]._model.x;
+      },      
+      afterDatasetsDraw: function (chart, easing) {
+        let lineLabel = "colAccumulatePremiumsHigh";
+
+        if (easing == 1) {
+          let ds = chart.data.datasets;
+          let lineData: any = ds.find(x => (x.label == lineLabel)).data;
+          let areaDataDS: any = ds.filter(x => (x.label != lineLabel));
+          let BreakevenPoint = 0;
+
+          lineData.forEach(
+            (payment, i) => {
+              let result = false;
+              areaDataDS.forEach(
+                ds => {
+                  if (+ds.data[i] > payment) {
+                    if(BreakevenPoint == 0) {
+                      BreakevenPoint = i;
+                    } 
+                  }
+                }
+              ) 
+            }
+          )
+          const scale = chart.scales['y-axis-0'];
+          const offSet = this.getLinePosition(chart,BreakevenPoint);
+          const context = chart.ctx;
+          context.fillStyle = "blue";
+          context.fillText('Breakeven: ' + BreakevenPoint, offSet, scale.bottom - 100);
+        }
+        
+
+      }
+      
+    }
     const verticalLinePlugin = {
       getLinePosition: function (chart, pointIndex) {
         const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
@@ -59,12 +102,17 @@ export class ChartComponent {
       },
 
       afterDatasetsDraw: function (chart, easing) {
-        if (chart.config.lineAtIndex != null) {
-          chart.config.lineAtIndex.forEach(pointIndex => this.renderVerticalLine(chart, pointIndex));
+        if (easing == 1) {
+          if (chart.config.lineAtIndex != null) {
+            chart.config.lineAtIndex.forEach(pointIndex => this.renderVerticalLine(chart, pointIndex));
+          }
         }
       }
     };
+
+
     Chart.plugins.register(verticalLinePlugin);
+    Chart.plugins.register(breakevenPlugin);
   }
 
   private viewOptions = [
@@ -77,7 +125,7 @@ export class ChartComponent {
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           guarantedScenario: 'Account Value (LOW)',
           default: 'Account Value (LOW)',
-          line: "Total Premium"
+          line: "colAccumulatePremiumsHigh"
         }
         ,
         {
@@ -85,7 +133,7 @@ export class ChartComponent {
           chart: 'Total Death Benefit (%s)',
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           default: 'Total Death Benefit (LOW)',
-          line: "Total Premium"
+          line: "colAccumulatePremiumsHigh"
         }
         ,
         {
@@ -93,7 +141,7 @@ export class ChartComponent {
           chart: 'Surrender Value (%s)',
           scenario: ['LOW', 'MEDIUM', 'HIGH'],
           default: 'Surrender Value (LOW)',
-          line: "Total Premium"
+          line: "colAccumulatePremiumsHigh"
         }
       ]
     }
@@ -274,7 +322,9 @@ export class ChartComponent {
         yAxes: [{
           display: true
         }],
-      }
+      },
+      tooltips: {enabled: false},
+      hover: {mode: null},
     };
 
   private chartData = [
