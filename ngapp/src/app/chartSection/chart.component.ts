@@ -39,6 +39,7 @@ export class ChartComponent {
       },
       afterDatasetsDraw: function (chart, easing) {
         let lineLabel = "colAccumulatePremiumsHigh";
+        let accpremium = 0;
 
         if (easing == 1) {
           let ds = chart.data.datasets;
@@ -54,6 +55,7 @@ export class ChartComponent {
                   if (+ds.data[i] > payment) {
                     if (BreakevenPoint == 0) {
                       BreakevenPoint = i;
+                      accpremium = payment;                      
                     }
                   }
                 }
@@ -63,8 +65,27 @@ export class ChartComponent {
           const scale = chart.scales['y-axis-0'];
           const offSet = this.getLinePosition(chart, BreakevenPoint);
           const context = chart.ctx;
+          
           context.fillStyle = "blue";
-          context.fillText('Breakeven: ' + BreakevenPoint, offSet, scale.bottom - 100);
+          let values : any = areaDataDS.map(
+            x => {
+              return {
+                label: x.label,
+                value: x.data[BreakevenPoint]
+              }
+            }
+          )
+
+          let text = 'Breakeven: ' + BreakevenPoint + ';' +
+                    'Total Payment: ' + accpremium + ';' +
+                    values.map(
+                      x => x.label + ':' + x.value + ';'
+                    )
+
+
+
+
+          context.fillText(text, offSet, scale.bottom - 100);
         }
 
 

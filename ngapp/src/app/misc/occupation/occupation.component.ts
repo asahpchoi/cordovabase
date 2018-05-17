@@ -1,5 +1,5 @@
 import { Component,HostBinding, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { NgModel } from '@angular/forms';
+import { NgModel, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-occupation',
@@ -16,6 +16,21 @@ export class OccupationComponent implements OnInit {
   input = {
     data:0
   };
+  insureds = new FormControl();
+
+  showInsured() {
+    if(!this.insureds.value)
+      return "I am not insured"
+    if(this.insureds.value.length == 2)
+      return "Primary & Secondary Insured"
+    if(this.insureds.value.length == 0)
+      return "I am not insured"
+    if(this.insureds.value[0] == "primary")
+      return "Primary insured"
+      if(this.insureds.value[0] == "secondary")
+      return "Secondary insured"
+
+    }
 
   constructor() { }
   select(id) {
