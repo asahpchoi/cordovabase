@@ -13,6 +13,135 @@ export class ChartComponent {
 
   lapsedYear: number[] = null;
   subscriber;
+  private chartOptions =
+    {
+      legend: {
+        display: true
+      },
+      scales: {
+        xAxes: [{
+          display: true
+        }],
+        yAxes: [{
+          display: true
+        }],
+      },
+      tooltips: { enabled: false },
+      hover: { mode: null },
+    };
+
+  private chartData = [
+    {
+      data: [],
+      label: '',
+      backgroundColor: '',
+      borderColor: '',
+      pointRadius: 0,
+      type: 'line',
+      fill: false,
+    }
+  ];
+  private chartLabels = [];
+  private ds;
+  private colors = ['#FF5D55',
+    '#FF8C86',
+    '#00AA59',
+    '#B8E986',
+    '#F5F5F5',
+    'white',
+    '#006FF1',
+    '#5ACFD6',
+    '#F5F5F5',]
+  private selectedView;
+  private productType;
+  private viewOptions = [
+    {
+      productType: "UL",
+      views: [
+        {
+          viewType: "AV",
+          chart: 'Account Value (%s)',
+          scenario: ['LOW', 'MEDIUM', 'HIGH'],
+          guarantedScenario: 'Account Value (LOW)',
+          default: 'Account Value (LOW)',
+          line: "colAccumulatePremiumsHigh"
+        }
+        ,
+        {
+          viewType: "DB",
+          chart: 'Total Death Benefit (%s)',
+          scenario: ['LOW', 'MEDIUM', 'HIGH'],
+          default: 'Total Death Benefit (LOW)',
+          line: "colAccumulatePremiumsHigh"
+        }
+        ,
+        {
+          viewType: "SV",
+          chart: 'Surrender Value (%s)',
+          scenario: ['LOW', 'MEDIUM', 'HIGH'],
+          default: 'Surrender Value (LOW)',
+          line: "colAccumulatePremiumsHigh"
+        }
+      ]
+    }
+    ,
+    {
+      productType: "CI",
+      views: [
+        {
+          viewType: "DB",
+          chart: 'colTradTotalDeathBenefit%s',
+          scenario: ['LOW', '', 'HIGH'],
+          default: 'colTradTotalDeathBenefitLOW',
+          line: 'Accumulative Premiums'
+        }
+        ,
+        {
+          viewType: "SV",
+          chart: 'colTradTotalSurrValue%s',
+          scenario: ['LOW', '', 'HIGH'],
+          default: 'colTradTotalSurrValueLOW',
+          line: 'Accumulative Premiums'
+        }
+      ]
+    }
+    ,
+    {
+      productType: "UVL",
+      views: [
+        {
+          viewType: "AV",
+          chart: ['Account Value'],
+          scenario: ['HIGH', 'LOW'],
+          default: 'LOW',
+          line: 'Total Premium'
+        }
+        ,
+        {
+          viewType: "DB",
+          chart: ['Total Death Beneift'],
+          scenario: ['HIGH', 'LOW'],
+          default: 'LOW',
+          line: 'Total Premium'
+        }
+        ,
+        {
+          viewType: "SV",
+          chart: ['Surender Value'],
+          scenario: ['HIGH', 'LOW'],
+          line: 'Total Premium'
+        }
+      ]
+    }
+  ];
+  viewOption;
+  chart;
+  columns = [];
+  input = {
+    units: {
+
+    }
+  }
 
   ngOnDestroy() {
     this.subscriber.unsubscribe();
@@ -133,93 +262,6 @@ export class ChartComponent {
     Chart.plugins.register(breakevenPlugin);
   }
 
-  private viewOptions = [
-    {
-      productType: "UL",
-      views: [
-        {
-          viewType: "AV",
-          chart: 'Account Value (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          guarantedScenario: 'Account Value (LOW)',
-          default: 'Account Value (LOW)',
-          line: "colAccumulatePremiumsHigh"
-        }
-        ,
-        {
-          viewType: "DB",
-          chart: 'Total Death Benefit (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          default: 'Total Death Benefit (LOW)',
-          line: "colAccumulatePremiumsHigh"
-        }
-        ,
-        {
-          viewType: "SV",
-          chart: 'Surrender Value (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          default: 'Surrender Value (LOW)',
-          line: "colAccumulatePremiumsHigh"
-        }
-      ]
-    }
-    ,
-    {
-      productType: "CI",
-      views: [
-        {
-          viewType: "DB",
-          chart: 'colTradTotalDeathBenefit%s',
-          scenario: ['LOW', '', 'HIGH'],
-          default: 'colTradTotalDeathBenefitLOW',
-          line: 'Accumulative Premiums'
-        }
-        ,
-        {
-          viewType: "SV",
-          chart: 'colTradTotalSurrValue%s',
-          scenario: ['LOW', '', 'HIGH'],
-          default: 'colTradTotalSurrValueLOW',
-          line: 'Accumulative Premiums'
-        }
-      ]
-    }
-    ,
-    {
-      productType: "UVL",
-      views: [
-        {
-          viewType: "AV",
-          chart: ['Account Value'],
-          scenario: ['HIGH', 'LOW'],
-          default: 'LOW',
-          line: 'Total Premium'
-        }
-        ,
-        {
-          viewType: "DB",
-          chart: ['Total Death Beneift'],
-          scenario: ['HIGH', 'LOW'],
-          default: 'LOW',
-          line: 'Total Premium'
-        }
-        ,
-        {
-          viewType: "SV",
-          chart: ['Surender Value'],
-          scenario: ['HIGH', 'LOW'],
-          line: 'Total Premium'
-        }
-      ]
-    }
-  ];
-
-  input = {
-    units: {
-
-    }
-  }
-
   getScenario() {
     return Object.keys(this.input.units);
   }
@@ -253,8 +295,6 @@ export class ChartComponent {
     this.chart = null;
     this.createChart()
   }
-
-
 
   private prepareData() {
     this.chartLabels = this.ds.labels;
@@ -322,53 +362,5 @@ export class ChartComponent {
     }
 
   }
-
-  private chartOptions =
-    {
-      legend: {
-        display: true
-      },
-      scales: {
-        xAxes: [{
-          display: true
-        }],
-        yAxes: [{
-          display: true
-        }],
-      },
-      tooltips: { enabled: false },
-      hover: { mode: null },
-    };
-
-  private chartData = [
-    {
-      data: [],
-      label: '',
-      backgroundColor: '',
-      borderColor: '',
-      pointRadius: 0,
-      type: 'line',
-      fill: false,
-    }
-  ];
-  private chartLabels = [];
-
-  private ds;
-
-  private colors = ['#FF5D55',
-    '#FF8C86',
-    '#00AA59',
-    '#B8E986',
-    '#F5F5F5',
-    'white',
-    '#006FF1',
-    '#5ACFD6',
-    '#F5F5F5',]
-  private selectedView;
-  private productType;
-
-  viewOption;
-  chart;
-  columns = [];
 
 }

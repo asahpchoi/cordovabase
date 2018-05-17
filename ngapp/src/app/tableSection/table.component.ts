@@ -29,6 +29,20 @@ export class TableComponent implements OnDestroy {
 
   editableFields;
 
+
+  input = {
+    fundActivities: [],
+    rowStep: 5,
+    checked: {
+      'Account Value (LOW)': true, 'Account Value (MEDIUM)': true,
+      'Account Value (HIGH)': true,
+      'Withdrawal': true, 'Premium': true, 'Top-up Premium': true, 'Total Premium': true,
+
+    }
+  }
+  editorOptions;
+  subscriber;
+
   reloadSettings() {
     this.editableFields = [
       {
@@ -64,18 +78,7 @@ export class TableComponent implements OnDestroy {
     ]
   }
 
-  input = {
-    fundActivities: [],
-    rowStep: 5,
-    checked: {
-      'Account Value (LOW)': true, 'Account Value (MEDIUM)': true,
-      'Account Value (HIGH)': true,
-      'Withdrawal': true, 'Premium': true, 'Top-up Premium': true, 'Total Premium': true,
-
-    }
-  }
-  editorOptions;
-  subscriber;
+  isNaN: Function = isNaN;
 
   constructor(private pe: PeService,
     public dialog: MatDialog
@@ -143,9 +146,6 @@ export class TableComponent implements OnDestroy {
     return this.firstColumn.filter((d, i) => i % this.input.rowStep == 0);
   }
 
-
-
-
   formatValue(v) {
     if (_.isNumber(v)) {
       let n = +v;
@@ -163,8 +163,6 @@ export class TableComponent implements OnDestroy {
       return v
     }
   }
-
-  isNaN: Function = isNaN;
 
   getRows(data) {
     return data.filter((d, i) => i % this.input.rowStep == 0);
@@ -236,9 +234,6 @@ export class TableComponent implements OnDestroy {
       let number = +result.number;
       let year = +result.year;
 
-
-
-
       for (var i = 0; i < year; i++) {
         let fa = {
           attainAge: +yearAge.age - 1 + i
@@ -249,11 +244,9 @@ export class TableComponent implements OnDestroy {
           fa
         );
       }
-      // console.log('old', this.input.fundActivities)
-      // this.input.fundActivities = _.sortBy(this.input.fundActivities, "attainAge");
-      //console.log('new', this.input.fundActivities)
+
       this.isLoading = true;
-      //debugger
+
       if (!this.pe.validationRequest) {
         this.pe.validationRequest = JSON.parse(JSON.stringify(this.pe.projectionRequest));
       }
@@ -261,8 +254,10 @@ export class TableComponent implements OnDestroy {
       this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
 
       this.pe.validate();
+
       let sub = this.pe.validationSubject.subscribe(
         x => {
+          debugger
           let result: any = x;
           if (!x) return;
           if (result.length == 0) {
