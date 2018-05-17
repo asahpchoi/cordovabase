@@ -95,6 +95,34 @@ export class TableComponent implements OnDestroy {
     )
   }
 
+  export() {
+      let csvContent = 'data:text/csv;charset=utf-8,';
+      csvContent += this.allColumns.join(',') + '\r\n';
+      let data = [];
+
+      this.allColumns.forEach(
+        c => {
+          data.push(this.ds.dataSets.find(ds => ds.label == c).data);
+        }
+      )
+      data = _.zip(...data);
+      console.log(data);
+      
+
+
+      data.forEach(row => {  
+          csvContent += row.join(',') + '\r\n';
+      });
+
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'File.csv');
+      document.body.appendChild(link);
+      link.click(); 
+
+  }
+
   ngOnDestroy() {
     this.subscriber.unsubscribe();
     //this.pe.
@@ -232,7 +260,7 @@ export class TableComponent implements OnDestroy {
     let tempFA = JSON.parse(JSON.stringify(this.input.fundActivities));
     dialogRef.afterClosed().first().subscribe(result => {
       let number = +result.number;
-      let year = +result.year;
+      let year = +result.year;      
 
       for (var i = 0; i < year; i++) {
         let fa = {
@@ -257,25 +285,19 @@ export class TableComponent implements OnDestroy {
 
       let sub = this.pe.validationSubject.subscribe(
         x => {
-          debugger
           let result: any = x;
           if (!x) return;
-          if (result.length == 0) {
-            this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
-            this.pe.callPEProjection();
-            sub.unsubscribe();
+          if (result.length != 0) {            
+            this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
+            this.isLoading = false;
           }
           else {
-            this.isLoading = false;
-            this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
-            sub.unsubscribe();
-          }
+            this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
+            this.pe.callPEProjection();          
+          }          
+          sub.unsubscribe();
         }
       )
-
-
-
-
     });
   }
 
