@@ -55,8 +55,8 @@
                     "type": "BASIC",
                     "smokingStatus": "NS",
                     "insuredSex": "M",
-                    "insuredId": "MINH, ENC12",
-                    "insuredAge": 12,
+                    "insuredId": "Insured",
+                    "insuredAge": null,
                     "birthDate": "20170101070000"
                 }
             },
@@ -68,7 +68,7 @@
             },
             "noOfInstallmentYear": 0,
             "initialDumpIn": 0.00,
-            "faceAmount": 1000000.00,
+            "faceAmount": null,
             "extraRating": {
                 "tempPercentage": 1.00,
                 "tempPercentageDuration": 0,

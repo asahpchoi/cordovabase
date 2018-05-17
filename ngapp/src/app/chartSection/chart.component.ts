@@ -55,7 +55,7 @@ export class ChartComponent {
                   if (+ds.data[i] > payment) {
                     if (BreakevenPoint == 0) {
                       BreakevenPoint = i;
-                      accpremium = payment;                      
+                      accpremium = payment;
                     }
                   }
                 }
@@ -65,9 +65,9 @@ export class ChartComponent {
           const scale = chart.scales['y-axis-0'];
           const offSet = this.getLinePosition(chart, BreakevenPoint);
           const context = chart.ctx;
-          
+
           context.fillStyle = "blue";
-          let values : any = areaDataDS.map(
+          let values: any = areaDataDS.map(
             x => {
               return {
                 label: x.label,
@@ -77,13 +77,10 @@ export class ChartComponent {
           )
 
           let text = 'Breakeven: ' + BreakevenPoint + ';' +
-                    'Total Payment: ' + accpremium + ';' +
-                    values.map(
-                      x => x.label + ':' + x.value + ';'
-                    )
-
-
-
+            'Total Payment: ' + accpremium + ';' +
+            values.map(
+              x => x.label + ':' + x.value + ';'
+            )
 
           context.fillText(text, offSet, scale.bottom - 100);
         }
@@ -91,7 +88,8 @@ export class ChartComponent {
 
       }
 
-    }
+    };
+
     const verticalLinePlugin = {
       getLinePosition: function (chart, pointIndex) {
         const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
@@ -130,7 +128,6 @@ export class ChartComponent {
         }
       }
     };
-
 
     Chart.plugins.register(verticalLinePlugin);
     Chart.plugins.register(breakevenPlugin);
@@ -228,13 +225,6 @@ export class ChartComponent {
   }
 
   selectView(v) {
-    //viewType: "AV",
-    //chart: 'Account Value (%s)',
-    //scenario: ['LOW', 'MEDIUM', 'HIGH'],
-    //guarantedScenario: 'Account Value (LOW)',
-    //default: 'Account Value (LOW)',
-    //line: "Total Premium"
-
     this.selectedView = v;
     this.input.units = [];
     debugger
@@ -311,10 +301,10 @@ export class ChartComponent {
   private createChart() {
     if (this.selectedView) {
       this.prepareData();
-      if(document.getElementById("canvas")) {
+      if (document.getElementById("canvas")) {
         document.getElementById("canvas").remove();
       }
-      
+
       var mycanvas = document.createElement("canvas");
       mycanvas.id = "canvas";
       document.getElementById("canvasDiv").appendChild(mycanvas);
@@ -376,7 +366,6 @@ export class ChartComponent {
     '#F5F5F5',]
   private selectedView;
   private productType;
-
 
   viewOption;
   chart;
