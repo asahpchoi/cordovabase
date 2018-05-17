@@ -1,5 +1,5 @@
 <mat-form-field>
-  <mat-select placeholder="Insured" [formControl]="insureds" multiple>
+  <mat-select [placeholder]="getInsuredLabel()" [formControl]="insureds" multiple>
     <mat-select-trigger>       
       {{showInsured()}}    
     </mat-select-trigger>    

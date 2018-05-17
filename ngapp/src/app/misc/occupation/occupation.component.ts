@@ -18,6 +18,12 @@ export class OccupationComponent implements OnInit {
   };
   insureds = new FormControl();
 
+  getInsuredLabel() {
+    if(!this.insureds.value || this.insureds.value.length == 0)
+      return "I am not insured"
+    return 'insured'
+  }
+
   showInsured() {
     if(!this.insureds.value)
       return "I am not insured"
