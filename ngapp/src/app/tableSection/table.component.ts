@@ -83,8 +83,13 @@ export class TableComponent implements OnDestroy {
 
   customColumns = [
     {
-      "label": "custom column A",
-      "add": ["colRegularPremiums", "colAccumulatePremiumsLow"]
+      label: "custom column A",
+      add: ["colRegularPremiums", "colAccumulatePremiumsLow"],
+      minus: ["Withdrawal"]
+    },
+    {
+      label: "Rider Cash TRI SUM",
+      regExp: "colRiderCashValue.*TRI"
     }
   ]
 
@@ -111,15 +116,41 @@ export class TableComponent implements OnDestroy {
         let data = [];
         this.ds.labels.forEach((v, i) => {
           let val = 0;
-          col.add.forEach(
-            f => {              
-              let ds = this.ds.dataSets.find(d => d.label == f)
-              if(ds) {
-                let fieldValue = ds.data[i]                
-                val += fieldValue;  
-              }
+          if (col.regExp) {
+            debugger;
+            let patt = new RegExp(col.regExp);
+            let ds = this.ds.dataSets.filter(d => patt.test(d.label));
+            if (ds) {
+              ds.forEach(
+                d => {
+                  let fieldValue = d.data[i];
+                  val += fieldValue;
+                }
+              );
             }
-          )
+          }
+          if (col.add) {
+            col.add.forEach(
+              f => {
+                let ds = this.ds.dataSets.find(d => d.label == f)
+                if (ds) {
+                  let fieldValue = ds.data[i]
+                  val += fieldValue;
+                }
+              }
+            )
+          }
+          if (col.minus) {
+            col.minus.forEach(
+              f => {
+                let ds = this.ds.dataSets.find(d => d.label == f)
+                if (ds) {
+                  let fieldValue = ds.data[i]
+                  val -= fieldValue;
+                }
+              }
+            )
+          }
           data.push(val);
         });
         this.ds.dataSets.push(

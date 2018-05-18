@@ -192,7 +192,7 @@ export class InputComponent implements OnInit {
           },
           {
             name: 'ENM15',
-            payload: data.ENC12,
+            payload: data.ENM15,
             productType: 'CI',
             filters: {
               insuredAge: {
