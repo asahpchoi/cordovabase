@@ -112,7 +112,9 @@ export class TableComponent implements OnDestroy {
 
   prepareCustomColumns() {
     this.customColumns.forEach(
-      col => {
+      c => {
+        let col:any = c;
+
         let data = [];
         this.ds.labels.forEach((v, i) => {
           let val = 0;
