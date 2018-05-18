@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../components/numpad/numpad.component';
 import { UlinputComponent } from '../ulinput/ulinput.component';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-table',
@@ -80,13 +81,21 @@ export class TableComponent implements OnDestroy {
 
   isNaN: Function = isNaN;
 
+  customColumns = [
+    {
+      "label": "custom column A",
+      "add": ["colRegularPremiums", "colAccumulatePremiumsLow"]
+    }
+  ]
+
+
   constructor(private pe: PeService,
     public dialog: MatDialog
   ) {
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
-
-        this.ds = x;
+        this.ds = JSON.parse(JSON.stringify(x));
+        this.prepareCustomColumns();
         this.reloadColumnData();
         this.setDisplayColumns();
         this.isLoading = false;
@@ -95,31 +104,64 @@ export class TableComponent implements OnDestroy {
     )
   }
 
+
+  prepareCustomColumns() {
+    this.customColumns.forEach(
+      col => {
+        let data = [];
+        this.ds.labels.forEach((v, i) => {
+          let val = 0;
+          col.add.forEach(
+            f => {              
+              let ds = this.ds.dataSets.find(d => d.label == f)
+              if(ds) {
+                let fieldValue = ds.data[i]                
+                val += fieldValue;  
+              }
+            }
+          )
+          data.push(val);
+        });
+        this.ds.dataSets.push(
+          {
+            label: col.label,
+            data: data
+          }
+        )
+      }
+    ) //add custom columns
+
+
+
+
+
+  }
+
   export() {
-      let csvContent = 'data:text/csv;charset=utf-8,';
-      csvContent += this.allColumns.join(',') + '\r\n';
-      let data = [];
+    let csvContent = 'data:text/csv;charset=utf-8,';
+    csvContent += this.allColumns.join(',') + '\r\n';
+    let data = [];
 
-      this.allColumns.forEach(
-        c => {
-          data.push(this.ds.dataSets.find(ds => ds.label == c).data);
-        }
-      )
-      data = _.zip(...data);
-      console.log(data);
-      
+    this.allColumns.forEach(
+      c => {
+        data.push(this.ds.dataSets.find(ds => ds.label == c).data);
+      }
+    )
+    data = _.zip(...data);
+    console.log(data);
 
 
-      data.forEach(row => {  
-          csvContent += row.join(',') + '\r\n';
-      });
 
-      let encodedUri = encodeURI(csvContent);
-      let link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', 'File.csv');
-      document.body.appendChild(link);
-      link.click(); 
+    data.forEach(row => {
+      csvContent += row.join(',') + '\r\n';
+    });
+
+    let encodedUri = encodeURI(csvContent);
+    let link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'File.csv');
+    document.body.appendChild(link);
+    link.click();
 
   }
 
@@ -138,6 +180,7 @@ export class TableComponent implements OnDestroy {
 
   setDisplayColumns() {
     this.displayColumns = this.allColumns;
+
     //debugger
     if (!this.showall) {
       this.displayColumns = Object.keys(this.input.checked).filter(k => this.input.checked[k])
@@ -146,22 +189,20 @@ export class TableComponent implements OnDestroy {
     let rawDS: any = this.ds.dataSets;
     let rawData = rawDS.map(d => d.data);
 
-
     this.firstColumn = (rawData[0].map((d, i) => {
       return {
         year: d,
         age: rawData[1][i]
       }
-
     }));
 
     let ds = []
 
     this.displayColumns.forEach(
       c => {
-        let col = rawDS.filter(
+        let col = rawDS.find(
           d => d.label == c
-        )[0]
+        );
         ds.push(col.data);
       }
     )
@@ -171,13 +212,13 @@ export class TableComponent implements OnDestroy {
   }
 
   showFirstColumn() {
-    return this.firstColumn.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length -1);
+    return this.firstColumn.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length - 1);
   }
 
   formatValue(v) {
     if (_.isNumber(v)) {
       let n = +v;
-     
+
       var value = v.toLocaleString(
         "vn-vn", // leave undefined to use the browser's locale,
         // or use a string like 'en-US' to override it.
@@ -185,7 +226,7 @@ export class TableComponent implements OnDestroy {
           minimumFractionDigits: 0
         }
       )
-      return  Math.round(v);
+      return Math.round(v);
     }
     else {
       return v
@@ -193,7 +234,7 @@ export class TableComponent implements OnDestroy {
   }
 
   getRows(data) {
-    return data.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length -1);
+    return data.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length - 1);
   }
 
   getClass(colName, yearAge, value) {
@@ -260,7 +301,7 @@ export class TableComponent implements OnDestroy {
     let tempFA = JSON.parse(JSON.stringify(this.input.fundActivities));
     dialogRef.afterClosed().first().subscribe(result => {
       let number = +result.number;
-      let year = +result.year;      
+      let year = +result.year;
 
       for (var i = 0; i < year; i++) {
         let fa = {
@@ -287,14 +328,14 @@ export class TableComponent implements OnDestroy {
         x => {
           let result: any = x;
           if (!x) return;
-          if (result.length != 0) {            
+          if (result.length != 0) {
             this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
             this.isLoading = false;
           }
           else {
             this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
-            this.pe.callPEProjection();          
-          }          
+            this.pe.callPEProjection();
+          }
           sub.unsubscribe();
         }
       )
