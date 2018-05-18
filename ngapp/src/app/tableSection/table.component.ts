@@ -171,7 +171,7 @@ export class TableComponent implements OnDestroy {
   }
 
   showFirstColumn() {
-    return this.firstColumn.filter((d, i) => i % this.input.rowStep == 0);
+    return this.firstColumn.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length -1);
   }
 
   formatValue(v) {
@@ -193,7 +193,7 @@ export class TableComponent implements OnDestroy {
   }
 
   getRows(data) {
-    return data.filter((d, i) => i % this.input.rowStep == 0);
+    return data.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length -1);
   }
 
   getClass(colName, yearAge, value) {
