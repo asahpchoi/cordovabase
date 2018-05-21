@@ -352,6 +352,7 @@ export class InputComponent implements OnInit {
   calculate() {
     this.updatePayload();
     if (this.selectedTestcase.payload) {
+      this.pe.validate(this.selectedTestcase.payload);
       this.pe.calculate(this.selectedTestcase.payload, this.selectedTestcase.productType);
     }
   }

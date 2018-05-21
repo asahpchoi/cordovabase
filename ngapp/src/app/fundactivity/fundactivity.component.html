@@ -1,3 +1,6 @@
+<pre>
+    {{error | json}}
+</pre>
 <h2>Fund Activities</h2>
 <table>
   <tr>
@@ -33,16 +36,31 @@
 
 
 <mat-form-field>
+  <mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type">
+    <mat-option *ngFor="let type of ['faceAmount','plannedPremium','withdrawal', 'regularPayment']" [value]="type">
+      {{ type }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
   <input matInput placeholder="attain age" [(ngModel)]="input.attainAge">
 </mat-form-field>
-<mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type">
-  <mat-option *ngFor="let type of ['faceAmount','plannedPremium','withdrawal', 'regularPayment']" [value]="type">
-    {{ type }}
-  </mat-option>
-</mat-select>
-<mat-form-field><input matInput placeholder="value" [(ngModel)]="input.amount"></mat-form-field>
-<mat-form-field *ngIf="input.type=='withdrawal'"><input matInput placeholder="duration" [(ngModel)]="input.duration"></mat-form-field>
+
+<mat-form-field>
+  <input matInput placeholder="value" [(ngModel)]="input.amount">
+</mat-form-field>
+<mat-form-field *ngIf="input.type=='withdrawal'">
+  <input matInput placeholder="duration" [(ngModel)]="input.duration">
+</mat-form-field>
 
 
 
 <button mat-raised-button (click)="addFA()">+</button>
+<Br>
+<button mat-raised-button (click)="close()">Cancel</button>
+<button mat-raised-button (click)="validate()">Validate</button>
+<button mat-raised-button (click)="close()">Confirm</button>
+
+<pre>
+  {{FA | json}}
+</pre>

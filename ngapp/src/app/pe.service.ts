@@ -117,6 +117,7 @@ export class PeService {
   }
 
   updateFundActivities(acts, req:any): void {
+ 
     let initialSetting = req.fundActivities.fundActivity.filter(
       fa => (fa["regularPayment"]) || (fa["regularPayment"] == 0)
     );

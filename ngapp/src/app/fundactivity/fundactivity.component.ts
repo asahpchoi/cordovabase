@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as _ from 'lodash';
+import { PeService } from '../pe.service';
 
 @Component({
   selector: 'app-fundactivity',
@@ -8,27 +9,26 @@ import * as _ from 'lodash';
   styleUrls: ['./fundactivity.component.css']
 })
 export class FundactivityComponent {
-
+  validated = false;
+  error = null;
 
   constructor(
     public dialogRef: MatDialogRef<any>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public pe: PeService) {
+    
+    this.FA = data.FA;
+
+    this.pe.validationSubject.subscribe(
+      x => {
+        this.error = x;
+        this.validated = (x == []);
+        
+      }
+    );
+  }
 
   FA: any = [
-    {
-      attainAge: 15,
-      regularPayment: 150000,
-      faceAmount: 200000,
-      plannedPremium: 50000,
-      withdrawal: 15000
-    },
-    {
-      attainAge: 25,
-      regularPayment: 150000,
-      faceAmount: 200000,
-      plannedPremium: 50000,
-      withdrawal: 15000
-    }
   ]
 
   input = {
@@ -40,6 +40,19 @@ export class FundactivityComponent {
 
   delFA(attainAge) {
     this.FA = this.FA.filter(x => x.attainAge != attainAge);
+  }
+
+  validate() {
+    this.pe.updateFundActivities(this.FA, this.pe.validationRequest);
+    this.pe.validate();
+  }
+
+  cancel() {
+    this.dialogRef.close();
+  }
+
+  close() {
+    this.dialogRef.close(this.FA);
   }
 
   addFA() {
@@ -65,7 +78,6 @@ export class FundactivityComponent {
         this.FA.push(item);
       }
     }
-    this.FA = _.sortBy(this.FA,"attainAge");
-    
+    this.FA = _.sortBy(this.FA, "attainAge");
   }
 }
