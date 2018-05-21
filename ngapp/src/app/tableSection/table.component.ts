@@ -8,6 +8,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../components/numpad/numpad.component';
 import { UlinputComponent } from '../ulinput/ulinput.component';
 import { debug } from 'util';
+import { FundactivityComponent } from '../fundactivity/fundactivity.component';
 
 @Component({
   selector: 'app-table',
@@ -107,6 +108,16 @@ export class TableComponent implements OnDestroy {
         this.reloadSettings();
       }
     )
+  }
+
+  inputFA() {
+    let dialogRef = this.dialog.open(FundactivityComponent, {
+      width: '80%',
+      height: '80%',
+      data: {
+
+      }
+    });
   }
 
 

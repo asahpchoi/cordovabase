@@ -45,6 +45,7 @@ import { UserService } from './user.service';
 import { UlinputComponent } from './ulinput/ulinput.component';
 import { CompareChartsComponent } from './compare-charts/compare-charts.component';
 import { ReportChartComponent } from './report-chart/report-chart.component';
+import { FundactivityComponent } from './fundactivity/fundactivity.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -77,7 +78,8 @@ const appRoutes: Routes = [
     AddRidersComponent,
     UlinputComponent,
     CompareChartsComponent,
-    ReportChartComponent
+    ReportChartComponent,
+    FundactivityComponent
   ],
   imports: [
     BrowserModule,
@@ -105,6 +107,6 @@ const appRoutes: Routes = [
   ],
   providers: [PeService, UserService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent]
+  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent]
 })
 export class AppModule { }

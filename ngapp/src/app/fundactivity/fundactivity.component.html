@@ -1,0 +1,48 @@
+<h2>Fund Activities</h2>
+<table>
+  <tr>
+    <th>Attain Age</th>
+    <th>Face Amount</th>
+    <th>Planned Premium</th>
+    <th>Withdrawal</th>
+    <th>Regular Payment</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let d of FA">
+    <td>{{d.attainAge}}</td>
+    <td>
+      <input [(ngModel)]="d.faceAmount">
+    </td>
+    <td>
+      <input [(ngModel)]="d.plannedPremium">
+    </td>
+    <td>
+      <input [(ngModel)]="d.withdrawal">
+    </td>
+    <td>
+      <input [(ngModel)]="d.regularPayment">
+    </td>
+    <td>
+      <button mat-raised-button (click)="delFA(d.attainAge)">X</button>
+    </td>
+  </tr>
+</table>
+
+
+<h2>Add Fund Activity</h2>
+
+
+<mat-form-field>
+  <input matInput placeholder="attain age" [(ngModel)]="input.attainAge">
+</mat-form-field>
+<mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type">
+  <mat-option *ngFor="let type of ['faceAmount','plannedPremium','withdrawal', 'regularPayment']" [value]="type">
+    {{ type }}
+  </mat-option>
+</mat-select>
+<mat-form-field><input matInput placeholder="value" [(ngModel)]="input.amount"></mat-form-field>
+<mat-form-field *ngIf="input.type=='withdrawal'"><input matInput placeholder="duration" [(ngModel)]="input.duration"></mat-form-field>
+
+
+
+<button mat-raised-button (click)="addFA()">+</button>

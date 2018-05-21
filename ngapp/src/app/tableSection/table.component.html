@@ -34,6 +34,7 @@
       </table>
       <button (click)="clearFA()">Reset FA</button>
       <button (click)="export()">Export</button>
+      <button (click)="inputFA()">Fund Activities</button>
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel>
@@ -61,5 +62,5 @@
   UL Input mode
 </mat-slide-toggle>
 <pre>
-{{pe.request | json}}
+{{input | json}}
 </pre>
