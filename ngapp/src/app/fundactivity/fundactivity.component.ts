@@ -74,7 +74,7 @@ export class FundactivityComponent {
         let item = {
           attainAge: attainAge
         }
-        item[this.input.type] = this.input.amount;
+        item[this.input.type] = +this.input.amount;
         this.FA.push(item);
       }
     }

@@ -115,13 +115,17 @@ export class TableComponent implements OnDestroy {
       width: '80%',
       height: '80%',
       data: {
-        FA: this.input.fundActivities
+        FA: this.input.fundActivities,
+        //ds: this.ds
       }
     });
     dialogRef.afterClosed().subscribe(
       x => {
         if(x) {
           this.input.fundActivities = x;
+          this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
+          this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
+          this.pe.callPEProjection();      
         }
       }
     )

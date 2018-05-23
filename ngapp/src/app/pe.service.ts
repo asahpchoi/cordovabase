@@ -204,9 +204,9 @@ export class PeService {
 
           let projectionResult = 
           {
-            labels: rs.filter(x => x.label == 'Year')[0].data.map(
+            labels: rs.filter(x => x.label == 'columnYear')[0].data.map(
               (year, index) => {
-                return year + '/' + rs.filter(x => x.label == 'Age')[0].data[index];
+                return year + '/' + rs.filter(x => x.label == 'columnAge')[0].data[index];
               }
             ),
             dataSets: rs,

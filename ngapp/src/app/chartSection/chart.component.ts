@@ -60,26 +60,26 @@ export class ChartComponent {
       views: [
         {
           viewType: "AV",
-          chart: 'Account Value (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          guarantedScenario: 'Account Value (LOW)',
-          default: 'Account Value (LOW)',
+          chart: 'colAccount%s',
+          scenario: ['Low', 'Medium', 'High'],
+          guarantedScenario: 'colAccountLow',
+          default: 'colAccountLow',
           line: "colAccumulatePremiumsHigh"
         }
         ,
         {
           viewType: "DB",
-          chart: 'Total Death Benefit (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          default: 'Total Death Benefit (LOW)',
+          chart: 'colTotalDb%s',
+          scenario: ['Low', 'Medium', 'High'],
+          default: 'colTotalDbLow',
           line: "colAccumulatePremiumsHigh"
         }
         ,
         {
           viewType: "SV",
-          chart: 'Surrender Value (%s)',
-          scenario: ['LOW', 'MEDIUM', 'HIGH'],
-          default: 'Surrender Value (LOW)',
+          chart: 'colSurValue%s',
+          scenario: ['Low', 'Medium', 'High'],
+          default: 'colSurValueLow',
           line: "colAccumulatePremiumsHigh"
         }
       ]

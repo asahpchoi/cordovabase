@@ -14,16 +14,16 @@
   <tr *ngFor="let d of FA">
     <td>{{d.attainAge}}</td>
     <td>
-      <input [(ngModel)]="d.faceAmount">
+      <input [(ngModel)]="d.faceAmount"  type="number">
     </td>
     <td>
-      <input [(ngModel)]="d.plannedPremium">
+      <input [(ngModel)]="d.plannedPremium"  type="number">
     </td>
     <td>
-      <input [(ngModel)]="d.withdrawal">
+      <input [(ngModel)]="d.withdrawal"  type="number">
     </td>
     <td>
-      <input [(ngModel)]="d.regularPayment">
+      <input [(ngModel)]="d.regularPayment"  type="number">
     </td>
     <td>
       <button mat-raised-button (click)="delFA(d.attainAge)">X</button>
@@ -36,21 +36,21 @@
 
 
 <mat-form-field>
-  <mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type">
+  <mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type" >
     <mat-option *ngFor="let type of ['faceAmount','plannedPremium','withdrawal', 'regularPayment']" [value]="type">
       {{ type }}
     </mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field>
-  <input matInput placeholder="attain age" [(ngModel)]="input.attainAge">
+  <input matInput placeholder="attain age" [(ngModel)]="input.attainAge"  type="number">
 </mat-form-field>
 
 <mat-form-field>
-  <input matInput placeholder="value" [(ngModel)]="input.amount">
+  <input matInput placeholder="value" [(ngModel)]="input.amount" type="number">
 </mat-form-field>
 <mat-form-field *ngIf="input.type=='withdrawal'">
-  <input matInput placeholder="duration" [(ngModel)]="input.duration">
+  <input matInput placeholder="duration" [(ngModel)]="input.duration" type="number">
 </mat-form-field>
 
 
