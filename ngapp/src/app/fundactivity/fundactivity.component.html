@@ -4,46 +4,45 @@
 <h2>Fund Activities</h2>
 <table>
   <tr>
-    <th>Attain Age</th>
+    <th>Year/Age</th>
     <th>Face Amount</th>
     <th>Planned Premium</th>
     <th>Withdrawal</th>
     <th>Regular Payment</th>
     <th></th>
   </tr>
-  <tr *ngFor="let d of FA">
-    <td>{{d.attainAge}}</td>
+  <tr *ngFor="let item of input">
+    <td>{{item.attainAge}}</td>
     <td>
-      <input [(ngModel)]="d.faceAmount"  type="number">
+      <input [(ngModel)]="item.faceAmount" type="number">
     </td>
     <td>
-      <input [(ngModel)]="d.plannedPremium"  type="number">
+      <input  [(ngModel)]="item.plannedPremium" type="number">
     </td>
     <td>
-      <input [(ngModel)]="d.withdrawal"  type="number">
+      <input [(ngModel)]="item.withdrawal" type="number">
     </td>
     <td>
-      <input [(ngModel)]="d.regularPayment"  type="number">
-    </td>
-    <td>
-      <button mat-raised-button (click)="delFA(d.attainAge)">X</button>
+      <input  [(ngModel)]="item.regularPayment" type="number">
     </td>
   </tr>
 </table>
 
+<pre>{{input | json}}</pre>
 
+<!--
 <h2>Add Fund Activity</h2>
 
 
 <mat-form-field>
-  <mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type" >
+  <mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type">
     <mat-option *ngFor="let type of ['faceAmount','plannedPremium','withdrawal', 'regularPayment']" [value]="type">
       {{ type }}
     </mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field>
-  <input matInput placeholder="attain age" [(ngModel)]="input.attainAge"  type="number">
+  <input matInput placeholder="attain age" [(ngModel)]="input.attainAge" type="number">
 </mat-form-field>
 
 <mat-form-field>
@@ -64,3 +63,4 @@
 <pre>
   {{FA | json}}
 </pre>
+//-->

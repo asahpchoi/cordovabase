@@ -11,13 +11,31 @@ import { PeService } from '../pe.service';
 export class FundactivityComponent {
   validated = false;
   error = null;
+  ds;
+  FA: any = [];
+  input: any = [];
 
   constructor(
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
     
+    
     this.FA = data.FA;
+    this.ds = data.ds;
+    
+    console.log(this.ds)
+    let ages = this.ds.dataSets.find(x => x.label = "columnAge").data;
+    console.log(ages)
+    ages.forEach(
+      age => {
+        this.input.push(
+          new FAItem(age)
+        )
+      }
+    )
+
+    console.log(this.input)
 
     this.pe.validationSubject.subscribe(
       x => {
@@ -28,16 +46,14 @@ export class FundactivityComponent {
     );
   }
 
-  FA: any = [
-  ]
-
+/*
   input = {
     type: 'plannedPremium',
     amount: 0,
     attainAge: 30,
     duration: 1
   }
-
+*/
   delFA(attainAge) {
     this.FA = this.FA.filter(x => x.attainAge != attainAge);
   }
@@ -79,5 +95,17 @@ export class FundactivityComponent {
       }
     }
     this.FA = _.sortBy(this.FA, "attainAge");
+  }
+}
+
+class FAItem {
+  public attainAge;
+  public withdrawal;
+  public regularPayment;
+  public plannedPremium;
+  public faceAmount;
+
+  constructor(attainAge) {
+    this.attainAge = attainAge;
   }
 }
