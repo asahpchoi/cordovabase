@@ -168,14 +168,19 @@ export class ChartComponent {
         return data[pointIndex]._model.x;
       },
       afterDatasetsDraw: function (chart, easing) {
-        return;
+        
+        
         let lineLabel = "colAccumulatePremiumsHigh";        
         let accpremium = 0;
 
         if (easing == 1) {
-          debugger
+          if(!chart) return;
           let ds = chart.data.datasets;
-          let lineData: any = ds.find(x => (x.label == lineLabel)).data;
+          
+          let line = ds.find(x => (x.label == lineLabel));
+          if(!line) return;
+          let lineData: any = line.data;
+          
          
           let areaDataDS: any = ds.filter(x => (x.label != lineLabel));
           let BreakevenPoint = 0;
