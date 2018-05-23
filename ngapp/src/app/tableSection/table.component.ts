@@ -36,10 +36,8 @@ export class TableComponent implements OnDestroy {
     fundActivities: [],
     rowStep: 5,
     checked: {
-      'Account Value (LOW)': true, 'Account Value (MEDIUM)': true,
-      'Account Value (HIGH)': true,
-      'Withdrawal': true, 'Premium': true, 'Top-up Premium': true, 'Total Premium': true,
-
+      "colAccountLow": true,"colAccountMedium": true,   "colAccountHigh": true,
+      "colWithdrawalLocal": true
     }
   }
   editorOptions;
@@ -120,11 +118,13 @@ export class TableComponent implements OnDestroy {
       }
     });
     dialogRef.afterClosed().subscribe(
-      x => {
-        if(x) {
-          this.input.fundActivities = x;
-          this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
-          this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
+      fa => {
+        if(fa) {
+          debugger;
+          this.input.fundActivities = fa;
+          this.pe.updateFundActivities(fa, this.pe.validationRequest);
+          this.pe.updateFundActivities(fa, this.pe.projectionRequest);
+          this.isLoading = true;
           this.pe.callPEProjection();      
         }
       }

@@ -15,6 +15,14 @@ export class FundactivityComponent {
   FA: any = [];
   input: any = [];
 
+  getFA() {
+    return this.input.filter(
+      fa => {
+        return fa.faceAmount || fa.regularPayment || fa.plannedPremium || fa.withdrawal
+      }
+    )    
+  }
+
   constructor(
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -25,7 +33,7 @@ export class FundactivityComponent {
     this.ds = data.ds;
     
     console.log(this.ds)
-    let ages = this.ds.dataSets.find(x => x.label = "columnAge").data;
+    let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
     console.log(ages)
     ages.forEach(
       age => {
@@ -40,8 +48,7 @@ export class FundactivityComponent {
     this.pe.validationSubject.subscribe(
       x => {
         this.error = x;
-        this.validated = (x == []);
-        
+        this.validated = (x == []);        
       }
     );
   }
@@ -59,7 +66,7 @@ export class FundactivityComponent {
   }
 
   validate() {
-    this.pe.updateFundActivities(this.FA, this.pe.validationRequest);
+    this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
     this.pe.validate();
   }
 
@@ -68,7 +75,7 @@ export class FundactivityComponent {
   }
 
   close() {
-    this.dialogRef.close(this.FA);
+    this.dialogRef.close(this.getFA());
   }
 
   addFA() {

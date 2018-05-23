@@ -27,8 +27,12 @@
     </td>
   </tr>
 </table>
+<button mat-raised-button (click)="close()">Cancel</button>
+<button mat-raised-button (click)="validate()">Validate</button>
+<button mat-raised-button (click)="close()">Confirm</button>
 
-<pre>{{input | json}}</pre>
+
+<pre>{{getFA() | json}}</pre>
 
 <!--
 <h2>Add Fund Activity</h2>
