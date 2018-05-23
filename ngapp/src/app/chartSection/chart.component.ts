@@ -93,7 +93,7 @@ export class ChartComponent {
           chart: 'colTradTotalDeathBenefit%s',
           scenario: ['LOW', '', 'HIGH'],
           default: 'colTradTotalDeathBenefitLOW',
-          line: 'Accumulative Premiums'
+          line: 'colTradAccumulatePremiums'
         }
         ,
         {
@@ -101,7 +101,7 @@ export class ChartComponent {
           chart: 'colTradTotalSurrValue%s',
           scenario: ['LOW', '', 'HIGH'],
           default: 'colTradTotalSurrValueLOW',
-          line: 'Accumulative Premiums'
+          line: 'colTradAccumulatePremiums'
         }
       ]
     }
@@ -308,12 +308,12 @@ export class ChartComponent {
       return match.length;
     });
 
+    debugger;
 
+    let lineData = this.ds.dataSets.find(d => d.label == this.selectedView.line);
 
-    let lineData = this.ds.dataSets.filter(ds => ds.label == this.selectedView.line);
-
-    lineData[0].fill = false;
-    lineData[0].borderColor = '#B8E986';
+    lineData.fill = false;
+    lineData.borderColor = '#B8E986';
 
     let acs = areaData.map(x => x.label).filter(x => x.includes("Account Value")).map(x => x.replace("Account Value", "Lapse"));
 
