@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PeService } from '../pe.service';
 import { Chart } from 'chart.js';
 import * as $ from 'jquery';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-chart',
@@ -80,7 +81,7 @@ export class ChartComponent {
           chart: 'colSurValue%s',
           scenario: ['Low', 'Medium', 'High'],
           default: 'colSurValueLow',
-          line: "colAccumulatePremiumsHigh"
+          line:"colAccumulatePremiumsHigh"
         }
       ]
     }
@@ -167,12 +168,15 @@ export class ChartComponent {
         return data[pointIndex]._model.x;
       },
       afterDatasetsDraw: function (chart, easing) {
-        let lineLabel = "colAccumulatePremiumsHigh";
+        return;
+        let lineLabel = "colAccumulatePremiumsHigh";        
         let accpremium = 0;
 
         if (easing == 1) {
+          debugger
           let ds = chart.data.datasets;
           let lineData: any = ds.find(x => (x.label == lineLabel)).data;
+         
           let areaDataDS: any = ds.filter(x => (x.label != lineLabel));
           let BreakevenPoint = 0;
 
@@ -308,8 +312,7 @@ export class ChartComponent {
       return match.length;
     });
 
-    debugger;
-
+  
     let lineData = this.ds.dataSets.find(d => d.label == this.selectedView.line);
 
     lineData.fill = false;
@@ -330,7 +333,7 @@ export class ChartComponent {
     }
  
 debugger
-    this.chartData = [[lineData], ...areaData]
+    this.chartData = [...[lineData], ...areaData]
     this.chartData.forEach(
       (ds, i) => {
         ds.backgroundColor = this.colors[i % 3];//,'#FF5D55', '#006F61']
