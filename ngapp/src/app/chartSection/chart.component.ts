@@ -315,7 +315,7 @@ export class ChartComponent {
     lineData.fill = false;
     lineData.borderColor = '#B8E986';
 
-    let acs = areaData.map(x => x.label).filter(x => x.includes("Account Value")).map(x => x.replace("Account Value", "Lapse"));
+    let acs = areaData.map(x => x.label).filter(x => x.includes("colAccount")).map(x => x.replace("colAccount", "Lapse"));
 
 
     let lapsedYear = this.ds.dataSets.filter(ds => acs.includes(ds.label));
@@ -328,8 +328,9 @@ export class ChartComponent {
       this.lapsedYear = lapsedYear.map(x => x.data.filter(y => y == 'N').length)
       this.lapsedYear = [Math.min(...this.lapsedYear)];
     }
-
-    this.chartData = [...lineData, ...areaData]
+ 
+debugger
+    this.chartData = [[lineData], ...areaData]
     this.chartData.forEach(
       (ds, i) => {
         ds.backgroundColor = this.colors[i % 3];//,'#FF5D55', '#006F61']
