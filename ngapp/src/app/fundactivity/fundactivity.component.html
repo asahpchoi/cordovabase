@@ -1,35 +1,50 @@
-<pre>
-    {{error | json}}
-</pre>
-<h2>Fund Activities</h2>
-<table>
-  <tr>
-    <th>Year/Age</th>
-    <th>Face Amount</th>
-    <th>Planned Premium</th>
-    <th>Withdrawal</th>
-    <th>Regular Payment</th>
-    <th></th>
-  </tr>
-  <tr *ngFor="let item of input">
-    <td>{{item.attainAge}}</td>
-    <td>
-      <input [(ngModel)]="item.faceAmount" type="number">
-    </td>
-    <td>
-      <input  [(ngModel)]="item.plannedPremium" type="number">
-    </td>
-    <td>
-      <input [(ngModel)]="item.withdrawal" type="number">
-    </td>
-    <td>
-      <input  [(ngModel)]="item.regularPayment" type="number">
-    </td>
-  </tr>
-</table>
-<button mat-raised-button (click)="close()">Cancel</button>
-<button mat-raised-button (click)="validate()">Validate</button>
-<button mat-raised-button (click)="close()">Confirm</button>
+<div style="display:flex">
+  <div style="width:70%">
+    <div>
+      <button mat-raised-button (click)="close()">Cancel</button>
+      <button mat-raised-button (click)="validate()">Validate</button>
+      <button mat-raised-button (click)="close()">Confirm</button>
+    </div>
+    <div class="tablediv">
+      <h2>Fund Activities</h2>
+      <table>
+        <tr>
+          <th>Year/Age</th>
+          <th>Face Amount</th>
+          <th>Planned Premium</th>
+          <th>Withdrawal</th>
+          <th>Regular Payment</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let item of input">
+          <td>{{item.attainAge}}</td>
+          <td>
+            <input [(ngModel)]="item.faceAmount" type="number">
+          </td>
+          <td>
+            <input [(ngModel)]="item.plannedPremium" type="number">
+          </td>
+          <td>
+            <input [(ngModel)]="item.withdrawal" type="number">
+          </td>
+          <td>
+            <input [(ngModel)]="item.regularPayment" type="number">
+          </td>
+        </tr>
+      </table>
+
+
+    </div>
+  </div>
+  <div>
+    <pre>
+          {{error | json}}
+      </pre>
+
+
+  </div>
+</div>
+
 
 
 <pre>{{getFA() | json}}</pre>

@@ -28,8 +28,17 @@ export class TableComponent implements OnDestroy {
   displayColumns = [];
   firstColumn = [];
   ulmode = false;
+  t0;
 
   editableFields;
+
+  stopwatch() {
+    let t1 : any = new Date().getTime();
+    if(this.t0) {
+      console.log("took " + (t1 - this.t0) + " milliseconds.")
+    }
+    this.t0 = t1;
+  }
 
 
   input = {
@@ -37,16 +46,21 @@ export class TableComponent implements OnDestroy {
     rowStep: 5,
     checked: {
       "colAccountLow": true,"colAccountMedium": true,   "colAccountHigh": true,
-      "colWithdrawalLocal": true
+      "colWithdrawalLocal": true,
+      "colBasePlanFaceAmount": true,
+      "colPremium": true,
+      "colRegularPayment": true,
+
     }
   }
   editorOptions;
   subscriber;
+  projectionError;
 
   reloadSettings() {
     this.editableFields = [
       {
-        name: "Withdrawal",
+        name: "colWithdrawalLocal",
         component: "NumpadComponent",
         activity: "withdrawal",
         multipleYear: true,
@@ -58,10 +72,9 @@ export class TableComponent implements OnDestroy {
         activity: "faceAmount"
         ,
         startYear: 2
-        //stopAttainAge: 65
       },
       {
-        name: "Premium",
+        name: "colPremium",
         component: "NumpadComponent",
         componentul: "UlinputComponent",
         activity: "plannedPremium",
@@ -98,12 +111,16 @@ export class TableComponent implements OnDestroy {
   ) {
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
+        this.stopwatch();
         this.ds = JSON.parse(JSON.stringify(x));
         this.prepareCustomColumns();
         this.reloadColumnData();
         this.setDisplayColumns();
         this.isLoading = false;
         this.reloadSettings();
+        console.log(this.ds)
+        //.projections["0"].validationResult
+        this.projectionError = this.ds.validationResult;
       }
     )
   }
@@ -357,6 +374,7 @@ export class TableComponent implements OnDestroy {
     dialogRef.afterClosed().first().subscribe(result => {
       let number = +result.number;
       let year = +result.year;
+      
 
       for (var i = 0; i < year; i++) {
         let fa = {
@@ -376,11 +394,14 @@ export class TableComponent implements OnDestroy {
       }
 
       this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
+      console.log('start validation')
+      this.stopwatch();
 
       this.pe.validate();
 
       let sub = this.pe.validationSubject.subscribe(
         x => {
+          this.stopwatch();
           let result: any = x;
           if (!x) return;
           if (result.length != 0) {

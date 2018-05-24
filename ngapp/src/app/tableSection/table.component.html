@@ -1,12 +1,16 @@
 <div *ngIf="isLoading">
   <mat-progress-bar mode="query"></mat-progress-bar>
 </div>
+<div *ngIf="projectionError">
+  {{projectionError | json}}
+  {{projectionError.warning}}  
+</div>
 <mat-accordion>
 
   <mat-expansion-panel expanded=true>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Tabel
+        Table
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div id="table">

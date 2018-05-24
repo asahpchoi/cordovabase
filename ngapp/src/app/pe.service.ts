@@ -22,9 +22,12 @@ export class PeService {
   productType = null;
   riders = [];
   proposals = [];
+  t0 = performance.now();
+  t1 = performance.now();
+
   endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
   //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
-  ////endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
+  //endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
  
   //mock services
   getDurationRange(
@@ -188,7 +191,7 @@ export class PeService {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
       console.log('add Rider', reqCopy, this.riders)
     }
-
+    console.log('callPE', url, reqCopy)
     this.http
       .post(url, reqCopy)
       .subscribe(
