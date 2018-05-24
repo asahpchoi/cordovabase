@@ -192,7 +192,7 @@ export class PeService {
       .first();
   }
 
-  private updateRiders(riders): void {
+  updateRiders(riders): void {
     this.riders = riders;
   }
 
