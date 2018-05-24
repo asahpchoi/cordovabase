@@ -196,7 +196,7 @@ export class PeService {
     this.riders = riders;
   }
 
-  private callPEProjection(): void {
+  callPEProjection(): void {
     let url = this.endpoint + '/product/project';
     let reqCopy = JSON.parse(JSON.stringify(this.projectionRequest));
     if (!reqCopy) return null;
