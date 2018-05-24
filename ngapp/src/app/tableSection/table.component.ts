@@ -28,17 +28,10 @@ export class TableComponent implements OnDestroy {
   displayColumns = [];
   firstColumn = [];
   ulmode = false;
-  t0;
+ 
 
   editableFields;
 
-  stopwatch() {
-    let t1 : any = new Date().getTime();
-    if(this.t0) {
-      console.log("took " + (t1 - this.t0) + " milliseconds.")
-    }
-    this.t0 = t1;
-  }
 
 
   input = {
@@ -111,7 +104,7 @@ export class TableComponent implements OnDestroy {
   ) {
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
-        this.stopwatch();
+ 
         this.ds = JSON.parse(JSON.stringify(x));
         this.prepareCustomColumns();
         this.reloadColumnData();
@@ -394,14 +387,11 @@ export class TableComponent implements OnDestroy {
       }
 
       this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
-      console.log('start validation')
-      this.stopwatch();
-
       this.pe.validate();
 
       let sub = this.pe.validationSubject.subscribe(
         x => {
-          this.stopwatch();
+      
           let result: any = x;
           if (!x) return;
           if (result.length != 0) {

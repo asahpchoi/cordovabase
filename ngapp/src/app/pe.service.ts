@@ -22,13 +22,27 @@ export class PeService {
   productType = null;
   riders = [];
   proposals = [];
-  t0 = performance.now();
-  t1 = performance.now();
+  t0;
+  
 
   endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
   //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
   //endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
- 
+  
+  stopwatch(msg?) {
+    let t1 : any = new Date().getTime();
+    if(this.t0) {
+      if(msg) {
+        console.log(msg + " took " + (t1 - this.t0) + " milliseconds.")
+      }
+      else {
+      console.log("took " + (t1 - this.t0) + " milliseconds.")
+      }
+    }
+    this.t0 = t1;
+  }
+
+
   //mock services
   getDurationRange(
     basePlanID,
@@ -152,11 +166,14 @@ export class PeService {
 
   validate(req?): void {    
     if (req) this.validationRequest = req;
-    console.log('V', this.validationRequest)
-    if(!this.validationRequest) return;
+    
+    if(!this.validationRequest) return;    
     this.validationSubject.next(null);
-
-    this.makeValidationRequest(this.validationRequest).subscribe(r => { this.validationSubject.next(r); });
+    this.stopwatch(); 
+    this.makeValidationRequest(this.validationRequest).subscribe(r => { 
+      this.validationSubject.next(r); 
+      this.stopwatch('validation'); 
+    });
 
   }
 
@@ -167,21 +184,19 @@ export class PeService {
 
 
     if (this.riders.length > 0) {
-      reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
-      console.log('add Rider', reqCopy, this.riders)
+      reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders] 
     }
-
-    console.log('Validation:',  reqCopy)
+    
     return this.http
       .post(url, reqCopy)
       .first();
   }
 
-  updateRiders(riders): void {
+  private updateRiders(riders): void {
     this.riders = riders;
   }
 
-  callPEProjection(): void {
+  private callPEProjection(): void {
     let url = this.endpoint + '/product/project';
     let reqCopy = JSON.parse(JSON.stringify(this.projectionRequest));
     if (!reqCopy) return null;
@@ -189,14 +204,14 @@ export class PeService {
 
     if (this.riders.length > 0) {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
-      console.log('add Rider', reqCopy, this.riders)
+ 
     }
-    console.log('callPE', url, reqCopy)
+    this.stopwatch();
     this.http
       .post(url, reqCopy)
       .subscribe(
         x => {
-          console.log(x)
+          
           let rs = x['projections'][0]['columns'].map(
             c => {
               return {
@@ -224,6 +239,7 @@ export class PeService {
           this.resultSubject.next(
             projectionResult
           )
+          this.stopwatch('Projection');
         }
       );
   }
@@ -233,20 +249,21 @@ export class PeService {
 
     this.projectionRequest = req;
     this.productType = productType;
-
+ 
     this.makeValidationRequest(req).first().subscribe(
       r => {
         let result: any = r;
         if (result && result.length == 0) {
           this.callPEProjection();
-        }
-        this.validationSubject.next(r);
+        }        
+        this.validationSubject.next(r); 
       }
     );
 
   }
 
   premiumCalculation(req?): void {
+    
     let url = this.endpoint + '/product/calculatePremiums';
     if (req) this.premiumCalRequest = req;
     if (!req) req = this.premiumCalRequest;
@@ -255,7 +272,7 @@ export class PeService {
 
 
     let reqCopy = JSON.parse(JSON.stringify(req));
-
+    this.stopwatch();
     if (this.riders.length > 0) {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
       console.log('add Rider', reqCopy, this.riders)
@@ -264,7 +281,10 @@ export class PeService {
       .post(url, reqCopy)
       .first()
       .subscribe(
-        x => this.premiumSubject.next(x)
+        x => {
+          this.premiumSubject.next(x)
+          this.stopwatch('Premium Calc');
+        }        
       );
   }
 }
