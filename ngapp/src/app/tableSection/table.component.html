@@ -13,6 +13,12 @@
         Table
       </mat-panel-title>
     </mat-expansion-panel-header>
+    <div>
+        <button mat-raised-button (click)="clearFA()">Reset FA</button>
+        <button mat-raised-button (click)="export()">Export</button>
+        <button mat-raised-button (click)="inputFA()">Fund Activities</button>
+    
+    </div>
     <div id="table">
       <table *ngIf="ds">
         <thead>
@@ -36,9 +42,7 @@
           </tr>
         </tbody>
       </table>
-      <button (click)="clearFA()">Reset FA</button>
-      <button (click)="export()">Export</button>
-      <button (click)="inputFA()">Fund Activities</button>
+
     </div>
   </mat-expansion-panel>
   <mat-expansion-panel>

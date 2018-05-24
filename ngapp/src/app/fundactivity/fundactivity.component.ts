@@ -14,60 +14,70 @@ export class FundactivityComponent {
   ds;
   FA: any = [];
   input: any = [];
+  closeClick = false;
 
   getFA() {
     return this.input.filter(
       fa => {
         return fa.faceAmount || fa.regularPayment || fa.plannedPremium || fa.withdrawal
       }
-    )    
+    )
   }
 
   constructor(
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
-    
-    
+
+
     this.FA = data.FA;
     this.ds = data.ds;
-    
-    console.log(this.ds)
+
+
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
-    console.log(ages)
+
     ages.forEach(
       age => {
-        this.input.push(
-          new FAItem(age)
-        )
+        let currentFA = this.FA.find(f => f.attainAge == age);
+        if (currentFA) {
+          this.input.push(JSON.parse(JSON.stringify(currentFA)));
+        }
+        else {
+          this.input.push(
+            new FAItem(age)
+          )
+        }
       }
     )
-
-    console.log(this.input)
-
+    
     this.pe.validationSubject.subscribe(
       x => {
         this.error = x;
-        this.validated = (x == []);        
+        if (!this.error) {
+          return;
+        }
+        if (this.error.length == 0 && this.closeClick) {
+          this.dialogRef.close(this.getFA());
+        }
+        else {
+          this.closeClick = false;
+        }
       }
     );
   }
 
-/*
-  input = {
-    type: 'plannedPremium',
-    amount: 0,
-    attainAge: 30,
-    duration: 1
-  }
-*/
+
+
+  /*
+    input = {
+      type: 'plannedPremium',
+      amount: 0,
+      attainAge: 30,
+      duration: 1
+    }
+  */
   delFA(attainAge) {
     this.FA = this.FA.filter(x => x.attainAge != attainAge);
-  }
-
-  validate() {
-    this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
-    this.pe.validate();
   }
 
   cancel() {
@@ -75,7 +85,10 @@ export class FundactivityComponent {
   }
 
   close() {
-    this.dialogRef.close(this.getFA());
+    this.closeClick = true;
+    this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
+    this.pe.validate();
+
   }
 
   addFA() {
