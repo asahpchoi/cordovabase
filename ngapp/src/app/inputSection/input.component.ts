@@ -446,7 +446,7 @@ export class InputComponent implements OnInit {
 
   }
   private updateTermProtectionRange(): void {
-    this.pe.calculateTermRiderFaceAmount(
+    this.pe.calculateRiderFaceAmount(
       this.input.insuredAge,
       this.input.faceAmount,
       this.selectedTestcase.termRiderId,

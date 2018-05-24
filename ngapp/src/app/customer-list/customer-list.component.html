@@ -1,0 +1,24 @@
+<div style="display:flex">
+  <div style="width:300px; height:500px; overflow: auto;display:flex;">
+    <div class="sticky">
+      <div *ngFor="let a of arr" (click)="this.char=a">{{a}}</div>
+    </div>
+    <div>
+      <mat-list role="list">
+        <mat-list-item *ngFor="let u of userFilterd()" role="listitem" (click)="selected = u">{{u.name.first}} {{u.name.last}}</mat-list-item>
+      </mat-list>
+    </div>
+
+
+  </div>
+  <div>
+    <h3>Detail</h3>
+    <img [src]="selected.picture.large">
+    <br>
+    {{selected.name.title}}
+    {{selected.name.first}}
+    {{selected.name.last}}
+
+    {{selected.gender}}
+  </div>
+</div>

@@ -39,7 +39,8 @@ export class PeService {
     }
   }
 
-  calculateTermRiderFaceAmount(insuredAge, bpFaceAmount, termRiderId, productId): Observable<any> {
+
+  calculateRiderFaceAmount(insuredAge, bpFaceAmount, termRiderId, productId): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 
     let payload = {
@@ -56,6 +57,8 @@ export class PeService {
       .post(url, payload)
       .first();
   }
+
+
   calculateFaceAmountRange(plannedPremium, insuredAge, paymentMode, productId): Observable<any> {
     let url = this.endpoint + '/product/functions/CalculateFaceAmountRange';
 

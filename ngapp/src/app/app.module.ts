@@ -46,6 +46,8 @@ import { UlinputComponent } from './ulinput/ulinput.component';
 import { CompareChartsComponent } from './compare-charts/compare-charts.component';
 import { ReportChartComponent } from './report-chart/report-chart.component';
 import { FundactivityComponent } from './fundactivity/fundactivity.component';
+import { CustomerListComponent } from './customer-list/customer-list.component';
+import {MatListModule} from '@angular/material/list';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
   { path: 'occupation', component: OccupationComponent },
   { path: 'compareChart', component: CompareChartsComponent },
   {path: 'reportChart', component: ReportChartComponent},
+  {path: 'userlist', component: CustomerListComponent},
   { path: '', component: InputchartComponent },
 
 ];
@@ -79,7 +82,8 @@ const appRoutes: Routes = [
     UlinputComponent,
     CompareChartsComponent,
     ReportChartComponent,
-    FundactivityComponent
+    FundactivityComponent,
+    CustomerListComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +104,7 @@ const appRoutes: Routes = [
     MatProgressBarModule,
     MatButtonToggleModule,
     MatExpansionModule,
+    MatListModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
