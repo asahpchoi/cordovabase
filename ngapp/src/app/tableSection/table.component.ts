@@ -28,7 +28,7 @@ export class TableComponent implements OnDestroy {
   displayColumns = [];
   firstColumn = [];
   ulmode = false;
- 
+
 
   editableFields;
 
@@ -38,7 +38,7 @@ export class TableComponent implements OnDestroy {
     fundActivities: [],
     rowStep: 5,
     checked: {
-      "colAccountLow": true,"colAccountMedium": true,   "colAccountHigh": true,
+      "colAccountLow": true, "colAccountMedium": true, "colAccountHigh": true,
       "colWithdrawalLocal": true,
       "colBasePlanFaceAmount": true,
       "colPremium": true,
@@ -104,7 +104,7 @@ export class TableComponent implements OnDestroy {
   ) {
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
- 
+
         this.ds = JSON.parse(JSON.stringify(x));
         this.prepareCustomColumns();
         this.reloadColumnData();
@@ -129,13 +129,13 @@ export class TableComponent implements OnDestroy {
     });
     dialogRef.afterClosed().subscribe(
       fa => {
-        if(fa) {
+        if (fa) {
           debugger;
           this.input.fundActivities = fa;
           this.pe.updateFundActivities(fa, this.pe.validationRequest);
           this.pe.updateFundActivities(fa, this.pe.projectionRequest);
           this.isLoading = true;
-          this.pe.callPEProjection();      
+          this.pe.callPEProjection();
         }
       }
     )
@@ -145,7 +145,7 @@ export class TableComponent implements OnDestroy {
   prepareCustomColumns() {
     this.customColumns.forEach(
       c => {
-        let col:any = c;
+        let col: any = c;
 
         let data = [];
         this.ds.labels.forEach((v, i) => {
@@ -367,7 +367,7 @@ export class TableComponent implements OnDestroy {
     dialogRef.afterClosed().first().subscribe(result => {
       let number = +result.number;
       let year = +result.year;
-      
+
 
       for (var i = 0; i < year; i++) {
         let fa = {
@@ -391,7 +391,7 @@ export class TableComponent implements OnDestroy {
 
       let sub = this.pe.validationSubject.subscribe(
         x => {
-      
+
           let result: any = x;
           if (!x) return;
           if (result.length != 0) {

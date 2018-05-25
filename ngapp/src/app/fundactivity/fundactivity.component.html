@@ -1,22 +1,22 @@
 <div style="display:flex">
   <div style="width:70%">
     <div>
-      <button mat-raised-button (click)="close()">Cancel</button>
+      <button mat-raised-button (click)="cancel()">Cancel</button>
       <button mat-raised-button (click)="close()">Confirm</button>
     </div>
     <div class="tablediv">
       <h2>Fund Activities</h2>
       <table>
-        <tr>
-          <th>Age </th>
+        <tr style="display:sticky">
+          <th>Year / Age </th>
           <th>Face Amount</th>
           <th>Planned Premium</th>
           <th>Withdrawal</th>
           <th>Regular Payment</th>
           <th></th>
         </tr>
-        <tr *ngFor="let item of input">
-          <td>{{+item.attainAge}}</td>
+        <tr *ngFor="let item of input; let i = index" [ngClass]="errorYears.includes(+i+2)?'highlight':''">
+          <td>{{+i+2}} / {{+item.attainAge+1}}</td>
           <td>
             <input [(ngModel)]="item.faceAmount" type="number">
           </td>

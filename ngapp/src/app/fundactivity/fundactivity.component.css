@@ -2,3 +2,7 @@ div.tablediv {
     height:400px; 
     overflow: auto;
 }
+
+.highlight {
+    background-color: red
+}

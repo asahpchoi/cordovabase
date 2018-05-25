@@ -15,20 +15,33 @@ export class FundactivityComponent {
   FA: any = [];
   input: any = [];
   closeClick = false;
+  errorYears = [];
 
   getFA() {
-    return this.input.filter(
+    let fa = this.input.filter(
       fa => {
         return fa.faceAmount || fa.regularPayment || fa.plannedPremium || fa.withdrawal
       }
+    );
+    fa.forEach(
+      f => {
+        if(!fa.faceAmount) delete fa.faceAmount;
+        if(!fa.regularPayment) delete fa.regularPayment;
+        if(!fa.plannedPremium) delete fa.plannedPremium;
+        if(!fa.withdrawal) delete fa.withdrawal;
+
+      }
     )
+
+    return fa;
+
   }
 
   constructor(
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
-
+    
 
     this.FA = data.FA;
     this.ds = data.ds;
@@ -49,33 +62,28 @@ export class FundactivityComponent {
         }
       }
     )
+
     
+
     this.pe.validationSubject.subscribe(
       x => {
         this.error = x;
         if (!this.error) {
+          
           return;
         }
         if (this.error.length == 0 && this.closeClick) {
           this.dialogRef.close(this.getFA());
         }
         else {
+          this.errorYears = this.error.map(e => +e.parameters["%POLICY_YEAR%"]);
+          console.log(this.errorYears)
           this.closeClick = false;
         }
       }
     );
   }
 
-
-
-  /*
-    input = {
-      type: 'plannedPremium',
-      amount: 0,
-      attainAge: 30,
-      duration: 1
-    }
-  */
   delFA(attainAge) {
     this.FA = this.FA.filter(x => x.attainAge != attainAge);
   }
@@ -88,7 +96,6 @@ export class FundactivityComponent {
     this.closeClick = true;
     this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
     this.pe.validate();
-
   }
 
   addFA() {
