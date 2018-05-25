@@ -364,14 +364,19 @@ export class InputComponent implements OnInit {
   }
   changeValue(field) {
     let r = this.ranges[field]
+
+    let width = (field=='regularPayment')?'400px':'250px';
+
     let dialogRef = this.dialog.open(NumpadComponent, {
-      width: '250px',
+      width: width,
       data: {
         number: this.input[field] + '',
         min: r.min,
         max: r.max,
         hardMin: r.hardMin,
-        year: 1
+        year: 1,
+        inputRef: JSON.parse(JSON.stringify(this.input)),
+        field: field
       }
     });
     dialogRef.afterClosed().subscribe(result => {

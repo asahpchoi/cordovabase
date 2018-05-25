@@ -25,9 +25,9 @@ export class PeService {
   t0;
   
 
-  endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
+  //endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
   //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
-  //endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
+  endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
   
   stopwatch(msg?) {
     let t1 : any = new Date().getTime();

@@ -15,21 +15,27 @@ export class NumpadComponent implements OnInit {
     public dialogRef: MatDialogRef<NumpadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
-    
 
+
+  }
+
+  minPay() {
+    return +this.data.inputRef.plannedPremium +
+      +this.data.inputRef.termplannedPremium +
+      +this.data.inputRef.riderPremium
   }
 
   ngOnInit() {
     if (this.data.number == null || !this.data) {
       this.data = {
         number: '',
-        year:1
+        year: 1
       }
     }
   }
 
   pressKey(i) {
-    if(this.first) {
+    if (this.first) {
       this.data.number = '';
     }
     this.first = false;
@@ -54,11 +60,11 @@ export class NumpadComponent implements OnInit {
   }
 
   close(isCancel): void {
-    if(!isCancel) {
-       
-      if(+this.data.hardMin > +this.data.number)
+    if (!isCancel) {
+
+      if (+this.data.hardMin > +this.data.number)
         return;
-      this.dialogRef.close(this.data);  
+      this.dialogRef.close(this.data);
     }
     else {
       this.dialogRef.close();

@@ -54,8 +54,6 @@
 
           <mat-hint>from: {{ranges['regularPayment'].min}}</mat-hint>
         </mat-form-field>
-        <button (click)="resetRegularPayment()">Reset</button>
-
         <mat-form-field>
           <mat-select placeholder="Payment mode" [(value)]="input.paymentMode" (change)="updatePaymentMode()">
             <mat-option *ngFor="let o of ['Annual','Semi-Annual','Quarterly','Monthly']" [value]="o">{{o}}</mat-option>
