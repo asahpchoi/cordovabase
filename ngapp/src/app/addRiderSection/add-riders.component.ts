@@ -80,6 +80,7 @@ export class AddRidersComponent implements OnInit {
       this.input.riders.push(result);
       this.transformRiders();
       this.pe.updateRiders(this.transformedRiders);
+      console.log('Rider Added')
       this.pe.premiumCalculation();
     });
   }
@@ -87,7 +88,7 @@ export class AddRidersComponent implements OnInit {
   transformRiders() {
     this.transformedRiders = [];
     let template = {
-      "occupation": "1",
+      "occupation": "2",
       "otherOptions": {
         "coverageClass": null
       },

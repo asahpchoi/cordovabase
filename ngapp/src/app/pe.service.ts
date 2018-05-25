@@ -263,12 +263,16 @@ export class PeService {
   }
 
   premiumCalculation(req?): void {
-    
+    debugger
     let url = this.endpoint + '/product/calculatePremiums';
     if (req) this.premiumCalRequest = req;
     if (!req) req = this.premiumCalRequest;
 
-    if (!req) return null;
+    if (!req) {
+      debugger;
+      console.log('No payload for premium calc')
+      return null;
+    }
 
 
     let reqCopy = JSON.parse(JSON.stringify(req));

@@ -246,6 +246,7 @@ export class InputComponent implements OnInit {
           )
 
           this.input.riderPremium = 0;
+          
           data.riders.filter(r => r.riderCode != this.selectedTestcase.termRiderId).forEach(
             r => {
               this.input.riderPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
@@ -465,7 +466,7 @@ export class InputComponent implements OnInit {
   }
   private updateRegularPaymentRange() {
     let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
-    if (this.input.regularPayment < min || this.selectedTestcase.name != "UL007") this.input.regularPayment = min;
+    this.input.regularPayment = min;
     
     this.ranges['regularPayment'].min = min;
     this.ranges['regularPayment'].hardMin = min;
