@@ -6,3 +6,12 @@ div.tablediv {
 .highlight {
     background-color: red
 }
+
+md-input-container label {
+    color: red;
+  }
+  
+  
+  label.mat-input-placeholder {
+    color: red;
+  }

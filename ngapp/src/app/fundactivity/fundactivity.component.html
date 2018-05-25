@@ -9,25 +9,40 @@
       <table>
         <tr style="display:sticky">
           <th>Year / Age </th>
+          <th>Regular Payment</th>
           <th>Face Amount</th>
           <th>Planned Premium</th>
           <th>Withdrawal</th>
-          <th>Regular Payment</th>
+          
           <th></th>
         </tr>
         <tr *ngFor="let item of input; let i = index" [ngClass]="errorYears.includes(+i+2)?'highlight':''">
           <td>{{+i+2}} / {{+item.attainAge+1}}</td>
           <td>
-            <input [(ngModel)]="item.faceAmount" type="number">
+            <mat-form-field>
+              <input matInput [(ngModel)]="item.regularPayment" type="number" [placeholder]="defVals[i].regularPayment">
+            </mat-form-field>
+
+          </td>
+
+          <td>
+
+            <mat-form-field>
+              <input matInput [(ngModel)]="item.faceAmount" type="number" [placeholder]="defVals[i].faceAmount">
+            </mat-form-field>
+
           </td>
           <td>
-            <input [(ngModel)]="item.plannedPremium" type="number">
+            <mat-form-field>
+              <input matInput [(ngModel)]="item.plannedPremium" type="number" [placeholder]="defVals[i].plannedPremium">
+            </mat-form-field>
+
           </td>
           <td>
-            <input [(ngModel)]="item.withdrawal" type="number">
-          </td>
-          <td>
-            <input [(ngModel)]="item.regularPayment" type="number">
+            <mat-form-field>
+              <input matInput [(ngModel)]="item.withdrawal" type="number" [placeholder]="defVals[i].withdrawal">
+            </mat-form-field>
+
           </td>
         </tr>
       </table>

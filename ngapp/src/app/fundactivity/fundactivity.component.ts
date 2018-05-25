@@ -16,6 +16,7 @@ export class FundactivityComponent {
   input: any = [];
   closeClick = false;
   errorYears = [];
+  defVals = [];
 
   getFA() {
     let fa = this.input.filter(
@@ -45,9 +46,29 @@ export class FundactivityComponent {
 
     this.FA = data.FA;
     this.ds = data.ds;
-
-
+    
+    let defFA = this.ds.dataSets.find(x => "colBasePlanFaceAmount" == (x.label));      
+    let defWD = this.ds.dataSets.find(x => "colWithdrawalLocal" == (x.label));      
+    let defRP = this.ds.dataSets.find(x => "colRegularPayment" == (x.label));      
+    let defPP = this.ds.dataSets.find(x => "colPremium" == (x.label));      
+    
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
+    
+    ages.forEach(
+      (a, i) => {
+        let fa = {
+          faceAmount:  defFA.data[i+1],
+          plannedPremium:defPP.data[i+1],
+          regularPayment:defRP.data[i+1],
+          withdrawal:defWD.data[i+1],
+        }
+        this.defVals.push(fa);
+      }
+    )
+
+
+
+     
 
     ages.forEach(
       age => {
