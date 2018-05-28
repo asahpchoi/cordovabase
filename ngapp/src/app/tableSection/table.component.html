@@ -14,10 +14,11 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div>
-        <button mat-raised-button (click)="clearFA()">Reset FA</button>
+        <button mat-raised-button (click)="inputFA()">One Page Fund Activities Input</button>
+        <button mat-raised-button (click)="applyFA()">Apply table changes</button>
+        <button mat-raised-button (click)="resetNewFA()">Discard table changes</button>
+        <button mat-raised-button (click)="clearFA()">Reset All fundActivities</button>
         <button mat-raised-button (click)="export()">Export</button>
-        <button mat-raised-button (click)="inputFA()">Fund Activities</button>
-        <button mat-raised-button (click)="applyFA()">Apply Changes</button>
     
     </div>
     <div id="table">

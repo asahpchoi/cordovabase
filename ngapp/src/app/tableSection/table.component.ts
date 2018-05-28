@@ -68,7 +68,7 @@ export class TableComponent implements OnDestroy {
       {
         name: "colPremium",
         component: "NumpadComponent",
-        componentul: "UlinputComponent",
+        
         activity: "plannedPremium",
         startYear: 4,
         stopYear: this.getDuration()
@@ -76,6 +76,7 @@ export class TableComponent implements OnDestroy {
       {
         name: "colRegularPayment",
         component: "NumpadComponent",
+        componentul: "UlinputComponent",
         activity: "regularPayment",
         startYear: 4,
         stopYear: this.getDuration()
@@ -112,7 +113,7 @@ export class TableComponent implements OnDestroy {
         this.reloadSettings();
 
         this.projectionError = this.ds.validationResult;
-        this.updateFAinTable();
+        
       }
     )
   }
@@ -236,6 +237,7 @@ export class TableComponent implements OnDestroy {
 
   reloadColumnData() {
     this.allColumns = this.ds.dataSets.map(ds => ds.label);
+    this.updateFAinTable();
   }
 
   getDuration() {
@@ -323,8 +325,8 @@ export class TableComponent implements OnDestroy {
     let col = this.editableFields.find(x => x.activity == activity).name;
     let field = document.getElementById(col + "_" + (+row + 1));
     if (field) {
-      field.innerText = value;
-      field.style.backgroundColor = style?'yellow':'green';
+      field.innerText = this.formatValue(+value);
+      field.style.backgroundColor = style ? 'green' : 'yellow';
     }
   }
 
@@ -361,7 +363,7 @@ export class TableComponent implements OnDestroy {
 
     let dialogRef;
 
-    if (colName == "Premium" && this.ulmode) {
+    if (colName == "colRegularPayment" && this.ulmode) {
       dialogRef = this.dialog.open(UlinputComponent, {
         width: '250px',
         data: {
@@ -387,6 +389,8 @@ export class TableComponent implements OnDestroy {
       let number = +result.number;
       let year = +result.year;
       for (var i = 0; i < year; i++) {
+        let existingFA =this.input.fundActivities.find(fa => (fa.attainAge == +yearAge.age - 1 + i) && fa[cellType.activity]);
+
         let fa = {
           attainAge: +yearAge.age - 1 + i
         }
@@ -401,6 +405,14 @@ export class TableComponent implements OnDestroy {
 
     });
   }
+
+  validatedFA = [];
+
+  resetNewFA() {
+    this.input.fundActivities = JSON.parse(JSON.stringify(this.validatedFA));
+    this.pe.callPEProjection();
+  }
+
 
   applyFA() {
     this.isLoading = true;
@@ -428,6 +440,7 @@ export class TableComponent implements OnDestroy {
               f.validated = true;
             }
           )
+          this.validatedFA = JSON.parse(JSON.stringify(this.input.fundActivities));
           this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
           this.pe.callPEProjection();
         }
