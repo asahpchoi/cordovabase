@@ -110,7 +110,7 @@ export class TableComponent implements OnDestroy {
         this.setDisplayColumns();
         this.isLoading = false;
         this.reloadSettings();
- 
+
         this.projectionError = this.ds.validationResult;
         this.updateFAinTable();
       }
@@ -319,28 +319,27 @@ export class TableComponent implements OnDestroy {
     return cellType.component;
   }
 
-  private highlightCell(activity, row, value) {
-    
+  private highlightCell(activity, row, value, style) {
     let col = this.editableFields.find(x => x.activity == activity).name;
     let field = document.getElementById(col + "_" + (+row + 1));
     if (field) {
       field.innerText = value;
-      field.style.backgroundColor = 'yellow';
+      field.style.backgroundColor = style?'yellow':'green';
     }
   }
 
   private updateFAinTable() {
     this.input.fundActivities.forEach(
       fa => {
-        if (!fa.validated) {
-          Object.keys(fa).forEach(
-            k => {
-              if (k != "attainAge" && k != "validated") {
-                this.highlightCell(k, fa.attainAge, fa[k]);
-              }
+
+        Object.keys(fa).forEach(
+          k => {
+            if (k != "attainAge" && k != "validated") {
+              this.highlightCell(k, fa.attainAge, fa[k], fa.validated);
             }
-          )
-        }
+          }
+        )
+
       }
     )
   }
