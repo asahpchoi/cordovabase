@@ -2,24 +2,23 @@
   <mat-progress-bar mode="query"></mat-progress-bar>
 </div>
 <div *ngIf="projectionError">
-  {{projectionError | json}}
-  {{projectionError.warning}}  
+  {{projectionError | json}} {{projectionError.warning}}
 </div>
 <mat-accordion>
 
   <mat-expansion-panel expanded=true>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Table
+        Table View
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div>
-        <button mat-raised-button (click)="inputFA()">One Page Fund Activities Input</button>
-        <button mat-raised-button (click)="applyFA()">Apply table changes</button>
-        <button mat-raised-button (click)="resetNewFA()">Discard table changes</button>
-        <button mat-raised-button (click)="clearFA()">Reset All fundActivities</button>
-        <button mat-raised-button (click)="export()">Export</button>
-    
+      <button mat-raised-button (click)="inputFA()">One Page Fund Activities Input</button>
+      <button mat-raised-button (click)="applyFA()">Apply table changes</button>
+      <button mat-raised-button (click)="resetNewFA()">Discard table changes</button>
+      <button mat-raised-button (click)="clearFA()">Reset All fundActivities</button>
+      <button mat-raised-button (click)="export()">Export</button>
+
     </div>
     <div id="table">
       <table *ngIf="ds" id="tableData">
@@ -38,18 +37,14 @@
             <th class="sticky-col">
               {{ showFirstColumn()[i].year}} / {{showFirstColumn()[i].age}}
             </th>
-            <td 
-              *ngFor="let c of r; let ci = index" [ngClass]="getClass(displayColumns[ci], showFirstColumn()[i], c)" (click)="changeValue(displayColumns[ci], showFirstColumn()[i], c)"
-              [id]="displayColumns[ci] + '_' + showFirstColumn()[i].age"
-            >
-                {{isNaN(c)?(c):(formatValue(c) | currency)}}
+            <td *ngFor="let c of r; let ci = index" [ngClass]="getClass(displayColumns[ci], showFirstColumn()[i], c)" (click)="changeValue(displayColumns[ci], showFirstColumn()[i], c)"
+              [id]="displayColumns[ci] + '_' + showFirstColumn()[i].age">
+              {{isNaN(c)?(c):(formatValue(c) | currency:'VND')}}
             </td>
           </tr>
         </tbody>
       </table>
-      {{
-        input.fundActivities | json
-      }}
+      {{ input.fundActivities | json }}
 
     </div>
   </mat-expansion-panel>

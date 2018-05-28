@@ -68,7 +68,7 @@ export class TableComponent implements OnDestroy {
       {
         name: "colPremium",
         component: "NumpadComponent",
-        
+
         activity: "plannedPremium",
         startYear: 4,
         stopYear: this.getDuration()
@@ -113,7 +113,7 @@ export class TableComponent implements OnDestroy {
         this.reloadSettings();
 
         this.projectionError = this.ds.validationResult;
-        
+
       }
     )
   }
@@ -275,6 +275,7 @@ export class TableComponent implements OnDestroy {
 
 
     this.dt = _.zip(...ds);
+    this.updateFAinTable();
   }
 
   showFirstColumn() {
@@ -282,16 +283,8 @@ export class TableComponent implements OnDestroy {
   }
 
   formatValue(v) {
-    if (_.isNumber(v)) {
-      let n = +v;
 
-      var value = v.toLocaleString(
-        "vn-vn", // leave undefined to use the browser's locale,
-        // or use a string like 'en-US' to override it.
-        {
-          minimumFractionDigits: 0
-        }
-      )
+    if (_.isNumber(v)) {
       return Math.round(v);
     }
     else {
@@ -325,7 +318,15 @@ export class TableComponent implements OnDestroy {
     let col = this.editableFields.find(x => x.activity == activity).name;
     let field = document.getElementById(col + "_" + (+row + 1));
     if (field) {
-      field.innerText = this.formatValue(+value);
+      var formatter = new Intl.NumberFormat('vn-VN', {
+        style: 'currency',
+        currency: 'VND',
+        minimumFractionDigits: 2,
+
+      });
+
+
+      field.innerText = formatter.format(+value);
       field.style.backgroundColor = style ? 'green' : 'yellow';
     }
   }
@@ -389,16 +390,22 @@ export class TableComponent implements OnDestroy {
       let number = +result.number;
       let year = +result.year;
       for (var i = 0; i < year; i++) {
-        let existingFA =this.input.fundActivities.find(fa => (fa.attainAge == +yearAge.age - 1 + i) && fa[cellType.activity]);
+        let existingFA = this.input.fundActivities.find(fa => (fa.attainAge == +yearAge.age - 1 + i) && fa[cellType.activity]);
 
-        let fa = {
-          attainAge: +yearAge.age - 1 + i
+        if (existingFA) {
+          existingFA[cellType.activity] = number;
+          existingFA['validated'] = false;
         }
-        fa[cellType.activity] = number;
-        fa['validated'] = false;
-        this.input.fundActivities.push(
-          fa
-        );
+        else {
+          let fa = {
+            attainAge: +yearAge.age - 1 + i
+          }
+          fa[cellType.activity] = number;
+          fa['validated'] = false;
+          this.input.fundActivities.push(
+            fa
+          );
+        }
 
       }
       this.updateFAinTable();
@@ -435,6 +442,16 @@ export class TableComponent implements OnDestroy {
           this.isLoading = false;
         }
         else {
+          this.input.fundActivities.forEach((f, i) => {
+            if (f.validated) {
+              if (this.input.fundActivities.find(
+                fa => !fa.validated && fa.attainAge == f.attainAge && (JSON.stringify(Object.keys(fa)) == JSON.stringify(Object.keys(f)))
+              )) {
+                console.log('del ' + i)
+                this.input.fundActivities.splice(i, 1);
+              }
+            }
+          });
           this.input.fundActivities.forEach(
             f => {
               f.validated = true;
