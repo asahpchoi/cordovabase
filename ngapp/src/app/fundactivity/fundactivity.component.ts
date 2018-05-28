@@ -26,11 +26,10 @@ export class FundactivityComponent {
     );
     fa.forEach(
       f => {
-        if(!fa.faceAmount) delete fa.faceAmount;
-        if(!fa.regularPayment) delete fa.regularPayment;
-        if(!fa.plannedPremium) delete fa.plannedPremium;
-        if(!fa.withdrawal) delete fa.withdrawal;
-
+        if (!fa.faceAmount) delete fa.faceAmount;
+        if (!fa.regularPayment) delete fa.regularPayment;
+        if (!fa.plannedPremium) delete fa.plannedPremium;
+        if (!fa.withdrawal) delete fa.withdrawal;
       }
     )
 
@@ -42,25 +41,25 @@ export class FundactivityComponent {
     public dialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
-    
+
 
     this.FA = data.FA;
     this.ds = data.ds;
-    
-    let defFA = this.ds.dataSets.find(x => "colBasePlanFaceAmount" == (x.label));      
-    let defWD = this.ds.dataSets.find(x => "colWithdrawalLocal" == (x.label));      
-    let defRP = this.ds.dataSets.find(x => "colRegularPayment" == (x.label));      
-    let defPP = this.ds.dataSets.find(x => "colPremium" == (x.label));      
-    
+
+    let defFA = this.ds.dataSets.find(x => "colBasePlanFaceAmount" == (x.label));
+    let defWD = this.ds.dataSets.find(x => "colWithdrawalLocal" == (x.label));
+    let defRP = this.ds.dataSets.find(x => "colRegularPayment" == (x.label));
+    let defPP = this.ds.dataSets.find(x => "colPremium" == (x.label));
+
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
-    
+
     ages.forEach(
       (a, i) => {
         let fa = {
-          faceAmount:  defFA.data[i+1],
-          plannedPremium:defPP.data[i+1],
-          regularPayment:defRP.data[i+1],
-          withdrawal:defWD.data[i+1],
+          faceAmount: defFA.data[i],
+          plannedPremium: defPP.data[i],
+          regularPayment: defRP.data[i],
+          withdrawal: defWD.data[i],
         }
         this.defVals.push(fa);
       }
@@ -68,7 +67,7 @@ export class FundactivityComponent {
 
 
 
-     
+
 
     ages.forEach(
       age => {
@@ -84,13 +83,13 @@ export class FundactivityComponent {
       }
     )
 
-    
+
 
     this.pe.validationSubject.subscribe(
       x => {
         this.error = x;
         if (!this.error) {
-          
+
           return;
         }
         if (this.error.length == 0 && this.closeClick) {
@@ -124,7 +123,7 @@ export class FundactivityComponent {
       this.input.duration = 1;
     }
     for (var i = 0; i < this.input.duration; i++) {
-      let attainAge = +this.input.attainAge + i;
+      let attainAge = +this.input.attainAge + i +1;
       let addedItem = this.FA.find(x => x.attainAge == attainAge);
       if (addedItem) {
         if (addedItem[this.input.type]) {

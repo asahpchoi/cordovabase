@@ -43,7 +43,6 @@ export class TableComponent implements OnDestroy {
       "colBasePlanFaceAmount": true,
       "colPremium": true,
       "colRegularPayment": true,
-
     }
   }
   editorOptions;
@@ -111,9 +110,9 @@ export class TableComponent implements OnDestroy {
         this.setDisplayColumns();
         this.isLoading = false;
         this.reloadSettings();
-        console.log(this.ds)
-        //.projections["0"].validationResult
+ 
         this.projectionError = this.ds.validationResult;
+        this.updateFAinTable();
       }
     )
   }
@@ -320,6 +319,34 @@ export class TableComponent implements OnDestroy {
     return cellType.component;
   }
 
+  private highlightCell(activity, row, value) {
+    
+    let col = this.editableFields.find(x => x.activity == activity).name;
+    let field = document.getElementById(col + "_" + (+row + 1));
+    if (field) {
+      field.innerText = value;
+      field.style.backgroundColor = 'yellow';
+    }
+  }
+
+  private updateFAinTable() {
+    this.input.fundActivities.forEach(
+      fa => {
+        if (!fa.validated) {
+          Object.keys(fa).forEach(
+            k => {
+              if (k != "attainAge" && k != "validated") {
+                this.highlightCell(k, fa.attainAge, fa[k]);
+              }
+            }
+          )
+        }
+      }
+    )
+  }
+
+
+
   changeValue(colName, yearAge, value) {
     let cellType: any = this.cellType(colName);
 
@@ -352,60 +379,62 @@ export class TableComponent implements OnDestroy {
           number: value + '',
           year: 1,
           multipleYear: cellType.multipleYear,
-          /*
-          productInfo: {
-            productID: ,
-            attainedAge: yearAge.age,
-            fieldType: colName
-
-          }*/
         }
       });
     }
 
-    let tempFA = JSON.parse(JSON.stringify(this.input.fundActivities));
+
     dialogRef.afterClosed().first().subscribe(result => {
       let number = +result.number;
       let year = +result.year;
-
-
       for (var i = 0; i < year; i++) {
         let fa = {
           attainAge: +yearAge.age - 1 + i
         }
         fa[cellType.activity] = number;
-
+        fa['validated'] = false;
         this.input.fundActivities.push(
           fa
         );
+
       }
+      this.updateFAinTable();
 
-      this.isLoading = true;
-
-      if (!this.pe.validationRequest) {
-        this.pe.validationRequest = JSON.parse(JSON.stringify(this.pe.projectionRequest));
-      }
-
-      this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
-      this.pe.validate();
-
-      let sub = this.pe.validationSubject.subscribe(
-        x => {
-
-          let result: any = x;
-          if (!x) return;
-          if (result.length != 0) {
-            this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
-            this.isLoading = false;
-          }
-          else {
-            this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
-            this.pe.callPEProjection();
-          }
-          sub.unsubscribe();
-        }
-      )
     });
+  }
+
+  applyFA() {
+    this.isLoading = true;
+    //let tempFA = JSON.parse(JSON.stringify(this.input.fundActivities));
+
+    if (!this.pe.validationRequest) {
+      this.pe.validationRequest = JSON.parse(JSON.stringify(this.pe.projectionRequest));
+    }
+
+    this.pe.updateFundActivities(this.input.fundActivities, this.pe.validationRequest);
+    this.pe.validate();
+
+    let sub = this.pe.validationSubject.subscribe(
+      x => {
+
+        let result: any = x;
+        if (!x) return;
+        if (result.length != 0) {
+          //this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
+          this.isLoading = false;
+        }
+        else {
+          this.input.fundActivities.forEach(
+            f => {
+              f.validated = true;
+            }
+          )
+          this.pe.updateFundActivities(this.input.fundActivities, this.pe.projectionRequest);
+          this.pe.callPEProjection();
+        }
+        sub.unsubscribe();
+      }
+    )
   }
 
   resetFundActs() {

@@ -40,7 +40,7 @@ export class UserService {
           type: 'dependent',
           name: 'Crystal daugther',
           id: 'dependent 3 id',
-          insuredAge: 6,
+          insuredAge: 2,
           occupation_class: 2,          
           sex: 'F'
         }

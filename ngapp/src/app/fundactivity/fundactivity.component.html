@@ -1,3 +1,4 @@
+{{error | json}}
 <div style="display:flex">
   <div style="width:70%">
     <div>
@@ -13,37 +14,17 @@
           <th>Face Amount</th>
           <th>Planned Premium</th>
           <th>Withdrawal</th>
-          
+
           <th></th>
         </tr>
-        <tr *ngFor="let item of input; let i = index" [ngClass]="errorYears.includes(+i+2)?'highlight':''">
-          <td>{{+i+2}} / {{+item.attainAge+1}}</td>
-          <td>
+        <tr *ngFor="let item of input; let i = index;" [ngClass]="errorYears.includes(+i+2)?'highlight':''">
+          <td>{{+i + 1}} / {{+item.attainAge}}</td>
+          <td *ngFor="let f of ['regularPayment','faceAmount','plannedPremium','withdrawal']">
             <mat-form-field>
-              <input matInput [(ngModel)]="item.regularPayment" type="number" [placeholder]="defVals[i].regularPayment">
+              <input matInput [(ngModel)]="item[f]" type="number" [placeholder]="defVals[i][f]">
             </mat-form-field>
-
           </td>
-
-          <td>
-
-            <mat-form-field>
-              <input matInput [(ngModel)]="item.faceAmount" type="number" [placeholder]="defVals[i].faceAmount">
-            </mat-form-field>
-
-          </td>
-          <td>
-            <mat-form-field>
-              <input matInput [(ngModel)]="item.plannedPremium" type="number" [placeholder]="defVals[i].plannedPremium">
-            </mat-form-field>
-
-          </td>
-          <td>
-            <mat-form-field>
-              <input matInput [(ngModel)]="item.withdrawal" type="number" [placeholder]="defVals[i].withdrawal">
-            </mat-form-field>
-
-          </td>
+        
         </tr>
       </table>
 
@@ -52,48 +33,11 @@
   </div>
   <div>
     <pre>
-          {{error | json}}
-      </pre>
-
-
+          
+    </pre>
   </div>
 </div>
 
 
 
 <pre>{{getFA() | json}}</pre>
-
-<!--
-<h2>Add Fund Activity</h2>
-
-
-<mat-form-field>
-  <mat-select style="width:200px;" [(ngModel)]="input.type" placeholder="Type">
-    <mat-option *ngFor="let type of ['faceAmount','plannedPremium','withdrawal', 'regularPayment']" [value]="type">
-      {{ type }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field>
-  <input matInput placeholder="attain age" [(ngModel)]="input.attainAge" type="number">
-</mat-form-field>
-
-<mat-form-field>
-  <input matInput placeholder="value" [(ngModel)]="input.amount" type="number">
-</mat-form-field>
-<mat-form-field *ngIf="input.type=='withdrawal'">
-  <input matInput placeholder="duration" [(ngModel)]="input.duration" type="number">
-</mat-form-field>
-
-
-
-<button mat-raised-button (click)="addFA()">+</button>
-<Br>
-<button mat-raised-button (click)="close()">Cancel</button>
-<button mat-raised-button (click)="validate()">Validate</button>
-<button mat-raised-button (click)="close()">Confirm</button>
-
-<pre>
-  {{FA | json}}
-</pre>
-//-->

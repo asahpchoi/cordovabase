@@ -17,10 +17,11 @@
         <button mat-raised-button (click)="clearFA()">Reset FA</button>
         <button mat-raised-button (click)="export()">Export</button>
         <button mat-raised-button (click)="inputFA()">Fund Activities</button>
+        <button mat-raised-button (click)="applyFA()">Apply Changes</button>
     
     </div>
     <div id="table">
-      <table *ngIf="ds">
+      <table *ngIf="ds" id="tableData">
         <thead>
           <tr>
             <th class="sticky-header">
@@ -36,12 +37,18 @@
             <th class="sticky-col">
               {{ showFirstColumn()[i].year}} / {{showFirstColumn()[i].age}}
             </th>
-            <td *ngFor="let c of r; let ci = index" [ngClass]="getClass(displayColumns[ci], showFirstColumn()[i], c)" (click)="changeValue(displayColumns[ci], showFirstColumn()[i], c)">
+            <td 
+              *ngFor="let c of r; let ci = index" [ngClass]="getClass(displayColumns[ci], showFirstColumn()[i], c)" (click)="changeValue(displayColumns[ci], showFirstColumn()[i], c)"
+              [id]="displayColumns[ci] + '_' + showFirstColumn()[i].age"
+            >
                 {{isNaN(c)?(c):(formatValue(c) | currency)}}
             </td>
           </tr>
         </tbody>
       </table>
+      {{
+        input.fundActivities | json
+      }}
 
     </div>
   </mat-expansion-panel>
