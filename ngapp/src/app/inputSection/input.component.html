@@ -59,6 +59,12 @@
             <mat-option *ngFor="let o of ['Annual','Semi-Annual','Quarterly','Monthly']" [value]="o">{{o}}</mat-option>
           </mat-select>
         </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="dbLevel" [(value)]="input.dbLevel">
+            <mat-option *ngFor="let o of ['Increase','Increase']" [value]="o">{{o}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
       </div>
     </div>
     <button mat-raised-button (click)="validate()">Validate</button>

@@ -319,15 +319,12 @@ export class TableComponent implements OnDestroy {
     let field = document.getElementById(col + "_" + (+row + 1));
     if (field) {
       var formatter = new Intl.NumberFormat('vn-VN', {
-        style: 'currency',
-        currency: 'VND',
-        minimumFractionDigits: 2,
-
+        minimumFractionDigits: 0,
       });
 
 
       field.innerText = formatter.format(+value);
-      field.style.backgroundColor = style ? 'green' : 'yellow';
+      field.style.backgroundColor = style ? 'lightgreen' : 'yellow';
     }
   }
 
@@ -437,7 +434,7 @@ export class TableComponent implements OnDestroy {
 
         let result: any = x;
         if (!x) return;
-        if (result.length != 0) {
+        if (result.length != 0 && result[0].error != "ERRC0221") {
           //this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
           this.isLoading = false;
         }

@@ -95,7 +95,7 @@ export class PeService {
   }
 
   calculatePlannedPremiumRange(faceAmount, insuredAge, paymentMode, productId): Observable<any> {
-    console.log('CP', paymentMode)
+     
     let url = this.endpoint + '/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
@@ -110,9 +110,6 @@ export class PeService {
     }
     return this.http
       .post(url, payload)
-      .do(x=>{
-        console.log('CPResult', x)
-      })
       .first();
   }
 
@@ -170,8 +167,10 @@ export class PeService {
     if(!this.validationRequest) return;    
     this.validationSubject.next(null);
     this.stopwatch(); 
+    console.log('validation payload: ', this.validationRequest)
     this.makeValidationRequest(this.validationRequest).subscribe(r => { 
       this.validationSubject.next(r); 
+      console.log('validation result: ', r)
       this.stopwatch('validation'); 
     });
 
@@ -249,6 +248,8 @@ export class PeService {
 
     this.projectionRequest = req;
     this.productType = productType;
+
+    this.callPEProjection();
  
     this.makeValidationRequest(req).first().subscribe(
       r => {

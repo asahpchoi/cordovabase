@@ -39,7 +39,7 @@
             </th>
             <td *ngFor="let c of r; let ci = index" [ngClass]="getClass(displayColumns[ci], showFirstColumn()[i], c)" (click)="changeValue(displayColumns[ci], showFirstColumn()[i], c)"
               [id]="displayColumns[ci] + '_' + showFirstColumn()[i].age">
-              {{isNaN(c)?(c):(formatValue(c) | currency:'VND')}}
+              {{isNaN(c)?(c):(formatValue(c) | number: '1.0-0')}}
             </td>
           </tr>
         </tbody>
