@@ -249,7 +249,7 @@ export class PeService {
     this.projectionRequest = req;
     this.productType = productType;
 
-    this.callPEProjection();
+    
  
     this.makeValidationRequest(req).first().subscribe(
       r => {

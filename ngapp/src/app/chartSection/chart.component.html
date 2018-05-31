@@ -12,3 +12,8 @@
 </div>
 
 <div id="canvasDiv"></div>
+
+<div *ngIf="chart">
+  {{chart.changeSet | json}}
+</div>
+ 

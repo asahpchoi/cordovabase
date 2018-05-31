@@ -3,6 +3,9 @@ import { PeService } from '../pe.service';
 import { Chart } from 'chart.js';
 import * as $ from 'jquery';
 import { debug } from 'util';
+import { drag } from 'd3-drag'
+import { select, event } from 'd3-selection'
+
 
 @Component({
   selector: 'app-chart',
@@ -16,6 +19,7 @@ export class ChartComponent {
   subscriber;
   private chartOptions =
     {
+      dragData: true,
       legend: {
         display: true
       },
@@ -27,8 +31,8 @@ export class ChartComponent {
           display: true
         }],
       },
-      tooltips: { enabled: false },
-      hover: { mode: null },
+      //tooltips: { enabled: false },
+      //hover: { mode: null },
     };
 
   private chartData = [
@@ -37,9 +41,9 @@ export class ChartComponent {
       label: '',
       backgroundColor: '',
       borderColor: '',
-      pointRadius: 0,
+      //pointRadius: 0,
       type: 'line',
-      fill: false,
+      //fill: false,
     }
   ];
   private chartLabels = [];
@@ -81,7 +85,7 @@ export class ChartComponent {
           chart: 'colSurValue%s',
           scenario: ['Low', 'Medium', 'High'],
           default: 'colSurValueLow',
-          line:"colAccumulatePremiumsHigh"
+          line: "colAccumulatePremiumsHigh"
         }
       ]
     }
@@ -149,6 +153,8 @@ export class ChartComponent {
     //this.pe.
   }
 
+
+
   constructor(private pe: PeService) {
     this.subscriber = pe.getData().filter(x => x).subscribe(
       x => {        //this.productType =  this.pe.productType;
@@ -168,20 +174,20 @@ export class ChartComponent {
         return data[pointIndex]._model.x;
       },
       afterDatasetsDraw: function (chart, easing) {
-        
-        
-        let lineLabel = "colAccumulatePremiumsHigh";        
+
+
+        let lineLabel = "colAccumulatePremiumsHigh";
         let accpremium = 0;
 
         if (easing == 1) {
-          if(!chart) return;
+          if (!chart) return;
           let ds = chart.data.datasets;
-          
+
           let line = ds.find(x => (x.label == lineLabel));
-          if(!line) return;
+          if (!line) return;
           let lineData: any = line.data;
-          
-         
+
+
           let areaDataDS: any = ds.filter(x => (x.label != lineLabel));
           let BreakevenPoint = 0;
 
@@ -267,9 +273,82 @@ export class ChartComponent {
       }
     };
 
+    let element, scale
+
+
+
+    function getElement(chartInstance, callback) {
+      return () => {
+        if (event) {
+          const e = event.sourceEvent
+          element = chartInstance.getElementAtEvent(e)[0]
+          if (element) {
+            scale = element['_yScale'].id
+            if (typeof callback === 'function' && element) callback(e, element)
+          }
+        }
+      }
+    }
+
+    function updateData(chartInstance, callback) {
+      return () => {
+        if (element && event) {
+          const e = event.sourceEvent
+          const datasetIndex = element['_datasetIndex']
+          const index = element['_index']
+          const value = chartInstance.scales[scale].getValueForPixel(e.clientY - chartInstance.canvas.getBoundingClientRect().top)
+          chartInstance.data.datasets[datasetIndex].data[index] = value
+          if (!chartInstance.changeSet) {
+            chartInstance.changeSet = [];
+          }
+          let ds = chartInstance.changeSet.find(x => x.index == index);
+          if (!ds) {
+            chartInstance.changeSet.push({
+              index: index,
+              value: value,
+            })
+          }
+          else {
+            ds.value = value
+          }
+          chartInstance.update(0)
+          if (typeof callback === 'function') callback(e, datasetIndex, index, value)
+        }
+      }
+    }
+
+    function dragEndCallback(chartInstance, callback) {
+      return () => {
+        if (typeof callback === 'function' && element) {
+          const e = event.sourceEvent
+          const datasetIndex = element['_datasetIndex']
+          const index = element['_index']
+          const value = chartInstance.data.datasets[datasetIndex].data[index]
+          return callback(e, datasetIndex, index, value)
+        }
+      }
+    }
+    const ChartJSdragDataPlugin = {
+      afterInit: function (chartInstance) {
+        if (chartInstance.options.dragData) {
+          debugger
+          select(chartInstance.chart.canvas).call(
+            drag().container(chartInstance.chart.canvas)
+              .on('start', getElement(chartInstance, chartInstance.options.onDragStart))
+              .on('drag', updateData(chartInstance, chartInstance.options.onDrag))
+              .on('end', dragEndCallback(chartInstance, chartInstance.options.onDragEnd))
+          )
+        }
+      }
+    }
+    Chart.pluginService.register(ChartJSdragDataPlugin)
     Chart.plugins.register(verticalLinePlugin);
     Chart.plugins.register(breakevenPlugin);
+
+
   }
+
+
 
   getScenario() {
     return Object.keys(this.input.units);
@@ -317,7 +396,7 @@ export class ChartComponent {
       return match.length;
     });
 
-  
+
     let lineData = this.ds.dataSets.find(d => d.label == this.selectedView.line);
 
     lineData.fill = false;
@@ -336,13 +415,17 @@ export class ChartComponent {
       this.lapsedYear = lapsedYear.map(x => x.data.filter(y => y == 'N').length)
       this.lapsedYear = [Math.min(...this.lapsedYear)];
     }
- 
-debugger
+
+    debugger
     this.chartData = [...[lineData], ...areaData]
     this.chartData.forEach(
       (ds, i) => {
+        console.log(ds)
         ds.backgroundColor = this.colors[i % 3];//,'#FF5D55', '#006F61']
-        ds.pointRadius = 0;
+        if (ds["fill"] != false) {
+          ds["pointRadius"] = 0;
+        }
+
       }
     );
   }
@@ -367,6 +450,7 @@ debugger
         },
         options: this.chartOptions,
         lineAtIndex: this.lapsedYear,
+        changeSet: [],
       });
     }
 

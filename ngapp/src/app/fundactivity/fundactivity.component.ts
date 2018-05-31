@@ -56,19 +56,14 @@ export class FundactivityComponent {
     ages.forEach(
       (a, i) => {
         let fa = {
-          faceAmount: defFA.data[i],
-          plannedPremium: defPP.data[i],
-          regularPayment: defRP.data[i],
-          withdrawal: defWD.data[i],
+          faceAmount: defFA.data[i + 1],
+          plannedPremium: defPP.data[i + 1],
+          regularPayment: defRP.data[i + 1],
+          withdrawal: defWD.data[i + 1],
         }
         this.defVals.push(fa);
       }
     )
-
-
-
-
-
     ages.forEach(
       age => {
         let currentFA = this.FA.find(f => f.attainAge == age);

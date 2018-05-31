@@ -434,7 +434,7 @@ export class TableComponent implements OnDestroy {
 
         let result: any = x;
         if (!x) return;
-        if (result.length != 0 && result[0].error != "ERRC0221") {
+        if (result.length != 0) {
           //this.input.fundActivities = JSON.parse(JSON.stringify(tempFA));
           this.isLoading = false;
         }
