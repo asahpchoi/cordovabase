@@ -23,7 +23,8 @@ export class InputComponent implements OnInit {
     termfaceAmount: 0,
     termplannedPremium: 0,
     paymentMode: 'Annual',
-    riderPremium: 0
+    riderPremium: 0,
+    dbLevel: 'Increase',
   }
 
   ranges = {
@@ -477,6 +478,8 @@ export class InputComponent implements OnInit {
 
     payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;
     payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
+    payload.coverageInfo.options.dbLevel = this.input.dbLevel;
+    
     if(this.selectedTestcase.name == "UL007") {
       payload.coverageInfo.plannedPremium = +this.input.plannedPremium;
     }
