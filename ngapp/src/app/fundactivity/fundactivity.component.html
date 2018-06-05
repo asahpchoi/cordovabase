@@ -4,6 +4,8 @@
     <div>
       <button mat-raised-button (click)="cancel()">Cancel</button>
       <button mat-raised-button (click)="close()">Confirm</button>
+      <button mat-raised-button (click)="undoFA()">Undo</button>
+
     </div>
     <div class="tablediv">
       <h2>Fund Activities</h2>
@@ -14,15 +16,15 @@
           <th>Face Amount</th>
           <th>Planned Premium</th>
           <th>Withdrawal</th>
-
           <th></th>
         </tr>
         <tr *ngFor="let item of input; let i = index;" [ngClass]="errorYears.includes(+i+2)?'highlight':''">
-          <td>{{+i + 1}} / {{+item.attainAge}}</td>
+          <td>{{+i + 2}} / {{+item.attainAge}}</td>
           <td *ngFor="let f of ['regularPayment','faceAmount','plannedPremium','withdrawal']">
             <mat-form-field>
-              <input matInput [(ngModel)]="item[f]" type="number" [placeholder]="defVals[i][f]">
+              <input matInput [(ngModel)]="item[f]" type="number">              
             </mat-form-field>
+            {{item[f]?item[f]: defVals[i][f]}}
           </td>
         
         </tr>
@@ -40,4 +42,4 @@
 
 
 
-<pre>{{getFA() | json}}</pre>
+<pre>{{input | json}}</pre>

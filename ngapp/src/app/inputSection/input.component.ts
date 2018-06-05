@@ -478,10 +478,12 @@ export class InputComponent implements OnInit {
 
     payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;
     payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
-    payload.coverageInfo.options.dbLevel = this.input.dbLevel;
+    
+    
     
     if(this.selectedTestcase.name == "UL007") {
       payload.coverageInfo.plannedPremium = +this.input.plannedPremium;
+      payload.coverageInfo.options.dbLevel = this.input.dbLevel;
     }
     else {
       delete payload.coverageInfo.plannedPremium;

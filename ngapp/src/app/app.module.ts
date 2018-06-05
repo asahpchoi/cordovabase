@@ -22,7 +22,7 @@ import { SliderComponent } from './misc/slider/slider.component';
 import { InputchartComponent } from './mainSection/inputchart.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { HammerCardComponent } from './misc/hammer-card/hammer-card.component';
- 
+
 import { MatCardModule } from '@angular/material';
 import { FundsComponent } from './misc/funds/funds.component';
 import { DonutchartComponent } from './misc/donutchart/donutchart.component';
@@ -37,7 +37,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NumpadComponent } from './components/numpad/numpad.component';
- 
+
 import { MatExpansionModule } from '@angular/material/expansion';
 import { AddRiderComponent } from './components/add-rider/add-rider.component';
 import { AddRidersComponent } from './addRiderSection/add-riders.component';
@@ -47,15 +47,17 @@ import { CompareChartsComponent } from './compare-charts/compare-charts.componen
 import { ReportChartComponent } from './report-chart/report-chart.component';
 import { FundactivityComponent } from './fundactivity/fundactivity.component';
 import { CustomerListComponent } from './customer-list/customer-list.component';
-import {MatListModule} from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
+import { ProposalReducer } from './stores/proposal-reducer'
+import { StoreModule } from '@ngrx/store';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
   { path: 'funds', component: FundsComponent },
   { path: 'occupation', component: OccupationComponent },
   { path: 'compareChart', component: CompareChartsComponent },
-  {path: 'reportChart', component: ReportChartComponent},
-  {path: 'userlist', component: CustomerListComponent},
+  { path: 'reportChart', component: ReportChartComponent },
+  { path: 'userlist', component: CustomerListComponent },
   { path: '', component: InputchartComponent },
 
 ];
@@ -108,7 +110,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
-    )
+    ),
+     
   ],
   providers: [PeService, UserService],
   bootstrap: [AppComponent],

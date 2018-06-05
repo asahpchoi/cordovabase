@@ -56,10 +56,11 @@ export class FundactivityComponent {
     ages.forEach(
       (a, i) => {
         let fa = {
-          faceAmount: defFA.data[i + 1],
-          plannedPremium: defPP.data[i + 1],
-          regularPayment: defRP.data[i + 1],
-          withdrawal: defWD.data[i + 1],
+          year: i + 1,
+          faceAmount: defFA.data[i],
+          plannedPremium: defPP.data[i],
+          regularPayment: defRP.data[i],
+          withdrawal: defWD.data[i],
         }
         this.defVals.push(fa);
       }
@@ -118,7 +119,7 @@ export class FundactivityComponent {
       this.input.duration = 1;
     }
     for (var i = 0; i < this.input.duration; i++) {
-      let attainAge = +this.input.attainAge + i +1;
+      let attainAge = +this.input.attainAge + i;
       let addedItem = this.FA.find(x => x.attainAge == attainAge);
       if (addedItem) {
         if (addedItem[this.input.type]) {
@@ -136,7 +137,11 @@ export class FundactivityComponent {
         this.FA.push(item);
       }
     }
-    this.FA = _.sortBy(this.FA, "attainAge");
+    //this.FA = _.sortBy(this.FA, "attainAge");
+  }
+
+  undoFA() {
+    this.FA.pop();
   }
 }
 

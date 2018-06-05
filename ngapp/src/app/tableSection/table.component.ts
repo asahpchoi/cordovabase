@@ -258,7 +258,7 @@ export class TableComponent implements OnDestroy {
     this.firstColumn = (rawData[0].map((d, i) => {
       return {
         year: d,
-        age: rawData[1][i]
+        age: rawData[1][i] - 1
       }
     }));
 
