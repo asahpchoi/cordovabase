@@ -359,7 +359,10 @@ export class InputComponent implements OnInit {
     }
   }
   validate() {
+    
     this.updatePayload();
+
+     
     if (this.selectedTestcase.payload) {
       this.pe.validate(this.selectedTestcase.payload);
     }

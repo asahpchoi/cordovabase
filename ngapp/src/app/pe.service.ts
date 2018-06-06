@@ -166,12 +166,10 @@ export class PeService {
     
     if(!this.validationRequest) return;    
     this.validationSubject.next(null);
-    this.stopwatch(); 
-    console.log('validation payload: ', this.validationRequest)
+ 
     this.makeValidationRequest(this.validationRequest).subscribe(r => { 
       this.validationSubject.next(r); 
-      console.log('validation result: ', r)
-      this.stopwatch('validation'); 
+ 
     });
 
   }
@@ -185,6 +183,8 @@ export class PeService {
     if (this.riders.length > 0) {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders] 
     }
+
+    console.log('validation with Rider' , reqCopy, this.riders)
     
     return this.http
       .post(url, reqCopy)

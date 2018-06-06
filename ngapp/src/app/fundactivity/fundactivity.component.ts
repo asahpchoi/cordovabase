@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as _ from 'lodash';
 import { PeService } from '../pe.service';
+import { NumpadComponent } from '../components/numpad/numpad.component';
 
 @Component({
   selector: 'app-fundactivity',
@@ -37,8 +38,52 @@ export class FundactivityComponent {
 
   }
 
+  initInput = [];
+  actions = [];
+
+  showValue(row, field)  {
+    return row[field];
+  }
+
+  getInput(item, field, defVal, attainAge) {
+    let val = item[field] ? item[field] : defVal;
+
+    let dialogRef = this.dialog.open(NumpadComponent, {
+      width: '250px',
+      data: {
+        number: val + '',
+        year: 1,
+        multipleYear: true,
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.actions.push(
+          {
+            item: item,
+            field: field,
+            number: result.number
+          }
+        )
+        item[field] = result.number;
+      }
+    });
+  }
+
+  rerun() {
+    this.input = JSON.parse(JSON.stringify(this.initInput));
+
+  }
+
+  modifyFA(year, field) {
+    let cell = document.getElementById(year + '_' + field);
+
+    alert(cell.innerText)
+  }
+
   constructor(
     public dialogRef: MatDialogRef<any>,
+    public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
 
@@ -46,25 +91,37 @@ export class FundactivityComponent {
     this.FA = data.FA;
     this.ds = data.ds;
 
-    let defFA = this.ds.dataSets.find(x => "colBasePlanFaceAmount" == (x.label));
-    let defWD = this.ds.dataSets.find(x => "colWithdrawalLocal" == (x.label));
-    let defRP = this.ds.dataSets.find(x => "colRegularPayment" == (x.label));
-    let defPP = this.ds.dataSets.find(x => "colPremium" == (x.label));
+    let defFaceAmount = this.ds.dataSets.find(x => "colBasePlanFaceAmount" == (x.label));
+    let defWithdrawal = this.ds.dataSets.find(x => "colWithdrawalLocal" == (x.label));
 
+    let defRegularPayment = this.ds.dataSets.find(x => "colRegularPayment" == (x.label));
+    let defPlannedPremium = this.ds.dataSets.find(x => "colPremium" == (x.label)); //need to be updated
+
+    let defAnnualizedRegularPayment = this.ds.dataSets.find(x => "colRegularPremiums" == (x.label));
+    let defAnnualizedPlanedPremium = this.ds.dataSets.find(x => "colPremium" == (x.label));
+
+    let defAccountHigh = this.ds.dataSets.find(x => "colAccountHigh" == (x.label));
+
+ 
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
 
     ages.forEach(
       (a, i) => {
         let fa = {
           year: i + 1,
-          faceAmount: defFA.data[i],
-          plannedPremium: defPP.data[i],
-          regularPayment: defRP.data[i],
-          withdrawal: defWD.data[i],
+          age: a,
+          faceAmount: defFaceAmount.data[i],          
+          annualizedregularPayment: defAnnualizedRegularPayment.data[i],
+          regularPayment: defRegularPayment.data[i],          
+          annualizedplannedPremium: defAnnualizedPlanedPremium.data[i],
+          plannedPremium: defPlannedPremium.data[i],
+          withdrawal: defWithdrawal.data[i],
+          AccountHigh: defAccountHigh.data[i],
         }
         this.defVals.push(fa);
       }
     )
+
     ages.forEach(
       age => {
         let currentFA = this.FA.find(f => f.attainAge == age);
@@ -98,11 +155,10 @@ export class FundactivityComponent {
         }
       }
     );
+
+    this.initInput = JSON.parse(JSON.stringify(this.input));
   }
 
-  delFA(attainAge) {
-    this.FA = this.FA.filter(x => x.attainAge != attainAge);
-  }
 
   cancel() {
     this.dialogRef.close();
@@ -112,32 +168,6 @@ export class FundactivityComponent {
     this.closeClick = true;
     this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
     this.pe.validate();
-  }
-
-  addFA() {
-    if (this.input.type != 'withdrawal') {
-      this.input.duration = 1;
-    }
-    for (var i = 0; i < this.input.duration; i++) {
-      let attainAge = +this.input.attainAge + i;
-      let addedItem = this.FA.find(x => x.attainAge == attainAge);
-      if (addedItem) {
-        if (addedItem[this.input.type]) {
-          addedItem[this.input.type] = +addedItem[this.input.type] + +this.input.amount;
-        }
-        else {
-          addedItem[this.input.type] = +this.input.amount;
-        }
-      }
-      else {
-        let item = {
-          attainAge: attainAge
-        }
-        item[this.input.type] = +this.input.amount;
-        this.FA.push(item);
-      }
-    }
-    //this.FA = _.sortBy(this.FA, "attainAge");
   }
 
   undoFA() {

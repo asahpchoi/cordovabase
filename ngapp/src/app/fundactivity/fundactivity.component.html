@@ -5,41 +5,57 @@
       <button mat-raised-button (click)="cancel()">Cancel</button>
       <button mat-raised-button (click)="close()">Confirm</button>
       <button mat-raised-button (click)="undoFA()">Undo</button>
-
     </div>
     <div class="tablediv">
       <h2>Fund Activities</h2>
       <table>
         <tr style="display:sticky">
           <th>Year / Age </th>
-          <th>Regular Payment</th>
           <th>Face Amount</th>
-          <th>Planned Premium</th>
+          <th>Annualized Total Payment</th>
+          <th>Modal Total Payment</th>
+          <th>Annaulized Base Premium</th>
+          <th>Modal Base Premium</th>
           <th>Withdrawal</th>
-          <th></th>
+          <th>Account Value</th>
         </tr>
+        <tr *ngFor="let row of defVals">
+          <td [id]="row.year + '_year'">
+            {{showValue(row, 'year')}}
+          </td>
+          <td [id]="row.year + '_faceAmount'" (click)="modifyFA(row.year, 'faceAmount')">
+            {{showValue(row, 'faceAmount')}}
+          </td>
+          <td [id]="row.year + '_annualizedregularPayment'">
+              {{showValue(row, 'annualizedregularPayment')}}
+          </td>
+          <td [id]="row.year + '_regularPayment'" (click)="modifyFA(row.year, 'regularPayment')">
+              {{showValue(row, 'regularPayment')}}
+          </td>
+          <td [id]="row.year + '_annualizedplannedPremium'">
+              {{showValue(row, 'annualizedplannedPremium')}}
+          </td>
+          <td [id]="row.year + '_plannedPremium'" (click)="modifyFA(row.year, 'plannedPremium')">
+              {{showValue(row, 'plannedPremium')}}
+          </td>
+          <td [id]="row.year + '_withdrawal'" (click)="modifyFA(row.year, 'withdrawal')">
+              {{showValue(row, 'withdrawal')}}
+          </td>
+          <td [id]="row.year + '_AccountHigh'">
+              {{showValue(row, 'AccountHigh')}}
+          </td>
+ 
+        </tr>
+        <!--
         <tr *ngFor="let item of input; let i = index;" [ngClass]="errorYears.includes(+i+2)?'highlight':''">
           <td>{{+i + 2}} / {{+item.attainAge}}</td>
           <td *ngFor="let f of ['regularPayment','faceAmount','plannedPremium','withdrawal']">
-            <mat-form-field>
-              <input matInput [(ngModel)]="item[f]" type="number">              
-            </mat-form-field>
-            {{item[f]?item[f]: defVals[i][f]}}
+            <div (click)="getInput(item, f, defVals[i][f])">{{item[f]?item[f]:defVals[i][f]}}</div>
           </td>
-        
         </tr>
+        //-->
       </table>
-
-
+      {{defVals|json}}
     </div>
   </div>
-  <div>
-    <pre>
-          
-    </pre>
-  </div>
 </div>
-
-
-
-<pre>{{input | json}}</pre>

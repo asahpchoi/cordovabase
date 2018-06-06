@@ -15,3 +15,12 @@ md-input-container label {
   label.mat-input-placeholder {
     color: red;
   }
+
+  table {
+      border-left: 1px;
+  }
+
+  td {
+    text-align: right;
+    border-left: 1ch;
+  }
