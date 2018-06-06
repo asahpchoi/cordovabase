@@ -41,8 +41,33 @@ export class FundactivityComponent {
   initInput = [];
   actions = [];
 
-  showValue(row, field)  {
-    return row[field];
+  showValue(row, field, age?) {
+    if (!age) { //display field
+      return {
+        value: row[field],
+        class: ''
+      }
+    }
+    else {
+      let fa = this.FA.filter(x => x.field == field && x.attainAge == age);
+
+
+      if (fa.length == 0) {
+        return {
+          value: row[field],
+          class: ''
+        }
+
+      }
+      else {
+        return {
+          value: fa[fa.length - 1].value,
+          class: 'highlighted',
+        }
+
+      }
+
+    }
   }
 
   getInput(item, field, defVal, attainAge) {
@@ -65,7 +90,7 @@ export class FundactivityComponent {
             number: result.number
           }
         )
-        item[field] = result.number;
+        //item[field] = result.number;
       }
     });
   }
@@ -75,11 +100,20 @@ export class FundactivityComponent {
 
   }
 
-  modifyFA(year, field) {
+  modifyFA(year, field, attainAge) {
     let cell = document.getElementById(year + '_' + field);
-
-    alert(cell.innerText)
+    let value = prompt(field, cell.innerText);
+    let fa =
+      {
+        year: year,
+        attainAge: attainAge,
+        field: field,
+        value: value
+      }
+    this.FA.push(fa);
   }
+
+
 
   constructor(
     public dialogRef: MatDialogRef<any>,
@@ -102,7 +136,7 @@ export class FundactivityComponent {
 
     let defAccountHigh = this.ds.dataSets.find(x => "colAccountHigh" == (x.label));
 
- 
+
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
 
     ages.forEach(
@@ -110,9 +144,9 @@ export class FundactivityComponent {
         let fa = {
           year: i + 1,
           age: a,
-          faceAmount: defFaceAmount.data[i],          
+          faceAmount: defFaceAmount.data[i],
           annualizedregularPayment: defAnnualizedRegularPayment.data[i],
-          regularPayment: defRegularPayment.data[i],          
+          regularPayment: defRegularPayment.data[i],
           annualizedplannedPremium: defAnnualizedPlanedPremium.data[i],
           plannedPremium: defPlannedPremium.data[i],
           withdrawal: defWithdrawal.data[i],

@@ -4,13 +4,17 @@ div.tablediv {
 }
 
 .highlight {
-    background-color: red
+    color: red;
+    
 }
 
 md-input-container label {
     color: red;
   }
-  
+  .editable {
+      color: blue;
+  }
+
   
   label.mat-input-placeholder {
     color: red;
