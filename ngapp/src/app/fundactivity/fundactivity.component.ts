@@ -18,24 +18,35 @@ export class FundactivityComponent {
   closeClick = false;
   errorYears = [];
   defVals = [];
+  fundAct = [];
 
-  getFA() {
-    let fa = this.input.filter(
-      fa => {
-        return fa.faceAmount || fa.regularPayment || fa.plannedPremium || fa.withdrawal
-      }
-    );
-    fa.forEach(
+  convertFA() {
+    this.fundAct = [];
+    this.FA.forEach(
       f => {
-        if (!fa.faceAmount) delete fa.faceAmount;
-        if (!fa.regularPayment) delete fa.regularPayment;
-        if (!fa.plannedPremium) delete fa.plannedPremium;
-        if (!fa.withdrawal) delete fa.withdrawal;
+        let existingFA = this.fundAct.find(
+          fa => fa.attainAge == f.attainAge
+        )
+        if(existingFA) {
+          existingFA[f.field] = f.value;
+        }
+        else {
+          let newFA = {
+            attainAge: f.attainAge
+          }
+          newFA[f.field] = f.value;
+          this.fundAct.push(
+            newFA
+          )
+        }
       }
     )
+  }
 
-    return fa;
-
+  getFA() {
+ 
+    return this.fundAct;
+ 
   }
 
   initInput = [];
@@ -199,6 +210,8 @@ export class FundactivityComponent {
   }
 
   close() {
+    this.convertFA();
+    console.log('FundAct', this.fundAct);
     this.closeClick = true;
     this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
     this.pe.validate();
