@@ -13,12 +13,13 @@ export class FundactivityComponent {
   validated = false;
   error = null;
   ds;
-  FA: any = [];
+  FA: any = [];  
   input: any = [];
   closeClick = false;
   errorYears = [];
   defVals = [];
   fundAct = [];
+  initFA = [];
 
   convertFA() {
     this.fundAct = [];
@@ -27,7 +28,7 @@ export class FundactivityComponent {
         let existingFA = this.fundAct.find(
           fa => fa.attainAge == f.attainAge
         )
-        if(existingFA) {
+        if (existingFA) {
           existingFA[f.field] = f.value;
         }
         else {
@@ -44,12 +45,10 @@ export class FundactivityComponent {
   }
 
   getFA() {
- 
     return this.fundAct;
- 
   }
 
-  initInput = [];
+ 
   actions = [];
 
   showValue(row, field, age?) {
@@ -106,10 +105,7 @@ export class FundactivityComponent {
     });
   }
 
-  rerun() {
-    this.input = JSON.parse(JSON.stringify(this.initInput));
-
-  }
+ 
 
   modifyFA(year, field, attainAge) {
     let cell = document.getElementById(year + '_' + field);
@@ -132,22 +128,19 @@ export class FundactivityComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
 
+    
 
-    this.FA = data.FA;
+    this.initFA = data.FA;
+    this.FA = [];
     this.ds = data.ds;
 
     let defFaceAmount = this.ds.dataSets.find(x => "colBasePlanFaceAmount" == (x.label));
     let defWithdrawal = this.ds.dataSets.find(x => "colWithdrawalLocal" == (x.label));
-
     let defRegularPayment = this.ds.dataSets.find(x => "colRegularPayment" == (x.label));
     let defPlannedPremium = this.ds.dataSets.find(x => "colPremium" == (x.label)); //need to be updated
-
     let defAnnualizedRegularPayment = this.ds.dataSets.find(x => "colRegularPremiums" == (x.label));
     let defAnnualizedPlanedPremium = this.ds.dataSets.find(x => "colPremium" == (x.label));
-
     let defAccountHigh = this.ds.dataSets.find(x => "colAccountHigh" == (x.label));
-
-
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
 
     ages.forEach(
@@ -200,8 +193,6 @@ export class FundactivityComponent {
         }
       }
     );
-
-    this.initInput = JSON.parse(JSON.stringify(this.input));
   }
 
 
@@ -210,8 +201,7 @@ export class FundactivityComponent {
   }
 
   close() {
-    this.convertFA();
-    console.log('FundAct', this.fundAct);
+    this.convertFA(); 
     this.closeClick = true;
     this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
     this.pe.validate();

@@ -10,9 +10,17 @@ import * as $ from 'jquery';
 export class DonutchartComponent implements OnInit {
   @Input()
   bs;
+  _data;
 
-  data;
+  set data(_data: any) {
+    this._data = _data;
+    //console.log(_data)
+    this.reset()
+  }
 
+  get data() {
+    return this._data;
+  }
 
 
   colors = ['lightblue', 'lightgreen', 'lightpink', 'RosyBrown', 'LightSalmon', 'MediumAquaMarine']
@@ -29,7 +37,6 @@ export class DonutchartComponent implements OnInit {
         this.updateDonutChart();
       }
     });
-
   }
 
 
@@ -53,11 +60,20 @@ export class DonutchartComponent implements OnInit {
 
 
   updateDonutChart() {
+    if (!this.data) return;
+    let data = this.data;
+
     this.donutChartData.labels = [...Object.keys(this.data), 'unallocated'];
+
+    var vals = Object.keys(data).map(function (key) {
+      return data[key];
+    });
+
     this.donutChartData.datasets = [{
-      data: [...Object.values(this.data), 10],
+      data: [...vals, 10],
       backgroundColor: this.colors
     }];
+
     let donutChartOption = {
       layout: {
         padding: 10
@@ -93,14 +109,14 @@ export class DonutchartComponent implements OnInit {
           last: undefined,
         },
         highlightScaleUp: 1.08, // define zoom value for highlighted arc
-        drawDonutArc: function(ctx, view, easingValue){
-          ctx.shadowColor = `rgba(0,0,0,${.4*easingValue})`;
-          ctx.shadowBlur = 30*easingValue;
-          ctx.shadowOffsetX = 2*easingValue;
-          ctx.shadowOffsetY = 2*easingValue;
+        drawDonutArc: function (ctx, view, easingValue) {
+          ctx.shadowColor = `rgba(0,0,0,${.4 * easingValue})`;
+          ctx.shadowBlur = 30 * easingValue;
+          ctx.shadowOffsetX = 2 * easingValue;
+          ctx.shadowOffsetY = 2 * easingValue;
           ctx.fillStyle = view.backgroundColor;
           ctx.beginPath();
-          ctx.arc(view.x, view.y, view.outerRadius * (1 + (this.highlightScaleUp-1) * easingValue), view.startAngle, view.endAngle);
+          ctx.arc(view.x, view.y, view.outerRadius * (1 + (this.highlightScaleUp - 1) * easingValue), view.startAngle, view.endAngle);
           ctx.arc(view.x, view.y, view.innerRadius, view.endAngle, view.startAngle, true);
           ctx.closePath();
           ctx.fill();
@@ -111,33 +127,33 @@ export class DonutchartComponent implements OnInit {
           ctx.shadowOffsetY = 0;
           ctx.beginPath();
           let wid = 0.2 * easingValue;
-          if (wid > view.circumference/2) wid = view.circumference/2;
+          if (wid > view.circumference / 2) wid = view.circumference / 2;
           let len = .2,
-              ang = (view.endAngle+view.startAngle)/2,
-              rad = view.innerRadius - (view.innerRadius*len*easingValue),
-              start_ang = ang-wid,
-              end_ang = ang+wid;
+            ang = (view.endAngle + view.startAngle) / 2,
+            rad = view.innerRadius - (view.innerRadius * len * easingValue),
+            start_ang = ang - wid,
+            end_ang = ang + wid;
           ctx.arc(view.x, view.y, view.innerRadius, start_ang, end_ang);
-          ctx.lineTo(view.x+ Math.cos(ang) *rad, view.y + Math.sin(ang) * rad);
+          ctx.lineTo(view.x + Math.cos(ang) * rad, view.y + Math.sin(ang) * rad);
           ctx.fill();
         },
-        drawChart: function(easingValue) {
+        drawChart: function (easingValue) {
           let ctx = this.chart.chart.ctx;
           ctx.save();
-          let scaledown = 1/this.highlightScaleUp;
+          let scaledown = 1 / this.highlightScaleUp;
           ctx.scale(scaledown, scaledown); // zoom out chart to prevent arc goes out of stage
-          ctx.translate(((1-scaledown)*this.outerRadius)/2,((1-scaledown)*this.outerRadius)/2); // center align
-          Chart.helpers.each(this.getMeta().data, (arc, index)=>{
+          ctx.translate(((1 - scaledown) * this.outerRadius) / 2, ((1 - scaledown) * this.outerRadius) / 2); // center align
+          Chart.helpers.each(this.getMeta().data, (arc, index) => {
             let vm = arc._view;
-            if (this.activeElements.last && 
-                index==this.activeElements.last._index && 
-                (this.activeElements.active && this.activeElements.active._index!=this.activeElements.last._index)
+            if (this.activeElements.last &&
+              index == this.activeElements.last._index &&
+              (this.activeElements.active && this.activeElements.active._index != this.activeElements.last._index)
             ) { // rollback last active element
-              this.drawDonutArc(ctx, this.activeElements.last._model, 1-easingValue);
+              this.drawDonutArc(ctx, this.activeElements.last._model, 1 - easingValue);
             }
-            else if (!this.activeElements.active || index!=this.activeElements.active._index) { // ignore active element
+            else if (!this.activeElements.active || index != this.activeElements.active._index) { // ignore active element
               let vm = arc._view;
-              ctx.fillStyle = vm.backgroundColor;  
+              ctx.fillStyle = vm.backgroundColor;
               ctx.beginPath();
               ctx.arc(vm.x, vm.y, vm.outerRadius, vm.startAngle, vm.endAngle);
               ctx.arc(vm.x, vm.y, vm.innerRadius, vm.endAngle, vm.startAngle, true);
@@ -145,13 +161,16 @@ export class DonutchartComponent implements OnInit {
               ctx.fill();
             }
           });
-          if (this.activeElements.active) this.drawDonutArc(ctx, this.activeElements.active._model, easingValue); // active element always on top 
+          if (this.activeElements.active)  {
+          this.drawDonutArc(ctx, this.activeElements.active._model, easingValue); // active element always on top 
+          console.log(this.activeElements.active._model);
+          }
           ctx.restore();
         },
-        draw: function(easingValue) {
-          if (this.chart.active && this.chart.active.length>0) {
+        draw: function (easingValue) {
+          if (this.chart.active && this.chart.active.length > 0) {
             let active = this.chart.active[0];
-            if (this.activeElements.active!=active){
+            if (this.activeElements.active != active) {
               this.activeElements.last = this.activeElements.active;
               this.activeElements.active = active;
             }
@@ -176,14 +195,30 @@ export class DonutchartComponent implements OnInit {
   }
 
   //setChartHighlight: set active element by Index dynamically
-  setChartHighlight(index) { 
+  setChartHighlight(index) {
+    if (!this.donutChart) return;
     let element = this.donutChart.data.datasets[0]._meta[0].data[index];
-    this.donutChart.active = [element]; 
+    this.donutChart.active = [element];
     this.donutChart.updateHoverStyle(this.donutChart.active, null, true);
-    this.donutChart.render(); 
+    this.donutChart.render();
   }
 
-  updateCenter(event,items) {
+  reset() {
+    if (!this.donutChart) return;
+    let previous = this.donutChart.active;
+    this.donutChart.active = [];
+    this.donutChart.updateHoverStyle(this.donutChart.active, null, true);
+    this.donutChart.render();
+    let donutChart = this.donutChart;
+
+    setTimeout((donutChart) => {
+      donutChart.active = previous;
+      donutChart.updateHoverStyle(donutChart.active, null, true);
+      donutChart.render();
+    }, 1500, this.donutChart);
+  }
+
+  updateCenter(event, items) {
     let chart: any = this.donutChart;
 
     if (items.length > 0) {
@@ -206,7 +241,7 @@ export class DonutchartComponent implements OnInit {
 
       let info = chart.data.labels[clickedElementindex] + ' <br> ' + chart.data.datasets["0"].data[clickedElementindex] + '%'
       $('#label').html(info);
-      $("#label").css({top: height/2, left: width/2, position:'absolute'});
+      $("#label").css({ top: height / 2, left: width / 2, position: 'absolute' });
     }
   }
 

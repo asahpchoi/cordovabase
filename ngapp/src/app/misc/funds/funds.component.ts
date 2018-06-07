@@ -40,12 +40,12 @@ export class FundsComponent {
     }
   }
   fundROI = {
-    VNAGR: [1.3,8.7],
-    VNGRW: [1.8,8.0],
-    VNBAL: [2.4,7.4],
-    VNDIV: [3.3,6.5],
-    VNFIX: [3.9,5.9],
-    VNMMK: [3,5],
+    VNAGR: [1.3, 8.7],
+    VNGRW: [1.8, 8.0],
+    VNBAL: [2.4, 7.4],
+    VNDIV: [3.3, 6.5],
+    VNFIX: [3.9, 5.9],
+    VNMMK: [3, 5],
   }
   fundsBS: BehaviorSubject<any> = new BehaviorSubject(this.input.funds);
   colors = ['lightblue', 'lightgreen', 'lightpink', 'RosyBrown', 'LightSalmon', 'MediumAquaMarine', 'green']
@@ -58,7 +58,7 @@ export class FundsComponent {
       this.agAllocation[1] += this.fundROI[f][1] * this.input.funds[f] / this.getTotalFunds();
     })
     this.agAllocation = this.agAllocation.map(
-      a => Math.round(a * 10 ) / 10 
+      a => Math.round(a * 10) / 10
     )
     return this.agAllocation;
   }
@@ -101,11 +101,6 @@ export class FundsComponent {
     )
     return ds;
   }
-
-
-
-
-
   updateCharts() {
     this.updateChart();
     this.updateAggAllocaiton();
@@ -148,6 +143,7 @@ export class FundsComponent {
 
       );
     }
+ 
   }
   constructor() {
 

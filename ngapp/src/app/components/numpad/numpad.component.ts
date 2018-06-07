@@ -35,7 +35,13 @@ export class NumpadComponent implements OnInit {
   }
   eventHandler(event) {
     console.log(event, event.keyCode, event.keyIdentifier);
-    this.pressKey(event.key)
+    if(event.key == 'Enter') {
+      this.close(false);
+    }
+    else {
+      this.pressKey(event.key)
+    }
+    
  } 
   pressKey(i) {
     if (this.first) {
