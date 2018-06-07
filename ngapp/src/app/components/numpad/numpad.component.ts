@@ -33,7 +33,10 @@ export class NumpadComponent implements OnInit {
       }
     }
   }
-
+  eventHandler(event) {
+    console.log(event, event.keyCode, event.keyIdentifier);
+    this.pressKey(event.key)
+ } 
   pressKey(i) {
     if (this.first) {
       this.data.number = '';

@@ -1,6 +1,6 @@
 <h3>{{data.field}}</h3>
-<div style="display:flex">
-<div style="width:240px">    
+<div style="display:flex" (keypress)="eventHandler($event)">
+  <div style="width:240px">
     <mat-form-field>
       <input matInput [(ngModel)]="data.number" readonly>
     </mat-form-field>
@@ -27,22 +27,21 @@
     </mat-form-field>
     <button mat-raised-button (click)="close(true)">Cancel</button>
     <button mat-raised-button (click)="close(false)">Ok</button>
-    
-</div>
-<div *ngIf="data.field=='regularPayment'">
-  <h3> Payment Breakdown</h3>
-  <br>
-  Planned Premium: 
-  <br>{{data.inputRef.plannedPremium}}
-  <br><br>
-  Term Premium: <br>{{data.inputRef.termplannedPremium}}
-  <br><br>
-  Rider Premium: <br>{{data.inputRef.riderPremium}}
-  <br><br>
-  Top up: <br>{{
-    (+data.number - +minPay() < 0 )? 0 :  +data.number - +minPay() 
-  }}
-  <button (click)="data.number = +minPay()">reset</button>
-</div>
-</div>
 
+  </div>
+  <div *ngIf="data.field=='regularPayment'">
+    <h3> Payment Breakdown</h3>
+    <br> Planned Premium:
+    <br>{{data.inputRef.plannedPremium}}
+    <br>
+    <br> Term Premium:
+    <br>{{data.inputRef.termplannedPremium}}
+    <br>
+    <br> Rider Premium:
+    <br>{{data.inputRef.riderPremium}}
+    <br>
+    <br> Top up:
+    <br>{{ (+data.number - +minPay()
+    < 0 )? 0 : +data.number - +minPay() }} <button (click)="data.number = +minPay()">reset</button>
+  </div>
+</div>
