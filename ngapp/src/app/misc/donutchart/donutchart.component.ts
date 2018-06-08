@@ -110,6 +110,10 @@ export class DonutchartComponent implements OnInit {
         },
         highlightScaleUp: 1.08, // define zoom value for highlighted arc
         drawDonutArc: function (ctx, view, easingValue) {
+          if(easingValue==1) {
+            console.log(view)
+          }
+          
           ctx.shadowColor = `rgba(0,0,0,${.4 * easingValue})`;
           ctx.shadowBlur = 30 * easingValue;
           ctx.shadowOffsetX = 2 * easingValue;
@@ -161,9 +165,9 @@ export class DonutchartComponent implements OnInit {
               ctx.fill();
             }
           });
-          if (this.activeElements.active)  {
-          this.drawDonutArc(ctx, this.activeElements.active._model, easingValue); // active element always on top 
-          console.log(this.activeElements.active._model);
+          if (this.activeElements.active) {
+            this.drawDonutArc(ctx, this.activeElements.active._model, easingValue); // active element always on top 
+            console.log(this.activeElements);
           }
           ctx.restore();
         },
@@ -213,7 +217,7 @@ export class DonutchartComponent implements OnInit {
 
     setTimeout((donutChart) => {
       donutChart.active = previous;
-      donutChart.updateHoverStyle(donutChart.active, null, true);
+      //donutChart.updateHoverStyle(donutChart.active, null, true);
       donutChart.render();
     }, 1500, this.donutChart);
   }

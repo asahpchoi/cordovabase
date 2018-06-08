@@ -1,0 +1,13 @@
+.selected { 
+    border-style: solid;
+    border-color: black;
+}
+
+.normal {
+    border-style: solid;
+    border-color: white; 
+}
+
+div {
+    padding: 2px;
+}

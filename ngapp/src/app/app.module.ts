@@ -50,6 +50,7 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
 import { MatListModule } from '@angular/material/list';
 import { ProposalReducer } from './stores/proposal-reducer'
 import { StoreModule } from '@ngrx/store';
+import { DonutchartPoCComponent } from './donutchart-po-c/donutchart-po-c.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -58,6 +59,8 @@ const appRoutes: Routes = [
   { path: 'compareChart', component: CompareChartsComponent },
   { path: 'reportChart', component: ReportChartComponent },
   { path: 'userlist', component: CustomerListComponent },
+  { path: 'DonutchartPoCComponent', component: DonutchartPoCComponent },
+  
   { path: '', component: InputchartComponent },
 
 ];
@@ -85,7 +88,8 @@ const appRoutes: Routes = [
     CompareChartsComponent,
     ReportChartComponent,
     FundactivityComponent,
-    CustomerListComponent
+    CustomerListComponent,
+    DonutchartPoCComponent
   ],
   imports: [
     BrowserModule,
@@ -115,6 +119,6 @@ const appRoutes: Routes = [
   ],
   providers: [PeService, UserService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent]
+  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent, DonutchartComponent]
 })
 export class AppModule { }
