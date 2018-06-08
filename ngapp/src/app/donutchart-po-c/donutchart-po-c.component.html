@@ -7,9 +7,9 @@
       <div *ngFor="let f of name; let i = index;" (click)="es=i; value=data[es]; update(true);" style="flex: 0 0 40%;display:flex;padding:5px;" [ngClass]="(i==es)?'selected':'normal'">        
         <div style="flex:1" [ngStyle]="{'background-color':colors[i]}"></div>
         <div style="flex:3">{{f}}</div>
-        <div style="flex:1">{{data[i]}}</div>
+        <div style="flex:1">{{data[i]}}%</div>
       </div>
     </div>
-    <mat-slider [(ngModel)]="value" (change)="updateData()" step=5 min=0 max=100></mat-slider>{{value}}
+    <mat-slider [(ngModel)]="value" (change)="updateData()" step=5 min=0 max=100></mat-slider>{{value}}%
   </div>
 </div>
