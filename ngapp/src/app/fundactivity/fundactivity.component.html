@@ -10,15 +10,16 @@
     <div class="tablediv">
       <h2>Fund Activities</h2>
       <table>
+ 
         <tr style="display:sticky">
           <th>Year / Age </th>
-          <th>Face Amount</th>
-          <th>Annualized Total Payment</th>
-          <th>Modal Total Payment</th>
-          <th>Annaulized Base Premium</th>
-          <th>Modal Base Premium</th>
-          <th>Withdrawal</th>
-          <th>Account Value</th>
+          <th>Face Amount (colBasePlanFaceAmount)</th>
+          <th>Annualized Total Payment (colRegularPremiums) </th>
+          <th>Modal Total Payment (colRegularPayment)</th>
+          <th>Annaulized Base Premium (colPremium)</th>
+          <th>Modal Base Premium (colPremium and need to be changed)</th>
+          <th>Withdrawal (colWithdrawalLocal)</th>
+          <th>Account Value (colAccountHigh)</th>
         </tr>
         <tr *ngFor="let row of defVals">
           <td [id]="row.year + '_year'">
