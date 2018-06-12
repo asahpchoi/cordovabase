@@ -139,7 +139,7 @@ export class FundactivityComponent {
     let defWithdrawal = this.ds.dataSets.find(x => "colWithdrawalLocal" == (x.label));
     let defRegularPayment = this.ds.dataSets.find(x => "colRegularPayment" == (x.label));
     let defPlannedPremium = this.ds.dataSets.find(x => "colPremium" == (x.label)); //need to be updated
-    let defAnnualizedRegularPayment = this.ds.dataSets.find(x => "colRegularPremiums" == (x.label));
+    let defAnnualizedRegularPayment = this.ds.dataSets.find(x => "colTotalPremium" == (x.label));
     let defAnnualizedPlanedPremium = this.ds.dataSets.find(x => "colPremium" == (x.label));
     let defAccountHigh = this.ds.dataSets.find(x => "colAccountHigh" == (x.label));
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
