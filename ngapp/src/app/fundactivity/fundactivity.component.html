@@ -1,7 +1,7 @@
 {{error | json}}
 
 <div style="display:flex">
-  <div style="width:70%">
+  <div style="width:80%">
     <div>
       <button mat-raised-button (click)="cancel()">Cancel</button>
       <button mat-raised-button (click)="close()">Confirm</button>
@@ -11,7 +11,6 @@
     <div class="tablediv">
       <h2>Fund Activities</h2>
       <table>
-
         <tr style="display:sticky">
           <th>Year / Age </th>
           <th>Face Amount (colBasePlanFaceAmount)</th>
@@ -47,11 +46,8 @@
           <td [id]="row.year + '_AccountHigh'">
             {{showValue(row, 'AccountHigh').value}}
           </td>
-
         </tr>
-
       </table>
-
     </div>
   </div>
   <div>
@@ -66,7 +62,6 @@
     <h2>Fund Activity</h2>
     <pre>
         {{fundAct|json}}
-      </pre>
-
+    </pre>
   </div>
 </div>

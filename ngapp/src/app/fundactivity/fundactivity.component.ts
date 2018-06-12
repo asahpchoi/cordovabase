@@ -13,7 +13,7 @@ export class FundactivityComponent {
   validated = false;
   error = null;
   ds;
-  FA: any = [];  
+  FA: any = [];
   input: any = [];
   closeClick = false;
   errorYears = [];
@@ -49,7 +49,7 @@ export class FundactivityComponent {
     return this.fundAct;
   }
 
- 
+
   actions = [];
 
   showValue(row, field, age?) {
@@ -61,23 +61,18 @@ export class FundactivityComponent {
     }
     else {
       let fa = this.FA.filter(x => x.field == field && x.attainAge == age);
-
-
       if (fa.length == 0) {
         return {
           value: row[field],
           class: ''
         }
-
       }
       else {
         return {
           value: fa[fa.length - 1].value,
           class: 'highlighted',
         }
-
       }
-
     }
   }
 
@@ -106,7 +101,7 @@ export class FundactivityComponent {
     });
   }
 
- 
+
 
   modifyFA(year, field, attainAge) {
     let cell = document.getElementById(year + '_' + field);
@@ -128,8 +123,6 @@ export class FundactivityComponent {
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
-
-    
 
     this.initFA = data.FA;
     this.FA = [];
@@ -175,13 +168,10 @@ export class FundactivityComponent {
       }
     )
 
-
-
     this.pe.validationSubject.subscribe(
       x => {
         this.error = x;
         if (!this.error) {
-
           return;
         }
         if (this.error.length == 0 && this.closeClick) {
@@ -202,7 +192,7 @@ export class FundactivityComponent {
   }
 
   close() {
-    this.convertFA(); 
+    this.convertFA();
     this.closeClick = true;
     this.pe.updateFundActivities(this.getFA(), this.pe.validationRequest);
     this.pe.validate();
@@ -214,7 +204,6 @@ export class FundactivityComponent {
 
   redoFA() {
     this.FA.push(this.redolist.pop());
-
   }
 }
 
