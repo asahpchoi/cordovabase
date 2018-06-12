@@ -20,6 +20,7 @@ export class FundactivityComponent {
   defVals = [];
   fundAct = [];
   initFA = [];
+  redolist = [];
 
   convertFA() {
     this.fundAct = [];
@@ -208,7 +209,12 @@ export class FundactivityComponent {
   }
 
   undoFA() {
-    this.FA.pop();
+    this.redolist.push(this.FA.pop());
+  }
+
+  redoFA() {
+    this.FA.push(this.redolist.pop());
+
   }
 }
 

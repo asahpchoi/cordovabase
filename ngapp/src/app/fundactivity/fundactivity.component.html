@@ -5,12 +5,13 @@
     <div>
       <button mat-raised-button (click)="cancel()">Cancel</button>
       <button mat-raised-button (click)="close()">Confirm</button>
-      <button mat-raised-button (click)="undoFA()">Undo</button>
+      <button mat-raised-button (click)="undoFA()" [disabled]="FA.length == 0">Undo</button>
+      <button mat-raised-button (click)="redoFA()" [disabled]="redolist.length == 0">Redo</button>
     </div>
     <div class="tablediv">
       <h2>Fund Activities</h2>
       <table>
- 
+
         <tr style="display:sticky">
           <th>Year / Age </th>
           <th>Face Amount (colBasePlanFaceAmount)</th>
@@ -57,6 +58,10 @@
     <h2>Input Change</h2>
     <pre>
       {{FA|json}}
+    </pre> =====================
+    <h2>Undo list</h2>
+    <pre>
+      {{redolist|json}}
     </pre> =====================
     <h2>Fund Activity</h2>
     <pre>
