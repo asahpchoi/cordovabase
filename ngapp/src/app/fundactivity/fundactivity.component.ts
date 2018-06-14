@@ -28,7 +28,7 @@ export class FundactivityComponent {
     this.FA.forEach(
       f => {
         let existingFA = this.fundAct.find(
-          fa => fa.attainAge == f.attainAge 
+          fa => fa.attainAge == f.attainAge
         )
         if (existingFA) {
           existingFA[f.field] = f.value;
@@ -53,7 +53,7 @@ export class FundactivityComponent {
 
   actions = [];
 
-  showValue(row, field, age?) {
+  showValue(row, field, age?, year?) {
     if (!age) { //display field
       return {
         value: row[field],
@@ -62,16 +62,25 @@ export class FundactivityComponent {
     }
     else {
       let fa = this.FA.filter(x => x.field == field && x.attainAge == age);
-      if (fa.length == 0) {
+
+      if (
+        fa.length == 0
+      ) {
+        let display = (
+          year < 4 && field == "plannedPremium" ||
+          year < 2 && field == "regularPayment" ||
+          year < 2 && field == "faceAmount" ||
+          year < 2 && field == "withdrawal"
+        ) ? '' : 'editable';
         return {
           value: row[field],
-          class: ''
+          class: display
         }
       }
       else {
         return {
           value: fa[fa.length - 1].value,
-          class: 'highlighted',
+          class: 'highlight',
         }
       }
     }
@@ -126,14 +135,14 @@ export class FundactivityComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         let multiple = result.year;
-        for(var i =0 ; i < multiple; i++) {
+        for (var i = 0; i < multiple; i++) {
           let fa =
-          {
-            year: year + i,
-            attainAge: attainAge + i,
-            field: field,
-            value: result.number
-          }
+            {
+              year: year + i,
+              attainAge: attainAge + i,
+              field: field,
+              value: result.number
+            }
           this.FA.push(fa);
         }
       }

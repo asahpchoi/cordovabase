@@ -27,22 +27,22 @@
           <td [id]="row.year + '_year'">
             {{showValue(row, 'year').value }} / {{showValue(row, 'age').value -1 }}
           </td>
-          <td [id]="row.year + '_faceAmount'" (click)="modifyFA(row.year, 'faceAmount', row.age)" [ngClass]="showValue(row, 'faceAmount', row.age).class?'highlight':'editable'">
+          <td [id]="row.year + '_faceAmount'" (click)="modifyFA(row.year, 'faceAmount', row.age)" [ngClass]="showValue(row, 'faceAmount', row.age, row.year).class">
             {{showValue(row, 'faceAmount', row.age).value}}
           </td>
           <td [id]="row.year + '_annualizedregularPayment'">
             {{showValue(row, 'annualizedregularPayment').value}}
           </td>
-          <td [id]="row.year + '_regularPayment'" (click)="modifyFA(row.year, 'regularPayment', row.age)" [ngClass]="showValue(row, 'regularPayment', row.age).class?'highlight':'editable'">
+          <td [id]="row.year + '_regularPayment'" (click)="modifyFA(row.year, 'regularPayment', row.age)" [ngClass]="showValue(row, 'regularPayment', row.age, row.year).class">
             {{showValue(row, 'regularPayment', row.age).value}}
           </td>
           <td [id]="row.year + '_annualizedplannedPremium'">
             {{showValue(row, 'annualizedplannedPremium').value}}
           </td>
-          <td [id]="row.year + '_plannedPremium'" (click)="modifyFA(row.year, 'plannedPremium', row.age)" [ngClass]="showValue(row, 'plannedPremium', row.age).class?'highlight':'editable'">
+          <td [id]="row.year + '_plannedPremium'" (click)="modifyFA(row.year, 'plannedPremium', row.age)" [ngClass]="showValue(row, 'plannedPremium', row.age, row.year).class">
             {{showValue(row, 'plannedPremium', row.age).value}}
           </td>
-          <td [id]="row.year + '_withdrawal'" (click)="modifyFA(row.year, 'withdrawal', row.age)" [ngClass]="showValue(row, 'withdrawal', row.age).class?'highlight':'editable'">
+          <td [id]="row.year + '_withdrawal'" (click)="modifyFA(row.year, 'withdrawal', row.age)" [ngClass]="showValue(row, 'withdrawal', row.age, row.year).class">
             {{showValue(row, 'withdrawal', row.age).value}}
           </td>
           <td [id]="row.year + '_AccountHigh'">
