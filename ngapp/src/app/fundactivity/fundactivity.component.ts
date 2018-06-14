@@ -28,14 +28,14 @@ export class FundactivityComponent {
     this.FA.forEach(
       f => {
         let existingFA = this.fundAct.find(
-          fa => fa.attainAge == f.attainAge
+          fa => fa.attainAge == f.attainAge 
         )
         if (existingFA) {
           existingFA[f.field] = f.value;
         }
         else {
           let newFA = {
-            attainAge: f.attainAge
+            attainAge: f.attainAge - 1
           }
           newFA[f.field] = f.value;
           this.fundAct.push(

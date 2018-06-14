@@ -25,7 +25,7 @@
         </tr>
         <tr *ngFor="let row of defVals">
           <td [id]="row.year + '_year'">
-            {{showValue(row, 'year').value}} / {{showValue(row, 'age').value}}
+            {{showValue(row, 'year').value }} / {{showValue(row, 'age').value -1 }}
           </td>
           <td [id]="row.year + '_faceAmount'" (click)="modifyFA(row.year, 'faceAmount', row.age)" [ngClass]="showValue(row, 'faceAmount', row.age).class?'highlight':'editable'">
             {{showValue(row, 'faceAmount', row.age).value}}
