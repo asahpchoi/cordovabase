@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import * as _ from 'lodash';
 import { PeService } from '../pe.service';
 import { NumpadComponent } from '../components/numpad/numpad.component';
+import { withModule } from '@angular/core/testing';
 
 @Component({
   selector: 'app-fundactivity',
@@ -104,16 +105,41 @@ export class FundactivityComponent {
 
 
   modifyFA(year, field, attainAge) {
+    if (
+      year < 4 && field == "plannedPremium" ||
+      year < 2 && field == "regularPayment" ||
+      year < 2 && field == "faceAmount" ||
+      year < 2 && field == "withdrawal"
+    )
+      return
+
     let cell = document.getElementById(year + '_' + field);
-    let value = prompt(field, cell.innerText);
-    let fa =
-      {
-        year: year,
-        attainAge: attainAge,
-        field: field,
-        value: value
+
+    let dialogRef = this.dialog.open(NumpadComponent, {
+      width: '250px',
+      data: {
+        number: cell.innerText + '',
+        year: 1,
+        multipleYear: (field == "withdrawal")
       }
-    this.FA.push(fa);
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        let multiple = result.year;
+        for(var i =0 ; i < multiple; i++) {
+          let fa =
+          {
+            year: year + i,
+            attainAge: attainAge + i,
+            field: field,
+            value: result.number
+          }
+          this.FA.push(fa);
+        }
+      }
+    });
+
+
   }
 
 
@@ -135,6 +161,8 @@ export class FundactivityComponent {
     let defAnnualizedRegularPayment = this.ds.dataSets.find(x => "colTotalPremium" == (x.label));
     let defAnnualizedPlanedPremium = this.ds.dataSets.find(x => "colPremium" == (x.label));
     let defAccountHigh = this.ds.dataSets.find(x => "colAccountHigh" == (x.label));
+    let defAccountLow = this.ds.dataSets.find(x => "colAccountLow" == (x.label));
+    let defAccountMedium = this.ds.dataSets.find(x => "colAccountMedium" == (x.label));
     let ages = this.ds.dataSets.find(x => x.label == "columnAge").data;
 
     ages.forEach(
@@ -149,6 +177,8 @@ export class FundactivityComponent {
           plannedPremium: defPlannedPremium.data[i],
           withdrawal: defWithdrawal.data[i],
           AccountHigh: defAccountHigh.data[i],
+          AccountLow: defAccountLow.data[i],
+          AccountMedium: defAccountMedium.data[i],
         }
         this.defVals.push(fa);
       }

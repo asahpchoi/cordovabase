@@ -19,7 +19,9 @@
           <th>Annaulized Base Premium (colPremium)</th>
           <th>Modal Base Premium (colPremium and need to be changed)</th>
           <th>Withdrawal (colWithdrawalLocal)</th>
-          <th>Account Value (colAccountHigh)</th>
+          <th>Account Value High (colAccountHigh)</th>
+          <th>Account Value Low (colAccountLow)</th>
+          <th>Account Value Medium (colAccountMedium)</th>
         </tr>
         <tr *ngFor="let row of defVals">
           <td [id]="row.year + '_year'">
@@ -45,6 +47,12 @@
           </td>
           <td [id]="row.year + '_AccountHigh'">
             {{showValue(row, 'AccountHigh').value}}
+          </td>
+          <td [id]="row.year + '_AccountLow'">
+            {{showValue(row, 'AccountLow').value}}
+          </td>
+          <td [id]="row.year + '_AccountMedium'">
+            {{showValue(row, 'AccountMedium').value}}
           </td>
         </tr>
       </table>

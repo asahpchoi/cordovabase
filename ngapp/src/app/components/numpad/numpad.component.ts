@@ -9,14 +9,14 @@ import { PeService } from '../../pe.service';
   styleUrls: ['./numpad.component.css']
 })
 export class NumpadComponent implements OnInit {
-
+  focusItem
   first = true;
   constructor(
     public dialogRef: MatDialogRef<NumpadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public pe: PeService) {
 
-
+      
   }
 
   minPay() {
@@ -35,19 +35,20 @@ export class NumpadComponent implements OnInit {
   }
   eventHandler(event) {
     console.log(event, event.keyCode, event.keyIdentifier);
-    if(event.key == 'Enter') {
+    if (event.key == 'Enter') {
       this.close(false);
     }
     else {
       this.pressKey(event.key)
     }
-    
- } 
+
+  }
   pressKey(i) {
     if (this.first) {
       this.data.number = '';
     }
     this.first = false;
+
     if (i == 'B') {
       this.data.number = this.data.number.substring(0, this.data.number.length - 1)
       return
