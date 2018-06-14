@@ -74,6 +74,20 @@ export class InputComponent implements OnInit {
 
         this.testcases = [
           {
+            name: 'RUV02',
+            payload: data.RUV02,
+            productType: 'RUV',
+            termRiderId: 'TRI07',
+            readOnlyFields: ["termPremium", "riderPremium"],
+            paymentModeFactor: {
+              "A": 1,
+              "S": 2,
+              "Q": 4,
+              "M": 12
+            }
+          }
+          ,
+          {
             name: 'UL007',
             payload: data.UL007,
             productType: 'UL',
@@ -247,7 +261,7 @@ export class InputComponent implements OnInit {
           )
 
           this.input.riderPremium = 0;
-          
+
           data.riders.filter(r => r.riderCode != this.selectedTestcase.termRiderId).forEach(
             r => {
               this.input.riderPremium += r.premiums.premiums.filter(p => p.paymentMode == this.input.paymentMode)[0].premium;
@@ -359,10 +373,10 @@ export class InputComponent implements OnInit {
     }
   }
   validate() {
-    
+
     this.updatePayload();
 
-     
+
     if (this.selectedTestcase.payload) {
       this.pe.validate(this.selectedTestcase.payload);
     }
@@ -370,7 +384,7 @@ export class InputComponent implements OnInit {
   changeValue(field) {
     let r = this.ranges[field]
 
-    let width = (field=='regularPayment')?'400px':'250px';
+    let width = (field == 'regularPayment') ? '400px' : '250px';
 
     let dialogRef = this.dialog.open(NumpadComponent, {
       width: width,
@@ -471,7 +485,7 @@ export class InputComponent implements OnInit {
   private updateRegularPaymentRange() {
     let min = +this.input.plannedPremium + +this.input.termplannedPremium + this.input.riderPremium;
     this.input.regularPayment = min;
-    
+
     this.ranges['regularPayment'].min = min;
     this.ranges['regularPayment'].hardMin = min;
   }
@@ -479,12 +493,13 @@ export class InputComponent implements OnInit {
     if (!this.selectedTestcase) return;
     let payload = this.selectedTestcase.payload;
 
-    payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;
+    payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;    
     payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
-    
-    
-    
-    if(this.selectedTestcase.name == "UL007") {
+
+    payload.owner.ownerAge = this.input.insuredAge;    
+    payload.owner.ownerSex = this.input.insuredSex;
+
+    if (this.selectedTestcase.name == "UL007") {
       payload.coverageInfo.plannedPremium = +this.input.plannedPremium;
       payload.coverageInfo.options.dbLevel = this.input.dbLevel;
     }

@@ -544,5 +544,138 @@
             }
         },
         "channel": "Agency"
+    },
+    "RUV02": {
+        "watchPoints": [],
+        "riders": {
+            "coverageInfo": []
+        },
+        "dependents": [],
+        "funds": {
+            "fundRecord": [
+                {
+                    "returnRate": 3.0000,
+                    "returnRateMedium": 4.0000,
+                    "returnRateHigh": 5.0000,
+                    "code": "VNMMK",
+                    "allocation": 20
+                },
+                {
+                    "returnRate": 3.0000,
+                    "returnRateMedium": 4.4500,
+                    "returnRateHigh": 5.9000,
+                    "code": "VNFIX",
+                    "allocation": 20
+                },
+                {
+                    "returnRate": 1.3000,
+                    "returnRateMedium": 5.0000,
+                    "returnRateHigh": 8.7000,
+                    "code": "VNAGR",
+                    "allocation": 15
+                },
+                {
+                    "returnRate": 1.8000,
+                    "returnRateMedium": 4.9000,
+                    "returnRateHigh": 8.0000,
+                    "code": "VNGRW",
+                    "allocation": 15
+                },
+                {
+                    "returnRate": 2.4000,
+                    "returnRateMedium": 4.9000,
+                    "returnRateHigh": 7.4000,
+                    "code": "VNBAL",
+                    "allocation": 15
+                },
+                {
+                    "returnRate": 3.3000,
+                    "returnRateMedium": 4.9000,
+                    "returnRateHigh": 6.5000,
+                    "code": "VNDIV",
+                    "allocation": 15
+                }
+            ]
+        },
+        "fundActivities": {
+            "fundActivity": []
+        },
+        "hideRiderColumns": false,
+        "owner": {
+            "ownerSex": "M",
+            "ownerId": "Nguyen A",
+            "ownerDOB": "19981111070000",
+            "ownerAge": 19,
+            "insuredIsOwner": true
+        },
+        "stopDebugYear": 3,
+        "startDebugYear": 0,
+        "sortRider": "N",
+        "reference": "PROP-000002338",
+        "policyYearDate": "20180612070000",
+        "policyExcludeSOS": "N",
+        "language": "en",
+        "enableDebug": true,
+        "displayEOYOnly": false,
+        "coverageInfo": {
+            "topUpPremium": null,
+            "startAnnuityAge": "0",
+            "prepayYear": 0,
+            "product": {
+                "productKey": {
+                    "valueDate": "20180612070000",
+                    "location": "VN",
+                    "basicProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "associateProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "primaryProduct": {
+                        "productPK": {
+                            "productId": "RUV02"
+                        }
+                    }
+                }
+            },
+            "parties": {
+                "party": {
+                    "type": "BASIC",
+                    "smokingStatus": "NS",
+                    "insuredSex": "M",
+                    "insuredId": "Nguyen A",
+                    "insuredAge": 19,
+                    "birthDate": "19981111070000"
+                }
+            },
+            "options": {
+                "paymentMode": null,
+                "fundWithdrawalsByPercentage": "N",
+                "dbLevel": "level",
+                "calculateSinglePremiumBand": "N",
+                "billingMethod": "DirectBilling"
+            },
+            "noOfInstallmentYear": 0,
+            "initialDumpIn": 0.00,
+            "faceAmount": null,
+            "extraRating": {
+                "tempPercentage": 1.00,
+                "tempPercentageDuration": 0,
+                "tempFlat": 0.00,
+                "tempFlatDuration": 0,
+                "percentageExtra": 1.00,
+                "flatExtra": 0.00
+            },
+            "currency": {
+                "currencyPK": {
+                    "currencyId": "VND"
+                }
+            }
+        },
+        "channel": "Agency"
     }
 }

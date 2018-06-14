@@ -61,6 +61,35 @@ export class ChartComponent {
   private productType;
   private viewOptions = [
     {
+      productType: "RUV",
+      views: [
+        {
+          viewType: "AV",
+          chart: 'colAccount%s',
+          scenario: ['Low', 'Medium', 'High'],
+          guarantedScenario: 'colAccountLow',
+          default: 'colAccountLow',
+          line: "colAccumulatePremiumsHigh"
+        }
+        ,
+        {
+          viewType: "DB",
+          chart: 'colTotalDb%s',
+          scenario: ['Low', 'Medium', 'High'],
+          default: 'colTotalDbLow',
+          line: "colAccumulatePremiumsHigh"
+        }
+        ,
+        {
+          viewType: "SV",
+          chart: 'colSurValue%s',
+          scenario: ['Low', 'Medium', 'High'],
+          default: 'colSurValueLow',
+          line: "colAccumulatePremiumsHigh"
+        }
+      ]
+    },    
+    {
       productType: "UL",
       views: [
         {
