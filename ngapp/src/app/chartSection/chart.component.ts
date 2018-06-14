@@ -243,6 +243,7 @@ export class ChartComponent {
         return data[pointIndex]._model.x;
       },
       renderVerticalLine: function (chartInstance, pointIndex) {
+        console.log(pointIndex);
 
         if (pointIndex == 0 || pointIndex == -Infinity || pointIndex == Infinity) return;
 
@@ -405,8 +406,8 @@ export class ChartComponent {
     let acs = areaData.map(x => x.label).filter(x => x.includes("colAccount")).map(x => x.replace("colAccount", "Lapse"));
 
 
-    let lapsedYear = this.ds.dataSets.filter(ds => acs.includes(ds.label));
-    //let lapsedYear = this.ds.dataSets.filter(ds => ds.label == "Lapse (LOW)");
+    //let lapsedYear = this.ds.dataSets.filter(ds => acs.includes(ds.label));
+    let lapsedYear = this.ds.dataSets.filter(ds => ds.label == "colPolicyLapseLow");
 
     if (lapsedYear == []) {
       this.lapsedYear = null;
