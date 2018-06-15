@@ -110,7 +110,8 @@ export class FundallocationComponent implements OnInit {
 
 
         let index = +ds["0"].explodeSection;
-
+        if(isNaN(index)) return;
+        
         let label = chart.config.data.labels[index];
         let value = ds["0"].data[index] + '%';
 
