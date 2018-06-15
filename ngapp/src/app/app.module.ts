@@ -64,6 +64,7 @@ const appRoutes: Routes = [
   { path: 'reportChart', component: ReportChartComponent },
   { path: 'userlist', component: CustomerListComponent },
   { path: 'Fundallocation', component: FundallocationComponent },
+  { path: 'draw', component: DrawingComponent },
   
   { path: '', component: InputchartComponent },
 

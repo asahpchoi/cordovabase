@@ -9,7 +9,7 @@ import { ConfigService } from '../config.service'
   styleUrls: ['./fundallocation.component.css']
 })
 export class FundallocationComponent implements OnInit {
-  es = 1;
+  es;
   config;
   value;
   ctx;
@@ -25,19 +25,51 @@ export class FundallocationComponent implements OnInit {
   ];
   allocation = [];
   name = []
+  selfund;
 
   planFunds;
 
   save() {
     this.name.pop();
-    
+
     this.name.forEach(
-      (n,i) => {
+      (n, i) => {
         this.data.allocation[n] = this.allocation[i];
       }
     )
     this.dialogRef.close(this.data);
   }
+
+  getAverage() {
+    let total_w = 0;
+    let av_high = 0;
+    let av_low = 0;
+
+    this.name.forEach(
+      (n, i) => {
+        let f = this.fundInfo(n);
+        if (f) {
+          let w = this.allocation[i];
+          total_w += w;
+          av_high += f.return.high * w;
+          av_low += f.return.low * w;
+        }
+      }
+    )
+
+    return {
+      low: av_low / total_w,
+      high: av_high / total_w,
+    }
+  }
+
+  fundInfo(fundcode) {
+    return this.planFunds.find(
+      x => x.FND_ID == fundcode
+    )
+  }
+
+
 
   constructor(
     public dialogRef: MatDialogRef<FundallocationComponent>,
@@ -47,6 +79,8 @@ export class FundallocationComponent implements OnInit {
     let planCode = data.planCode;
     let alloc = data.allocation;
     this.planFunds = cs.getConfig("funds");
+
+
     let unallocated = 100;
 
     console.log(this.planFunds)
@@ -266,6 +300,19 @@ export class FundallocationComponent implements OnInit {
 
 
   private update(redraw?) {
+    let labels = [];
+    this.name.forEach(
+      n => {
+        let f = this.fundInfo(n)
+        f = f ? f["FUND_NAME_ENG"] : "unallocated";
+
+        labels.push(
+          f
+        )
+      }
+    )
+ 
+
     this.config = {
       type: 'explodedPie',
       data: {
@@ -275,7 +322,7 @@ export class FundallocationComponent implements OnInit {
           explodeSection: +this.es,
           backgroundColor: this.colors
         }],
-        labels: this.name,
+        labels: labels,
       },
       options: {
         explosionSize: 10,
