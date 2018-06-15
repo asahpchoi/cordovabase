@@ -51,6 +51,10 @@ import { MatListModule } from '@angular/material/list';
 import { ProposalReducer } from './stores/proposal-reducer'
 import { StoreModule } from '@ngrx/store';
 import { DonutchartPoCComponent } from './donutchart-po-c/donutchart-po-c.component';
+import { FundallocationComponent } from './fundallocation/fundallocation.component';
+import { DrawingComponent } from './drawing/drawing.component';
+import { VoiceComponent } from './voice/voice.component';
+import { ConfigService } from './config.service';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -59,7 +63,7 @@ const appRoutes: Routes = [
   { path: 'compareChart', component: CompareChartsComponent },
   { path: 'reportChart', component: ReportChartComponent },
   { path: 'userlist', component: CustomerListComponent },
-  { path: 'DonutchartPoCComponent', component: DonutchartPoCComponent },
+  { path: 'Fundallocation', component: FundallocationComponent },
   
   { path: '', component: InputchartComponent },
 
@@ -89,7 +93,10 @@ const appRoutes: Routes = [
     ReportChartComponent,
     FundactivityComponent,
     CustomerListComponent,
-    DonutchartPoCComponent
+    DonutchartPoCComponent,
+    FundallocationComponent,
+    DrawingComponent,
+    VoiceComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +124,7 @@ const appRoutes: Routes = [
     ),
      
   ],
-  providers: [PeService, UserService],
+  providers: [PeService, UserService, ConfigService],
   bootstrap: [AppComponent],
   entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent, DonutchartComponent]
 })

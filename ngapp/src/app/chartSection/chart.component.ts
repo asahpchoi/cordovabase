@@ -65,10 +65,10 @@ export class ChartComponent {
       views: [
         {
           viewType: "AV",
-          chart: 'colAccount%s',
+          chart: 'colTopupAccount%s',
           scenario: ['Low', 'Medium', 'High'],
-          guarantedScenario: 'colAccountLow',
-          default: 'colAccountLow',
+          guarantedScenario: 'colTopupAccountLow',
+          default: 'colTopupAccountLow',
           line: "colAccumulatePremiumsHigh"
         }
         ,
@@ -88,7 +88,7 @@ export class ChartComponent {
           line: "colAccumulatePremiumsHigh"
         }
       ]
-    },    
+    },
     {
       productType: "UL",
       views: [

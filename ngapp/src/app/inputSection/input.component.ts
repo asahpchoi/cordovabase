@@ -78,7 +78,7 @@ export class InputComponent implements OnInit {
             payload: data.RUV02,
             productType: 'RUV',
             termRiderId: 'TRI07',
-            readOnlyFields: ["termPremium", "riderPremium"],
+            readOnlyFields: ["termPremium", "riderPremium", "regularPayment",'plannedPremium'],
             paymentModeFactor: {
               "A": 1,
               "S": 2,
@@ -493,10 +493,10 @@ export class InputComponent implements OnInit {
     if (!this.selectedTestcase) return;
     let payload = this.selectedTestcase.payload;
 
-    payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;    
+    payload.coverageInfo.parties.party.insuredAge = +this.input.insuredAge;
     payload.coverageInfo.parties.party.insuredSex = this.input.insuredSex;
 
-    payload.owner.ownerAge = this.input.insuredAge;    
+    payload.owner.ownerAge = this.input.insuredAge;
     payload.owner.ownerSex = this.input.insuredSex;
 
     if (this.selectedTestcase.name == "UL007") {
@@ -579,6 +579,7 @@ export class InputComponent implements OnInit {
           }
         ];
         break;
+      case "ENC12": payload.fundActivities.fundActivity = []; break;
       case "ENC12": payload.fundActivities.fundActivity = []; break;
     }
   }

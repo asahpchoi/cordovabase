@@ -9,6 +9,7 @@ import { NumpadComponent } from '../components/numpad/numpad.component';
 import { UlinputComponent } from '../ulinput/ulinput.component';
 import { debug } from 'util';
 import { FundactivityComponent } from '../fundactivity/fundactivity.component';
+import { FundallocationComponent } from '../fundallocation/fundallocation.component';
 
 @Component({
   selector: 'app-table',
@@ -43,6 +44,14 @@ export class TableComponent implements OnDestroy {
       "colBasePlanFaceAmount": true,
       "colPremium": true,
       "colRegularPayment": true,
+    },
+    allocation: {
+      VNAGR: 10,
+      VNBAL: 10,
+      VNDIV: 10,
+      VNFIX: 10,
+      VNGRW: 10,
+      VNMMK: 10,
     }
   }
   editorOptions;
@@ -114,6 +123,24 @@ export class TableComponent implements OnDestroy {
 
         this.projectionError = this.ds.validationResult;
 
+      }
+    )
+  }
+
+  inputFundAllocation() {
+    let dialogRef = this.dialog.open(FundallocationComponent, {
+      width: '80%',
+      height: '80%',
+      data: {        
+        allocation: this.input.allocation,
+        planCode: "RUX02"
+      }
+    });
+    dialogRef.afterClosed().subscribe(
+      fa => {
+        if (fa) {
+          console.log(fa)
+        }
       }
     )
   }
@@ -237,13 +264,14 @@ export class TableComponent implements OnDestroy {
 
   reloadColumnData() {
     this.allColumns = this.ds.dataSets.map(ds => ds.label);
-    this.updateFAinTable();
+    //this.updateFAinTable();
   }
 
   getDuration() {
     return +this.pe.projectionRequest.inputInfo.duration;
   }
 
+ 
   setDisplayColumns() {
     this.displayColumns = this.allColumns;
 
@@ -277,7 +305,7 @@ export class TableComponent implements OnDestroy {
     this.dt = _.zip(...ds);
     this.updateFAinTable();
   }
-
+ 
   showFirstColumn() {
     return this.firstColumn.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length - 1);
   }
@@ -296,6 +324,7 @@ export class TableComponent implements OnDestroy {
     return data.filter((d, i) => ((i + 1) % this.input.rowStep == 0) || i == 0 || i == this.firstColumn.length - 1);
   }
 
+  
   getClass(colName, yearAge, value) {
     let cellType: any = this.cellType(colName);
 
@@ -486,4 +515,5 @@ export class TableComponent implements OnDestroy {
     }
     return ""
   }
+ 
 }

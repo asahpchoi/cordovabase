@@ -1,0 +1,17 @@
+<div style="display: flex">
+  <div id="canvas" style="flex:3">
+    <canvas id="chart-area" (click)="clickChart($event)"></canvas>
+  </div>
+  <div style="flex:1">
+    <div style="display:flex; width:500px; flex-wrap: wrap">
+      <div *ngFor="let f of name; let i = index;" (click)="es=i; value=allocation[es]; update(true);" style="flex: 0 0 40%;display:flex;padding:5px;"
+        [ngClass]="(i==es)?'selected':'normal'">
+        <div style="flex:1" [ngStyle]="{'background-color':colors[i]}"></div>
+        <div style="flex:3">{{f}}</div>
+        <div style="flex:1">{{allocation[i]}}%</div>
+      </div>
+    </div>
+    <mat-slider [(ngModel)]="value" (change)="updateData()" step=5 min=0 max=100></mat-slider>{{value}}%
+  </div>
+</div>
+<button mat-raised-button (click)="save()">Save</button>
