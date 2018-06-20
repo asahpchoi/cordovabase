@@ -453,7 +453,6 @@ export class InputComponent implements OnInit {
           this.ranges.plannedPremium.min = Math.round(data.value.minLimit);
           this.ranges.plannedPremium.max = Math.round(data.value.maxLimit);
 
-          debugger;
           if (this.input.plannedPremium == 0 || forceChange) {
             this.input.plannedPremium = Math.round(data.value.defPremium);
             this.updateRegularPaymentRange();
