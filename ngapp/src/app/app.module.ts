@@ -55,6 +55,7 @@ import { FundallocationComponent } from './fundallocation/fundallocation.compone
 import { DrawingComponent } from './drawing/drawing.component';
 import { VoiceComponent } from './voice/voice.component';
 import { ConfigService } from './config.service';
+import { FundhistoryComponent } from './fundhistory/fundhistory.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -97,7 +98,8 @@ const appRoutes: Routes = [
     DonutchartPoCComponent,
     FundallocationComponent,
     DrawingComponent,
-    VoiceComponent
+    VoiceComponent,
+    FundhistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -127,6 +129,6 @@ const appRoutes: Routes = [
   ],
   providers: [PeService, UserService, ConfigService],
   bootstrap: [AppComponent],
-  entryComponents: [DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent, DonutchartComponent]
+  entryComponents: [FundhistoryComponent, DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent, DonutchartComponent]
 })
 export class AppModule { }

@@ -23,20 +23,20 @@ export class PeService {
   riders = [];
   proposals = [];
   t0;
-  
+
 
   //endpoint = 'https://product-engine-service.apps.ext.eas.pcf.manulife.com';
   //endpoint = 'https://product-engine-nodejs.apps.ext.eas.pcf.manulife.com/api/v1';
   endpoint = 'https://pe-nodejs-dev.apps.ext.eas.pcf.manulife.com/api/v1';
-  
+
   stopwatch(msg?) {
-    let t1 : any = new Date().getTime();
-    if(this.t0) {
-      if(msg) {
+    let t1: any = new Date().getTime();
+    if (this.t0) {
+      if (msg) {
         console.log(msg + " took " + (t1 - this.t0) + " milliseconds.")
       }
       else {
-      console.log("took " + (t1 - this.t0) + " milliseconds.")
+        console.log("took " + (t1 - this.t0) + " milliseconds.")
       }
     }
     this.t0 = t1;
@@ -69,7 +69,7 @@ export class PeService {
       "currencyId": "VND",
       "bpFaceAmount": bpFaceAmount
     }
-    
+
     return this.http
       .post(url, payload)
       .first();
@@ -95,7 +95,7 @@ export class PeService {
   }
 
   calculatePlannedPremiumRange(faceAmount, insuredAge, paymentMode, productId): Observable<any> {
-     
+
     let url = this.endpoint + '/product/functions/CalculatePlannedPremiumRangeUL007';
 
     let payload = {
@@ -133,18 +133,18 @@ export class PeService {
 
   }
 
-  updateFundActivities(acts, req:any): void {
- 
+  updateFundActivities(acts, req: any): void {
+
     let initialSetting = req.fundActivities.fundActivity.filter(
       fa => (fa["regularPayment"]) || (fa["regularPayment"] == 0)
     );
 
-    let tempfunds : any = [...initialSetting, ...acts];
-    let key: any = tempfunds.map(x => x.attainAge).filter((v, i, a) => a.indexOf(v) === i); 
+    let tempfunds: any = [...initialSetting, ...acts];
+    let key: any = tempfunds.map(x => x.attainAge).filter((v, i, a) => a.indexOf(v) === i);
     let results = [];
     key.forEach(
       k => {
-        let objs : any = tempfunds.filter(x=> x.attainAge == k);
+        let objs: any = tempfunds.filter(x => x.attainAge == k);
         let result = {};
         objs.forEach(
           o => {
@@ -153,23 +153,23 @@ export class PeService {
         )
         results.push(result);
       }
-    ) 
-    req.fundActivities.fundActivity = _.sortBy(results,"attainAge");
+    )
+    req.fundActivities.fundActivity = _.sortBy(results, "attainAge");
   }
 
   getFundActivities(): any {
     return JSON.parse(JSON.stringify(this.projectionRequest.fundActivities.fundActivity));
   }
 
-  validate(req?): void {    
+  validate(req?): void {
     if (req) this.validationRequest = req;
-    
-    if(!this.validationRequest) return;    
+
+    if (!this.validationRequest) return;
     this.validationSubject.next(null);
- 
-    this.makeValidationRequest(this.validationRequest).subscribe(r => { 
-      this.validationSubject.next(r); 
- 
+
+    this.makeValidationRequest(this.validationRequest).subscribe(r => {
+      this.validationSubject.next(r);
+
     });
 
   }
@@ -181,11 +181,11 @@ export class PeService {
 
 
     if (this.riders.length > 0) {
-      reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders] 
+      reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
     }
 
-    console.log('validation with Rider' , reqCopy, this.riders)
-    
+    console.log('validation with Rider', reqCopy, this.riders)
+
     return this.http
       .post(url, reqCopy)
       .first();
@@ -203,14 +203,14 @@ export class PeService {
 
     if (this.riders.length > 0) {
       reqCopy.riders.coverageInfo = [...reqCopy.riders.coverageInfo, ...this.riders]
- 
+
     }
     this.stopwatch();
     this.http
       .post(url, reqCopy)
       .subscribe(
         x => {
-          
+
           let rs = x['projections'][0]['columns'].map(
             c => {
               return {
@@ -222,16 +222,16 @@ export class PeService {
             }
           );
 
-          let projectionResult = 
-          {
-            labels: rs.filter(x => x.label == 'columnYear')[0].data.map(
-              (year, index) => {
-                return year + '/' + rs.filter(x => x.label == 'columnAge')[0].data[index];
-              }
-            ),
-            dataSets: rs,
-            validationResult: x['projections'][0].validationResult
-          };
+          let projectionResult =
+            {
+              labels: rs.filter(x => x.label == 'columnYear')[0].data.map(
+                (year, index) => {
+                  return year + '/' + rs.filter(x => x.label == 'columnAge')[0].data[index];
+                }
+              ),
+              dataSets: rs,
+              validationResult: x['projections'][0].validationResult
+            };
 
           this.proposals.push(projectionResult);
 
@@ -249,15 +249,15 @@ export class PeService {
     this.projectionRequest = req;
     this.productType = productType;
 
-    
- 
+
+
     this.makeValidationRequest(req).first().subscribe(
       r => {
         let result: any = r;
         if (result && result.length == 0) {
           this.callPEProjection();
-        }        
-        this.validationSubject.next(r); 
+        }
+        this.validationSubject.next(r);
       }
     );
 
@@ -289,7 +289,7 @@ export class PeService {
         x => {
           this.premiumSubject.next(x)
           this.stopwatch('Premium Calc');
-        }        
+        }
       );
   }
 }

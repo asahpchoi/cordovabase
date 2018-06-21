@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Chart } from 'chart.js';
 import { ConfigService } from '../config.service'
+import { FundhistoryComponent } from '../fundhistory/fundhistory.component';
 
 @Component({
   selector: 'app-fundallocation',
@@ -40,6 +41,18 @@ export class FundallocationComponent implements OnInit {
     this.dialogRef.close(this.data);
   }
 
+  openHistory() {
+
+
+    let f = this.planFunds.find(x => x.FND_ID == this.selfund);
+
+console.log(f)
+    let dialogRef = this.dialog.open(FundhistoryComponent, {
+      width: '400px',
+      data: f
+    });
+  }
+
   getAverage() {
     let total_w = 0;
     let av_high = 0;
@@ -74,7 +87,8 @@ export class FundallocationComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<FundallocationComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private cs: ConfigService
+    private cs: ConfigService,
+    private dialog: MatDialog
   ) {
     let planCode = data.planCode;
     let alloc = data.allocation;
@@ -110,8 +124,8 @@ export class FundallocationComponent implements OnInit {
 
 
         let index = +ds["0"].explodeSection;
-        if(isNaN(index)) return;
-        
+        if (isNaN(index)) return;
+
         let label = chart.config.data.labels[index];
         let value = ds["0"].data[index] + '%';
 
@@ -312,7 +326,7 @@ export class FundallocationComponent implements OnInit {
         )
       }
     )
- 
+
 
     this.config = {
       type: 'explodedPie',

@@ -19,6 +19,14 @@ export class ConfigService {
             , return: {
               high: 5,
               low: 3
+            }, history: {
+              2010: 0.1,
+              2011: -21.9,
+              2012: 24.7,
+              2013: 28.6,
+              2014: 8.3,
+              2015: 1,
+              2016: 14.3,
             }
           },
           {
@@ -31,6 +39,14 @@ export class ConfigService {
             , return: {
               high: 5.9,
               low: 3.9
+            }, history: {
+              2010: 3.5,
+              2011: -9,
+              2012: 17.9,
+              2013: 19.2,
+              2014: 9.1,
+              2015: 1.6,
+              2016: 10.7,
             }
 
           },
@@ -44,6 +60,8 @@ export class ConfigService {
             , return: {
               high: 6.5,
               low: 3.3
+            }, history: {
+
             }
 
           },
@@ -57,6 +75,8 @@ export class ConfigService {
             , return: {
               high: 7.4,
               low: 2.4
+            }, history: {
+
             }
 
           },
@@ -70,6 +90,14 @@ export class ConfigService {
             , return: {
               high: 8,
               low: 1.8
+            }, history: {
+              2010: 1.2,
+              2011: -15.3,
+              2012: 20.8,
+              2013: 23.2,
+              2014: 8.4,
+              2015: 1.3,
+              2016: 12.4,
             }
 
           },
@@ -83,6 +111,8 @@ export class ConfigService {
             , return: {
               high: 8.7,
               low: 1.3
+            }, history: {
+
             }
 
           },

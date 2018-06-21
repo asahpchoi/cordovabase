@@ -17,7 +17,7 @@
     <div *ngIf="fundInfo(selfund)">
       <h2>Fund Return</h2>
       <div>
-        {{fundInfo(selfund).return.low | number:'.2' }}% - {{fundInfo(selfund).return.high | number:'.2' }}%
+        {{fundInfo(selfund).return.low | number:'.2' }}% - {{fundInfo(selfund).return.high | number:'.2' }}%  <button mat-raised-button (click)="openHistory()" >?</button>
       </div>
     </div>
     <h2>Profolio Return:</h2>
