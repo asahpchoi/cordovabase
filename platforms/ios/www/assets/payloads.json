@@ -1,0 +1,681 @@
+{
+    "ENC12": {
+        "riders": {
+            "coverageInfo": []
+        },
+        "dependents": [],
+        "funds": {
+            "fundRecord": []
+        },
+        "fundActivities": {
+            "fundActivity": []
+        },
+        "owner": {
+            "ownerSex": "M",
+            "ownerId": "MINH, ENC12",
+            "ownerDOB": "19800101070000",
+            "ownerAge": 38,
+            "insuredIsOwner": false
+        },
+        "stopDebugYear": 99,
+        "startDebugYear": 0,
+        "sortRider": "N",
+        "reference": "PROP-000000929",
+        "policyYearDate": "20180503070000",
+        "policyExcludeSOS": "N",
+        "language": "en_vn",
+        "enableDebug": true,
+        "displayEOYOnly": false,
+        "coverageInfo": {
+            "startAnnuityAge": "0",
+            "prepayYear": 0,
+            "product": {
+                "productKey": {
+                    "valueDate": "20180503070000",
+                    "location": "VN",
+                    "basicProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "associateProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "primaryProduct": {
+                        "productPK": {
+                            "productId": "ENC12"
+                        }
+                    }
+                }
+            },
+            "parties": {
+                "party": {
+                    "type": "BASIC",
+                    "smokingStatus": "NS",
+                    "insuredSex": "M",
+                    "insuredId": "Insured",
+                    "insuredAge": null,
+                    "birthDate": "20170101070000"
+                }
+            },
+            "options": {
+                "paymentMode": "A",
+                "fundWithdrawalsByPercentage": "N",
+                "calculateSinglePremiumBand": "N",
+                "billingMethod": "DirectBilling"
+            },
+            "noOfInstallmentYear": 0,
+            "initialDumpIn": 0.00,
+            "faceAmount": null,
+            "extraRating": {
+                "tempPercentage": 1.00,
+                "tempPercentageDuration": 0,
+                "tempFlat": 0.00,
+                "tempFlatDuration": 0,
+                "percentageExtra": 1.00,
+                "flatExtra": 0.00
+            },
+            "currency": {
+                "currencyPK": {
+                    "currencyId": "VND"
+                }
+            }
+        },
+        "channel": "Agency"
+    },
+    "UL007": {
+        "watchPoints": [],
+        "dependents": [],
+        "funds": {
+            "fundRecord": [
+                {
+                    "returnRate": 4.0000,
+                    "returnRateMedium": 5.0000,
+                    "returnRateHigh": 7.0000,
+                    "code": "UL007",
+                    "allocation": 100
+                }
+            ]
+        },
+        "fundActivities": {
+            "fundActivity": null
+        },
+        "owner": {
+            "ownerSex": "M",
+            "ownerId": "PROJ, RIDER(ADD 800K)",
+            "ownerDOB": "19890101070000",
+            "ownerAge": 29,
+            "insuredIsOwner": false
+        },
+        "stopDebugYear": 10,
+        "startDebugYear": 0,
+        "sortRider": "N",
+        "reference": "PROP-000000659",
+        "policyYearDate": "20180313070000",
+        "policyExcludeSOS": "N",
+        "language": "en_vn",
+        "enableDebug": false,
+        "displayEOYOnly": false,
+        "riders": {
+            "coverageInfo": [
+                {
+                    "product": {
+                        "productKey": {
+                            "valueDate": "20180313070000",
+                            "location": "VN",
+                            "basicProduct": {
+                                "productPK": {
+                                    "productId": "--"
+                                }
+                            },
+                            "associateProduct": {
+                                "productPK": {
+                                    "productId": "UL007"
+                                }
+                            },
+                            "primaryProduct": {
+                                "productPK": {
+                                    "productId": "TRI07"
+                                }
+                            }
+                        }
+                    },
+                    "parties": {
+                        "party": {
+                            "type": "BASIC",
+                            "smokingStatus": "NS",
+                            "insuredSex": "M",
+                            "insuredId": "PROJ, STOP PAYMENT AT Y11",
+                            "insuredAge": 29,
+                            "birthDate": "19890101070000"
+                        }
+                    },
+                    "faceAmount": null,
+                    "extraRating": {
+                        "tempPercentage": 1.00,
+                        "percentageExtra": 1.00
+                    },
+                    "currency": {
+                        "currencyPK": {
+                            "currencyId": "VND"
+                        }
+                    }
+                }
+            ]
+        },
+        "coverageInfo": {
+            "startAnnuityAge": "0",
+            "prepayYear": 0,
+            "plannedPremium": 10000,
+            "product": {
+                "productKey": {
+                    "valueDate": "20180313070000",
+                    "location": "VN",
+                    "basicProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "associateProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "primaryProduct": {
+                        "productPK": {
+                            "productId": "UL007"
+                        }
+                    }
+                }
+            },
+            "parties": {
+                "party": {
+                    "type": "BASIC",
+                    "smokingStatus": "NS",
+                    "insuredSex": "M",
+                    "insuredId": "PROJ, STOP PAYMENT AT Y11",
+                    "insuredAge": 29,
+                    "birthDate": "19890101070000"
+                }
+            },
+            "options": {
+                "paymentMode": "A",
+                "fundWithdrawalsByPercentage": "N",
+                "dbLevel": "Increase",
+                "calculateSinglePremiumBand": "N",
+                "billingMethod": "DirectBilling"
+            },
+            "noOfInstallmentYear": 0,
+            "initialDumpIn": 0.00,
+            "faceAmount": 800000.00,
+            "extraRating": {
+                "tempPercentage": 1.00,
+                "tempPercentageDuration": 0,
+                "tempFlat": 0.00,
+                "tempFlatDuration": 0,
+                "percentageExtra": 1.00,
+                "flatExtra": 0.00
+            },
+            "currency": {
+                "currencyPK": {
+                    "currencyId": "VND"
+                }
+            }
+        },
+        "channel": "Agency"
+    },
+    "ENM15": {
+        "watchPoints": [],
+        "riders": {
+            "coverageInfo": [
+                {
+                    "otherOptions": {
+                        "coverageClass": "B"
+                    },
+                    "product": {
+                        "productKey": {
+                            "valueDate": "20180517070000",
+                            "location": "VN",
+                            "basicProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "associateProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "primaryProduct": {
+                                "productPK": {
+                                    "productId": "RHC1I"
+                                }
+                            }
+                        }
+                    },
+                    "parties": {
+                        "party": {
+                            "insuredAge": 10,
+                            "type": "BASIC",
+                            "smokingStatus": "NS",
+                            "insuredSex": "M",
+                            "insuredId": "CHI-ENM15-HCR",
+                            "birthDate": "20071212070000"
+                        }
+                    },
+                    "extraRating": {
+                        "tempPercentage": 1.00,
+                        "percentageExtra": 1.00
+                    },
+                    "currency": {
+                        "currencyPK": {
+                            "currencyId": "VND"
+                        }
+                    }
+                },
+                {
+                    "otherOptions": {
+                        "coverageClass": "B"
+                    },
+                    "product": {
+                        "productKey": {
+                            "valueDate": "20180517070000",
+                            "location": "VN",
+                            "basicProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "associateProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "primaryProduct": {
+                                "productPK": {
+                                    "productId": "RHC1O"
+                                }
+                            }
+                        }
+                    },
+                    "parties": {
+                        "party": {
+                            "insuredAge": 10,
+                            "type": "BASIC",
+                            "smokingStatus": "NS",
+                            "insuredSex": "M",
+                            "insuredId": "CHI-ENM15-HCR",
+                            "birthDate": "20071212070000"
+                        }
+                    },
+                    "extraRating": {
+                        "tempPercentage": 1.00,
+                        "percentageExtra": 1.00
+                    },
+                    "currency": {
+                        "currencyPK": {
+                            "currencyId": "VND"
+                        }
+                    }
+                },
+                {
+                    "otherOptions": {
+                        "coverageClass": "B"
+                    },
+                    "product": {
+                        "productKey": {
+                            "valueDate": "20180517070000",
+                            "location": "VN",
+                            "basicProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "associateProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "primaryProduct": {
+                                "productPK": {
+                                    "productId": "RHC1O"
+                                }
+                            }
+                        }
+                    },
+                    "parties": {
+                        "party": {
+                            "insuredAge": 27,
+                            "type": "SIBLINGS",
+                            "smokingStatus": "NS",
+                            "insuredSex": "F",
+                            "insuredId": "Tran Van B",
+                            "birthDate": "19901212070000"
+                        }
+                    },
+                    "extraRating": {
+                        "tempPercentage": 1.00,
+                        "percentageExtra": 1.00
+                    },
+                    "currency": {
+                        "currencyPK": {
+                            "currencyId": "VND"
+                        }
+                    }
+                },
+                {
+                    "otherOptions": {
+                        "coverageClass": "B"
+                    },
+                    "product": {
+                        "productKey": {
+                            "valueDate": "20180517070000",
+                            "location": "VN",
+                            "basicProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "associateProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "primaryProduct": {
+                                "productPK": {
+                                    "productId": "RHC1I"
+                                }
+                            }
+                        }
+                    },
+                    "parties": {
+                        "party": {
+                            "insuredAge": 27,
+                            "type": "SIBLINGS",
+                            "smokingStatus": "NS",
+                            "insuredSex": "F",
+                            "insuredId": "Tran Van B",
+                            "birthDate": "19901212070000"
+                        }
+                    },
+                    "extraRating": {
+                        "tempPercentage": 1.00,
+                        "percentageExtra": 1.00
+                    },
+                    "currency": {
+                        "currencyPK": {
+                            "currencyId": "VND"
+                        }
+                    }
+                },
+                {
+                    "otherOptions": {
+                        "coverageClass": "A"
+                    },
+                    "product": {
+                        "productKey": {
+                            "valueDate": "20180517070000",
+                            "location": "VN",
+                            "basicProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "associateProduct": {
+                                "productPK": {
+                                    "productId": "ENC12"
+                                }
+                            },
+                            "primaryProduct": {
+                                "productPK": {
+                                    "productId": "RHC1I"
+                                }
+                            }
+                        }
+                    },
+                    "parties": {
+                        "party": {
+                            "insuredAge": 62,
+                            "type": "SIBLINGS",
+                            "smokingStatus": "NS",
+                            "insuredSex": "M",
+                            "insuredId": "Huynh Van C",
+                            "birthDate": "19551212070000"
+                        }
+                    },
+                    "extraRating": {
+                        "tempPercentage": 1.00,
+                        "percentageExtra": 1.00
+                    },
+                    "currency": {
+                        "currencyPK": {
+                            "currencyId": "VND"
+                        }
+                    }
+                }
+            ]
+        },
+        "dependents": [
+            {
+                "relationToInsured": "04",
+                "birthdate": "19551212070000",
+                "dependentSex": "Male",
+                "dependentName": "Huynh Van C",
+                "dependentAge": 62
+            }
+        ],
+        "funds": {
+            "fundRecord": []
+        },
+        "fundActivities": {
+            "fundActivity": []
+        },
+        "owner": {
+            "ownerSex": "F",
+            "ownerId": "Tran Van B",
+            "ownerDOB": "19901212070000",
+            "ownerAge": 27,
+            "insuredIsOwner": false
+        },
+        "sortRider": "N",
+        "reference": "PROP-000001423",
+        "policyYearDate": "20180517070000",
+        "policyExcludeSOS": "N",
+        "language": "en_vn",
+        "enableDebug": false,
+        "displayEOYOnly": false,
+        "coverageInfo": {
+            "startAnnuityAge": "0",
+            "prepayYear": 0,
+            "product": {
+                "productKey": {
+                    "valueDate": "20180517070000",
+                    "location": "VN",
+                    "basicProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "associateProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "primaryProduct": {
+                        "productPK": {
+                            "productId": "ENM15"
+                        }
+                    }
+                }
+            },
+            "parties": {
+                "party": {
+                    "type": "BASIC",
+                    "smokingStatus": "NS",
+                    "insuredSex": "M",
+                    "insuredId": "CHI-ENM15-HCR",
+                    "insuredAge": 30,
+                    "birthDate": "19871212070000"
+                }
+            },
+            "options": {
+                "paymentMode": "A",
+                "fundWithdrawalsByPercentage": "N",
+                "calculateSinglePremiumBand": "N",
+                "billingMethod": "DirectBilling"
+            },
+            "noOfInstallmentYear": 0,
+            "initialDumpIn": 0.00,
+            "faceAmount": 600000.00,
+            "extraRating": {
+                "tempPercentage": 1.00,
+                "tempPercentageDuration": 0,
+                "tempFlat": 0.00,
+                "tempFlatDuration": 0,
+                "percentageExtra": 1.00,
+                "flatExtra": 0.00
+            },
+            "currency": {
+                "currencyPK": {
+                    "currencyId": "VND"
+                }
+            }
+        },
+        "channel": "Agency"
+    },
+    "RUV02": {
+        "watchPoints": [],
+        "riders": {
+            "coverageInfo": []
+        },
+        "dependents": [],
+        "funds": {
+            "fundRecord": [
+                {
+                    "returnRate": 3.0000,
+                    "returnRateMedium": 4.0000,
+                    "returnRateHigh": 5.0000,
+                    "code": "VNMMK",
+                    "allocation": 20
+                },
+                {
+                    "returnRate": 3.0000,
+                    "returnRateMedium": 4.4500,
+                    "returnRateHigh": 5.9000,
+                    "code": "VNFIX",
+                    "allocation": 20
+                },
+                {
+                    "returnRate": 1.3000,
+                    "returnRateMedium": 5.0000,
+                    "returnRateHigh": 8.7000,
+                    "code": "VNAGR",
+                    "allocation": 15
+                },
+                {
+                    "returnRate": 1.8000,
+                    "returnRateMedium": 4.9000,
+                    "returnRateHigh": 8.0000,
+                    "code": "VNGRW",
+                    "allocation": 15
+                },
+                {
+                    "returnRate": 2.4000,
+                    "returnRateMedium": 4.9000,
+                    "returnRateHigh": 7.4000,
+                    "code": "VNBAL",
+                    "allocation": 15
+                },
+                {
+                    "returnRate": 3.3000,
+                    "returnRateMedium": 4.9000,
+                    "returnRateHigh": 6.5000,
+                    "code": "VNDIV",
+                    "allocation": 15
+                }
+            ]
+        },
+        "fundActivities": {
+            "fundActivity": []
+        },
+        "hideRiderColumns": false,
+        "owner": {
+            "ownerSex": "M",
+            "ownerId": "Nguyen A",
+            "ownerDOB": "19981111070000",
+            "ownerAge": 19,
+            "insuredIsOwner": true
+        },
+        "stopDebugYear": 3,
+        "startDebugYear": 0,
+        "sortRider": "N",
+        "reference": "PROP-000002338",
+        "policyYearDate": "20180612070000",
+        "policyExcludeSOS": "N",
+        "language": "en",
+        "enableDebug": true,
+        "displayEOYOnly": false,
+        "coverageInfo": {
+            "topUpPremium": null,
+            "startAnnuityAge": "0",
+            "prepayYear": 0,
+            "product": {
+                "productKey": {
+                    "valueDate": "20180612070000",
+                    "location": "VN",
+                    "basicProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "associateProduct": {
+                        "productPK": {
+                            "productId": "--"
+                        }
+                    },
+                    "primaryProduct": {
+                        "productPK": {
+                            "productId": "RUV02"
+                        }
+                    }
+                }
+            },
+            "parties": {
+                "party": {
+                    "type": "BASIC",
+                    "smokingStatus": "NS",
+                    "insuredSex": "M",
+                    "insuredId": "Nguyen A",
+                    "insuredAge": 19,
+                    "birthDate": "19981111070000"
+                }
+            },
+            "options": {
+                "paymentMode": null,
+                "fundWithdrawalsByPercentage": "N",
+                "dbLevel": "level",
+                "calculateSinglePremiumBand": "N",
+                "billingMethod": "DirectBilling"
+            },
+            "noOfInstallmentYear": 0,
+            "initialDumpIn": 0.00,
+            "faceAmount": null,
+            "extraRating": {
+                "tempPercentage": 1.00,
+                "tempPercentageDuration": 0,
+                "tempFlat": 0.00,
+                "tempFlatDuration": 0,
+                "percentageExtra": 1.00,
+                "flatExtra": 0.00
+            },
+            "currency": {
+                "currencyPK": {
+                    "currencyId": "VND"
+                }
+            }
+        },
+        "channel": "Agency"
+    }
+}

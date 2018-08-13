@@ -1,0 +1,19 @@
+<div style="display:flex">
+  <mat-chip-list #selected>
+
+    <mat-chip *ngFor="let selectItem of selectItems">
+      {{labels[selectItem]}}
+      <mat-icon matChipRemove (click)="delete(selectItem)">cancel</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+
+  <button (click)="select()" mat-mini-fab>Add</button>
+</div>
+
+<div *ngIf="selecting" id="inputDiv">
+  <input [(ngModel)]="searchText" id="searchText" style="height: 20px;">
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let i of loaditems()" (click)="pick(i)">{{labels[i]}}
+    </mat-chip>
+  </mat-chip-list>
+</div>

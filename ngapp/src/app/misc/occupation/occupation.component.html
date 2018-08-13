@@ -1,27 +1,14 @@
-<mat-form-field>
-  <mat-select [placeholder]="getInsuredLabel()" [formControl]="insureds" multiple>
-    <mat-select-trigger>       
-      {{showInsured()}}    
-    </mat-select-trigger>    
-    <mat-option  value="primary">Primary Insured</mat-option>
-    <mat-option  value="secondary">Secondary Insured</mat-option>
-  </mat-select>
-</mat-form-field>
 
-<mat-card class="result">
-  <mat-card-content [@.disabled]="exp">
-    <h2 class="example-h2">Result</h2>
-    <section class="example-section">
-      <mat-checkbox class="example-margin" [(ngModel)]="vertical">Vertical</mat-checkbox>
-
-    </section>
-    <mat-slider value=10 [vertical]="vertical">
-    </mat-slider>
-  </mat-card-content>
-</mat-card>
-<mat-form-field>
-  <input matInput placeholder="Occupation Search" [(ngModel)]="searchText" id="searchText" (click)="search()">
-</mat-form-field>
-<mat-chip-list multiple=false>
-  <mat-chip (click)="select(o.id)" *ngFor="let o of mappedData |  searchText : searchText">{{o.label}}</mat-chip>
-</mat-chip-list>
+<div (click)="search()">
+  {{getOccupationName()}}
+</div>
+<div [ngStyle]="{'display':showSearch?'':'none'}">
+  <input [(ngModel)]="searchText" id="searchText" (click)="search()">
+  <div style="overflow-x: scroll;overflow-y: hidden">
+    <div style="background-color:white;width:1000px;height: 52px;display:flex;flex-direction: row">
+      <mat-chip-list multiple=false>
+        <mat-chip (click)="select(o.id)" *ngFor="let o of mappedData |  searchText : searchText">{{o.label}}</mat-chip>
+      </mat-chip-list>
+    </div>
+  </div>
+</div>

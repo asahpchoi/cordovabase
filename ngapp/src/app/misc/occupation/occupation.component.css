@@ -4,7 +4,16 @@ mat-chip {
 
 .mat-chip-list-wrapper {
   display: flex;
-  /* flex-direction: row; */
-  /* flex-wrap: wrap; */
   align-items: baseline;
+}
+
+.selList {
+  list-style: none;
+  width: 100%;
+  height: 90px;
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }

@@ -12,11 +12,13 @@
   "dependencies": {
     "cordova-browser": "^5.0.3",
     "cordova-ios": "^4.5.4",
+    "cordova-plugin-datepicker": "^0.9.3",
     "cordova-plugin-whitelist": "^1.3.3"
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-datepicker": {}
     },
     "platforms": [
       "ios",

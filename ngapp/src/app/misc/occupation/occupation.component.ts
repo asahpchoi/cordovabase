@@ -12,6 +12,7 @@ export class OccupationComponent implements OnInit {
   @Input() occupationId: string;
   @Output() occupationIdChange: EventEmitter<string> = new EventEmitter<string>();
   mappedData;
+  searchText;
   showSearch = false;
   input = {
     data:0
@@ -42,7 +43,6 @@ export class OccupationComponent implements OnInit {
   select(id) {
     this.occupationId = id;
     this.showSearch = false;
-
   }
   update() {
     this.input.data++
@@ -52,15 +52,15 @@ export class OccupationComponent implements OnInit {
   }
   search() {
     this.showSearch=true;
+    this.searchText = '';
     setTimeout(() => {
- 
-      let field : any =  document.getElementById("searchText");
-      field.focus();
-      field.setSelectionRange(0, field.value.length)
-    }, 300);
+
+       document.getElementById("searchText").focus();
+    }, 200, true);
 
   }
 
+ 
   getOccupationName() {
     let data = this.mappedData.filter(x => x.id == this.occupationId);
  

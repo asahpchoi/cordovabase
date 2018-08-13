@@ -1,0 +1,3 @@
+[submodule "poc/src/app/mnr-vn"]
+	path = poc/src/app/mnr-vn
+	url = https://github.com/asahpchoi/vn

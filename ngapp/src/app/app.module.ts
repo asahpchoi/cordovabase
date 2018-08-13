@@ -14,7 +14,7 @@ import { PeService } from './pe.service';
 import { InputComponent } from './inputSection/input.component';
 import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule, MatChip } from '@angular/material/chips';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationResultComponent } from './validationSection/validation-result.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -56,6 +56,7 @@ import { DrawingComponent } from './drawing/drawing.component';
 import { VoiceComponent } from './voice/voice.component';
 import { ConfigService } from './config.service';
 import { FundhistoryComponent } from './fundhistory/fundhistory.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -99,7 +100,10 @@ const appRoutes: Routes = [
     FundallocationComponent,
     DrawingComponent,
     VoiceComponent,
-    FundhistoryComponent
+    FundhistoryComponent,
+    AutocompleteComponent,
+      
+    
   ],
   imports: [
     BrowserModule,
@@ -121,6 +125,7 @@ const appRoutes: Routes = [
     MatButtonToggleModule,
     MatExpansionModule,
     MatListModule,
+    MatIconModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
