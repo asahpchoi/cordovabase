@@ -1,6 +1,6 @@
+<h1>Auto Complete</h1>
 <div style="display:flex">
   <mat-chip-list #selected>
-
     <mat-chip *ngFor="let selectItem of selectItems">
       {{labels[selectItem]}}
       <mat-icon matChipRemove (click)="delete(selectItem)">cancel</mat-icon>
@@ -9,11 +9,54 @@
 
   <button (click)="select()" mat-mini-fab>Add</button>
 </div>
-
-<div *ngIf="selecting" id="inputDiv">
+<div *ngIf="selecting" class="inputDiv">
   <input [(ngModel)]="searchText" id="searchText" style="height: 20px;">
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let i of loaditems()" (click)="pick(i)">{{labels[i]}}
     </mat-chip>
   </mat-chip-list>
+</div>
+
+
+<h1>Address</h1>
+<button (click)="searching=true"  mat-mini-fab>?</button>
+<div class="inputDiv" *ngIf="searching">
+    Search Address: <input [(ngModel)]="sel.searchText">
+    <mat-chip-list #chipList>
+      <mat-chip *ngFor="let i of getMatchItems()">
+        <span *ngIf="!i.districtId && !i.provinceId" (click)="sel = {searchText: sel.searchText, w: null, p: i.value, d: null}; sel.searchText = '';searching=false;">Province: {{i.display}}</span>
+        <span *ngIf="!i.districtId && i.provinceId" (click)="sel = {searchText: sel.searchText, w: null, p: i.provinceId, d: i.value}; sel.searchText = '';searching=false;">District: {{getPDisplay(i.provinceId)}} >> {{i.display}}</span>
+        <span *ngIf="i.districtId && i.provinceId" (click)="sel = {searchText: sel.searchText, w: i.value, p: i.provinceId, d: i.districtId}; sel.searchText = '';searching=false;">
+          Ward: {{getPDisplay(i.provinceId)}} >> {{getDDisplay(i.districtId, i.provinceId) }} >> {{i.display}}</span>
+      </mat-chip>
+    </mat-chip-list>
+</div>
+
+<div style="display:flex">
+  <div class="section">
+    Province
+
+    <mat-chip-list style="display:flex">
+      <mat-chip *ngFor="let p of addressmaster.provinces" (click)="sel.p=p.value;searching=false;" [selected]="sel.p==p.value">{{p.display}}</mat-chip>
+    </mat-chip-list>
+
+
+  </div>
+
+  <div class="section">
+    District
+    <mat-chip-list style="display:flex">
+      <mat-chip *ngFor="let d of getdistricts()" (click)="sel.d=d.value;searching=false;" [selected]="sel.d==d.value">{{d.display}}</mat-chip>
+    </mat-chip-list>
+
+
+  </div>
+  <div class="section">
+    Ward
+    <mat-chip-list style="display:flex">
+      <mat-chip *ngFor="let w of getwards()" (click)="sel.w=w.value;searching=false;" [selected]="sel.w==w.value">{{w.display}}</mat-chip>
+    </mat-chip-list>
+
+  </div>
+
 </div>

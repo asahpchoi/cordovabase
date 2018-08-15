@@ -2,7 +2,7 @@ mat-chip {
     padding: 5px;
 }
 
-#inputDiv {
+.inputDiv {
     width: 100%;
     height: 200px;
     position: absolute;
@@ -10,4 +10,10 @@ mat-chip {
     
     background-color: gray;
     opacity: 1;
+}
+
+.section {
+    border-style: solid;
+    padding:10px;
+    width: 30%;
 }
