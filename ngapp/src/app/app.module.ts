@@ -19,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationResultComponent } from './validationSection/validation-result.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SliderComponent } from './misc/slider/slider.component';
-import { InputchartComponent } from './mainSection/inputchart.component';
+ 
 import { MatSliderModule } from '@angular/material/slider';
 import { HammerCardComponent } from './misc/hammer-card/hammer-card.component';
 
@@ -57,6 +57,11 @@ import { VoiceComponent } from './voice/voice.component';
 import { ConfigService } from './config.service';
 import { FundhistoryComponent } from './fundhistory/fundhistory.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { NextComponent } from './next/next.component';
+import {MatRadioModule} from '@angular/material/radio';
+
+ 
+
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -67,8 +72,10 @@ const appRoutes: Routes = [
   { path: 'userlist', component: CustomerListComponent },
   { path: 'Fundallocation', component: FundallocationComponent },
   { path: 'draw', component: DrawingComponent },
-  
-  { path: '', component: InputchartComponent },
+  { path: 'autocomplete', component: AutocompleteComponent },
+  { path: 'input', component: InputComponent },
+  { path: 'next', component: NextComponent},
+  { path: '', component: AutocompleteComponent },
 
 ];
 
@@ -80,7 +87,7 @@ const appRoutes: Routes = [
     InputComponent,
     ValidationResultComponent,
     SliderComponent,
-    InputchartComponent,
+ 
     HammerCardComponent,
     FundsComponent,
     DonutchartComponent,
@@ -102,11 +109,13 @@ const appRoutes: Routes = [
     VoiceComponent,
     FundhistoryComponent,
     AutocompleteComponent,
-      
-    
+    NextComponent,
+
+
   ],
   imports: [
     BrowserModule,
+    MatRadioModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
     MatGridListModule,
@@ -130,7 +139,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     ),
-     
+
   ],
   providers: [PeService, UserService, ConfigService],
   bootstrap: [AppComponent],

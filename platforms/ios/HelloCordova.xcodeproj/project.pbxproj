@@ -18,6 +18,7 @@
 		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
 		69624697882F4549A3F3D06B /* DatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = D790E4FE800B456D8872A635 /* DatePicker.m */; };
 		D85F0485131A4CACA028B670 /* DatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D245EF549B544859D6F03C6 /* DatePicker.xib */; };
+		3D0E0C5718764596A110CF8B /* CDVIonicKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = AD27046379F34845B1B5BB26 /* CDVIonicKeyboard.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,8 @@
 		D790E4FE800B456D8872A635 /* DatePicker.m */ = {isa = PBXFileReference; name = "DatePicker.m"; path = "cordova-plugin-datepicker/DatePicker.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
 		D258A41549F246DA95E7512E /* DatePicker.h */ = {isa = PBXFileReference; name = "DatePicker.h"; path = "cordova-plugin-datepicker/DatePicker.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 		8D245EF549B544859D6F03C6 /* DatePicker.xib */ = {isa = PBXFileReference; name = "DatePicker.xib"; path = "DatePicker.xib"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = file.xib; explicitFileType = undefined; includeInIndex = 0; };
+		AD27046379F34845B1B5BB26 /* CDVIonicKeyboard.m */ = {isa = PBXFileReference; name = "CDVIonicKeyboard.m"; path = "cordova-plugin-ionic-keyboard/CDVIonicKeyboard.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		DAEBF7DF0051482DBA8AC170 /* CDVIonicKeyboard.h */ = {isa = PBXFileReference; name = "CDVIonicKeyboard.h"; path = "cordova-plugin-ionic-keyboard/CDVIonicKeyboard.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +170,8 @@
 			children = (
 				D790E4FE800B456D8872A635 /* DatePicker.m */,
 				D258A41549F246DA95E7512E /* DatePicker.h */,
+				AD27046379F34845B1B5BB26 /* CDVIonicKeyboard.m */,
+				DAEBF7DF0051482DBA8AC170 /* CDVIonicKeyboard.h */,
 			);
 			name = Plugins;
 			path = "HelloCordova/Plugins";
@@ -281,6 +286,7 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				69624697882F4549A3F3D06B /* DatePicker.m in Sources */,
+				3D0E0C5718764596A110CF8B /* CDVIonicKeyboard.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

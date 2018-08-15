@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { NumpadComponent } from '../components/numpad/numpad.component';
 import { HttpClient } from '@angular/common/http';
 import * as ts from "typescript";
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-input',
@@ -25,6 +26,17 @@ export class InputComponent implements OnInit {
     paymentMode: 'Annual',
     riderPremium: 0,
     dbLevel: 'Increase',
+  }
+
+  nextFields(object) {
+    let elements : any = document.getElementsByClassName("input");
+
+    for (let i=0; i< elements.length - 1; i++) {
+      let item = elements[i];
+      if(item.id == object.target.id) {
+        elements[i+1].focus();
+      }
+    }
   }
 
   ranges = {

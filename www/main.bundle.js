@@ -518,7 +518,7 @@ module.exports = "body, div{\n  font-family: 'Roboto', sans-serif;\n  font-size:
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>\n<body>\n<h1> Cordova test </h1>\n<app-autocomplete></app-autocomplete>\n</body>\n"
+module.exports = "<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>\n\n<body>\n    <nav>\n        <a routerLink=\"/autocomplete\" routerLinkActive=\"active\">Auto Complete</a>\n        <a routerLink=\"/next\" routerLinkActive=\"active\">Form fill</a>\n\n    </nav>\n    <router-outlet></router-outlet>\n</body>"
 
 /***/ }),
 
@@ -577,44 +577,46 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__validationSection_validation_result_component__ = __webpack_require__("./src/app/validationSection/validation-result.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__misc_slider_slider_component__ = __webpack_require__("./src/app/misc/slider/slider.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__mainSection_inputchart_component__ = __webpack_require__("./src/app/mainSection/inputchart.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_material_slider__ = __webpack_require__("./node_modules/@angular/material/esm5/slider.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__misc_hammer_card_hammer_card_component__ = __webpack_require__("./src/app/misc/hammer-card/hammer-card.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__misc_funds_funds_component__ = __webpack_require__("./src/app/misc/funds/funds.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__misc_donutchart_donutchart_component__ = __webpack_require__("./src/app/misc/donutchart/donutchart.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__angular_material_grid_list__ = __webpack_require__("./node_modules/@angular/material/esm5/grid-list.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__misc_occupation_occupation_component__ = __webpack_require__("./src/app/misc/occupation/occupation.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__misc_occupation_search_occupation_search_component__ = __webpack_require__("./src/app/misc/occupation-search/occupation-search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__misc_search_text_pipe__ = __webpack_require__("./src/app/misc/search-text.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__tableSection_table_component__ = __webpack_require__("./src/app/tableSection/table.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_material_slide_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/slide-toggle.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__angular_material_button_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/button-toggle.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_material_icon__ = __webpack_require__("./node_modules/@angular/material/esm5/icon.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_material_progress_bar__ = __webpack_require__("./node_modules/@angular/material/esm5/progress-bar.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_numpad_numpad_component__ = __webpack_require__("./src/app/components/numpad/numpad.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__angular_material_expansion__ = __webpack_require__("./node_modules/@angular/material/esm5/expansion.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_add_rider_add_rider_component__ = __webpack_require__("./src/app/components/add-rider/add-rider.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__addRiderSection_add_riders_component__ = __webpack_require__("./src/app/addRiderSection/add-riders.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__user_service__ = __webpack_require__("./src/app/user.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__ulinput_ulinput_component__ = __webpack_require__("./src/app/ulinput/ulinput.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__compare_charts_compare_charts_component__ = __webpack_require__("./src/app/compare-charts/compare-charts.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__report_chart_report_chart_component__ = __webpack_require__("./src/app/report-chart/report-chart.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__fundactivity_fundactivity_component__ = __webpack_require__("./src/app/fundactivity/fundactivity.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__customer_list_customer_list_component__ = __webpack_require__("./src/app/customer-list/customer-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__angular_material_list__ = __webpack_require__("./node_modules/@angular/material/esm5/list.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__donutchart_po_c_donutchart_po_c_component__ = __webpack_require__("./src/app/donutchart-po-c/donutchart-po-c.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__fundallocation_fundallocation_component__ = __webpack_require__("./src/app/fundallocation/fundallocation.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__drawing_drawing_component__ = __webpack_require__("./src/app/drawing/drawing.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__voice_voice_component__ = __webpack_require__("./src/app/voice/voice.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__config_service__ = __webpack_require__("./src/app/config.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__fundhistory_fundhistory_component__ = __webpack_require__("./src/app/fundhistory/fundhistory.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__ = __webpack_require__("./src/app/autocomplete/autocomplete.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_material_slider__ = __webpack_require__("./node_modules/@angular/material/esm5/slider.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__misc_hammer_card_hammer_card_component__ = __webpack_require__("./src/app/misc/hammer-card/hammer-card.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__misc_funds_funds_component__ = __webpack_require__("./src/app/misc/funds/funds.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__misc_donutchart_donutchart_component__ = __webpack_require__("./src/app/misc/donutchart/donutchart.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__angular_material_grid_list__ = __webpack_require__("./node_modules/@angular/material/esm5/grid-list.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__misc_occupation_occupation_component__ = __webpack_require__("./src/app/misc/occupation/occupation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__misc_occupation_search_occupation_search_component__ = __webpack_require__("./src/app/misc/occupation-search/occupation-search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__misc_search_text_pipe__ = __webpack_require__("./src/app/misc/search-text.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__tableSection_table_component__ = __webpack_require__("./src/app/tableSection/table.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__angular_material_slide_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/slide-toggle.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_material_button_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/button-toggle.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__angular_material_icon__ = __webpack_require__("./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_material_progress_bar__ = __webpack_require__("./node_modules/@angular/material/esm5/progress-bar.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_numpad_numpad_component__ = __webpack_require__("./src/app/components/numpad/numpad.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__angular_material_expansion__ = __webpack_require__("./node_modules/@angular/material/esm5/expansion.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_add_rider_add_rider_component__ = __webpack_require__("./src/app/components/add-rider/add-rider.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__addRiderSection_add_riders_component__ = __webpack_require__("./src/app/addRiderSection/add-riders.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__user_service__ = __webpack_require__("./src/app/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__ulinput_ulinput_component__ = __webpack_require__("./src/app/ulinput/ulinput.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__compare_charts_compare_charts_component__ = __webpack_require__("./src/app/compare-charts/compare-charts.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__report_chart_report_chart_component__ = __webpack_require__("./src/app/report-chart/report-chart.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__fundactivity_fundactivity_component__ = __webpack_require__("./src/app/fundactivity/fundactivity.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__customer_list_customer_list_component__ = __webpack_require__("./src/app/customer-list/customer-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__angular_material_list__ = __webpack_require__("./node_modules/@angular/material/esm5/list.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__donutchart_po_c_donutchart_po_c_component__ = __webpack_require__("./src/app/donutchart-po-c/donutchart-po-c.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__fundallocation_fundallocation_component__ = __webpack_require__("./src/app/fundallocation/fundallocation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__drawing_drawing_component__ = __webpack_require__("./src/app/drawing/drawing.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__voice_voice_component__ = __webpack_require__("./src/app/voice/voice.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__config_service__ = __webpack_require__("./src/app/config.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__fundhistory_fundhistory_component__ = __webpack_require__("./src/app/fundhistory/fundhistory.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__ = __webpack_require__("./src/app/autocomplete/autocomplete.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__next_next_component__ = __webpack_require__("./src/app/next/next.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__angular_material_radio__ = __webpack_require__("./node_modules/@angular/material/esm5/radio.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -670,14 +672,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var appRoutes = [
     { path: 'slider', component: __WEBPACK_IMPORTED_MODULE_19__misc_slider_slider_component__["a" /* SliderComponent */] },
-    { path: 'funds', component: __WEBPACK_IMPORTED_MODULE_23__misc_funds_funds_component__["a" /* FundsComponent */] },
-    { path: 'occupation', component: __WEBPACK_IMPORTED_MODULE_26__misc_occupation_occupation_component__["a" /* OccupationComponent */] },
-    { path: 'compareChart', component: __WEBPACK_IMPORTED_MODULE_40__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */] },
-    { path: 'reportChart', component: __WEBPACK_IMPORTED_MODULE_41__report_chart_report_chart_component__["a" /* ReportChartComponent */] },
-    { path: 'userlist', component: __WEBPACK_IMPORTED_MODULE_43__customer_list_customer_list_component__["a" /* CustomerListComponent */] },
-    { path: 'Fundallocation', component: __WEBPACK_IMPORTED_MODULE_46__fundallocation_fundallocation_component__["a" /* FundallocationComponent */] },
-    { path: 'draw', component: __WEBPACK_IMPORTED_MODULE_47__drawing_drawing_component__["a" /* DrawingComponent */] },
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_20__mainSection_inputchart_component__["a" /* InputchartComponent */] },
+    { path: 'funds', component: __WEBPACK_IMPORTED_MODULE_22__misc_funds_funds_component__["a" /* FundsComponent */] },
+    { path: 'occupation', component: __WEBPACK_IMPORTED_MODULE_25__misc_occupation_occupation_component__["a" /* OccupationComponent */] },
+    { path: 'compareChart', component: __WEBPACK_IMPORTED_MODULE_39__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */] },
+    { path: 'reportChart', component: __WEBPACK_IMPORTED_MODULE_40__report_chart_report_chart_component__["a" /* ReportChartComponent */] },
+    { path: 'userlist', component: __WEBPACK_IMPORTED_MODULE_42__customer_list_customer_list_component__["a" /* CustomerListComponent */] },
+    { path: 'Fundallocation', component: __WEBPACK_IMPORTED_MODULE_45__fundallocation_fundallocation_component__["a" /* FundallocationComponent */] },
+    { path: 'draw', component: __WEBPACK_IMPORTED_MODULE_46__drawing_drawing_component__["a" /* DrawingComponent */] },
+    { path: 'autocomplete', component: __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
+    { path: 'input', component: __WEBPACK_IMPORTED_MODULE_12__inputSection_input_component__["a" /* InputComponent */] },
+    { path: 'next', component: __WEBPACK_IMPORTED_MODULE_51__next_next_component__["a" /* NextComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -691,34 +696,35 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_12__inputSection_input_component__["a" /* InputComponent */],
                 __WEBPACK_IMPORTED_MODULE_17__validationSection_validation_result_component__["a" /* ValidationResultComponent */],
                 __WEBPACK_IMPORTED_MODULE_19__misc_slider_slider_component__["a" /* SliderComponent */],
-                __WEBPACK_IMPORTED_MODULE_20__mainSection_inputchart_component__["a" /* InputchartComponent */],
-                __WEBPACK_IMPORTED_MODULE_22__misc_hammer_card_hammer_card_component__["a" /* HammerCardComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__misc_funds_funds_component__["a" /* FundsComponent */],
-                __WEBPACK_IMPORTED_MODULE_24__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */],
-                __WEBPACK_IMPORTED_MODULE_26__misc_occupation_occupation_component__["a" /* OccupationComponent */],
-                __WEBPACK_IMPORTED_MODULE_27__misc_occupation_search_occupation_search_component__["a" /* OccupationSearchComponent */],
-                __WEBPACK_IMPORTED_MODULE_28__misc_search_text_pipe__["a" /* SearchTextPipe */],
-                __WEBPACK_IMPORTED_MODULE_29__tableSection_table_component__["a" /* TableComponent */],
-                __WEBPACK_IMPORTED_MODULE_34__components_numpad_numpad_component__["a" /* NumpadComponent */],
-                __WEBPACK_IMPORTED_MODULE_36__components_add_rider_add_rider_component__["a" /* AddRiderComponent */],
-                __WEBPACK_IMPORTED_MODULE_37__addRiderSection_add_riders_component__["a" /* AddRidersComponent */],
-                __WEBPACK_IMPORTED_MODULE_39__ulinput_ulinput_component__["a" /* UlinputComponent */],
-                __WEBPACK_IMPORTED_MODULE_40__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */],
-                __WEBPACK_IMPORTED_MODULE_41__report_chart_report_chart_component__["a" /* ReportChartComponent */],
-                __WEBPACK_IMPORTED_MODULE_42__fundactivity_fundactivity_component__["a" /* FundactivityComponent */],
-                __WEBPACK_IMPORTED_MODULE_43__customer_list_customer_list_component__["a" /* CustomerListComponent */],
-                __WEBPACK_IMPORTED_MODULE_45__donutchart_po_c_donutchart_po_c_component__["a" /* DonutchartPoCComponent */],
-                __WEBPACK_IMPORTED_MODULE_46__fundallocation_fundallocation_component__["a" /* FundallocationComponent */],
-                __WEBPACK_IMPORTED_MODULE_47__drawing_drawing_component__["a" /* DrawingComponent */],
-                __WEBPACK_IMPORTED_MODULE_48__voice_voice_component__["a" /* VoiceComponent */],
-                __WEBPACK_IMPORTED_MODULE_50__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */],
-                __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */],
+                __WEBPACK_IMPORTED_MODULE_21__misc_hammer_card_hammer_card_component__["a" /* HammerCardComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__misc_funds_funds_component__["a" /* FundsComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */],
+                __WEBPACK_IMPORTED_MODULE_25__misc_occupation_occupation_component__["a" /* OccupationComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__misc_occupation_search_occupation_search_component__["a" /* OccupationSearchComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__misc_search_text_pipe__["a" /* SearchTextPipe */],
+                __WEBPACK_IMPORTED_MODULE_28__tableSection_table_component__["a" /* TableComponent */],
+                __WEBPACK_IMPORTED_MODULE_33__components_numpad_numpad_component__["a" /* NumpadComponent */],
+                __WEBPACK_IMPORTED_MODULE_35__components_add_rider_add_rider_component__["a" /* AddRiderComponent */],
+                __WEBPACK_IMPORTED_MODULE_36__addRiderSection_add_riders_component__["a" /* AddRidersComponent */],
+                __WEBPACK_IMPORTED_MODULE_38__ulinput_ulinput_component__["a" /* UlinputComponent */],
+                __WEBPACK_IMPORTED_MODULE_39__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */],
+                __WEBPACK_IMPORTED_MODULE_40__report_chart_report_chart_component__["a" /* ReportChartComponent */],
+                __WEBPACK_IMPORTED_MODULE_41__fundactivity_fundactivity_component__["a" /* FundactivityComponent */],
+                __WEBPACK_IMPORTED_MODULE_42__customer_list_customer_list_component__["a" /* CustomerListComponent */],
+                __WEBPACK_IMPORTED_MODULE_44__donutchart_po_c_donutchart_po_c_component__["a" /* DonutchartPoCComponent */],
+                __WEBPACK_IMPORTED_MODULE_45__fundallocation_fundallocation_component__["a" /* FundallocationComponent */],
+                __WEBPACK_IMPORTED_MODULE_46__drawing_drawing_component__["a" /* DrawingComponent */],
+                __WEBPACK_IMPORTED_MODULE_47__voice_voice_component__["a" /* VoiceComponent */],
+                __WEBPACK_IMPORTED_MODULE_49__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */],
+                __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */],
+                __WEBPACK_IMPORTED_MODULE_51__next_next_component__["a" /* NextComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_52__angular_material_radio__["a" /* MatRadioModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_30__angular_material_slide_toggle__["a" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_25__angular_material_grid_list__["a" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_29__angular_material_slide_toggle__["a" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_24__angular_material_grid_list__["a" /* MatGridListModule */],
                 __WEBPACK_IMPORTED_MODULE_8__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_14__angular_flex_layout__["a" /* FlexLayoutModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material_chips__["a" /* MatChipsModule */],
@@ -726,21 +732,21 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["d" /* MatCheckboxModule */],
                 __WEBPACK_IMPORTED_MODULE_13__angular_material_select__["a" /* MatSelectModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["b" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_5__angular_material__["d" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material_form_field__["c" /* MatFormFieldModule */], __WEBPACK_IMPORTED_MODULE_7__angular_material_input__["b" /* MatInputModule */], __WEBPACK_IMPORTED_MODULE_9__angular_material_dialog__["c" /* MatDialogModule */],
-                __WEBPACK_IMPORTED_MODULE_16__angular_forms__["d" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_16__angular_forms__["i" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_21__angular_material_slider__["a" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_16__angular_forms__["e" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_16__angular_forms__["j" /* ReactiveFormsModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material_slider__["a" /* MatSliderModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["c" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material_icon__["a" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_33__angular_material_progress_bar__["a" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material_button_toggle__["a" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_35__angular_material_expansion__["a" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_44__angular_material_list__["a" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material_icon__["a" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material_icon__["a" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material_progress_bar__["a" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_30__angular_material_button_toggle__["a" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_34__angular_material_expansion__["a" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_43__angular_material_list__["a" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material_icon__["a" /* MatIconModule */],
                 __WEBPACK_IMPORTED_MODULE_18__angular_router__["a" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
                 ),
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_11__pe_service__["a" /* PeService */], __WEBPACK_IMPORTED_MODULE_38__user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_49__config_service__["a" /* ConfigService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_11__pe_service__["a" /* PeService */], __WEBPACK_IMPORTED_MODULE_37__user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_48__config_service__["a" /* ConfigService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]],
-            entryComponents: [__WEBPACK_IMPORTED_MODULE_50__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */], __WEBPACK_IMPORTED_MODULE_6__misc_dialogsample_dialogsample_component__["a" /* DialogsampleComponent */], __WEBPACK_IMPORTED_MODULE_34__components_numpad_numpad_component__["a" /* NumpadComponent */], __WEBPACK_IMPORTED_MODULE_36__components_add_rider_add_rider_component__["a" /* AddRiderComponent */], __WEBPACK_IMPORTED_MODULE_39__ulinput_ulinput_component__["a" /* UlinputComponent */], __WEBPACK_IMPORTED_MODULE_42__fundactivity_fundactivity_component__["a" /* FundactivityComponent */], __WEBPACK_IMPORTED_MODULE_24__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */]]
+            entryComponents: [__WEBPACK_IMPORTED_MODULE_49__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */], __WEBPACK_IMPORTED_MODULE_6__misc_dialogsample_dialogsample_component__["a" /* DialogsampleComponent */], __WEBPACK_IMPORTED_MODULE_33__components_numpad_numpad_component__["a" /* NumpadComponent */], __WEBPACK_IMPORTED_MODULE_35__components_add_rider_add_rider_component__["a" /* AddRiderComponent */], __WEBPACK_IMPORTED_MODULE_38__ulinput_ulinput_component__["a" /* UlinputComponent */], __WEBPACK_IMPORTED_MODULE_41__fundactivity_fundactivity_component__["a" /* FundactivityComponent */], __WEBPACK_IMPORTED_MODULE_23__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */]]
         })
     ], AppModule);
     return AppModule;
@@ -753,14 +759,14 @@ var AppModule = /** @class */ (function () {
 /***/ "./src/app/autocomplete/autocomplete.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "mat-chip {\n    padding: 5px;\n}\n\n#inputDiv {\n    width: 100%;\n    height: 200px;\n    position: absolute;\n    top: 0px;\n    \n    background-color: gray;\n    opacity: 1;\n}"
+module.exports = "mat-chip {\n    padding: 5px;\n}\n\n.inputDiv {\n    width: 100%;\n    height: 200px;\n    position: absolute;\n    top: 0px;\n    \n    background-color: gray;\n    opacity: 1;\n}\n\n.section {\n    border-style: solid;\n    padding:10px;\n    width: 30%;\n}"
 
 /***/ }),
 
 /***/ "./src/app/autocomplete/autocomplete.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-chip-list #selected>\n\n  <mat-chip *ngFor=\"let selectItem of selectItems\">\n    {{labels[selectItem]}}\n    <mat-icon matChipRemove (click)=\"delete(selectItem)\">cancel</mat-icon>\n  </mat-chip>\n</mat-chip-list>\n\n<button (click)=\"select()\" mat-mini-fab>Add</button>\n<div *ngIf=\"selecting\" id=\"inputDiv\">\n  <input [(ngModel)]=\"searchText\" id=\"searchText\" style=\"height: 20px;\">\n  <mat-chip-list #chipList>\n    <mat-chip *ngFor=\"let i of loaditems()\" (click)=\"pick(i)\">{{labels[i]}}\n    </mat-chip>\n  </mat-chip-list>\n</div>"
+module.exports = " \n<h1>Auto Complete</h1>\n<div style=\"display:flex\">\n\n  <mat-chip-list #selected>\n    <mat-chip *ngFor=\"let selectItem of selectItems\">\n      {{labels[selectItem]}}\n      <mat-icon matChipRemove (click)=\"delete(selectItem)\" >cancel</mat-icon>\n    </mat-chip>\n  </mat-chip-list>\n\n  <button (click)=\"select()\" mat-mini-fab>Add</button>\n</div>\n<div *ngIf=\"selecting\" class=\"inputDiv\">\n  <input [(ngModel)]=\"searchText\" id=\"searchText\" style=\"height: 20px;\" (keyup.Enter)=\"onEnter($event)\" #box>\n\n  <mat-chip-list #chipList>\n    <mat-chip *ngFor=\"let i of loaditems()\" (click)=\"pick(i)\">{{labels[i]}}\n    </mat-chip>\n  </mat-chip-list>\n\n</div>\n<h1>Address</h1>\n<button (click)=\"search2();\" mat-mini-fab>?</button>\n<div class=\"inputDiv\" *ngIf=\"searching\">\n  Search Address:\n  <input [(ngModel)]=\"sel.searchText\" id=\"searchText2\">\n\n  <mat-chip-list #chipList>\n    <mat-chip *ngFor=\"let i of getMatchItems()\">\n      <span *ngIf=\"!i.districtId && !i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: null, p: i.value, d: null}; sel.searchText = '';searching=false;\">Province: {{i.display}}</span>\n      <span *ngIf=\"!i.districtId && i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: null, p: i.provinceId, d: i.value}; sel.searchText = '';searching=false;\">District: {{getPDisplay(i.provinceId)}} >> {{i.display}}</span>\n      <span *ngIf=\"i.districtId && i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: i.value, p: i.provinceId, d: i.districtId}; sel.searchText = '';searching=false;\">\n        Ward: {{getPDisplay(i.provinceId)}} >> {{getDDisplay(i.districtId, i.provinceId) }} >> {{i.display}}</span>\n    </mat-chip>\n  </mat-chip-list>\n\n</div>\n\n<div style=\"display:flex\">\n  <div class=\"section\">\n    Province\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let p of addressmaster.provinces\" (click)=\"sel.p=p.value;searching=false;\" [selected]=\"sel.p==p.value\">{{p.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n\n  <div class=\"section\">\n    District\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let d of getdistricts()\" (click)=\"sel.d=d.value;searching=false;\" [selected]=\"sel.d==d.value\">{{d.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n  <div class=\"section\">\n    Ward\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let w of getwards()\" (click)=\"sel.w=w.value;searching=false;\" [selected]=\"sel.w==w.value\">{{w.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n\n</div>"
 
 /***/ }),
 
@@ -770,6 +776,7 @@ module.exports = "<mat-chip-list #selected>\n\n  <mat-chip *ngFor=\"let selectIt
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AutocompleteComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -780,12 +787,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var AutocompleteComponent = /** @class */ (function () {
-    function AutocompleteComponent() {
+    function AutocompleteComponent(http) {
+        this.http = http;
         this.items = [];
         this.selectItems = [];
         this.selecting = false;
+        this.searching = false;
+        this.sel = {
+            searchText: ''
+        };
+        this.addressmaster = {};
     }
+    AutocompleteComponent.prototype.onEnter = function (e) {
+        console.log(e);
+    };
+    AutocompleteComponent.prototype.getMatchItems = function () {
+        var _this = this;
+        if (!this.fullList || this.sel.searchText == '')
+            return;
+        return this.fullList.filter(function (x) { return x.display.toLowerCase().includes(_this.sel["searchText"].toLowerCase()); }).filter(function (x, i) { return i < 10; });
+    };
+    AutocompleteComponent.prototype.getPDisplay = function (code) {
+        return this.addressmaster["provinces"].find(function (x) { return x.value == code; }).display;
+    };
+    AutocompleteComponent.prototype.getDDisplay = function (code, provinceId) {
+        return this.addressmaster["districts"].find(function (x) { return x.value == code && provinceId == x.provinceId; }).display;
+    };
+    AutocompleteComponent.prototype.getdistricts = function () {
+        var _this = this;
+        if (!this.addressmaster["districts"])
+            return;
+        return this.addressmaster["districts"].filter(function (x) { return x.provinceId == _this.sel["p"]; });
+    };
+    AutocompleteComponent.prototype.getwards = function () {
+        var _this = this;
+        if (!this.addressmaster["wards"])
+            return;
+        return this.addressmaster["wards"].filter(function (x) { return x.provinceId == _this.sel["p"] && x.districtId == _this.sel["d"]; });
+    };
     AutocompleteComponent.prototype.delete = function (i) {
         var idx = this.selectItems.indexOf(i);
         this.selectItems.splice(idx, 1);
@@ -804,389 +845,33 @@ var AutocompleteComponent = /** @class */ (function () {
     };
     AutocompleteComponent.prototype.loaditems = function () {
         var _this = this;
+        if (!this.labels)
+            return;
         return Object.keys(this.labels)
             .filter(function (x) { return !_this.selectItems.includes(x); })
             .filter(function (x) { return _this.labels[x].toLowerCase().includes(_this.searchText.toLowerCase()); })
             .filter(function (x, i) { return i < 5; });
     };
     AutocompleteComponent.prototype.ngOnInit = function () {
-        this.labels = {
-            "OCC0001": "Administration - Accountant",
-            "OCC0002": "Administration - Actuary",
-            "OCC0003": "Administration - Advocate & Solicitor",
-            "OCC0004": "Administration - Bank Clerks/ Teller",
-            "OCC0005": "Administration - Bank Manager",
-            "OCC0006": "Administration - Book-keeper",
-            "OCC0007": "Administration - Business Consultant",
-            "OCC0008": "Administration - Clerk",
-            "OCC0009": "Administration - Coroner",
-            "OCC0010": "Administration - Economist",
-            "OCC0011": "Administration - Engineers (administration duties only)",
-            "OCC0012": "Administration - Executives (administration duties only)",
-            "OCC0013": "Administration - Interpreter",
-            "OCC0014": "Administration - Judge",
-            "OCC0015": "Administration - Lawyer",
-            "OCC0016": "Administration - Librarian",
-            "OCC0017": "Administration - Lecturer",
-            "OCC0018": "Administration - Management Consultant",
-            "OCC0019": "Administration - Office Manager",
-            "OCC0020": "Administration - Secretary",
-            "OCC0021": "Administration - Statistician",
-            "OCC0022": "Administration - Tax Consultant",
-            "OCC0023": "Administration - Telephone/ TelexOperator",
-            "OCC0024": "Administration - Typist",
-            "OCC0025": "Advertising - Assistant",
-            "OCC0026": "Advertising - Copy -Writer",
-            "OCC0027": "Advertising - Signboard painter (indoor)",
-            "OCC0028": "Advertising - Signboard erector (outdoor)",
-            "OCC0029": "Aerial Erectors - Working at height up to 50 ft",
-            "OCC0030": "Aerial Erectors - Working at height greater than 50 ft",
-            "OCC0031": "Aerial Erectors - Roofers, Tilers, Bricklayers greater than 30 ft",
-            "OCC0032": "Aerial Erectors - House Painter",
-            "OCC0033": "Airport - Air Traffic Controller",
-            "OCC0034": "Airport - Announcer",
-            "OCC0035": "Airport - Aviation Inspector",
-            "OCC0036": "Airport - Bagage Handler/ Porter",
-            "OCC0037": "Airport - Flight Attendant (Major Airline)",
-            "OCC0038": "Airport - Freight Handler",
-            "OCC0039": "Airport - Fueling Attendant",
-            "OCC0040": "Airport - Ground Hostess",
-            "OCC0041": "Airport - Manager (Administrative only)",
-            "OCC0042": "Airport - Mechanic and Maintenance",
-            "OCC0043": "Airport - Plane Cleaner or Washer",
-            "OCC0044": "Airport - Pilot (Major Airlines)",
-            "OCC0045": "Antique Dealer",
-            "OCC0046": "Architectual - Architect (Aministrative duties only)",
-            "OCC0047": "Architectual - Civil Engineer",
-            "OCC0048": "Architectual - Draughtsman",
-            "OCC0049": "Architectual - Surveyor (Outdoor)",
-            "OCC0050": "Airconditioning Installation/ Repairer",
-            "OCC0051": "Armed Forces - Office Duties Only",
-            "OCC0052": "Armed Forces - Techinical Duties",
-            "OCC0053": "Armed Forces - Special Air Services/ Commandos",
-            "OCC0054": "Armed Forces - Bomb Disposal",
-            "OCC0055": "Armed Forces - Chemical Warfare",
-            "OCC0056": "Armed Forces - Mine Sweeper",
-            "OCC0057": "Armed Forces - Mine Layer, parachuting",
-            "OCC0058": "Armed Forces - Gliding",
-            "OCC0059": "Armed Forces - Underwater activities",
-            "OCC0060": "Armed Forces - Navy - Shore duties only",
-            "OCC0061": "Armed Forces - Navy - Seagoing",
-            "OCC0062": "Armed Forces - Navy - Submarines",
-            "OCC0063": "Armed Forces - Navy - Divers",
-            "OCC0064": "Armed Forces - Airforce - No aviation involved",
-            "OCC0065": "Artis - Commercial Designer",
-            "OCC0066": "Artis - Freelance, Painter, Sculptors",
-            "OCC0067": "Athletes",
-            "OCC0068": "Automobile - Dealer (Administration)",
-            "OCC0069": "Automobile - Sales",
-            "OCC0070": "Automobile - Assembler",
-            "OCC0071": "Automobile - Machinist",
-            "OCC0072": "Automobile - Welder (Not high rise)",
-            "OCC0073": "Automobile - Mechanic",
-            "OCC0074": "Automobile - Carpark Attendant",
-            "OCC0075": "Automobile - Gas Station Attendant",
-            "OCC0076": "Automobile - Driving Instructor",
-            "OCC0077": "Baby Sister at Nursery",
-            "OCC0078": "Baby Sister at Home",
-            "OCC0079": "Bakeries / Biscuits - Baker, Doug-mixer, Packer",
-            "OCC0080": "Bakeries / Biscuits - Proprietor",
-            "OCC0081": "Bank -  Manager",
-            "OCC0082": "Bank - Executive",
-            "OCC0083": "Bank - Clerical Staff (Aministration)",
-            "OCC0084": "Bank  - Armed Guards",
-            "OCC0085": "Bank - Armoured Car Driver",
-            "OCC0086": "Bank - Bill Collector",
-            "OCC0087": "Bar/ Coffee House - Manager",
-            "OCC0088": "Bar/ Coffee House - Bartender",
-            "OCC0089": "Bar/ Coffee House - Captain",
-            "OCC0090": "Bar/ Coffee House - Waiter/ Waitress",
-            "OCC0091": "Bar/ Coffee House - Cashier",
-            "OCC0092": "Bar/ Coffee House - Bar Hostess",
-            "OCC0093": "Bar/ Coffee House - Bouncer",
-            "OCC0094": "Barber/ Hairdresser",
-            "OCC0095": "Bath/ Sauna - Guard/ Attendant",
-            "OCC0096": "Bath/ Sauna - Receptionist, Cashier",
-            "OCC0097": "Bath/ Sauna - Masseur/  Masseuse",
-            "OCC0098": "Beautician",
-            "OCC0099": "Beverage Manufacturer",
-            "OCC0100": "Bicycle Manaufacturer",
-            "OCC0101": "Billard Center Attendant/ Cashier",
-            "OCC0102": "Blacksmith & Tooldresser",
-            "OCC0103": "Boot & Shoe Maker/ Repairer",
-            "OCC0104": "Boxer",
-            "OCC0105": "Building & Construction - Airhammer Operator",
-            "OCC0106": "Building & Construction - Asphalt Layer (Road, Roofing)",
-            "OCC0107": "Blaster",
-            "OCC0108": "Bricklayer - Bulldozer Operator",
-            "OCC0109": "Bricklayer - Cableman",
-            "OCC0110": "Bricklayer - Carpenter",
-            "OCC0111": "Bricklayer - Carver",
-            "OCC0112": "Bricklayer - Cement Worker",
-            "OCC0113": "Bricklayer - Cesspool Sewer Worker",
-            "OCC0114": "Bricklayer - Concrete Mixer Operator",
-            "OCC0115": "Bricklayer - Contractor/ Subcontractor",
-            "OCC0116": "Bricklayer - Crane Operator",
-            "OCC0117": "Bricklayer - Demolition Worker",
-            "OCC0118": "Bricklayer - Ditch Digger",
-            "OCC0119": "Bricklayer - Driller",
-            "OCC0120": "Bricklayer - Electrician",
-            "OCC0121": "Bricklayer - Excavator",
-            "OCC0122": "Bricklayer - Explosive Handler",
-            "OCC0123": "Bricklayer - Labourer",
-            "OCC0124": "Bricklayer - Fitter",
-            "OCC0125": "Bricklayer - Mason",
-            "OCC0126": "Bricklayer - Plasterer",
-            "OCC0127": "Bricklayer - Plumber",
-            "OCC0128": "Bricklayer - Sawyer",
-            "OCC0129": "Bricklayer - Steam Roller Driver",
-            "OCC0130": "Bricklayer - Structural Steel Erectors",
-            "OCC0131": "Bricklayer - Supervisory Personnel",
-            "OCC0132": "Bricklayer - Surveyor",
-            "OCC0133": "Bricklayer - Tractor Driver",
-            "OCC0134": "Bricklayer - Underground Worker",
-            "OCC0135": "Bricklayer - Welder",
-            "OCC0136": "Building & Maintainance - Cleaner",
-            "OCC0137": "Building & Maintainance - Elevator Installer & Repairman",
-            "OCC0138": "Cleaner - Janitor",
-            "OCC0139": "Butcher/ Slaughters",
-            "OCC0140": "Buyer/ Merchaniser",
-            "OCC0141": "Carpenter",
-            "OCC0142": "Carpet Layer",
-            "OCC0143": "Casino Card Dealer/ Cashier",
-            "OCC0144": "Cement/ Gypsum & Lime",
-            "OCC0145": "Chef/ Baker/ Cook",
-            "OCC0146": "Chemist",
-            "OCC0147": "Chinese Bone Stetter/ Chiropracto",
-            "OCC0148": "Clergyman (not missionary)",
-            "OCC0149": "Coffee Shop Assistant",
-            "OCC0150": "Computer Programmer/ Analyst",
-            "OCC0151": "Computer - Keypunch Operator",
-            "OCC0152": "Decorator - Interior Designer",
-            "OCC0153": "Detective/ Private Investigator",
-            "OCC0154": "Diver ",
-            "OCC0155": "Dockyard Workers - Container Terminal Operators",
-            "OCC0156": "Dockyard Workers - Cargo Handling Labourer",
-            "OCC0157": "Dockyard Workers - Stevedore / Forklife Operator",
-            "OCC0158": "Dockyard Workers - Harbour Pilot",
-            "OCC0159": "Dog Groomer",
-            "OCC0160": "Domestic Servant/ Helper",
-            "OCC0161": "Driver - Ambulance",
-            "OCC0162": "Driver - Amoured Car Driver",
-            "OCC0163": "Driver - Bus",
-            "OCC0164": "Driver - Chauffeur",
-            "OCC0165": "Driver - Courier - not on Motocycles",
-            "OCC0166": "Driver - Courier - on Motorcycles",
-            "OCC0167": "Driver - Driving Instructors",
-            "OCC0168": "Driver - Garbage Collection",
-            "OCC0169": "Driver - Petrol/ Petroleum Products",
-            "OCC0170": "Driver - Removalist",
-            "OCC0171": "Driver - Taxi",
-            "OCC0172": "Driver - Tow Truck",
-            "OCC0173": "Driver - Truck & Van",
-            "OCC0174": "Dry Cleaning Industry",
-            "OCC0175": "Electrical Industry - Electrician - domestic",
-            "OCC0176": "Electrical Industry - Electrician - industrial high voltage",
-            "OCC0177": "Electrical Industry - Power Station Worker",
-            "OCC0178": "Electrical Industry - Linesman",
-            "OCC0179": "Engravers",
-            "OCC0180": "Entertainment Industry - Model",
-            "OCC0181": "Entertainment Industry - Actor/ Actress",
-            "OCC0182": "Entertainment Industry - Choreographer/ Dancer",
-            "OCC0183": "Entertainment Industry - Film Director/ Editor/ Producer & Scriptwriter",
-            "OCC0184": "Entertainment Industry - Stuntman",
-            "OCC0185": "Entertainment Industry - Technician/ Cameraman",
-            "OCC0186": "Entertainment Industry - Lighting Crew",
-            "OCC0187": "Entertainment Industry - Engineer",
-            "OCC0188": "Entertainment Industry - Musician",
-            "OCC0189": "Entertainment Industry - Newsreader/ Announcer/ Commentator",
-            "OCC0190": "Entertainment Industry - Singer",
-            "OCC0191": "Entertainment Industry - Cinema Projectionist",
-            "OCC0192": "Entertainment Industry - Stage Manager",
-            "OCC0193": "Entertainment Industry - Scene & Set Painter",
-            "OCC0194": "Exterminator & Fumigator",
-            "OCC0195": "Factory Worker  - Non-hazardous light industry",
-            "OCC0196": "Factory Worker  - Manual worker",
-            "OCC0197": "Farmer",
-            "OCC0198": "Firemen",
-            "OCC0199": "Fisherman - Onshore, lake, pond",
-            "OCC0200": "Fisherman - Offshore",
-            "OCC0201": "Fitness Centre - Aerobic Teacher",
-            "OCC0202": "Fitter",
-            "OCC0203": "Florist",
-            "OCC0204": "Furniture Maker/ Carpenter",
-            "OCC0205": "Garbage Collector",
-            "OCC0206": "Gardener, Landscaper",
-            "OCC0207": "Gas Workers - Inspector, meter reader",
-            "OCC0208": "Gas Workers - Maintenance worker, installer",
-            "OCC0209": "Gas Workers - Pipelayer",
-            "OCC0210": "Geologist",
-            "OCC0211": "Glass Industry Worker",
-            "OCC0212": "Glue and Adhesive Manufacturer",
-            "OCC0213": "Greyhound Trainer",
-            "OCC0214": "Hawker",
-            "OCC0215": "Herbalist",
-            "OCC0216": "Horse Racing - Breeder",
-            "OCC0217": "Horse Racing - Jockey",
-            "OCC0218": "Horse Racing - Riding Instructor",
-            "OCC0219": "Horse Racing - Trainer",
-            "OCC0220": "Horticulturist",
-            "OCC0221": "Hotel - Bartender",
-            "OCC0222": "Hotel - Bellboy",
-            "OCC0223": "Hotel - Chambermaid/ Housekeeper",
-            "OCC0224": "Hotel - Porter/ Doorman",
-            "OCC0225": "Hotel - Kitchen Helper",
-            "OCC0226": "Hotel - Captain",
-            "OCC0227": "Hotel - Waiter/ Waitress",
-            "OCC0228": "Hotel - Chef",
-            "OCC0229": "Housewife",
-            "OCC0230": "Janitor",
-            "OCC0231": "Jeweller - Dealer",
-            "OCC0232": "Jeweller - Skilled Worker, Cutter, Polisher",
-            "OCC0233": "Journalist - local",
-            "OCC0234": "Journalist - overseas",
-            "OCC0235": "Laboratory - Analyst, Assistant",
-            "OCC0236": "Laboratory - Attendant, Technician",
-            "OCC0237": "Laboratory Chemist",
-            "OCC0238": "Laboratory - Research Officer",
-            "OCC0239": "Lathe Operator",
-            "OCC0240": "Life Guard",
-            "OCC0241": "Life Attendant",
-            "OCC0242": "Lithographer",
-            "OCC0243": "Locksmith",
-            "OCC0244": "Manicurist",
-            "OCC0245": "Marble, Mosaic, Terrazzo Worker",
-            "OCC0246": "Marine Industry - Passenger/ Container Ship-Officer",
-            "OCC0247": "Marine Industry - Passenger/ Container Ship-Crew",
-            "OCC0248": "Marine Industry - Salvage Vessel",
-            "OCC0249": "Martial Arts Instructor",
-            "OCC0250": "Merchant - Retail",
-            "OCC0251": "Merchant - Travel Involved",
-            "OCC0252": "Medical - Administrator",
-            "OCC0253": "Medical - Acupuncturist",
-            "OCC0254": "Medical - Anesthetist",
-            "OCC0255": "Medical - Chemist/ Pharmacist",
-            "OCC0256": "Medical - Chiropractor",
-            "OCC0257": "Medical - Dental Surgeon",
-            "OCC0258": "Medical - Dietitian",
-            "OCC0259": "Medical - Doctor/ Physician",
-            "OCC0260": "Medical - Hospital Assistant",
-            "OCC0261": "Medical - Matron/ Midwife",
-            "OCC0262": "Medical - Nurishing Aids",
-            "OCC0263": "Medical - Nurses General",
-            "OCC0264": "Medical - Nurses Mental",
-            "OCC0265": "Medical - Optometrist",
-            "OCC0266": "Medical - Ophthalmologist",
-            "OCC0267": "Medical - Orthodontist",
-            "OCC0268": "Medical - Pathologist",
-            "OCC0269": "Medical - Physiotherapist",
-            "OCC0270": "Medical - Psychologist",
-            "OCC0271": "Medical - Radiographer",
-            "OCC0272": "Medical - Radiologist",
-            "OCC0273": "Medical - Surgeon",
-            "OCC0274": "Messenger, Delivery Van",
-            "OCC0275": "Metal Industry - Supervisor",
-            "OCC0276": "Metal Industry - Sheet Metal Worker",
-            "OCC0277": "Metal Industry - Electroplater",
-            "OCC0278": "Metal Industry - Fitter and Turner",
-            "OCC0279": "Metal Industry - Scrap Dealer",
-            "OCC0280": "Meteorologist",
-            "OCC0281": "Mining Industry - Surface worker, no explosive",
-            "OCC0282": "Mining Industry - Surface worker, using explosive",
-            "OCC0283": "Mining Industry - Underground worker",
-            "OCC0284": "Moneylender",
-            "OCC0285": "Newspaper Editor, Office Clerk",
-            "OCC0286": "Newspaper Reporter, Photographer",
-            "OCC0287": "Metal industry - Other workers",
-            "OCC0288": "Oil & gas Industries - Onshore workers -  Engineer, lab technician",
-            "OCC0289": "Oil & gas Industries - Onshore workers - Tool pusher, crane driver",
-            "OCC0290": "Oil & gas Industries - Onshore workers - Derrickman, Driller, Labourer",
-            "OCC0291": "Oil & gas Industries - Onshore workers - geologist",
-            "OCC0292": "Oil & gas Industry - Offshore workers - Geologist",
-            "OCC0293": "Oil & gas Industry - Offshore workers - Engineer, Lab technican",
-            "OCC0294": "Oil & gas Industry - Offshore workers - Tool pusher, crane driver",
-            "OCC0295": "Oil & gas Industry - Offshore workers - Derrickman, Driller, Labourer",
-            "OCC0296": "Oil & gas Industries - Onshore workers - Pipeline worker",
-            "OCC0297": "Oil & gas Industries - Onshore workers - Refinery worker",
-            "OCC0298": "Paint Manufacturing - Supervisor",
-            "OCC0299": "Paint Manufacturing -  Blender, color card maker",
-            "OCC0300": "Paper & Pulp Industry worker",
-            "OCC0301": "Pawnbroker",
-            "OCC0302": "Pest control",
-            "OCC0303": "Photo studio photographer",
-            "OCC0304": "Photo studio proprietor",
-            "OCC0305": "Plastic Industry worker",
-            "OCC0306": "Pottery & Ceramic worker",
-            "OCC0307": "Plumber",
-            "OCC0308": "Police - Superintendant, Officer",
-            "OCC0309": "Police - Motorcycle Police",
-            "OCC0310": "Police - Mobile Squad",
-            "OCC0311": "Police - Bomb Disposal",
-            "OCC0312": "Police - Criminla Investigation Dept",
-            "OCC0313": "Postman",
-            "OCC0314": "Printing & Publishing - Manager",
-            "OCC0315": "Printing & Publishing - Other workers",
-            "OCC0316": "Prison Warden",
-            "OCC0317": "Quarries - Blaster",
-            "OCC0318": "Quarries - Jackhammer Operator, Driller",
-            "OCC0319": "Raiway - Office worker, Inspector",
-            "OCC0320": "Raiway - Track worker",
-            "OCC0321": "Raiway - Train Driver & Porter",
-            "OCC0322": "Raiway - Guard",
-            "OCC0323": "Raiway - Signalman",
-            "OCC0324": "Restaurant - Manager, Supervisor",
-            "OCC0325": "Restaurant - Chef, Cook",
-            "OCC0326": "Restaurant - Kitchen hand",
-            "OCC0327": "Restaurant - Waiter, Waitress",
-            "OCC0328": "Restaurant - Bar Staff",
-            "OCC0329": "Sales - Indoor",
-            "OCC0330": "Sales - Light Goods/ Service (Outdoor)",
-            "OCC0331": "Secutity Guard, Night Watchman",
-            "OCC0332": "Ship,Boat Building & Dry Dock - Coordinator Admin.",
-            "OCC0333": "Ship,Boat Building & Dry Dock - Carpenter",
-            "OCC0334": "Ship,Boat Building & Dry Dock - Foreman, Supervisor",
-            "OCC0335": "Ship,Boat Building & Dry Dock - Labourer",
-            "OCC0336": "Social / Welfare worker - field job",
-            "OCC0337": "Street sweeper",
-            "OCC0338": "Stockbroker - Office",
-            "OCC0339": "Stockbroker - Floor Trader",
-            "OCC0340": "Sandblasters",
-            "OCC0341": "Sanitation Services - Garbage Collector",
-            "OCC0342": "Sanitation Services - Incinerator Operator",
-            "OCC0343": "Student",
-            "OCC0344": "Surveyor",
-            "OCC0345": "Teacher - Professor, Principal",
-            "OCC0346": "Teacher - Academic Teacher",
-            "OCC0347": "Teacher - Vocational Trade, Physical",
-            "OCC0348": "Teacher - Childcare Center",
-            "OCC0349": "Textile Industry - Supervisor",
-            "OCC0350": "Textile Industry - Mechanic",
-            "OCC0351": "Textile Industry - Bleacher, Dye Mixer",
-            "OCC0352": "Textile Industry - Tailor, Seamstress",
-            "OCC0353": "Timber Industry - Tree Fellers",
-            "OCC0354": "Tool Maker",
-            "OCC0355": "Tobacco, Cigar & Cigarettes - Supevisor",
-            "OCC0356": "Tobacco, Cigar & Cigarettes - Machine Operator",
-            "OCC0357": "Traffic Warden",
-            "OCC0358": "Traffic Lane Painter",
-            "OCC0359": "Undertaker",
-            "OCC0360": "Upholsterer",
-            "OCC0361": "Veterinary - Domestic Pets",
-            "OCC0362": "Veterinary - Large Animals",
-            "OCC0363": "Watchmaker and Repairer",
-            "OCC0364": "Warehouse Worker",
-            "OCC0365": "Window Cleaner - Up to 50 ft",
-            "OCC0366": "Window Cleaner - Above 50 ft",
-            "OCC0367": "Zoo keeper",
-            "OCC0368": "Building & Maintainance - Janitor",
-            "OCC0369": "Toll Pusher - Crane driver",
-            "OCC0370": "Infant/ Pre-school children",
-            "OCC0371": "Retiree",
-            "OCC0372": "Unemployed",
-            "OCC0373": "Tourist guide",
-            "OCC0374": "Manual laborer",
-            "OCC0375": "Other",
-        };
+        this.load();
+    };
+    AutocompleteComponent.prototype.load = function () {
+        var _this = this;
+        console.log('start app');
+        this.http.get('assets/address.json').subscribe(function (d) {
+            console.log(d);
+            _this.addressmaster = d;
+            _this.fullList = _this.addressmaster["provinces"].concat(_this.addressmaster["districts"], _this.addressmaster["wards"]);
+        });
+        this.http.get('assets/occupation.json').subscribe(function (d) {
+            _this.labels = d;
+        });
+    };
+    AutocompleteComponent.prototype.search2 = function () {
+        this.searching = true;
+        setTimeout(function () {
+            document.getElementById('searchText2').focus();
+        }, 100, true);
     };
     AutocompleteComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -1194,7 +879,7 @@ var AutocompleteComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/autocomplete/autocomplete.component.html"),
             styles: [__webpack_require__("./src/app/autocomplete/autocomplete.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
     ], AutocompleteComponent);
     return AutocompleteComponent;
 }());
@@ -3407,7 +3092,7 @@ module.exports = ""
 /***/ "./src/app/inputSection/input.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"example-container\">\n  <form>\n \n    <div>\n      <mat-form-field>\n        <input matInput name=\"insuredage\" placeholder=\"Insured Age\" [(ngModel)]=\"input.insuredAge\" (change)=\"selectBasePlan()\">\n      </mat-form-field>\n      <mat-form-field>\n        <input matInput name=\"insuredsex\" placeholder=\"Gender\" [(ngModel)]=\"input.insuredSex\">\n      </mat-form-field>\n    </div>\n    <mat-form-field>\n      <mat-select placeholder=\"Select Test Case\" [(value)]=\"selectedTestcase\" (change)=\"selectBasePlan()\" (selectionChange)=\"selectBasePlan()\">\n        <mat-option *ngFor=\"let o of filterTestCases()\" [value]=\"o\">{{o.name}}</mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <div *ngIf=\"selectedTestcase && selectedTestcase.payload\">\n\n      <div>\n        <mat-form-field>\n          <input matInput name=\"faceAmount\" placeholder=\"Base Protection\" [ngModel]=\"input.faceAmount\" (click)=\"changeValue('faceAmount')\"\n            readonly>\n          <mat-hint>from: ({{ranges.faceAmount.min}} to {{ranges.faceAmount.max}})</mat-hint>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput name=\"termFaceAmount\" placeholder=\"Term Protection\" [ngModel]=\"input.termfaceAmount\" (click)=\"changeValue('termfaceAmount')\"\n            readonly>\n          <mat-hint>from: ({{ranges.termfaceAmount.min}} to {{ranges.termfaceAmount.max}})</mat-hint>\n        </mat-form-field>\n      </div>\n      <div>\n        <mat-form-field>\n          <input matInput name=\"plannedPremium\" placeholder=\"Planned Premium\" [(ngModel)]=\"input.plannedPremium\" (click)=\"changeValue('plannedPremium')\" [formControl]=\"formControls.plannedPremium\"\n            readonly>\n          <mat-hint>from: ({{ranges.plannedPremium.min}} to {{ranges.plannedPremium.max}})</mat-hint>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput [ngModel]=\"input.termplannedPremium\" name=\"termPlannedPremium\" placeholder=\"Term Premium\" [formControl]=\"formControls.termPremium\"\n            readonly>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput [ngModel]=\"input.riderPremium\" name=\"riderPremium\" placeholder=\"Rider Premium\" [formControl]=\"formControls.riderPremium\" \n            readonly>\n        </mat-form-field>\n      </div>\n      <div>\n        <mat-form-field>\n          <input matInput required [(ngModel)]=\"input.duration\" name=\"duration\" placeholder=\"Premium Duration\" [formControl]=\"formControls.duration\">\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput name=\"regularpayment\" placeholder=\"Regular Payment\" [(ngModel)]=\"input.regularPayment\" (click)=\"changeValue('regularPayment')\"  [formControl]=\"formControls.regularPayment\"\n            readonly>\n\n          <mat-hint>from: {{ranges['regularPayment'].min}}</mat-hint>\n        </mat-form-field>\n        <mat-form-field>\n          <mat-select placeholder=\"Payment mode\" [(value)]=\"input.paymentMode\" (change)=\"updatePaymentMode()\">\n            <mat-option *ngFor=\"let o of ['Annual','Semi-Annual','Quarterly','Monthly']\" [value]=\"o\">{{o}}</mat-option>\n          </mat-select>\n        </mat-form-field>\n        <mat-form-field>\n          <mat-select placeholder=\"dbLevel\" [(value)]=\"input.dbLevel\">\n            <mat-option *ngFor=\"let o of ['Increase','Level']\" [value]=\"o\">{{o}}</mat-option>\n          </mat-select>\n        </mat-form-field>\n\n      </div>\n    </div>\n    <button mat-raised-button (click)=\"validate()\">Validate</button>\n    <button mat-raised-button (click)=\"calculate()\">Get Projection</button>\n  </form>\n</div>\n\n\n<app-add-riders [planCode]=\"selectedTestcase?.name\" [allowAddRider]=\"!selectedTestcase?.disableAddRiders\"></app-add-riders>\n"
+module.exports = "<div class=\"example-container\">\n  <form>\n \n    <div>\n      <mat-form-field>\n        <input matInput name=\"insuredage\" placeholder=\"Insured Age\" [(ngModel)]=\"input.insuredAge\" (change)=\"selectBasePlan()\"\n        (keyUp.Enter)=\"nextFields($event)\" class=\"input\" #input>\n      </mat-form-field>\n      <mat-form-field>\n        <input matInput name=\"insuredsex\" placeholder=\"Gender\" [(ngModel)]=\"input.insuredSex\" (keyUp.Enter)=\"nextFields($event)\" class=\"input\" #input>\n      </mat-form-field>\n    </div>\n    <mat-form-field>\n      <mat-select placeholder=\"Select Test Case\" [(value)]=\"selectedTestcase\" (change)=\"selectBasePlan()\" (selectionChange)=\"selectBasePlan()\" (keyUp.Enter)=\"nextFields($event)\" class=\"input\" #input>\n        <mat-option *ngFor=\"let o of filterTestCases()\" [value]=\"o\">{{o.name}}</mat-option>\n      </mat-select>\n    </mat-form-field>\n\n    <div *ngIf=\"selectedTestcase && selectedTestcase.payload\">\n\n      <div>\n        <mat-form-field>\n          <input matInput name=\"faceAmount\" placeholder=\"Base Protection\" [ngModel]=\"input.faceAmount\" (click)=\"changeValue('faceAmount')\" (keyUp.Enter)=\"nextFields($event)\" class=\"input\"\n            readonly>\n          <mat-hint>from: ({{ranges.faceAmount.min}} to {{ranges.faceAmount.max}})</mat-hint>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput name=\"termFaceAmount\" placeholder=\"Term Protection\" [ngModel]=\"input.termfaceAmount\" (click)=\"changeValue('termfaceAmount')\" (keyUp.Enter)=\"nextFields($event)\" class=\"input\"\n            readonly>\n          <mat-hint>from: ({{ranges.termfaceAmount.min}} to {{ranges.termfaceAmount.max}})</mat-hint>\n        </mat-form-field>\n      </div>\n      <div>\n        <mat-form-field>\n          <input matInput name=\"plannedPremium\" placeholder=\"Planned Premium\" [(ngModel)]=\"input.plannedPremium\" (click)=\"changeValue('plannedPremium')\" [formControl]=\"formControls.plannedPremium\"\n          (keyUp.Enter)=\"nextFields($event)\" class=\"input\" readonly>\n          <mat-hint>from: ({{ranges.plannedPremium.min}} to {{ranges.plannedPremium.max}})</mat-hint>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput [ngModel]=\"input.termplannedPremium\" name=\"termPlannedPremium\" placeholder=\"Term Premium\" [formControl]=\"formControls.termPremium\"\n            readonly>\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput [ngModel]=\"input.riderPremium\" name=\"riderPremium\" placeholder=\"Rider Premium\" [formControl]=\"formControls.riderPremium\" \n            readonly>\n        </mat-form-field>\n      </div>\n      <div>\n        <mat-form-field>\n          <input matInput required [(ngModel)]=\"input.duration\" name=\"duration\" placeholder=\"Premium Duration\" [formControl]=\"formControls.duration\">\n        </mat-form-field>\n        <mat-form-field>\n          <input matInput name=\"regularpayment\" placeholder=\"Regular Payment\" [(ngModel)]=\"input.regularPayment\" (click)=\"changeValue('regularPayment')\"  [formControl]=\"formControls.regularPayment\"\n            readonly>\n\n          <mat-hint>from: {{ranges['regularPayment'].min}}</mat-hint>\n        </mat-form-field>\n        <mat-form-field>\n          <mat-select placeholder=\"Payment mode\" [(value)]=\"input.paymentMode\" (change)=\"updatePaymentMode()\">\n            <mat-option *ngFor=\"let o of ['Annual','Semi-Annual','Quarterly','Monthly']\" [value]=\"o\">{{o}}</mat-option>\n          </mat-select>\n        </mat-form-field>\n        <mat-form-field>\n          <mat-select placeholder=\"dbLevel\" [(value)]=\"input.dbLevel\">\n            <mat-option *ngFor=\"let o of ['Increase','Level']\" [value]=\"o\">{{o}}</mat-option>\n          </mat-select>\n        </mat-form-field>\n\n      </div>\n    </div>\n    <button mat-raised-button (click)=\"validate()\">Validate</button>\n    <button mat-raised-button (click)=\"calculate()\">Get Projection</button>\n  </form>\n</div>\n\n\n<app-add-riders [planCode]=\"selectedTestcase?.name\" [allowAddRider]=\"!selectedTestcase?.disableAddRiders\"></app-add-riders>\n"
 
 /***/ }),
 
@@ -3481,11 +3166,11 @@ var InputComponent = /** @class */ (function () {
             }
         };
         this.formControls = {
-            duration: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */]('duration', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* Validators */].min(4), __WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* Validators */].max(99), __WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* Validators */].required]),
-            riderPremium: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */]('riderPremium'),
-            termPremium: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */]('termPremium'),
-            regularPayment: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */]('regularPayment'),
-            plannedPremium: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["b" /* FormControl */]('plannedPremium'),
+            duration: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]('duration', [__WEBPACK_IMPORTED_MODULE_2__angular_forms__["k" /* Validators */].min(4), __WEBPACK_IMPORTED_MODULE_2__angular_forms__["k" /* Validators */].max(99), __WEBPACK_IMPORTED_MODULE_2__angular_forms__["k" /* Validators */].required]),
+            riderPremium: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]('riderPremium'),
+            termPremium: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]('termPremium'),
+            regularPayment: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]('regularPayment'),
+            plannedPremium: new __WEBPACK_IMPORTED_MODULE_2__angular_forms__["c" /* FormControl */]('plannedPremium'),
         };
         http.get('./assets/payloads.json').first().subscribe(function (json) {
             var data = json;
@@ -3670,6 +3355,15 @@ var InputComponent = /** @class */ (function () {
             }
         });
     }
+    InputComponent.prototype.nextFields = function (object) {
+        var elements = document.getElementsByClassName("input");
+        for (var i = 0; i < elements.length - 1; i++) {
+            var item = elements[i];
+            if (item.id == object.target.id) {
+                elements[i + 1].focus();
+            }
+        }
+    };
     InputComponent.prototype.ngOnDestroy = function () {
         //
     };
@@ -3714,9 +3408,9 @@ var InputComponent = /** @class */ (function () {
                 var ranges = this.pe.getDurationRange(planID, this.input.insuredAge);
                 this.input.duration = ranges.max;
                 this.formControls.duration.setValidators([
-                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* Validators */].required,
-                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* Validators */].min(+ranges.min),
-                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["j" /* Validators */].max(+ranges.max)
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["k" /* Validators */].required,
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["k" /* Validators */].min(+ranges.min),
+                    __WEBPACK_IMPORTED_MODULE_2__angular_forms__["k" /* Validators */].max(+ranges.max)
                 ]);
         }
     };
@@ -3962,56 +3656,6 @@ var InputComponent = /** @class */ (function () {
             __WEBPACK_IMPORTED_MODULE_5__angular_common_http__["a" /* HttpClient */]])
     ], InputComponent);
     return InputComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "./src/app/mainSection/inputchart.component.css":
-/***/ (function(module, exports) {
-
-module.exports = ""
-
-/***/ }),
-
-/***/ "./src/app/mainSection/inputchart.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "\n<app-input></app-input>\n<app-validation-result></app-validation-result>\n<mat-slide-toggle (change)=\"tableView=!tableView\">Chart / Table</mat-slide-toggle>\n\n<app-chart *ngIf=\"!tableView\">\n</app-chart>\n<app-table *ngIf=\"tableView\">\n</app-table>\n"
-
-/***/ }),
-
-/***/ "./src/app/mainSection/inputchart.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InputchartComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-var InputchartComponent = /** @class */ (function () {
-    function InputchartComponent() {
-    }
-    InputchartComponent.prototype.ngOnInit = function () {
-    };
-    InputchartComponent = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'app-inputchart',
-            template: __webpack_require__("./src/app/mainSection/inputchart.component.html"),
-            styles: [__webpack_require__("./src/app/mainSection/inputchart.component.css")]
-        }),
-        __metadata("design:paramtypes", [])
-    ], InputchartComponent);
-    return InputchartComponent;
 }());
 
 
@@ -4654,7 +4298,7 @@ var OccupationComponent = /** @class */ (function () {
         this.input = {
             data: 0
         };
-        this.insureds = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormControl */]();
+        this.insureds = new __WEBPACK_IMPORTED_MODULE_1__angular_forms__["c" /* FormControl */]();
         this.labels = {
             "OCC0001": "Administration - Accountant",
             "OCC0002": "Administration - Actuary",
@@ -6320,6 +5964,89 @@ var SliderComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], SliderComponent);
     return SliderComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/next/next.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ".mf {\n    background-color: lightblue;\n}"
+
+/***/ }),
+
+/***/ "./src/app/next/next.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<form [formGroup]=\"profileForm\" id=\"myForm\" style=\"display:flex;flex-wrap: wrap\">\n\n\n  <mat-form-field>\n    <input placeholder=\"first name\" matInput type=\"text\" formControlName=\"firstName\" (keyup.Enter)=\"nextFields($event.target)\"\n      class=\"mf\">\n  </mat-form-field>\n\n  <mat-form-field>\n    <input placeholder=\"last name\" matInput type=\"text\" formControlName=\"lastName\">\n  </mat-form-field>\n\n  <div formGroupName=\"address\" style=\"display:flex;flex-wrap: wrap\">\n    <h3>Address</h3>\n\n    <mat-form-field>\n      <input placeholder=\"street\" matInput type=\"text\" formControlName=\"street\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"city\" matInput type=\"text\" formControlName=\"city\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"state\" matInput type=\"text\" formControlName=\"state\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"zip\" matInput type=\"number\" formControlName=\"zip\">\n    </mat-form-field>\n    <mat-form-field>\n        <input placeholder=\"Premium\" matInput type=\"number\" >\n        <span matSuffix>000 VND</span>\n      </mat-form-field>\n\n  </div>\n  <mat-radio-group>\n    <mat-radio-button value=\"1\" (click)=\"nextFields($event.target)\">Option 1</mat-radio-button>\n    <mat-radio-button value=\"2\" (click)=\"nextFields($event.target)\">Option 2</mat-radio-button>\n  </mat-radio-group>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food 2\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff2>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip3\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip3>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip4\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip4>\n  </mat-form-field>\n\n</form>\n\n<p>\n  Form Status: {{ profileForm.status }}\n</p>"
+
+/***/ }),
+
+/***/ "./src/app/next/next.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NextComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("./node_modules/@angular/forms/esm5/forms.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var NextComponent = /** @class */ (function () {
+    function NextComponent(fb) {
+        this.fb = fb;
+        this.profileForm = this.fb.group({
+            firstName: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+            lastName: [''],
+            address: this.fb.group({
+                street: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+                city: [''],
+                state: ['', __WEBPACK_IMPORTED_MODULE_1__angular_forms__["k" /* Validators */].required],
+                zip: ['']
+            }),
+        });
+        this.foods = [
+            { value: 'steak-0', viewValue: 'Steak' },
+            { value: 'pizza-1', viewValue: 'Pizza' },
+            { value: 'tacos-2', viewValue: 'Tacos' }
+        ];
+    }
+    NextComponent.prototype.ngOnInit = function () {
+    };
+    NextComponent.prototype.nextFields = function (object) {
+        var elements = document.getElementsByClassName("mf");
+        var _loop_1 = function (i) {
+            var item = elements[i];
+            if (item.id == object.id) {
+                console.log(elements[i + 1]);
+                setTimeout(function () {
+                    elements[i + 1].focus();
+                }, 100, true);
+            }
+        };
+        for (var i = 0; i < elements.length - 1; i++) {
+            _loop_1(i);
+        }
+    };
+    NextComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-next',
+            template: __webpack_require__("./src/app/next/next.component.html"),
+            styles: [__webpack_require__("./src/app/next/next.component.css")]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_forms__["b" /* FormBuilder */]])
+    ], NextComponent);
+    return NextComponent;
 }());
 
 

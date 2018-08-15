@@ -1,0 +1,63 @@
+<form [formGroup]="profileForm" id="myForm" style="display:flex;flex-wrap: wrap">
+
+
+  <mat-form-field>
+    <input placeholder="first name" matInput type="text" formControlName="firstName" (keyup.Enter)="nextFields($event.target)"
+      class="mf">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input placeholder="last name" matInput type="text" formControlName="lastName">
+  </mat-form-field>
+
+  <div formGroupName="address" style="display:flex;flex-wrap: wrap">
+    <h3>Address</h3>
+
+    <mat-form-field>
+      <input placeholder="street" matInput type="text" formControlName="street" (keyup.Enter)="nextFields($event.target)" class="mf">
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="city" matInput type="text" formControlName="city" (keyup.Enter)="nextFields($event.target)" class="mf">
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="state" matInput type="text" formControlName="state" (keyup.Enter)="nextFields($event.target)" class="mf">
+    </mat-form-field>
+    <mat-form-field>
+      <input placeholder="zip" matInput type="number" formControlName="zip">
+    </mat-form-field>
+    <mat-form-field>
+        <input placeholder="Premium" matInput type="number" >
+        <span matSuffix>000 VND</span>
+      </mat-form-field>
+
+  </div>
+  <mat-radio-group>
+    <mat-radio-button value="1" (click)="nextFields($event.target)">Option 1</mat-radio-button>
+    <mat-radio-button value="2" (click)="nextFields($event.target)">Option 2</mat-radio-button>
+  </mat-radio-group>
+  <mat-form-field>
+    <mat-select placeholder="Favorite food" class="mf" (selectionChange)="nextFields($event.source)">
+      <mat-option *ngFor="let food of foods" [value]="food.value" #ff>
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Favorite food 2" class="mf" (selectionChange)="nextFields($event.source)">
+      <mat-option *ngFor="let food of foods" [value]="food.value" #ff2>
+        {{food.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="zip3" matInput (keyup.Enter)="nextFields($event.target)" class="mf" #zip3>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="zip4" matInput (keyup.Enter)="nextFields($event.target)" class="mf" #zip4>
+  </mat-form-field>
+
+</form>
+
+<p>
+  Form Status: {{ profileForm.status }}
+</p>

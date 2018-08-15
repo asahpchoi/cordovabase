@@ -3,14 +3,15 @@
  
     <div>
       <mat-form-field>
-        <input matInput name="insuredage" placeholder="Insured Age" [(ngModel)]="input.insuredAge" (change)="selectBasePlan()">
+        <input matInput name="insuredage" placeholder="Insured Age" [(ngModel)]="input.insuredAge" (change)="selectBasePlan()"
+        (keyUp.Enter)="nextFields($event)" class="input" #input>
       </mat-form-field>
       <mat-form-field>
-        <input matInput name="insuredsex" placeholder="Gender" [(ngModel)]="input.insuredSex">
+        <input matInput name="insuredsex" placeholder="Gender" [(ngModel)]="input.insuredSex" (keyUp.Enter)="nextFields($event)" class="input" #input>
       </mat-form-field>
     </div>
     <mat-form-field>
-      <mat-select placeholder="Select Test Case" [(value)]="selectedTestcase" (change)="selectBasePlan()" (selectionChange)="selectBasePlan()">
+      <mat-select placeholder="Select Test Case" [(value)]="selectedTestcase" (change)="selectBasePlan()" (selectionChange)="selectBasePlan()" (keyUp.Enter)="nextFields($event)" class="input" #input>
         <mat-option *ngFor="let o of filterTestCases()" [value]="o">{{o.name}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -19,12 +20,12 @@
 
       <div>
         <mat-form-field>
-          <input matInput name="faceAmount" placeholder="Base Protection" [ngModel]="input.faceAmount" (click)="changeValue('faceAmount')"
+          <input matInput name="faceAmount" placeholder="Base Protection" [ngModel]="input.faceAmount" (click)="changeValue('faceAmount')" (keyUp.Enter)="nextFields($event)" class="input"
             readonly>
           <mat-hint>from: ({{ranges.faceAmount.min}} to {{ranges.faceAmount.max}})</mat-hint>
         </mat-form-field>
         <mat-form-field>
-          <input matInput name="termFaceAmount" placeholder="Term Protection" [ngModel]="input.termfaceAmount" (click)="changeValue('termfaceAmount')"
+          <input matInput name="termFaceAmount" placeholder="Term Protection" [ngModel]="input.termfaceAmount" (click)="changeValue('termfaceAmount')" (keyUp.Enter)="nextFields($event)" class="input"
             readonly>
           <mat-hint>from: ({{ranges.termfaceAmount.min}} to {{ranges.termfaceAmount.max}})</mat-hint>
         </mat-form-field>
@@ -32,7 +33,7 @@
       <div>
         <mat-form-field>
           <input matInput name="plannedPremium" placeholder="Planned Premium" [(ngModel)]="input.plannedPremium" (click)="changeValue('plannedPremium')" [formControl]="formControls.plannedPremium"
-            readonly>
+          (keyUp.Enter)="nextFields($event)" class="input" readonly>
           <mat-hint>from: ({{ranges.plannedPremium.min}} to {{ranges.plannedPremium.max}})</mat-hint>
         </mat-form-field>
         <mat-form-field>

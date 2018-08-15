@@ -22,6 +22,9 @@
     <feature name="DatePicker">
         <param name="ios-package" value="DatePicker" />
     </feature>
+    <feature name="Keyboard">
+        <param name="ios-package" onload="true" value="CDVIonicKeyboard" />
+    </feature>
     <name>HelloCordova</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -43,13 +46,14 @@
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
     <preference name="EnableViewportScale" value="false" />
-    <preference name="KeyboardDisplayRequiresUserAction" value="true" />
+    <preference name="KeyboardDisplayRequiresUserAction" value="false" />
     <preference name="MediaPlaybackRequiresUserAction" value="false" />
     <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="SuppressesLongPressGesture" value="false" />
-    <preference name="Suppresses3DTouchGesture" value="false" />
+    <preference name="Suppresses3DTouchGesture" value="true" />
     <preference name="GapBetweenPages" value="0" />
     <preference name="PageLength" value="0" />
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
+    <preference name="KeyboardResize" value="true" />
 </widget>
