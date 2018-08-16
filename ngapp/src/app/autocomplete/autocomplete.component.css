@@ -16,4 +16,7 @@ mat-chip {
     border-style: solid;
     padding:10px;
     width: 30%;
+    height: 300px;
+    overflow: scroll;
 }
+

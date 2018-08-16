@@ -2,24 +2,25 @@
 <h1>Auto Complete</h1>
 <div style="display:flex">
 
-  <mat-chip-list #selected>
+  <mat-chip-list>
     <mat-chip *ngFor="let selectItem of selectItems">
       {{labels[selectItem]}}
       <mat-icon matChipRemove (click)="delete(selectItem)" >cancel</mat-icon>
     </mat-chip>
   </mat-chip-list>
 
-  <button (click)="select()" mat-mini-fab>Add</button>
+  <button (click)="searchOccupation($event)" mat-mini-fab>Add</button>
 </div>
-<div *ngIf="selecting" class="inputDiv">
-  <input [(ngModel)]="searchText" id="searchText" style="height: 20px;" (keyup.Enter)="onEnter($event)" #box>
 
+<div *ngIf="searchingOccupation" class="inputDiv">
+  <input [(ngModel)]="searchText" id="searchText" style="height: 20px;" (keyup.Enter)="onEnter($event)" #box>
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let i of loaditems()" (click)="pick(i)">{{labels[i]}}
     </mat-chip>
   </mat-chip-list>
-
 </div>
+
+
 <h1>Address</h1>
 <button (click)="search2();" mat-mini-fab>?</button>
 <div class="inputDiv" *ngIf="searching">

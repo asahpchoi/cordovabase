@@ -13,7 +13,7 @@ export class AutocompleteComponent implements OnInit {
   searchText;
   selectItem;
   selectItems = [];
-  selecting = false;
+  searchingOccupation = false;
   labels;
   fullList;
   searching = false;
@@ -69,13 +69,16 @@ export class AutocompleteComponent implements OnInit {
   pick(i) {
 
     this.selectItems.push(i);
-    this.selecting = false;
+    this.searchingOccupation = false;
 
   }
-  select() {
+
+  searchOccupation(e) {
+    console.log(e)
+    if(e.screenX == 0) return;
     this.selectItem = null;
     this.searchText = "";
-    this.selecting = true;
+    this.searchingOccupation = true;
     setTimeout(
       () => {
         document.getElementById('searchText').focus();

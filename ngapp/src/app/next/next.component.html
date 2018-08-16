@@ -1,18 +1,19 @@
 <form [formGroup]="profileForm" id="myForm" style="display:flex;flex-wrap: wrap">
 
-
+  <app-autocomplete></app-autocomplete>
   <mat-form-field>
     <input placeholder="first name" matInput type="text" formControlName="firstName" (keyup.Enter)="nextFields($event.target)"
       class="mf">
   </mat-form-field>
-
   <mat-form-field>
     <input placeholder="last name" matInput type="text" formControlName="lastName">
   </mat-form-field>
-
+  <mat-form-field>
+    <textarea matInput placeholder="Address"> </textarea>
+  </mat-form-field>
+  <br>
   <div formGroupName="address" style="display:flex;flex-wrap: wrap">
     <h3>Address</h3>
-
     <mat-form-field>
       <input placeholder="street" matInput type="text" formControlName="street" (keyup.Enter)="nextFields($event.target)" class="mf">
     </mat-form-field>
@@ -26,9 +27,9 @@
       <input placeholder="zip" matInput type="number" formControlName="zip">
     </mat-form-field>
     <mat-form-field>
-        <input placeholder="Premium" matInput type="number" >
-        <span matSuffix>000 VND</span>
-      </mat-form-field>
+      <input placeholder="Premium" matInput type="number">
+      <span matSuffix>000 VND</span>
+    </mat-form-field>
 
   </div>
   <mat-radio-group>
