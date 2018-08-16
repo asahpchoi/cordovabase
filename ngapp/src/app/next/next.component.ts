@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
+import cf from 'conversational-form';
+
 
 @Component({
   selector: 'app-next',
@@ -28,6 +30,9 @@ export class NextComponent implements OnInit {
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    //var cfInstance = cf.startTheConversation({
+     // formEl: document.getElementById("myForm")
+ // });
   }
 
   nextFields(object) {
