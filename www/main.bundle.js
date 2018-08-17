@@ -511,7 +511,7 @@ var AddRidersComponent = /** @class */ (function () {
 /***/ "./src/app/app.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "body, div{\n  font-family: 'Roboto', sans-serif;\n  font-size: 14px;\n}\n"
+module.exports = "body, div{\n  font-family: 'Roboto', sans-serif;\n  font-size: 14px;\n \n    -webkit-user-select: none;\n       -moz-user-select: -moz-none;\n        -ms-user-select: none;\n user-select: none;\n\n}"
 
 /***/ }),
 
@@ -577,45 +577,48 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__validationSection_validation_result_component__ = __webpack_require__("./src/app/validationSection/validation-result.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__misc_slider_slider_component__ = __webpack_require__("./src/app/misc/slider/slider.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_material_slider__ = __webpack_require__("./node_modules/@angular/material/esm5/slider.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__misc_hammer_card_hammer_card_component__ = __webpack_require__("./src/app/misc/hammer-card/hammer-card.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__misc_funds_funds_component__ = __webpack_require__("./src/app/misc/funds/funds.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__misc_donutchart_donutchart_component__ = __webpack_require__("./src/app/misc/donutchart/donutchart.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__angular_material_grid_list__ = __webpack_require__("./node_modules/@angular/material/esm5/grid-list.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__misc_occupation_occupation_component__ = __webpack_require__("./src/app/misc/occupation/occupation.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__misc_occupation_search_occupation_search_component__ = __webpack_require__("./src/app/misc/occupation-search/occupation-search.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__misc_search_text_pipe__ = __webpack_require__("./src/app/misc/search-text.pipe.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__tableSection_table_component__ = __webpack_require__("./src/app/tableSection/table.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__angular_material_slide_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/slide-toggle.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_material_button_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/button-toggle.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__angular_material_icon__ = __webpack_require__("./node_modules/@angular/material/esm5/icon.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_material_progress_bar__ = __webpack_require__("./node_modules/@angular/material/esm5/progress-bar.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__components_numpad_numpad_component__ = __webpack_require__("./src/app/components/numpad/numpad.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__angular_material_expansion__ = __webpack_require__("./node_modules/@angular/material/esm5/expansion.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__components_add_rider_add_rider_component__ = __webpack_require__("./src/app/components/add-rider/add-rider.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__addRiderSection_add_riders_component__ = __webpack_require__("./src/app/addRiderSection/add-riders.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__user_service__ = __webpack_require__("./src/app/user.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__ulinput_ulinput_component__ = __webpack_require__("./src/app/ulinput/ulinput.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__compare_charts_compare_charts_component__ = __webpack_require__("./src/app/compare-charts/compare-charts.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__report_chart_report_chart_component__ = __webpack_require__("./src/app/report-chart/report-chart.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__fundactivity_fundactivity_component__ = __webpack_require__("./src/app/fundactivity/fundactivity.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__customer_list_customer_list_component__ = __webpack_require__("./src/app/customer-list/customer-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__angular_material_list__ = __webpack_require__("./node_modules/@angular/material/esm5/list.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__donutchart_po_c_donutchart_po_c_component__ = __webpack_require__("./src/app/donutchart-po-c/donutchart-po-c.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__fundallocation_fundallocation_component__ = __webpack_require__("./src/app/fundallocation/fundallocation.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__drawing_drawing_component__ = __webpack_require__("./src/app/drawing/drawing.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__voice_voice_component__ = __webpack_require__("./src/app/voice/voice.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__config_service__ = __webpack_require__("./src/app/config.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__fundhistory_fundhistory_component__ = __webpack_require__("./src/app/fundhistory/fundhistory.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__ = __webpack_require__("./src/app/autocomplete/autocomplete.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__next_next_component__ = __webpack_require__("./src/app/next/next.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__angular_material_radio__ = __webpack_require__("./node_modules/@angular/material/esm5/radio.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__angular_material_datepicker__ = __webpack_require__("./node_modules/@angular/material/esm5/datepicker.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__angular_material_slider__ = __webpack_require__("./node_modules/@angular/material/esm5/slider.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__misc_hammer_card_hammer_card_component__ = __webpack_require__("./src/app/misc/hammer-card/hammer-card.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__misc_funds_funds_component__ = __webpack_require__("./src/app/misc/funds/funds.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__misc_donutchart_donutchart_component__ = __webpack_require__("./src/app/misc/donutchart/donutchart.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__angular_material_grid_list__ = __webpack_require__("./node_modules/@angular/material/esm5/grid-list.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__misc_occupation_occupation_component__ = __webpack_require__("./src/app/misc/occupation/occupation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__misc_occupation_search_occupation_search_component__ = __webpack_require__("./src/app/misc/occupation-search/occupation-search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__misc_search_text_pipe__ = __webpack_require__("./src/app/misc/search-text.pipe.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__tableSection_table_component__ = __webpack_require__("./src/app/tableSection/table.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__angular_material_slide_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/slide-toggle.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__angular_material_button_toggle__ = __webpack_require__("./node_modules/@angular/material/esm5/button-toggle.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__angular_material_icon__ = __webpack_require__("./node_modules/@angular/material/esm5/icon.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__angular_material_progress_bar__ = __webpack_require__("./node_modules/@angular/material/esm5/progress-bar.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_numpad_numpad_component__ = __webpack_require__("./src/app/components/numpad/numpad.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__angular_material_expansion__ = __webpack_require__("./node_modules/@angular/material/esm5/expansion.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__components_add_rider_add_rider_component__ = __webpack_require__("./src/app/components/add-rider/add-rider.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__addRiderSection_add_riders_component__ = __webpack_require__("./src/app/addRiderSection/add-riders.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__user_service__ = __webpack_require__("./src/app/user.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__ulinput_ulinput_component__ = __webpack_require__("./src/app/ulinput/ulinput.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__compare_charts_compare_charts_component__ = __webpack_require__("./src/app/compare-charts/compare-charts.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__report_chart_report_chart_component__ = __webpack_require__("./src/app/report-chart/report-chart.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__fundactivity_fundactivity_component__ = __webpack_require__("./src/app/fundactivity/fundactivity.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__customer_list_customer_list_component__ = __webpack_require__("./src/app/customer-list/customer-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__angular_material_list__ = __webpack_require__("./node_modules/@angular/material/esm5/list.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_45__donutchart_po_c_donutchart_po_c_component__ = __webpack_require__("./src/app/donutchart-po-c/donutchart-po-c.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_46__fundallocation_fundallocation_component__ = __webpack_require__("./src/app/fundallocation/fundallocation.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_47__drawing_drawing_component__ = __webpack_require__("./src/app/drawing/drawing.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_48__voice_voice_component__ = __webpack_require__("./src/app/voice/voice.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_49__config_service__ = __webpack_require__("./src/app/config.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_50__fundhistory_fundhistory_component__ = __webpack_require__("./src/app/fundhistory/fundhistory.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__ = __webpack_require__("./src/app/autocomplete/autocomplete.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__next_next_component__ = __webpack_require__("./src/app/next/next.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__angular_material_radio__ = __webpack_require__("./node_modules/@angular/material/esm5/radio.es5.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -672,17 +675,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var appRoutes = [
     { path: 'slider', component: __WEBPACK_IMPORTED_MODULE_19__misc_slider_slider_component__["a" /* SliderComponent */] },
-    { path: 'funds', component: __WEBPACK_IMPORTED_MODULE_22__misc_funds_funds_component__["a" /* FundsComponent */] },
-    { path: 'occupation', component: __WEBPACK_IMPORTED_MODULE_25__misc_occupation_occupation_component__["a" /* OccupationComponent */] },
-    { path: 'compareChart', component: __WEBPACK_IMPORTED_MODULE_39__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */] },
-    { path: 'reportChart', component: __WEBPACK_IMPORTED_MODULE_40__report_chart_report_chart_component__["a" /* ReportChartComponent */] },
-    { path: 'userlist', component: __WEBPACK_IMPORTED_MODULE_42__customer_list_customer_list_component__["a" /* CustomerListComponent */] },
-    { path: 'Fundallocation', component: __WEBPACK_IMPORTED_MODULE_45__fundallocation_fundallocation_component__["a" /* FundallocationComponent */] },
-    { path: 'draw', component: __WEBPACK_IMPORTED_MODULE_46__drawing_drawing_component__["a" /* DrawingComponent */] },
-    { path: 'autocomplete', component: __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
+    { path: 'funds', component: __WEBPACK_IMPORTED_MODULE_23__misc_funds_funds_component__["a" /* FundsComponent */] },
+    { path: 'occupation', component: __WEBPACK_IMPORTED_MODULE_26__misc_occupation_occupation_component__["a" /* OccupationComponent */] },
+    { path: 'compareChart', component: __WEBPACK_IMPORTED_MODULE_40__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */] },
+    { path: 'reportChart', component: __WEBPACK_IMPORTED_MODULE_41__report_chart_report_chart_component__["a" /* ReportChartComponent */] },
+    { path: 'userlist', component: __WEBPACK_IMPORTED_MODULE_43__customer_list_customer_list_component__["a" /* CustomerListComponent */] },
+    { path: 'Fundallocation', component: __WEBPACK_IMPORTED_MODULE_46__fundallocation_fundallocation_component__["a" /* FundallocationComponent */] },
+    { path: 'draw', component: __WEBPACK_IMPORTED_MODULE_47__drawing_drawing_component__["a" /* DrawingComponent */] },
+    { path: 'autocomplete', component: __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
     { path: 'input', component: __WEBPACK_IMPORTED_MODULE_12__inputSection_input_component__["a" /* InputComponent */] },
-    { path: 'next', component: __WEBPACK_IMPORTED_MODULE_51__next_next_component__["a" /* NextComponent */] },
-    { path: '', component: __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
+    { path: 'next', component: __WEBPACK_IMPORTED_MODULE_52__next_next_component__["a" /* NextComponent */] },
+    { path: '', component: __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
 ];
 var AppModule = /** @class */ (function () {
     function AppModule() {
@@ -696,35 +699,35 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_12__inputSection_input_component__["a" /* InputComponent */],
                 __WEBPACK_IMPORTED_MODULE_17__validationSection_validation_result_component__["a" /* ValidationResultComponent */],
                 __WEBPACK_IMPORTED_MODULE_19__misc_slider_slider_component__["a" /* SliderComponent */],
-                __WEBPACK_IMPORTED_MODULE_21__misc_hammer_card_hammer_card_component__["a" /* HammerCardComponent */],
-                __WEBPACK_IMPORTED_MODULE_22__misc_funds_funds_component__["a" /* FundsComponent */],
-                __WEBPACK_IMPORTED_MODULE_23__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */],
-                __WEBPACK_IMPORTED_MODULE_25__misc_occupation_occupation_component__["a" /* OccupationComponent */],
-                __WEBPACK_IMPORTED_MODULE_26__misc_occupation_search_occupation_search_component__["a" /* OccupationSearchComponent */],
-                __WEBPACK_IMPORTED_MODULE_27__misc_search_text_pipe__["a" /* SearchTextPipe */],
-                __WEBPACK_IMPORTED_MODULE_28__tableSection_table_component__["a" /* TableComponent */],
-                __WEBPACK_IMPORTED_MODULE_33__components_numpad_numpad_component__["a" /* NumpadComponent */],
-                __WEBPACK_IMPORTED_MODULE_35__components_add_rider_add_rider_component__["a" /* AddRiderComponent */],
-                __WEBPACK_IMPORTED_MODULE_36__addRiderSection_add_riders_component__["a" /* AddRidersComponent */],
-                __WEBPACK_IMPORTED_MODULE_38__ulinput_ulinput_component__["a" /* UlinputComponent */],
-                __WEBPACK_IMPORTED_MODULE_39__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */],
-                __WEBPACK_IMPORTED_MODULE_40__report_chart_report_chart_component__["a" /* ReportChartComponent */],
-                __WEBPACK_IMPORTED_MODULE_41__fundactivity_fundactivity_component__["a" /* FundactivityComponent */],
-                __WEBPACK_IMPORTED_MODULE_42__customer_list_customer_list_component__["a" /* CustomerListComponent */],
-                __WEBPACK_IMPORTED_MODULE_44__donutchart_po_c_donutchart_po_c_component__["a" /* DonutchartPoCComponent */],
-                __WEBPACK_IMPORTED_MODULE_45__fundallocation_fundallocation_component__["a" /* FundallocationComponent */],
-                __WEBPACK_IMPORTED_MODULE_46__drawing_drawing_component__["a" /* DrawingComponent */],
-                __WEBPACK_IMPORTED_MODULE_47__voice_voice_component__["a" /* VoiceComponent */],
-                __WEBPACK_IMPORTED_MODULE_49__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */],
-                __WEBPACK_IMPORTED_MODULE_50__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */],
-                __WEBPACK_IMPORTED_MODULE_51__next_next_component__["a" /* NextComponent */],
+                __WEBPACK_IMPORTED_MODULE_22__misc_hammer_card_hammer_card_component__["a" /* HammerCardComponent */],
+                __WEBPACK_IMPORTED_MODULE_23__misc_funds_funds_component__["a" /* FundsComponent */],
+                __WEBPACK_IMPORTED_MODULE_24__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */],
+                __WEBPACK_IMPORTED_MODULE_26__misc_occupation_occupation_component__["a" /* OccupationComponent */],
+                __WEBPACK_IMPORTED_MODULE_27__misc_occupation_search_occupation_search_component__["a" /* OccupationSearchComponent */],
+                __WEBPACK_IMPORTED_MODULE_28__misc_search_text_pipe__["a" /* SearchTextPipe */],
+                __WEBPACK_IMPORTED_MODULE_29__tableSection_table_component__["a" /* TableComponent */],
+                __WEBPACK_IMPORTED_MODULE_34__components_numpad_numpad_component__["a" /* NumpadComponent */],
+                __WEBPACK_IMPORTED_MODULE_36__components_add_rider_add_rider_component__["a" /* AddRiderComponent */],
+                __WEBPACK_IMPORTED_MODULE_37__addRiderSection_add_riders_component__["a" /* AddRidersComponent */],
+                __WEBPACK_IMPORTED_MODULE_39__ulinput_ulinput_component__["a" /* UlinputComponent */],
+                __WEBPACK_IMPORTED_MODULE_40__compare_charts_compare_charts_component__["a" /* CompareChartsComponent */],
+                __WEBPACK_IMPORTED_MODULE_41__report_chart_report_chart_component__["a" /* ReportChartComponent */],
+                __WEBPACK_IMPORTED_MODULE_42__fundactivity_fundactivity_component__["a" /* FundactivityComponent */],
+                __WEBPACK_IMPORTED_MODULE_43__customer_list_customer_list_component__["a" /* CustomerListComponent */],
+                __WEBPACK_IMPORTED_MODULE_45__donutchart_po_c_donutchart_po_c_component__["a" /* DonutchartPoCComponent */],
+                __WEBPACK_IMPORTED_MODULE_46__fundallocation_fundallocation_component__["a" /* FundallocationComponent */],
+                __WEBPACK_IMPORTED_MODULE_47__drawing_drawing_component__["a" /* DrawingComponent */],
+                __WEBPACK_IMPORTED_MODULE_48__voice_voice_component__["a" /* VoiceComponent */],
+                __WEBPACK_IMPORTED_MODULE_50__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */],
+                __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */],
+                __WEBPACK_IMPORTED_MODULE_52__next_next_component__["a" /* NextComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_52__angular_material_radio__["a" /* MatRadioModule */],
+                __WEBPACK_IMPORTED_MODULE_53__angular_material_radio__["a" /* MatRadioModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_platform_browser_animations__["a" /* BrowserAnimationsModule */],
-                __WEBPACK_IMPORTED_MODULE_29__angular_material_slide_toggle__["a" /* MatSlideToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_24__angular_material_grid_list__["a" /* MatGridListModule */],
+                __WEBPACK_IMPORTED_MODULE_30__angular_material_slide_toggle__["a" /* MatSlideToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_25__angular_material_grid_list__["a" /* MatGridListModule */],
                 __WEBPACK_IMPORTED_MODULE_8__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_14__angular_flex_layout__["a" /* FlexLayoutModule */],
                 __WEBPACK_IMPORTED_MODULE_15__angular_material_chips__["a" /* MatChipsModule */],
@@ -733,20 +736,22 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_13__angular_material_select__["a" /* MatSelectModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["b" /* MatButtonModule */], __WEBPACK_IMPORTED_MODULE_5__angular_material__["d" /* MatCheckboxModule */], __WEBPACK_IMPORTED_MODULE_3__angular_material_form_field__["c" /* MatFormFieldModule */], __WEBPACK_IMPORTED_MODULE_7__angular_material_input__["b" /* MatInputModule */], __WEBPACK_IMPORTED_MODULE_9__angular_material_dialog__["c" /* MatDialogModule */],
                 __WEBPACK_IMPORTED_MODULE_16__angular_forms__["e" /* FormsModule */], __WEBPACK_IMPORTED_MODULE_16__angular_forms__["j" /* ReactiveFormsModule */],
-                __WEBPACK_IMPORTED_MODULE_20__angular_material_slider__["a" /* MatSliderModule */],
+                __WEBPACK_IMPORTED_MODULE_21__angular_material_slider__["a" /* MatSliderModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["c" /* MatCardModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material_icon__["a" /* MatIconModule */],
-                __WEBPACK_IMPORTED_MODULE_32__angular_material_progress_bar__["a" /* MatProgressBarModule */],
-                __WEBPACK_IMPORTED_MODULE_30__angular_material_button_toggle__["a" /* MatButtonToggleModule */],
-                __WEBPACK_IMPORTED_MODULE_34__angular_material_expansion__["a" /* MatExpansionModule */],
-                __WEBPACK_IMPORTED_MODULE_43__angular_material_list__["a" /* MatListModule */],
-                __WEBPACK_IMPORTED_MODULE_31__angular_material_icon__["a" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material_icon__["a" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_33__angular_material_progress_bar__["a" /* MatProgressBarModule */],
+                __WEBPACK_IMPORTED_MODULE_31__angular_material_button_toggle__["a" /* MatButtonToggleModule */],
+                __WEBPACK_IMPORTED_MODULE_35__angular_material_expansion__["a" /* MatExpansionModule */],
+                __WEBPACK_IMPORTED_MODULE_44__angular_material_list__["a" /* MatListModule */],
+                __WEBPACK_IMPORTED_MODULE_32__angular_material_icon__["a" /* MatIconModule */],
+                __WEBPACK_IMPORTED_MODULE_20__angular_material_datepicker__["a" /* MatDatepickerModule */],
+                __WEBPACK_IMPORTED_MODULE_5__angular_material__["g" /* MatNativeDateModule */],
                 __WEBPACK_IMPORTED_MODULE_18__angular_router__["a" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
                 ),
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_11__pe_service__["a" /* PeService */], __WEBPACK_IMPORTED_MODULE_37__user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_48__config_service__["a" /* ConfigService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_11__pe_service__["a" /* PeService */], __WEBPACK_IMPORTED_MODULE_38__user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_49__config_service__["a" /* ConfigService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]],
-            entryComponents: [__WEBPACK_IMPORTED_MODULE_49__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */], __WEBPACK_IMPORTED_MODULE_6__misc_dialogsample_dialogsample_component__["a" /* DialogsampleComponent */], __WEBPACK_IMPORTED_MODULE_33__components_numpad_numpad_component__["a" /* NumpadComponent */], __WEBPACK_IMPORTED_MODULE_35__components_add_rider_add_rider_component__["a" /* AddRiderComponent */], __WEBPACK_IMPORTED_MODULE_38__ulinput_ulinput_component__["a" /* UlinputComponent */], __WEBPACK_IMPORTED_MODULE_41__fundactivity_fundactivity_component__["a" /* FundactivityComponent */], __WEBPACK_IMPORTED_MODULE_23__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */]]
+            entryComponents: [__WEBPACK_IMPORTED_MODULE_50__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */], __WEBPACK_IMPORTED_MODULE_6__misc_dialogsample_dialogsample_component__["a" /* DialogsampleComponent */], __WEBPACK_IMPORTED_MODULE_34__components_numpad_numpad_component__["a" /* NumpadComponent */], __WEBPACK_IMPORTED_MODULE_36__components_add_rider_add_rider_component__["a" /* AddRiderComponent */], __WEBPACK_IMPORTED_MODULE_39__ulinput_ulinput_component__["a" /* UlinputComponent */], __WEBPACK_IMPORTED_MODULE_42__fundactivity_fundactivity_component__["a" /* FundactivityComponent */], __WEBPACK_IMPORTED_MODULE_24__misc_donutchart_donutchart_component__["a" /* DonutchartComponent */]]
         })
     ], AppModule);
     return AppModule;
@@ -759,14 +764,14 @@ var AppModule = /** @class */ (function () {
 /***/ "./src/app/autocomplete/autocomplete.component.css":
 /***/ (function(module, exports) {
 
-module.exports = "mat-chip {\n    padding: 5px;\n}\n\n.inputDiv {\n    width: 100%;\n    height: 200px;\n    position: absolute;\n    top: 0px;\n    \n    background-color: gray;\n    opacity: 1;\n}\n\n.section {\n    border-style: solid;\n    padding:10px;\n    width: 30%;\n}"
+module.exports = "mat-chip {\n    padding: 5px;\n}\n\n.inputDiv {\n    width: 100%;\n    height: 200px;\n    position: absolute;\n    top: 0px;\n    \n    background-color: gray;\n    opacity: 1;\n}\n\n.section {\n    border-style: solid;\n    padding:10px;\n    width: 100%;\n    height: 300px;\n    overflow: scroll;\n}\n\nmat-chip {\n    width: 80%;\n    margin: 5px;\n    padding: 5px;\n}\n\n"
 
 /***/ }),
 
 /***/ "./src/app/autocomplete/autocomplete.component.html":
 /***/ (function(module, exports) {
 
-module.exports = " \n<h1>Auto Complete</h1>\n<div style=\"display:flex\">\n\n  <mat-chip-list #selected>\n    <mat-chip *ngFor=\"let selectItem of selectItems\">\n      {{labels[selectItem]}}\n      <mat-icon matChipRemove (click)=\"delete(selectItem)\" >cancel</mat-icon>\n    </mat-chip>\n  </mat-chip-list>\n\n  <button (click)=\"select()\" mat-mini-fab>Add</button>\n</div>\n<div *ngIf=\"selecting\" class=\"inputDiv\">\n  <input [(ngModel)]=\"searchText\" id=\"searchText\" style=\"height: 20px;\" (keyup.Enter)=\"onEnter($event)\" #box>\n\n  <mat-chip-list #chipList>\n    <mat-chip *ngFor=\"let i of loaditems()\" (click)=\"pick(i)\">{{labels[i]}}\n    </mat-chip>\n  </mat-chip-list>\n\n</div>\n<h1>Address</h1>\n<button (click)=\"search2();\" mat-mini-fab>?</button>\n<div class=\"inputDiv\" *ngIf=\"searching\">\n  Search Address:\n  <input [(ngModel)]=\"sel.searchText\" id=\"searchText2\">\n\n  <mat-chip-list #chipList>\n    <mat-chip *ngFor=\"let i of getMatchItems()\">\n      <span *ngIf=\"!i.districtId && !i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: null, p: i.value, d: null}; sel.searchText = '';searching=false;\">Province: {{i.display}}</span>\n      <span *ngIf=\"!i.districtId && i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: null, p: i.provinceId, d: i.value}; sel.searchText = '';searching=false;\">District: {{getPDisplay(i.provinceId)}} >> {{i.display}}</span>\n      <span *ngIf=\"i.districtId && i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: i.value, p: i.provinceId, d: i.districtId}; sel.searchText = '';searching=false;\">\n        Ward: {{getPDisplay(i.provinceId)}} >> {{getDDisplay(i.districtId, i.provinceId) }} >> {{i.display}}</span>\n    </mat-chip>\n  </mat-chip-list>\n\n</div>\n\n<div style=\"display:flex\">\n  <div class=\"section\">\n    Province\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let p of addressmaster.provinces\" (click)=\"sel.p=p.value;searching=false;\" [selected]=\"sel.p==p.value\">{{p.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n\n  <div class=\"section\">\n    District\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let d of getdistricts()\" (click)=\"sel.d=d.value;searching=false;\" [selected]=\"sel.d==d.value\">{{d.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n  <div class=\"section\">\n    Ward\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let w of getwards()\" (click)=\"sel.w=w.value;searching=false;\" [selected]=\"sel.w==w.value\">{{w.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n\n</div>"
+module.exports = " \n<h1>Auto Complete</h1>\n<div style=\"display:flex\">\n\n  <mat-chip-list>\n    <mat-chip *ngFor=\"let selectItem of selectItems\">\n      {{labels[selectItem]}}\n      <mat-icon matChipRemove (click)=\"delete(selectItem)\" >cancel</mat-icon>\n    </mat-chip>\n  </mat-chip-list>\n\n  <button (click)=\"searchOccupation($event)\" mat-mini-fab>Add</button>\n</div>\n\n<div *ngIf=\"searchingOccupation\" class=\"inputDiv\">\n  <input [(ngModel)]=\"searchText\" id=\"searchText\" style=\"height: 20px;\" (keyup.Enter)=\"onEnter($event)\" #box>\n  <mat-chip-list #chipList>\n    <mat-chip *ngFor=\"let i of loaditems()\" (click)=\"pick(i)\">{{labels[i]}}\n    </mat-chip>\n  </mat-chip-list>\n</div>\n\n\n<h1>Address</h1>\n<button (click)=\"search2();\" mat-mini-fab>?</button>\n<div class=\"inputDiv\" *ngIf=\"searching\">\n  Search Address:\n  <input [(ngModel)]=\"sel.searchText\" id=\"searchText2\">\n\n  <mat-chip-list #chipList>\n    <mat-chip *ngFor=\"let i of getMatchItems()\">\n      <span *ngIf=\"!i.districtId && !i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: null, p: i.value, d: null}; sel.searchText = '';searching=false;\">Province: {{i.display}}</span>\n      <span *ngIf=\"!i.districtId && i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: null, p: i.provinceId, d: i.value}; sel.searchText = '';searching=false;\">District: {{getPDisplay(i.provinceId)}} >> {{i.display}}</span>\n      <span *ngIf=\"i.districtId && i.provinceId\" (click)=\"sel = {searchText: sel.searchText, w: i.value, p: i.provinceId, d: i.districtId}; sel.searchText = '';searching=false;\">\n        Ward: {{getPDisplay(i.provinceId)}} >> {{getDDisplay(i.districtId, i.provinceId) }} >> {{i.display}}</span>\n    </mat-chip>\n  </mat-chip-list>\n\n</div>\n\n<div style=\"display:flex\">\n  <div class=\"section\">\n    Province\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let p of addressmaster.provinces\" (click)=\"sel.p=p.value;searching=false;\" [selected]=\"sel.p==p.value\">{{p.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n\n  <div class=\"section\">\n    District\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let d of getdistricts()\" (click)=\"sel.d=d.value;searching=false;\" [selected]=\"sel.d==d.value\">{{d.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n  <div class=\"section\">\n    Ward\n\n    <mat-chip-list style=\"display:flex\">\n      <mat-chip *ngFor=\"let w of getwards()\" (click)=\"sel.w=w.value;searching=false;\" [selected]=\"sel.w==w.value\">{{w.display}}</mat-chip>\n    </mat-chip-list>\n\n\n  </div>\n\n</div>"
 
 /***/ }),
 
@@ -793,7 +798,7 @@ var AutocompleteComponent = /** @class */ (function () {
         this.http = http;
         this.items = [];
         this.selectItems = [];
-        this.selecting = false;
+        this.searchingOccupation = false;
         this.searching = false;
         this.sel = {
             searchText: ''
@@ -833,12 +838,15 @@ var AutocompleteComponent = /** @class */ (function () {
     };
     AutocompleteComponent.prototype.pick = function (i) {
         this.selectItems.push(i);
-        this.selecting = false;
+        this.searchingOccupation = false;
     };
-    AutocompleteComponent.prototype.select = function () {
+    AutocompleteComponent.prototype.searchOccupation = function (e) {
+        console.log(e);
+        if (e.screenX == 0)
+            return;
         this.selectItem = null;
         this.searchText = "";
-        this.selecting = true;
+        this.searchingOccupation = true;
         setTimeout(function () {
             document.getElementById('searchText').focus();
         }, 100, true);
@@ -2351,7 +2359,7 @@ module.exports = "\n\n<canvas #myCanvas width=\"500\" height=\"500\" (click)=\"d
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore__ = __webpack_require__("./node_modules/underscore/underscore.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_underscore___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_underscore__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tensorflow_tfjs__ = __webpack_require__("./node_modules/@tensorflow/tfjs/dist-es6/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__tensorflow_tfjs__ = __webpack_require__("./node_modules/@tensorflow/tfjs/dist/tf.esm.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5973,14 +5981,14 @@ var SliderComponent = /** @class */ (function () {
 /***/ "./src/app/next/next.component.css":
 /***/ (function(module, exports) {
 
-module.exports = ".mf {\n    background-color: lightblue;\n}"
+module.exports = ".mf {\n    background-color: lightblue;\n}\n\nmat-form-field {\n    padding: 10px;\n    width: 100%;\n}"
 
 /***/ }),
 
 /***/ "./src/app/next/next.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"profileForm\" id=\"myForm\" style=\"display:flex;flex-wrap: wrap\">\n\n\n  <mat-form-field>\n    <input placeholder=\"first name\" matInput type=\"text\" formControlName=\"firstName\" (keyup.Enter)=\"nextFields($event.target)\"\n      class=\"mf\">\n  </mat-form-field>\n\n  <mat-form-field>\n    <input placeholder=\"last name\" matInput type=\"text\" formControlName=\"lastName\">\n  </mat-form-field>\n\n  <div formGroupName=\"address\" style=\"display:flex;flex-wrap: wrap\">\n    <h3>Address</h3>\n\n    <mat-form-field>\n      <input placeholder=\"street\" matInput type=\"text\" formControlName=\"street\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"city\" matInput type=\"text\" formControlName=\"city\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"state\" matInput type=\"text\" formControlName=\"state\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"zip\" matInput type=\"number\" formControlName=\"zip\">\n    </mat-form-field>\n    <mat-form-field>\n        <input placeholder=\"Premium\" matInput type=\"number\" >\n        <span matSuffix>000 VND</span>\n      </mat-form-field>\n\n  </div>\n  <mat-radio-group>\n    <mat-radio-button value=\"1\" (click)=\"nextFields($event.target)\">Option 1</mat-radio-button>\n    <mat-radio-button value=\"2\" (click)=\"nextFields($event.target)\">Option 2</mat-radio-button>\n  </mat-radio-group>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food 2\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff2>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip3\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip3>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip4\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip4>\n  </mat-form-field>\n\n</form>\n\n<p>\n  Form Status: {{ profileForm.status }}\n</p>"
+module.exports = "<form [formGroup]=\"profileForm\" id=\"myForm\" style=\"display:flex;flex-wrap: wrap\" >\n\n  \n  <mat-form-field>\n    <input placeholder=\"first name\" matInput type=\"text\" formControlName=\"firstName\" (keyup.Enter)=\"nextFields($event.target)\"\n      class=\"mf\">\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"last name\" matInput type=\"text\" formControlName=\"lastName\">\n  </mat-form-field>\n  <mat-form-field>\n    <textarea matInput placeholder=\"Address\"> </textarea>\n  </mat-form-field>\n  <br>\n  Date:\n  <mat-form-field>\n    <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" type=\"date\">\n    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n    <mat-datepicker #picker></mat-datepicker>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"date\" matInput type=\"date\"   (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n  </mat-form-field>\n  <div formGroupName=\"address\" style=\"display:flex;flex-wrap: wrap\">\n    <h3>Address</h3>\n    <mat-form-field>\n      <input placeholder=\"street\" matInput type=\"text\" formControlName=\"street\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"city\" matInput type=\"text\" formControlName=\"city\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"state\" matInput type=\"text\" formControlName=\"state\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"zip\" matInput type=\"number\" formControlName=\"zip\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"Premium\" matInput type=\"number\">\n      <span matSuffix>000 VND</span>\n    </mat-form-field>\n\n  </div>\n  <mat-radio-group>\n    <mat-radio-button value=\"1\" (click)=\"nextFields($event.target)\">Option 1</mat-radio-button>\n    <mat-radio-button value=\"2\" (click)=\"nextFields($event.target)\">Option 2</mat-radio-button>\n  </mat-radio-group>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food 2\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff2>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip3\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip3>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip4\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip4>\n  </mat-form-field>\n\n</form>\n\n<p>\n  Form Status: {{ profileForm.status }}\n</p>"
 
 /***/ }),
 
@@ -6022,6 +6030,9 @@ var NextComponent = /** @class */ (function () {
         ];
     }
     NextComponent.prototype.ngOnInit = function () {
+        //var cfInstance = cf.startTheConversation({
+        // formEl: document.getElementById("myForm")
+        // });
     };
     NextComponent.prototype.nextFields = function (object) {
         var elements = document.getElementsByClassName("mf");
@@ -6030,7 +6041,10 @@ var NextComponent = /** @class */ (function () {
             if (item.id == object.id) {
                 console.log(elements[i + 1]);
                 setTimeout(function () {
-                    elements[i + 1].focus();
+                    var e = elements[i + 1];
+                    e.focus();
+                    e.select();
+                    e.setSelectionRange(0, 9999);
                 }, 100, true);
             }
         };
@@ -7177,13 +7191,6 @@ Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* pl
 
 module.exports = __webpack_require__("./src/main.ts");
 
-
-/***/ }),
-
-/***/ 1:
-/***/ (function(module, exports) {
-
-/* (ignored) */
 
 /***/ })
 

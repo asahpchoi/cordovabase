@@ -47,7 +47,11 @@ export class NextComponent implements OnInit {
         console.log(elements[i+1])
         setTimeout(
           ()=>{
-            elements[i+1].focus();
+            let e = elements[i+1];
+
+            e.focus();
+            e.select();
+            e.setSelectionRange(0, 9999);
           },100, true
         )
       

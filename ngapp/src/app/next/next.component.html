@@ -1,6 +1,6 @@
 <form [formGroup]="profileForm" id="myForm" style="display:flex;flex-wrap: wrap" >
 
-  <app-autocomplete></app-autocomplete>
+  
   <mat-form-field>
     <input placeholder="first name" matInput type="text" formControlName="firstName" (keyup.Enter)="nextFields($event.target)"
       class="mf">
@@ -12,6 +12,15 @@
     <textarea matInput placeholder="Address"> </textarea>
   </mat-form-field>
   <br>
+  Date:
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" type="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="date" matInput type="date"   (keyup.Enter)="nextFields($event.target)" class="mf">
+  </mat-form-field>
   <div formGroupName="address" style="display:flex;flex-wrap: wrap">
     <h3>Address</h3>
     <mat-form-field>

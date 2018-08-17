@@ -1,4 +1,10 @@
 body, div{
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
+ 
+    -webkit-user-select: none;
+       -moz-user-select: -moz-none;
+        -ms-user-select: none;
+ user-select: none;
+
 }

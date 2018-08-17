@@ -19,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationResultComponent } from './validationSection/validation-result.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SliderComponent } from './misc/slider/slider.component';
- 
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatSliderModule } from '@angular/material/slider';
 import { HammerCardComponent } from './misc/hammer-card/hammer-card.component';
 
@@ -60,7 +60,7 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { NextComponent } from './next/next.component';
 import {MatRadioModule} from '@angular/material/radio';
 
- 
+ import {MatNativeDateModule} from '@angular/material';
 
 
 const appRoutes: Routes = [
@@ -135,6 +135,8 @@ const appRoutes: Routes = [
     MatExpansionModule,
     MatListModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only

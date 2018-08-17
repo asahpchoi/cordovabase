@@ -15,8 +15,14 @@ mat-chip {
 .section {
     border-style: solid;
     padding:10px;
-    width: 30%;
+    width: 100%;
     height: 300px;
     overflow: scroll;
+}
+
+mat-chip {
+    width: 80%;
+    margin: 5px;
+    padding: 5px;
 }
 
