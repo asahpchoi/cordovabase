@@ -64,6 +64,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import { NextDirective } from './next.directive';
 import { LottieComponent } from './lottie/lottie.component';
 import { LottieAnimationViewModule } from 'ng-lottie';
+import { ScrollamaComponent } from './scrollama/scrollama.component';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -115,6 +116,7 @@ const appRoutes: Routes = [
     NextComponent,
     NextDirective,
     LottieComponent,
+    ScrollamaComponent,
 
 
   ],

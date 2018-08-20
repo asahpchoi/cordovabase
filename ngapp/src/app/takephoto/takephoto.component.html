@@ -1,0 +1,5 @@
+<button mat-raised-button (click)="takePhoto()">Take Photo</button>
+<button mat-raised-button (click)="startWebcam()">Start</button>
+<button mat-raised-button (click)="stopWebcam()">Stop</button>
+<canvas  id="myCanvas" width="400" height="350"></canvas>  
+<video onclick="snapshot(this);" width=400 height=400 id="video" controls autoplay #video></video>
