@@ -1,6 +1,12 @@
 /*
 	Containers
 */
+.page {
+	height: 80vh;
+	width: 80vw;
+	border: #000000;
+	border-style: solid;
+}
 #content-wrapper, #example-wrapper {
 	height: 100%;
 }

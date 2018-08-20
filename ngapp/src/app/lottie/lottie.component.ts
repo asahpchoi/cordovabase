@@ -21,7 +21,7 @@ export class LottieComponent implements AfterViewInit {
             var scene = new ScrollMagic.Scene({
                 triggerElement: "#trigger1"
               })
-              .setTween("#player", 0.5, {backgroundColor: "red", scale: 1.2}) // trigger a TweenMax.to tween
+              .setTween("#player", 0.5, {backgroundColor: "yellow", scale: 0.7}) // trigger a TweenMax.to tween
               .addIndicators({name: "1 (duration: 0)"}) // add indicators (requires plugin)
               .addTo(controller);
     }
