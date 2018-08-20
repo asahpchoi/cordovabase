@@ -61,7 +61,9 @@ import { NextComponent } from './next/next.component';
 import {MatRadioModule} from '@angular/material/radio';
 
  import {MatNativeDateModule} from '@angular/material';
-
+import { NextDirective } from './next.directive';
+import { LottieComponent } from './lottie/lottie.component';
+import { LottieAnimationViewModule } from 'ng-lottie';
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -75,6 +77,7 @@ const appRoutes: Routes = [
   { path: 'autocomplete', component: AutocompleteComponent },
   { path: 'input', component: InputComponent },
   { path: 'next', component: NextComponent},
+  { path: 'lottie', component: LottieComponent},
   { path: '', component: AutocompleteComponent },
 
 ];
@@ -110,6 +113,8 @@ const appRoutes: Routes = [
     FundhistoryComponent,
     AutocompleteComponent,
     NextComponent,
+    NextDirective,
+    LottieComponent,
 
 
   ],
@@ -137,6 +142,7 @@ const appRoutes: Routes = [
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    LottieAnimationViewModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only

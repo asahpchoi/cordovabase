@@ -34,29 +34,5 @@ export class NextComponent implements OnInit {
      // formEl: document.getElementById("myForm")
  // });
   }
-
-  nextFields(object) {
-
-  
-    let elements : any = document.getElementsByClassName("mf");
  
-    for (let i=0; i< elements.length - 1; i++) {
-      let item = elements[i];
-    
-      if(item.id == object.id) {
-        console.log(elements[i+1])
-        setTimeout(
-          ()=>{
-            let e = elements[i+1];
-
-            e.focus();
-            e.select();
-            e.setSelectionRange(0, 9999);
-          },100, true
-        )
-      
-         
-      }
-    }
-  }
 }

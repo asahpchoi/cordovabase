@@ -518,7 +518,7 @@ module.exports = "body, div{\n  font-family: 'Roboto', sans-serif;\n  font-size:
 /***/ "./src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>\n\n<body>\n    <nav>\n        <a routerLink=\"/autocomplete\" routerLinkActive=\"active\">Auto Complete</a>\n        <a routerLink=\"/next\" routerLinkActive=\"active\">Form fill</a>\n\n    </nav>\n    <router-outlet></router-outlet>\n</body>"
+module.exports = "<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>\n\n<body>\n    <nav>\n        <a routerLink=\"/autocomplete\" routerLinkActive=\"active\">Auto Complete</a>\n        <a routerLink=\"/next\" routerLinkActive=\"active\">Form fill</a>\n        <a routerLink=\"/lottie\" routerLinkActive=\"active\">Animation</a>\n        \n    </nav>\n    <router-outlet></router-outlet>\n</body>"
 
 /***/ }),
 
@@ -611,12 +611,18 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__ = __webpack_require__("./src/app/autocomplete/autocomplete.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_52__next_next_component__ = __webpack_require__("./src/app/next/next.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_53__angular_material_radio__ = __webpack_require__("./node_modules/@angular/material/esm5/radio.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_54__next_directive__ = __webpack_require__("./src/app/next.directive.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_55__lottie_lottie_component__ = __webpack_require__("./src/app/lottie/lottie.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_56_ng_lottie__ = __webpack_require__("./node_modules/ng-lottie/dist/esm/src/index.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -685,6 +691,7 @@ var appRoutes = [
     { path: 'autocomplete', component: __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
     { path: 'input', component: __WEBPACK_IMPORTED_MODULE_12__inputSection_input_component__["a" /* InputComponent */] },
     { path: 'next', component: __WEBPACK_IMPORTED_MODULE_52__next_next_component__["a" /* NextComponent */] },
+    { path: 'lottie', component: __WEBPACK_IMPORTED_MODULE_55__lottie_lottie_component__["a" /* LottieComponent */] },
     { path: '', component: __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */] },
 ];
 var AppModule = /** @class */ (function () {
@@ -721,6 +728,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_50__fundhistory_fundhistory_component__["a" /* FundhistoryComponent */],
                 __WEBPACK_IMPORTED_MODULE_51__autocomplete_autocomplete_component__["a" /* AutocompleteComponent */],
                 __WEBPACK_IMPORTED_MODULE_52__next_next_component__["a" /* NextComponent */],
+                __WEBPACK_IMPORTED_MODULE_54__next_directive__["a" /* NextDirective */],
+                __WEBPACK_IMPORTED_MODULE_55__lottie_lottie_component__["a" /* LottieComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -746,6 +755,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_32__angular_material_icon__["a" /* MatIconModule */],
                 __WEBPACK_IMPORTED_MODULE_20__angular_material_datepicker__["a" /* MatDatepickerModule */],
                 __WEBPACK_IMPORTED_MODULE_5__angular_material__["g" /* MatNativeDateModule */],
+                __WEBPACK_IMPORTED_MODULE_56_ng_lottie__["a" /* LottieAnimationViewModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_18__angular_router__["a" /* RouterModule */].forRoot(appRoutes, { enableTracing: false } // <-- debugging purposes only
                 ),
             ],
@@ -3670,6 +3680,89 @@ var InputComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/lottie/lottie.component.css":
+/***/ (function(module, exports) {
+
+module.exports = "/*\n\tContainers\n*/\n#content-wrapper, #example-wrapper {\n\theight: 100%;\n}\n.scrollContainer {\n\toverflow-y: scroll;\n\toverflow-x: hidden;\n\twidth: 100%\n}\n.scrollContainer {\n\theight: 100%;\n\tmargin: auto;\n}\n#example-wrapper .scrollContent {\n\theight: 100%;\n}\n.horizontal.scrollContainer {\n\toverflow-y: hidden;\n\toverflow-x: scroll;\n}\n#example-wrapper.scrollContainer .scrollContent {\n\twidth: 100%;\n\theight: auto;\n}\n#example-wrapper.scrollContainer.horizontal .scrollContent {\n\twidth: auto;\n\theight: 100%;\n}\n#example-wrapper.horizontal {\n\twhite-space: nowrap;\n\tfont-size: 0;  /* fix for spaces between inline block divs */\n}\n#example-wrapper.horizontal div {\n\tfont-size: 13px;\n}\n#example-wrapper .scrollContent, #example-wrapper.horizontal .scrollContent {\n\tfont-size: 0;\n}\n#example-wrapper .scrollContent div {\n\tfont-size: 13px;\n}\n#example-wrapper section {\n}\nsection#titlechart {\n\ttext-align: center;\n\tposition: relative;\n\theight: 100%;\n\tmin-height: 500px;\n\tmin-width: 100%;\n\theight: 100vh;\n}\n.horizontal section, .horizontal section#titlechart{\n\tdisplay: inline-block;\n\tvertical-align: top;\n\theight: 100%;\n}\nsection#titlechart #description {\n\ttop: 50%;\n\tleft: 50%;\n\tposition: absolute;\n\twidth: 600px;\n\theight: 300px;\n\tmargin: -150px auto auto -300px;\n}\nsection#titlechart.home #description {\n\tpadding-top: 0;\n\tpadding-bottom: 100px;\n}\nsection#titlechart #description h1 {\n\tmargin: 0;\n}\nsection#titlechart #description h2 {\n\tmargin-bottom: 20px;\n}\nsection#titlechart #description a.viewsource {\n\tmargin-bottom: 20px;\n\tdisplay: inline-block;\n}\nsection#titlechart #description code {\n\tbackground-color: #E1F1FF;\n\tpadding-left: 2px;\n\tpadding-right: 2px;\n\twhite-space: nowrap;\n}\nsection#titlechart #description ol, section#titlechart #description p {\n\ttext-align: left;\n\tmax-width: 400px;\n\tmargin: 10px auto 10px auto;\n\twhite-space: normal;\n}\nsection#titlechart #description ol {\n\tlist-style-position: outside;\n}\n#example-wrapper section#titlechart #description:after {\n\tcontent: \"↧\";\n\tfont-size: 40px;\n\tdisplay: block;\n}\n#example-wrapper.horizontal section#titlechart #description:after {\n\tcontent: \"↦\";\n}\nsection.demo * {\n\tfont-size: 13px;\n}\nsection.demo {\n\tfont-size: 0;\n\ttext-align: center;\n \n}\nsection.demo.fullheight {\n\tmin-height: 100%;\n}\nsection.demo.doublewidth, .spacer.doublewidth {\n\tmin-width: 200%;\n}\n.horizontal section.demo {\n\ttext-align: inherit;\n\twhite-space: nowrap;\n \n}\n.horizontal section.demo.fullwidth {\n\tmin-width: 100%;\n}\n/*\n\tElements\n*/\nh1.badge {\n\t/*cursor: text;*/\n\tpointer-events: none;\n}\nh1.badge:after {\n\tvertical-align: text-top;\n\tdisplay: inline-block;\n\tposition: absolute;\n\tcursor: pointer;\n\tmargin-left: 10px;\n\tfont-family: \"Source Sans Pro\", Arial, sans-serif;\n\tfont-weight: bold;\n\tfont-style: normal;\n\tcolor: #FFFFFF;\n\tfont-size: 12px;\n\tpadding: 2px 5px;\n\tborder-radius: 10px;\n\tpointer-events: all;\n}\nh1.badge.gsap:after {\n\tcontent: \"GSAP\";\n\tbackground-color: #61AC27;\n}\nh1.badge.velocity:after {\n\tcontent: \"Velocity.js\";\n\tbackground-color: #f53a47;\n}\n.spacer {\n\ttext-align: center;\n\tmin-height: 100px;\n \n}\n.spacer.s0 {\n\tmin-height: 1px;\n}\n.spacer.s1 {\n\tmin-height: 100px;\n}\n.spacer.s2 {\n\tmin-height: 200px;\n}\n.spacer.s3 {\n\tmin-height: 300px;\n}\n.spacer.s4 {\n\tmin-height: 400px;\n}\n.spacer.s5 {\n\tmin-height: 500px;\n}\n.spacer.s6 {\n\tmin-height: 600px;\n}\n.spacer.s7 {\n\tmin-height: 700px;\n}\n.spacer.s8 {\n\tmin-height: 800px;\n}\n.spacer.s9 {\n\tmin-height: 900px;\n}\n.spacer.s10 {\n\tmin-height: 1000px;\n}\n.spacer.s_viewport {\n\tmin-height: 100%;\n}\n.horizontal .spacer {\n \n\tmargin-bottom: 0;\n\tmin-height: initial;\n\tmin-width: 100px;\n\theight: 100%;\n\tdisplay: inline-block;\n\tvertical-align: top;\n}\n.horizontal .spacer.s0 {\n\tmin-width: 1px;\n}\n.horizontal .spacer.s1 {\n\tmin-width: 100px;\n}\n.horizontal .spacer.s2 {\n\tmin-width: 200px;\n}\n.horizontal .spacer.s3 {\n\tmin-width: 300px;\n}\n.horizontal .spacer.s4 {\n\tmin-width: 400px;\n}\n.horizontal .spacer.s5 {\n\tmin-width: 500px;\n}\n.horizontal .spacer.s6 {\n\tmin-width: 600px;\n}\n.horizontal .spacer.s7 {\n\tmin-width: 700px;\n}\n.horizontal .spacer.s8 {\n\tmin-width: 800px;\n}\n.horizontal .spacer.s9 {\n\tmin-width: 900px;\n}\n.horizontal .spacer.s10 {\n\tmin-width: 1000px;\n}\n.spacer.s_viewport {\n\tmin-width: 100%;\n}\n.box1, .box2, .box3 {\n\tdisplay: inline-block;\n\tposition: relative;\n\tborder-radius: 8px;\n\tborder: 0px solid white;\n\ttext-align: center;\n\tvertical-align: middle;\n\tpadding: 0 5px;\n}\n.box1 {\n\tmin-width: 100px;\n\theight: 100px;\n\tmargin: 0 auto 0 auto;\n}\n.box2 {\n\tmin-width: 50px;\n\theight: 50px;\n\tmargin: 25px auto 25px auto;\n}\n.box3 {\n\tmin-width: 26px;\n\theight: 26px;\n\tmargin: 37px auto 37px auto;\n}\n.horizontal .box1 {\n\ttop: 50%;\n\tmax-height: 100px;\n\tmargin: -50px 0 auto 0;\n}\n.horizontal .box2 {\n\ttop: 50%;\n\tmax-height: 50px;\n\tmargin: -25px 25px auto 25px;\n}\n.horizontal .box3 {\n\ttop: 50%;\n\tmax-height: 26px;\n\tmargin: -13px 37px auto 37px;\n}\n.box1 p, .box2 p, .box3 p {\n\tmargin: 5px 15px 5px 15px;\n\tfont-size: 13px;\n\tfont-weight: lighter;\n\tcolor: white;\n}\n.box1 p:first-child {\n\tmargin-top: 27px;\n}\n.box1 a, .box2 a, .box3 a {\n\tcolor: white;\n}\n.box1.white *, .box2.white *, .box3.white * {\n\tcolor: #2e639e;\n}\n.box2.mario {\n\tbackground-color: #004fae;\n\tborder-top: 30px solid #fc112f;\n\tborder-bottom: 10px solid #c4723b;\n}\n.box3.goomba {\n\tmin-width: 30px;\n\theight: 4px;\n\tmargin-top: 75px;\n\tmargin-left: 30px;\n\tmargin-bottom: 25px;\n\tbackground-color: #b39475;\n\tborder-top: 30px solid #744527;\n\tborder-bottom: 6px solid #c4723b;\n}\n/*\n\tcolors\n*/\n.box1.outline, .box2.outline, .box3.outline {\n\tborder: 1px solid white;\n}\n.blue {\n\tbackground-color: #3883d8;\n}\n.turqoise {\n\tbackground-color: #38ced7;\n}\n.brown {\n\tbackground-color: #a66f28;\n}\n.bordeaux {\n\tbackground-color: #953543;\n}\n.skin {\n\tbackground-color: #ED9F4C;\n}\n.black {\n\tbackground-color: #000000;\n}\n.white {\n\tbackground-color: #FFFFFF;\n}\n.red {\n\tbackground-color: #cf3535;\n}\n.green {\n\tbackground-color: #22d659;\n}\n.orange {\n\tbackground-color: #ea6300;\n}\n/*\n\tForm\n*/\nform.move {\n\ttext-align: left;\n\tposition: fixed;\n\ttop: 70px;\n\tleft: 20px;\n\tdisplay: block;\n\tbackground-color: white;\n\tbackground-color: rgba(255, 255, 255, 0.9);\n\tborder-radius: 4px;\n\tpadding: 20px;\n\tz-index: 20;\n}\nhtml.touch form.move {\n\ttop: 120px;\n}\nform > div, form > fieldset > div {\n\tmargin: 10px 0 10px 0;\n\tdisplay: block;\n}\nform .slider {\n\tmin-width: 199px;\n\tdisplay: inline-block;\n\tposition: relative;\n\theight: 9px;\n\tborder-right: 1px solid #2e639e;\n\tborder-left: 1px solid #2e639e;\n\tvertical-align: middle;\n\tmargin-right: 5px;\n}\nform .slider .trackbar {\n\tmargin-top: 4px;\n\tborder-top: 1px solid #2e639e;\n\theight: 4px;\n}\nform .slider .handle {\n\theight: 14px;\n\twidth: 6px;\n\tposition: absolute;\n\ttop: -4px;\n\tmargin-left: -4px;\n\tleft: 0%;\n\tbackground-color: white;\n\tborder-radius: 4px;\n\tcursor: pointer;\n\tborder: 1px solid #2e639e;\n}\nform .slider .handle:hover, form .slider.dragging .handle {\n\tbackground-color: #79b0ee;\n}\nform .slider + input {\n\tbackground-color: transparent;\n\tborder: none;\n\tpadding: 0;\n}\nform #options label, form #actions label, form #tweenparams label {\n\tmin-width: 90px;\n\ttext-align: right;\n\tdisplay: inline-block;\n\tmargin-right: 10px;\n}\nform #tweenparams label {\n\tmin-width: 50px;\n}\nform #options button {\n\twidth: 65px;\n}\nform fieldset {\n\tpadding: 0 10px 0 10px;\n\tmargin: 5px 0 0 0;\n}\nform fieldset:first-child {\n\tmargin-top: -5px;\n}\nform fieldset legend {\n\tpadding: 0 5px 0 5px;\n\tmargin: 0;\n}\n.move {\n\tcursor: move;\n}\n.move * {\n\tcursor: auto;\n}\n.move label {\n\tcursor: default;\n}\n/*\n\tMENU\n*/\nul#menu, ul#menu ul {\n\tlist-style: none;\n\tpadding: 0;\n}\nul#menu {\n\tposition: fixed;\n\tz-index: 999;\n\twidth: 540px;\n\tleft: 50%;\n\tmargin: 10px auto auto -270px;\n\ttext-align: center;\n}\nul#menu > li {\n\tdisplay: inline-block;\n\tmargin: 0 5px 0 5px;\n\tposition: relative;\n\tmin-height: 30px;\n\tborder-radius: 4px;\n\tbackground-color: #79b0ee;\n\tvertical-align: top;\n\tmin-width: 165px;\n}\nul#menu li a {\n\tpadding: 0 5px 0 5px;\n\tdisplay: block;\n\ttext-decoration: none;\n\tline-height: 30px;\n\tcolor: white;\n\ttext-transform: uppercase;\n\tletter-spacing: 0.05em;\n\tfont-size: 15px;\n}\nul#menu ul {\n\tdisplay: none;\n}\nul#menu li:hover > a, ul#menu li.current > a {\n\tcolor: #2e639e;\n}\nul#menu li:hover ul, html.touch ul#menu li.open ul {\n\tdisplay: block;\n\twidth: 100%;\n\tpadding: 5px 0 5px 0;\n\tborder-top: 1px dashed white;\n}\nul#menu ul li a {\n\ttext-transform: none;\n\tfont-size: 12px;\n\tline-height: 20px;\n\tfont-weight: lighter;\n\tcolor: #133f71;\n}\nul#menu ul li.current a {\n\tbackground-color: #FFFFFF;\n}\nul#menu ul li a:hover {\n\tbackground-color: #3883d8;\n\tcolor: white;\n}\n.menuwrap {\n\tposition: fixed;\n\tbackground-color: white;\n\tbackground-color: rgba(255, 255, 255, 0.9);\n\tmin-width: 540px;\n\tleft: 50%;\n\tmargin-left: -270px;\n\tmin-height: 51px;\n\tborder-bottom-left-radius: 8px;\n\tborder-bottom-right-radius: 8px;\n\tz-index: 99999;\n\ttext-align: center;\n\ttransition: top 0.5s;\n\t-webkit-transition: top 0.5s; /* Safari */\n\ttransition-delay: 1s;\n\t-webkit-transition-delay: 1s; /* Safari */\n}\n#titlechart .menuwrap {\n\tposition: absolute;\n\tz-index: inherit;\n\tbackground-color: transparent;\n}\n.menuwrap ul#menu {\n\tposition: absolute;\n}\n.menuwrap > a.prev, .menuwrap > a.next {\n\tdisplay: block;\n\tposition: absolute;\n\tbackground-color: white;\n\tbackground-color: rgba(255, 255, 255, 0.9);\n\tborder-radius: 15px;\n\tline-height: 30px;\n\twidth: 30px;\n\theight: 30px;\n\ttop: 11px;\n\tmargin: 0 280px;\n\t-webkit-box-sizing: border-box;\n\t        box-sizing: border-box;\n}\n.menuwrap > a.prev:hover, .menuwrap > a.next:hover {\n\ttext-decoration: none;\n\tbackground-color: #79b0ee;\n\tcolor: #FFFFFF;\n}\n.menuwrap > a.prev {\n\tmargin-left: 0;\n\tpadding-right: 2px;\n\tright: 50%;\n}\n.menuwrap > a.next {\n\tmargin-right: 0;\n\tpadding-left: 4px;\n\tleft: 50%;\n}\n/*\n\tmobile\n*/\nhtml.touch .menuwrap {\n\tz-index: 999999;\n\t-webkit-box-sizing: content-box;\n\t        box-sizing: content-box;\n\tmin-width: 0;\n\twidth: 100%;\n\tmargin: 0;\n\tleft: 0;\n\ttop: 0;\n\theight: auto;\n\tbackground-color: transparent;\n}\nhtml.touch ul#menu {\n\tposition: static;\n\tmargin: 100px 0 0 0;\n\ttext-align: center;\n\twidth: 100%;\n\tleft: 0;\n\tdisplay: none;\n}\nhtml.touch .menuwrap.open {\n\theight: 100%;\n\tbackground-color: rgba(255, 255, 255, 0.9);\n\toverflow: scroll;\n}\nhtml.touch .menuwrap.open ul#menu {\n\tdisplay: block;\n}\nhtml.touch ul#menu > li {\n\tdisplay: block;\n\tmargin: 10px;\n\theight: auto;\n}\nhtml.touch ul#menu ul {\n\tmargin-top: 10px;\n\tpadding-top: 10px;\n\tborder-top: 1px dashed white;\n}\nhtml.touch ul#menu li {\n\tpadding: 10px 0;\n}\nhtml.touch ul#menu li ul li{\n}\nhtml.touch ul#menu > li a {\n\tcolor: #2e639e;\n\tfont-size: 4em;\n\tline-height: 1.2em;\n}\nhtml.touch ul#menu ul li a {\n\tfont-size: 2.5em;\n\tline-height: 1.2em;\n}\nhtml.touch ul#menu ul li a {\n}\nhtml.touch ul#menu ul {\n\tdisplay: block;\n}\nhtml.touch ul#menu ul li.current a {\n\tbackground-color: transparent;\n}\nhtml.touch ul#menu ul li a:hover {\n\tbackground-color: transparent;\n}\nhtml.touch ul#menu ul li a:active {\n\tcolor: white;\n}\nhtml.touch .menuwrap > a.prev, html.touch .menuwrap > a.next, html.touch .menubtn {\n\twidth: 80px;\n\theight: 80px;\n\tborder-radius: 40px;\n\ttop: 10px;\n\tbackground-color: #3883d8;\n\tcolor: white;\n\tfont-size: 4em;\n\tline-height: 1.5em;\n}\nhtml.touch .menuwrap > a.prev:active, html.touch .menuwrap > a.next:active, html.touch .menubtn:active {\n\tbackground-color: white;\n\tcolor: #3883d8;\n\tborder: 2px solid #3883d8;\n}\nhtml.touch .menuwrap > a.prev {\n\tmargin-right: 70px;\n\tpadding-right: 10px; \n}\nhtml.touch .menuwrap > a.next {\n\tmargin-left: 70px;\n\tpadding-left: 10px;\n}\nhtml.touch .menubtn {\n\tpadding: 0;\n\tborder: 0;\n\tposition: absolute;\n\tleft: 50%;\n\tmargin-left: -40px;\n\tline-height: 0;\n\toutline: none;\n\n\t-webkit-appearance: none;\n\n\t   -moz-appearance: none;\n\n\t        appearance: none;\n\t-ms-flex-pack: center;\n\t-webkit-box-pack: center;\n\t        justify-content: center;\n\t-ms-flex-align: center;\n\t-webkit-box-align: center;\n\t        align-items: center;\n\t-webkit-transition: 0.3s;\n\ttransition: 0.3s;\n\t-webkit-user-select: none;\n\t-moz-user-select: none;\n\t-ms-user-select: none;\n\tuser-select: none;\n}\nhtml.touch .menubtn:active .button-lines, html.touch .menubtn:active .button-lines::before, html.touch .menubtn:active .button-lines::after{\n\tbackground: #3883d8;\n}\nhtml.touch .menubtn .button-lines, html.touch .menubtn .button-lines::before, html.touch .menubtn .button-lines::after {\n\tdisplay: inline-block;\n\theight: 6px;\n\twidth: 35px;\n\tborder-radius: 4px;\n\t-webkit-transition: 0.3s;\n\ttransition: 0.3s;\n\tbackground: #FFFFFF;\n\tposition: relative;\n\tleft: 0;\n\ttop: -5px;\n}\nhtml.touch .menubtn .button-lines::before, html.touch .menubtn .button-lines::after {\n\tcontent: '';\n\tposition: absolute;\n}\nhtml.touch .menubtn .button-lines::before {\n\ttop: 12px;\n}\nhtml.touch .menubtn .button-lines::after {\n\ttop: -12px;\n}\nhtml.touch .menuwrap.open .menubtn .button-lines {\n\tbackground: transparent;\n}\nhtml.touch .menuwrap.open .menubtn .button-lines::before {\n\ttop: 0px;\n\t-webkit-transform: rotate3d(0, 0, 1, -45deg);\n\ttransform: rotate3d(0, 0, 1, -45deg);\n\t-webkit-transform-origin: 50% 50%;\n\ttransform-origin: 50% 50%;\n}\nhtml.touch .menuwrap.open .menubtn .button-lines::after {\n\ttop: 0px;\n\t-webkit-transform: rotate3d(0, 0, 1, 45deg);\n\ttransform: rotate3d(0, 0, 1, 45deg);\n\t-webkit-transform-origin: 50% 50%;\n\ttransform-origin: 50% 50%;\n}\n/*\n\tCodecontainer\n*/\n#codecontainer {\n\tposition: fixed;\n\ttop: 30px;\n\tbottom: 20px;\n\tright: 20px;\n\tleft: 20px;\n\tbackground-color: white;\n\tborder-radius: 4px;\n\tz-index: 99999;\n\tmin-height: 300px;\n}\n#codecontainer pre {\n\tmargin: 0;\n\tpadding: 0;\n\tline-height: 16px;\n\t-moz-tab-size: 4;\n\t  -o-tab-size: 4;\n\t     tab-size: 4;\n}\n#codecontainer pre .break {\n\tbackground-color: #F6F6F6;\n\tfont-weight: bold;\n\tcolor: #aaa;\n}\n#codecontainer pre .break:before {\n\tcontent: \"᎒\"\n}\n#codecontainer .codewrap {\n\tposition: absolute;\n\ttop: 10px;\n\tbottom: 10px;\n\twidth: 100%;\n\toverflow: hidden;\n\toverflow: scroll;\n\twhite-space: nowrap;\n}\n#codecontainer .code, #codecontainer .linenumbers {\n\tmin-height: 100%;\n}\n#codecontainer .code {\n\tpadding: 0;\n\tdisplay: inline-block;\n}\n#codecontainer .code {\n\tpadding: 0 15px 10px 5px;\n}\n#codecontainer .linenumbers {\n\tfloat: left;\n\tpadding: 0px 5px 0px 10px;\n\tcolor: #aaa;\n\ttext-align: right;\n\tborder-right: 1px solid #e5e5e5;\n}\n#codecontainer span.indent {\n\twidth: 31px;\n\tdisplay: inline-block;\n\twhite-space: nowrap;\n}\n#codecontainer #close.button {\n\tposition: fixed;\n\ttop: 20px;\n\tright: 10px;\n\twidth: 20px;\n\theight: 20px;\n}\n#codecontainer #select.button {\n\tposition: fixed;\n\ttop: 20px;\n\tright: 40px;\n\theight: 20px;\n\tpadding: 0 10px 0 10px;\n}\n#codecontainer #close.button:after {\n\tcontent: \"྾\";\n}\n#codecontainer .button {\n\tbackground-color: white;\n\tborder-radius: 10px;\n\tborder: 1px solid #e5e5e5;\n\ttext-align: center;\n\tcursor: pointer;\n\tcolor: #2e639e;\n}\n#codecontainer .button:hover {\n\tbackground-color: #3883d8;\n\tcolor: white;\n}\n/*\n\tOTHER\n*/\na.viewsource:after {\n\tcontent: \" }\";\n}\na.viewsource:before {\n\tcontent: \"{ \";\n}\n#parallaxContainer {\n\twidth: 900px;\n\theight: 500px;\n\ttop: 30px;\n\tposition: relative;\n}\n#parallaxContainer .layer1 {\n\theight: 100%;\n\ttext-align: center;\n \n}\n#parallaxContainer .layer2 {\n \n\tposition: absolute;\n\theight: 139px;\n\twidth: 100%;\n\tbottom: 32px\n}\n#parallaxContainer .layer3 {\n \n\tposition: absolute;\n\theight: 32px;\n\twidth: 100%;\n\tbottom: 0px;\n}\n#parallaxText {\n\twidth: 0;\n\theight: 100%;\n\tmargin: auto;\n\tposition: relative;\n}\n#parallaxText .layer1, #parallaxText .layer2, #parallaxText .layer3 {\n\tposition: absolute;\n\tfont-size: 50px;\n\tline-height: 50px;\n\tmargin-left: -150px;\n\tmargin-top: -25px;\n\twidth: 300px;\n\ttop: 50%;\n\tleft: 50%;\n\ttext-align: center;\n\tcolor: #133f71;\n}\n#parallaxText .layer1 {\n\ttop: 48%;\n}\n#parallaxText .layer2 {\n\ttop: 49%;\n}\n#parallaxText .layer3 a {\n\tdisplay: block;\n\tfont-family: \"Source Sans Pro\", Arial, sans-serif;\n\tfont-style: normal;\n\tfont-weight: normal;\n}\n#parallax1 > div, #parallax2 > div, #parallax3 > div {\n\t-webkit-transform: translateZ(0);-webkit-backface-visibility: hidden;-webkit-perspective: 1000;\n}\n.dynamicContent #content {\n\twidth: 390px;\n\tmargin: auto;\n\ttext-align: left;\n}\n.dynamicContent #content .box1 {\n\tmargin: 10px;\n}\n.dynamicContent #loader {\n\theight: 0;\n\toverflow: hidden;\n\tline-height: 60px;\n}\n.dynamicContent #loader.active {\n\theight: 60px;\n}\n.dynamicContent #loader img {\n\tvertical-align: text-bottom;\n}\n#customactions {\n\theight: 160px;\n\twidth: 170px;\n\tmargin: auto;\n\tpadding-top: 40px;\n\ttext-align: left;\n}\n#customactions label {\n\twidth: 100px;\n\tdisplay: inline-block;\n}\n#customactions code {\n\tcolor: #3883d8;\n}\n#customactions a.viewsource {\n\tmargin-top: 20px;\n\tdisplay: block;\n\ttext-align: center;\n}\n.demo.responsiveDuration {\n\tposition: relative;\n}\n.responsiveDuration .box1 {\n\ttop: 50%;\n\tleft: 50%;\n\tposition: absolute;\n\tmargin-top: -50px;\n\tmargin-left: -50px;\n}\n#destroybox a {\n\tdisplay: block;\n\tmargin-top: 20px;\n}\n#destroybox a.disabled {\n\tcolor: #79b0ee;\n}\n#mobileadvanced {\n\twidth: 150px;\n\theight: 150px;\n}\n#mobileadvanced p {\n\tmargin-top: 50px;\n}\n#multiDirect {\n\ttext-align: left;\n\tposition: relative;\n}\n#multiDirect .box1 {\n\tleft: 50vw;\n\ttop: 200px;\n\tmargin-left: -60px;\n}\n#multiDirect .box1 p:first-child {\n\tmargin-top: 20px;\n}\n#imagesequence {\n\theight: 300px;\n}\n.copyright {\n\tfont-variant: italic;\n\tfont-size: 11px;\n}\n#bezier {\n\toverflow: hidden;\n\tposition: relative;\n}\n#bezier #plane {\n\tposition: absolute;\n\tleft: -100px;\n}\n#bezier a.viewsource {\n\tmargin: 100px;\n\tdisplay: inline-block;\n}\n.demo#section-slides, .demo#section-wipes {\n\theight: 100%;\n\twidth: 100%;\n\tbackground-image: none;\n}\n.demo#section-slides .panel > b, .demo#section-wipes .panel > b {\n\tfont-size: 15px;\n\tcolor: white;\n\tposition: relative;\n\tdisplay: block;\n\theight: 0;\n\toverflow: visible;\n\ttop: 50%;\n}\n/*\n\nCodehighlighting\ngithub.com style (c) Vasily Polovnyov <vast@whiteants.net>\n\n*/\n.hljs {\n  display: block; padding: 0.5em;\n  color: #333;\n  /*background: #f8f8f8*/\n}\n.hljs-comment,\n.hljs-template_comment,\n.diff .hljs-header,\n.hljs-javadoc {\n  color: #998;\n  font-style: italic\n}\n.hljs-keyword,\n.css .rule .hljs-keyword,\n.hljs-winutils,\n.javascript .hljs-title,\n.nginx .hljs-title,\n.hljs-subst,\n.hljs-request,\n.hljs-status {\n  color: #333;\n  font-weight: bold\n}\n.hljs-number,\n.hljs-hexcolor,\n.ruby .hljs-constant {\n  color: #099;\n}\n.hljs-string,\n.hljs-tag .hljs-value,\n.hljs-phpdoc,\n.tex .hljs-formula {\n  color: #d14\n}\n.hljs-title,\n.hljs-id,\n.coffeescript .hljs-params,\n.scss .hljs-preprocessor {\n  color: #900;\n  font-weight: bold\n}\n.javascript .hljs-title,\n.lisp .hljs-title,\n.clojure .hljs-title,\n.hljs-subst {\n  font-weight: normal\n}\n.hljs-class .hljs-title,\n.haskell .hljs-type,\n.vhdl .hljs-literal,\n.tex .hljs-command {\n  color: #458;\n  font-weight: bold\n}\n.hljs-tag,\n.hljs-tag .hljs-title,\n.hljs-rules .hljs-property,\n.django .hljs-tag .hljs-keyword {\n  color: #000080;\n  font-weight: normal\n}\n.hljs-attribute,\n.hljs-variable,\n.lisp .hljs-body {\n  color: #008080\n}\n.hljs-regexp {\n  color: #009926\n}\n.hljs-symbol,\n.ruby .hljs-symbol .hljs-string,\n.lisp .hljs-keyword,\n.tex .hljs-special,\n.hljs-prompt {\n  color: #990073\n}\n.hljs-built_in,\n.lisp .hljs-title,\n.clojure .hljs-built_in {\n  color: #0086b3\n}\n.hljs-preprocessor,\n.hljs-pragma,\n.hljs-pi,\n.hljs-doctype,\n.hljs-shebang,\n.hljs-cdata {\n  color: #999;\n  font-weight: bold\n}\n.hljs-deletion {\n  background: #fdd\n}\n.hljs-addition {\n  background: #dfd\n}\n.diff .hljs-change {\n  background: #0086b3\n}\n.hljs-chunk {\n  color: #aaa\n}"
+
+/***/ }),
+
+/***/ "./src/app/lottie/lottie.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"scrollContent\">\n  <section id=\"titlechart\">\n    <div id=\"description\">\n      <h1 class=\"badge gsap\">Simple Tweening</h1>\n      <h2>Two examples of basic animation.</h2>\n      <ol>\n        <li>When no duration is defined for the scene, the tween will simply start playing when the scroll reaches the trigger\n          position.\n        </li>\n        <li>If the scene has a duration the progress of the tween will directly correspond to the scroll position.</li>\n      </ol>\n      <p>\n        This example uses the shorthand version of\n        <a href=\"../../docs/animation.GSAP.html#Scene.setTween\">Scene.setTween()</a> to add\n        <a href=\"http://greensock.com/docs/#/HTML5/GSAP/TweenMax/to/\" target=\"_blank\">TweenMax.to()</a> animations.\n        <br> To see how to build more advanced tweens check out the\n        <a href=\"../advanced/advanced_tweening.html\">Advanced Tweening Example</a>\n        <a>.\n        </a>\n      </p>\n      <a>\n      </a>\n      <a href=\"#\" class=\"viewsource\">view source</a>\n    </div>\n\n  </section>\n  <section class=\"demo\">\n    <div class=\"spacer s2\"></div>\n    <div id=\"trigger1\" class=\"spacer s0\"></div>\n    <div id=\"player\">\n      <lottie-animation-view [options]=\"lottieConfig\" (animCreated)=\"handleAnimation($event)\">\n      </lottie-animation-view>\n    </div>\n\n    <div #test>\n      <p>Speed: x{{animationSpeed}}</p>\n      <div class=\"range-container\">\n        <input #range type=\"range\" value=\"1\" min=\"0\" max=\"3\" step=\"0.5\" (change)=\"setSpeed(range.value)\">\n      </div>\n      <button (click)=\"stop()\">stop</button>\n      <button (click)=\"pause()\">pause</button>\n      <button (click)=\"play()\">play</button>\n    </div>\n\n    <div class=\"spacer s2\"></div>\n\n  </section>\n  <section class=\"demo\">\n    <div class=\"spacer s1\"></div>\n    <div id=\"trigger2\" class=\"spacer s1\"></div>\n    <div class=\"spacer s0\"></div>\n    <div id=\"animate2\" class=\"box1 black\">\n      <p>Smurf me!</p>\n      <a href=\"#\" class=\"viewsource\">view source</a>\n    </div>\n    <div class=\"spacer s2\"></div>\n    <script>\n      // build scene\n      var scene = new ScrollMagic.Scene({ triggerElement: \"#trigger2\", duration: 300 })\n        // animate color and top border in relation to scroll position\n        .setTween(\"#animate2\", { borderTop: \"30px solid white\", backgroundColor: \"blue\", scale: 0.7 }) // the tween durtion can be omitted and defaults to 1\n        .addIndicators({ name: \"2 (duration: 300)\" }) // add indicators (requires plugin)\n        .addTo(controller);\n    </script>\n  </section>\n  <div class=\"spacer s_viewport\"></div>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/lottie/lottie.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LottieComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var LottieComponent = /** @class */ (function () {
+    function LottieComponent() {
+        this.animationSpeed = 1;
+        this.lottieConfig = {
+            path: 'assets/data.json',
+            autoplay: true,
+            loop: true
+        };
+    }
+    LottieComponent.prototype.ngAfterViewInit = function () {
+        var controller = new ScrollMagic.Controller();
+        var scene = new ScrollMagic.Scene({
+            triggerElement: "#trigger1"
+        })
+            .setTween("#player", 0.5, { backgroundColor: "red", scale: 1.2 }) // trigger a TweenMax.to tween
+            .addIndicators({ name: "1 (duration: 0)" }) // add indicators (requires plugin)
+            .addTo(controller);
+    };
+    LottieComponent.prototype.handleAnimation = function (anim) {
+        this.anim = anim;
+    };
+    LottieComponent.prototype.stop = function () {
+        this.anim.stop();
+    };
+    LottieComponent.prototype.play = function () {
+        this.anim.play();
+    };
+    LottieComponent.prototype.pause = function () {
+        this.anim.pause();
+    };
+    LottieComponent.prototype.setSpeed = function (speed) {
+        this.animationSpeed = speed;
+        this.anim.setSpeed(speed);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_12" /* ViewChild */])("test"),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */])
+    ], LottieComponent.prototype, "test", void 0);
+    LottieComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-lottie',
+            template: __webpack_require__("./src/app/lottie/lottie.component.html"),
+            styles: [__webpack_require__("./src/app/lottie/lottie.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], LottieComponent);
+    return LottieComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/misc/dialogsample/dialogsample.component.css":
 /***/ (function(module, exports) {
 
@@ -5978,6 +6071,69 @@ var SliderComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/next.directive.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NextDirective; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var NextDirective = /** @class */ (function () {
+    function NextDirective(el, renderer) {
+        var _this = this;
+        this.el = el;
+        this.renderer = renderer;
+        renderer.listen(el.nativeElement, 'keyup.Enter', function (event) {
+            _this.gotoNext(event);
+        });
+        renderer.listen(el.nativeElement, 'keyup', function (event) {
+            //this.gotoNext(event)
+        });
+        renderer.listen(el.nativeElement, 'click', function (event) {
+            console.log(event);
+        });
+    }
+    NextDirective.prototype.gotoNext = function (e) {
+        var elements = document.getElementsByClassName("mf");
+        var nextItem;
+        var _loop_1 = function (i) {
+            var item = elements[i];
+            console.log(e);
+            if (item.id == e["srcElement"].id) {
+                setTimeout(function () {
+                    nextItem = elements[i + 1];
+                    nextItem.focus();
+                    //this.renderer.
+                    // .invokeElementMethod(nextItem, 'dispatchEvent', [new MouseEvent('click')]);
+                }, 100, true);
+            }
+        };
+        for (var i = 0; i < elements.length - 1; i++) {
+            _loop_1(i);
+        }
+    };
+    NextDirective = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* Directive */])({
+            selector: '[nextfocus]'
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ElementRef */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["Y" /* Renderer2 */]])
+    ], NextDirective);
+    return NextDirective;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/next/next.component.css":
 /***/ (function(module, exports) {
 
@@ -5988,7 +6144,7 @@ module.exports = ".mf {\n    background-color: lightblue;\n}\n\nmat-form-field {
 /***/ "./src/app/next/next.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"profileForm\" id=\"myForm\" style=\"display:flex;flex-wrap: wrap\" >\n\n  \n  <mat-form-field>\n    <input placeholder=\"first name\" matInput type=\"text\" formControlName=\"firstName\" (keyup.Enter)=\"nextFields($event.target)\"\n      class=\"mf\">\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"last name\" matInput type=\"text\" formControlName=\"lastName\">\n  </mat-form-field>\n  <mat-form-field>\n    <textarea matInput placeholder=\"Address\"> </textarea>\n  </mat-form-field>\n  <br>\n  Date:\n  <mat-form-field>\n    <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" type=\"date\">\n    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n    <mat-datepicker #picker></mat-datepicker>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"date\" matInput type=\"date\"   (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n  </mat-form-field>\n  <div formGroupName=\"address\" style=\"display:flex;flex-wrap: wrap\">\n    <h3>Address</h3>\n    <mat-form-field>\n      <input placeholder=\"street\" matInput type=\"text\" formControlName=\"street\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"city\" matInput type=\"text\" formControlName=\"city\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"state\" matInput type=\"text\" formControlName=\"state\" (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"zip\" matInput type=\"number\" formControlName=\"zip\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"Premium\" matInput type=\"number\">\n      <span matSuffix>000 VND</span>\n    </mat-form-field>\n\n  </div>\n  <mat-radio-group>\n    <mat-radio-button value=\"1\" (click)=\"nextFields($event.target)\">Option 1</mat-radio-button>\n    <mat-radio-button value=\"2\" (click)=\"nextFields($event.target)\">Option 2</mat-radio-button>\n  </mat-radio-group>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food 2\" class=\"mf\" (selectionChange)=\"nextFields($event.source)\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff2>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip3\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip3>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip4\" matInput (keyup.Enter)=\"nextFields($event.target)\" class=\"mf\" #zip4>\n  </mat-form-field>\n\n</form>\n\n<p>\n  Form Status: {{ profileForm.status }}\n</p>"
+module.exports = "<form [formGroup]=\"profileForm\" id=\"myForm\" style=\"display:flex;flex-wrap: wrap\" >\n\n  \n  <mat-form-field>\n    <input placeholder=\"first name\" matInput type=\"text\" formControlName=\"firstName\"   class=\"mf\" nextfocus>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"last name\" matInput type=\"text\" formControlName=\"lastName\">\n  </mat-form-field>\n  <mat-form-field>\n    <textarea matInput placeholder=\"Address\"> </textarea>\n  </mat-form-field>\n  <br>\n  Date:\n  <mat-form-field>\n    <input matInput [matDatepicker]=\"picker\" placeholder=\"Choose a date\" type=\"date\">\n    <mat-datepicker-toggle matSuffix [for]=\"picker\"></mat-datepicker-toggle>\n    <mat-datepicker #picker></mat-datepicker>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"date\" matInput type=\"date\" nextfocus class=\"mf\">\n  </mat-form-field>\n  <div formGroupName=\"address\" style=\"display:flex;flex-wrap: wrap\">\n    <h3>Address</h3>\n    <mat-form-field>\n      <input placeholder=\"street\" matInput type=\"text\" formControlName=\"street\" nextfocus class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"city\" matInput type=\"text\" formControlName=\"city\" nextfocus class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"state\" matInput type=\"text\" formControlName=\"state\" nextfocus class=\"mf\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"zip\" matInput type=\"number\" formControlName=\"zip\">\n    </mat-form-field>\n    <mat-form-field>\n      <input placeholder=\"Premium\" matInput type=\"number\">\n      <span matSuffix>000 VND</span>\n    </mat-form-field>\n\n  </div>\n  <mat-radio-group>\n    <mat-radio-button value=\"1\" (click)=\"nextFields($event.target)\">Option 1</mat-radio-button>\n    <mat-radio-button value=\"2\" (click)=\"nextFields($event.target)\">Option 2</mat-radio-button>\n  </mat-radio-group>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food\" nextfocus class=\"mf\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <mat-select placeholder=\"Favorite food 2\" nextfocus class=\"mf\">\n      <mat-option *ngFor=\"let food of foods\" [value]=\"food.value\" #ff2>\n        {{food.viewValue}}\n      </mat-option>\n    </mat-select>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip3\" matInput nextfocus class=\"mf\" #zip3>\n  </mat-form-field>\n  <mat-form-field>\n    <input placeholder=\"zip4\" matInput nextfocus class=\"mf\" #zip4>\n  </mat-form-field>\n\n</form>\n\n<p>\n  Form Status: {{ profileForm.status }}\n</p>"
 
 /***/ }),
 
@@ -6033,24 +6189,6 @@ var NextComponent = /** @class */ (function () {
         //var cfInstance = cf.startTheConversation({
         // formEl: document.getElementById("myForm")
         // });
-    };
-    NextComponent.prototype.nextFields = function (object) {
-        var elements = document.getElementsByClassName("mf");
-        var _loop_1 = function (i) {
-            var item = elements[i];
-            if (item.id == object.id) {
-                console.log(elements[i + 1]);
-                setTimeout(function () {
-                    var e = elements[i + 1];
-                    e.focus();
-                    e.select();
-                    e.setSelectionRange(0, 9999);
-                }, 100, true);
-            }
-        };
-        for (var i = 0; i < elements.length - 1; i++) {
-            _loop_1(i);
-        }
     };
     NextComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
