@@ -26,7 +26,7 @@ export class ScrollamaComponent implements OnInit {
       graphic: '.scroll__graphic',
       text: '.scroll__text',
       step: '.scroll__text .step',
-      debug: true,
+      debug: false,
     })
       .onStepEnter(this.handleStepEnter)
     //.onStepExit(handleStepExit);

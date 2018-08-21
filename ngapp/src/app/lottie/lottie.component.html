@@ -8,11 +8,12 @@
   </section>
   <section class="demo">
 
-    <div id="trigger1"></div>
+
     <div id="player" class="page">
       <lottie-animation-view height='100%' [options]="lottieConfig" (animCreated)="handleAnimation($event)">
       </lottie-animation-view>
     </div>
+    <div id="trigger1"></div>
     <div #test>
       <p>Speed: x{{animationSpeed}}</p>
       <div class="range-container">

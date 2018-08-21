@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { TweenMax, TimelineMax } from "gsap";
 
- 
+
 declare var ScrollMagic: any;
 
 @Component({
@@ -14,16 +14,22 @@ export class LottieComponent implements AfterViewInit {
     @ViewChild("test") test: ElementRef;
 
     ngAfterViewInit() {
- 
-        let controller = new ScrollMagic.Controller();
- 
 
-            var scene = new ScrollMagic.Scene({
-                triggerElement: "#trigger1"
-              })
-              .setTween("#player", 0.5, {backgroundColor: "yellow", scale: 0.7}) // trigger a TweenMax.to tween
-              .addIndicators({name: "1 (duration: 0)"}) // add indicators (requires plugin)
-              .addTo(controller);
+        let controller = new ScrollMagic.Controller();
+
+        var timeline = new TimelineMax();
+        var tween1 = TweenMax.to("#player", 1, { scale: 0.5 });
+        var tween2 = TweenMax.to("#player", 1, { x: -100 });
+        timeline
+            .add(tween1)
+            .add(tween2);
+
+        var scene = new ScrollMagic.Scene({
+            triggerElement: "#trigger1"
+        }).setTween(timeline
+        )
+            .addIndicators({ name: "1 (duration: 0)" }) // add indicators (requires plugin)
+            .addTo(controller);
     }
 
 
@@ -33,7 +39,7 @@ export class LottieComponent implements AfterViewInit {
 
     constructor() {
         this.lottieConfig = {
-            path: 'assets/data.json',
+            path: 'assets/stopwatch.json',
             autoplay: true,
             loop: true
         };

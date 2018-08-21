@@ -1,6 +1,9 @@
 /*
 	Containers
 */
+.demo {
+  display:flex;
+}
 .page {
 	height: 80vh;
 	width: 80vw;
@@ -155,6 +158,9 @@ h1.badge:after {
 	padding: 2px 5px;
 	border-radius: 10px;
 	pointer-events: all;
+}
+#player {
+  position: relative
 }
 h1.badge.gsap:after {
 	content: "GSAP";
@@ -515,6 +521,11 @@ ul#menu ul li a:hover {
 	color: white;
 }
 
+#trigger1 {
+  position: relative;
+  top: 100px;
+ 
+}
 .menuwrap {
 	position: fixed;
 	background-color: white;
