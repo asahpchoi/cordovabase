@@ -8,7 +8,7 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { DialogsampleComponent } from './misc/dialogsample/dialogsample.component';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
-import { MatDialogModule  } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ChartComponent } from './chartSection/chart.component';
 import { PeService } from './pe.service';
 import { InputComponent } from './inputSection/input.component';
@@ -22,7 +22,7 @@ import { SliderComponent } from './misc/slider/slider.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSliderModule } from '@angular/material/slider';
 import { HammerCardComponent } from './misc/hammer-card/hammer-card.component';
- 
+
 import { MatCardModule } from '@angular/material';
 import { FundsComponent } from './misc/funds/funds.component';
 import { DonutchartComponent } from './misc/donutchart/donutchart.component';
@@ -79,14 +79,12 @@ const appRoutes: Routes = [
   { path: 'userlist', component: CustomerListComponent },
   { path: 'Fundallocation', component: FundallocationComponent },
   { path: 'draw', component: DrawingComponent },
-  { path: 'autocomplete', component: AutocompleteComponent },
+  { path: 'autocomplete', component: SelectiondemoComponent },
   { path: 'input', component: InputComponent },
   { path: 'next', component: NextComponent },
   { path: 'lottie', component: LottieComponent },
   { path: 'selectionDemo', component: SelectiondemoComponent },
   { path: '', component: SelectiondemoComponent },
-
-
 ];
 
 @NgModule({

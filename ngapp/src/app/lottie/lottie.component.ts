@@ -18,11 +18,12 @@ export class LottieComponent implements AfterViewInit {
         let controller = new ScrollMagic.Controller();
 
         var timeline = new TimelineMax();
-        var tween1 = TweenMax.to("#player", 1, { scale: 0.5 });
-        var tween2 = TweenMax.to("#player", 1, { x: -100 });
-        timeline
-            .add(tween1)
-            .add(tween2);
+ 
+        var tween2 = TweenMax.to("#player", 1, { x: -100, y: -100, scale: 0.5 });
+        var tween3 = TweenMax.to("#s1", 2, { x: 100, y: 100 });
+        timeline  
+            .add(tween2)
+            .add(tween3)
 
         var scene = new ScrollMagic.Scene({
             triggerElement: "#trigger1"
@@ -41,7 +42,7 @@ export class LottieComponent implements AfterViewInit {
         this.lottieConfig = {
             path: 'assets/stopwatch.json',
             autoplay: true,
-            loop: true
+            loop: false
         };
     }
 
@@ -58,8 +59,12 @@ export class LottieComponent implements AfterViewInit {
     }
 
     pause() {
-        this.anim.pause();
+        console.log(this.anim.getDuration(true));
+       // this.anim.pause(false);
+        this.anim.goToAndPlay(35, true);
     }
+
+
 
     setSpeed(speed: number) {
         this.animationSpeed = speed;

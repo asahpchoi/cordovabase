@@ -1,19 +1,16 @@
 <div class="scrollContent">
-  <section id="titlechart">
-    <div class="page">
-      Page 1
-    </div>
-
-
+  <section id="titlechart" class="page">
+    BodyMovin with Scroll MAGIC
   </section>
-  <section class="demo">
 
-
-    <div id="player" class="page">
-      <lottie-animation-view height='100%' [options]="lottieConfig" (animCreated)="handleAnimation($event)">
-      </lottie-animation-view>
-    </div>
+  <section class="page">
     <div id="trigger1"></div>
+    <div id="player">
+      <lottie-animation-view [options]="lottieConfig" (animCreated)="handleAnimation($event)"></lottie-animation-view>
+    </div>
+    <svg width="400" height="110" id="s1">
+      <rect width="300" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+    </svg>
     <div #test>
       <p>Speed: x{{animationSpeed}}</p>
       <div class="range-container">
@@ -23,18 +20,8 @@
       <button (click)="pause()">pause</button>
       <button (click)="play()">play</button>
     </div>
-
-    <div class="spacer s2"></div>
-
   </section>
-  <section>
-    <div class="page">
-      Page3
-    </div>
-
-
+  <section class="page">
+    <app-p3></app-p3>
   </section>
-
-
-<app-scrollama></app-scrollama>
 </div>

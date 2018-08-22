@@ -1,0 +1,17 @@
+#player {
+    width: 80vw;
+position:relative;
+    animation:mymove 5s ;
+}
+
+@keyframes mymove
+{
+    from {
+        left:200px;
+        transform: scale(1)
+    }
+    to {
+        left:0px;        
+        transform: scale(0.5)
+    }
+}
