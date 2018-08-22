@@ -8,7 +8,7 @@ import { MatButtonModule, MatCheckboxModule } from '@angular/material';
 import { DialogsampleComponent } from './misc/dialogsample/dialogsample.component';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule  } from '@angular/material/dialog';
 import { ChartComponent } from './chartSection/chart.component';
 import { PeService } from './pe.service';
 import { InputComponent } from './inputSection/input.component';
@@ -19,10 +19,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidationResultComponent } from './validationSection/validation-result.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SliderComponent } from './misc/slider/slider.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSliderModule } from '@angular/material/slider';
 import { HammerCardComponent } from './misc/hammer-card/hammer-card.component';
-
+ 
 import { MatCardModule } from '@angular/material';
 import { FundsComponent } from './misc/funds/funds.component';
 import { DonutchartComponent } from './misc/donutchart/donutchart.component';
@@ -58,13 +58,17 @@ import { ConfigService } from './config.service';
 import { FundhistoryComponent } from './fundhistory/fundhistory.component';
 import { AutocompleteComponent } from './autocomplete/autocomplete.component';
 import { NextComponent } from './next/next.component';
-import {MatRadioModule} from '@angular/material/radio';
-
- import {MatNativeDateModule} from '@angular/material';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatNativeDateModule } from '@angular/material';
 import { NextDirective } from './next.directive';
 import { LottieComponent } from './lottie/lottie.component';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { ScrollamaComponent } from './scrollama/scrollama.component';
+import { SelectionComponent } from './selection/selection.component';
+import { SelectiondemoComponent } from './selectiondemo/selectiondemo.component';
+import { DataService } from './data.service';
+
 
 const appRoutes: Routes = [
   { path: 'slider', component: SliderComponent },
@@ -77,9 +81,11 @@ const appRoutes: Routes = [
   { path: 'draw', component: DrawingComponent },
   { path: 'autocomplete', component: AutocompleteComponent },
   { path: 'input', component: InputComponent },
-  { path: 'next', component: NextComponent},
-  { path: 'lottie', component: LottieComponent},
-  { path: '', component: AutocompleteComponent },
+  { path: 'next', component: NextComponent },
+  { path: 'lottie', component: LottieComponent },
+  { path: 'selectionDemo', component: SelectiondemoComponent },
+  { path: '', component: SelectiondemoComponent },
+
 
 ];
 
@@ -91,7 +97,7 @@ const appRoutes: Routes = [
     InputComponent,
     ValidationResultComponent,
     SliderComponent,
- 
+
     HammerCardComponent,
     FundsComponent,
     DonutchartComponent,
@@ -117,6 +123,8 @@ const appRoutes: Routes = [
     NextDirective,
     LottieComponent,
     ScrollamaComponent,
+    SelectionComponent,
+    SelectiondemoComponent,
 
 
   ],
@@ -133,7 +141,7 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatSelectModule,
     MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatDialogModule,
-    FormsModule, ReactiveFormsModule,
+    FormsModule, ReactiveFormsModule, MatSidenavModule,
     MatSliderModule,
     MatCardModule,
     MatIconModule,
@@ -151,8 +159,8 @@ const appRoutes: Routes = [
     ),
 
   ],
-  providers: [PeService, UserService, ConfigService],
+  providers: [PeService, UserService, ConfigService, DataService],
   bootstrap: [AppComponent],
-  entryComponents: [FundhistoryComponent, DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent, DonutchartComponent]
+  entryComponents: [SelectionComponent, FundhistoryComponent, DialogsampleComponent, NumpadComponent, AddRiderComponent, UlinputComponent, FundactivityComponent, DonutchartComponent]
 })
 export class AppModule { }

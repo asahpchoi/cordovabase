@@ -1,0 +1,41 @@
+<div>
+  <h2>Single field</h2>
+  <div class="field">
+    <mat-chip-list>
+      <mat-chip *ngFor="let c of selections.single" (removed)="remove(c, selections.single)">{{showName(c)}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+    </mat-chip-list>
+    <button mat-mini-fab (click)="input.limit=1;input.value=selections.single;input.list='country'; openDialog()" *ngIf="selections.single.length < 1">
+      + </button>
+  </div>
+
+  <h2>Single field (occupation)</h2>
+  <div class="field">
+    <mat-chip-list>
+      <mat-chip *ngFor="let c of selections.occupation" (removed)="remove(c, selections.occupation)">{{showName(c, 'occupation')}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+
+    </mat-chip-list>
+    <button mat-mini-fab (click)="input.limit=1;input.value=selections.occupation;input.list='occupation'; openDialog()" *ngIf="selections.occupation.length < 1">
+      + </button>
+  </div>
+
+  <h2>Multiple fields (up to 3)</h2>
+  <div class="field">
+    <mat-chip-list>
+      <mat-chip *ngFor="let c of selections.multiple" (removed)="remove(c,  selections.multiple)">{{showName(c)}}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+    <button mat-mini-fab (click)="input.limit=3;input.value=selections.multiple;input.list='country';openDialog()" *ngIf="selections.multiple.length < 3">
+      + </button>
+  </div>
+
+  <h2>hierarchy selection</h2>
+  <div class="field">
+    <button mat-mini-fab (click)="drawer.toggle()"> + </button>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="search">
+  <mat-form-field *ngIf="canAdd()">
+    <input matInput type="search" [(ngModel)]="searchText" name="searchText">
+  </mat-form-field>
+
+</div>
+<br>
+<div>
+
+  <div>
+    <mat-chip-list>
+      <mat-chip *ngFor="let s of selection" (removed)="remove(s)"> {{ showName(s) }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+</div>
+<br>
+<div *ngIf="canAdd() && searchText == ''">
+  <div>
+    <span *ngFor="let s of getSuggestion()" (click)="add(s)" class="suggest"> {{ showName(s) }} </span>
+  </div>
+  <mat-hint>Suggested Values</mat-hint>
+</div>
+<br>
+<div *ngIf="canAdd()">
+  <div *ngFor="let c of getItems()" (click)="add(c.code)" class="selection" [innerHTML]="hl(c.name)">
+
+  </div>
+</div>

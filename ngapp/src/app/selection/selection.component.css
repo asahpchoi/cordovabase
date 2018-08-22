@@ -1,0 +1,26 @@
+div.panel {
+    width: 40vw;
+}
+
+.search {
+    position: sticky;
+    top: 0px;
+    background-color: white
+
+}
+
+mat-chip{
+    background-color: aqua;
+}
+
+.selection {
+    height: 20px;
+    background-color: beige;
+    margin: 2px;
+    padding: 2px;
+}
+
+.suggest {
+    width: 200px; padding: 3px; margin: 3px;
+    background-color: lightgray
+}
