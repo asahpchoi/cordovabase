@@ -7,5 +7,8 @@
         <a routerLink="/lottie" routerLinkActive="active">Animation</a>
         
     </nav>
-    <router-outlet></router-outlet>
+
+    <main [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''">
+        <router-outlet #o="outlet"></router-outlet>
+      </main>
 </body>

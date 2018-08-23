@@ -1,8 +1,8 @@
-<form [formGroup]="profileForm" id="myForm" style="display:flex;flex-wrap: wrap" >
+<form [formGroup]="profileForm" id="myForm" style="display:flex;flex-wrap: wrap">
 
-  
+
   <mat-form-field>
-    <input placeholder="first name" matInput type="text" formControlName="firstName"   class="mf" nextfocus>
+    <input placeholder="first name" matInput type="text" formControlName="firstName" class="mf" nextfocus>
   </mat-form-field>
   <mat-form-field>
     <input placeholder="last name" matInput type="text" formControlName="lastName">
@@ -10,8 +10,7 @@
   <mat-form-field>
     <textarea matInput placeholder="Address"> </textarea>
   </mat-form-field>
-  <br>
-  Date:
+  <br> Date:
   <mat-form-field>
     <input matInput [matDatepicker]="picker" placeholder="Choose a date" type="date">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

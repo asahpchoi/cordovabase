@@ -68,6 +68,10 @@ import { ScrollamaComponent } from './scrollama/scrollama.component';
 import { SelectionComponent } from './selection/selection.component';
 import { SelectiondemoComponent } from './selectiondemo/selectiondemo.component';
 import { DataService } from './data.service';
+import { P1Component} from './pages/p1/p1.component';
+import { P2Component} from './pages/p2/p2.component';
+import { P3Component} from './pages/p3/p3.component';
+
 
 
 const appRoutes: Routes = [
@@ -123,7 +127,9 @@ const appRoutes: Routes = [
     ScrollamaComponent,
     SelectionComponent,
     SelectiondemoComponent,
-
+    P1Component,
+    P2Component,
+    P3Component,
 
   ],
   imports: [
@@ -150,6 +156,7 @@ const appRoutes: Routes = [
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+
     LottieAnimationViewModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
